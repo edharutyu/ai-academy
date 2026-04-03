@@ -64,12 +64,12 @@ section{padding:80px 0}
 .nav-links{display:flex;gap:28px;align-items:center;list-style:none}
 .nav-links a{color:var(--text-dim);text-decoration:none;font-size:.78rem;font-weight:500;transition:color .2s;letter-spacing:.02em;text-transform:uppercase}
 .nav-links a:hover{color:var(--text)}
-.nav-cta{background:var(--accent);color:#fff;padding:7px 16px;border-radius:8px;font-size:.76rem;font-weight:600;text-decoration:none;transition:all .2s;letter-spacing:.02em}
+.nav-cta{background:var(--accent);color:#fff;padding:8px 18px;border-radius:8px;font-size:.78rem;font-weight:700;text-decoration:none;transition:all .2s;letter-spacing:.03em;box-shadow:0 0 12px rgba(224,122,58,.3)}
 .nav-cta:hover{background:var(--accent-hover)}
 @media(max-width:640px){
   .nav-links{gap:16px}
   .nav-links a{font-size:.7rem}
-  .nav-cta{display:none}
+  .nav-cta{display:inline-flex;padding:10px 20px;font-size:.82rem}
 }
 
 
@@ -381,6 +381,59 @@ section{padding:80px 0}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
+
+/* ── Slide animations ── */
+.slide-left{opacity:0;transform:translateX(-40px);transition:all .7s cubic-bezier(.4,0,.2,1)}
+.slide-left.visible{opacity:1;transform:translateX(0)}
+.slide-right{opacity:0;transform:translateX(40px);transition:all .7s cubic-bezier(.4,0,.2,1)}
+.slide-right.visible{opacity:1;transform:translateX(0)}
+.scale-in{opacity:0;transform:scale(.92);transition:all .6s cubic-bezier(.4,0,.2,1)}
+.scale-in.visible{opacity:1;transform:scale(1)}
+
+/* ── Float animation ── */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.float-anim{animation:float 3s ease-in-out infinite}
+
+/* ── Hero text reveal ── */
+@keyframes textReveal{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.hero h1{animation:textReveal .8s ease-out .2s both}
+.hero .sub{animation:textReveal .6s ease-out .6s both}
+
+/* ── Pulse glow on CTA ── */
+@keyframes pulseGlow{0%,100%{box-shadow:0 2px 20px rgba(224,122,58,.18),inset 0 1px 0 rgba(255,255,255,.08)}50%{box-shadow:0 2px 30px rgba(224,122,58,.35),inset 0 1px 0 rgba(255,255,255,.08)}}
+.hero-cta-row .btn:first-child{animation:pulseGlow 2.5s ease-in-out infinite}
+
+/* ── Gradient line under sections ── */
+.section-line{height:1px;max-width:120px;margin:0 auto;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.3}
+
+/* ── Better mobile readability ── */
+@media(max-width:640px){
+  body{font-size:15px;line-height:1.75}
+  .hero h1{font-size:clamp(1.9rem,6.5vw,3rem)}
+  .hero .sub{font-size:.9rem;line-height:1.85;color:var(--text-dim);max-width:320px}
+  .stitle{font-size:clamp(1.4rem,4vw,2rem);margin-bottom:10px}
+  .r-card p,.t-desc,.test-card .quote,.faq-a p{font-size:.84rem;line-height:1.8}
+  .about-text p{font-size:.88rem;line-height:1.85}
+  .hero-eyebrow{font-size:.68rem;padding:6px 14px;margin-bottom:20px}
+}
+
+/* ── Card entrance stagger ── */
+.stagger-1{transition-delay:.05s}
+.stagger-2{transition-delay:.15s}
+.stagger-3{transition-delay:.25s}
+
+/* ── Interactive card hover lift ── */
+@media(min-width:641px){
+  .t-card:hover,.r-card:hover,.test-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+}
+
+/* ── Offerings section visual distinction ── */
+@media(max-width:640px){
+  .offerings{background:linear-gradient(180deg,var(--bg) 0%,rgba(224,122,58,.03) 50%,var(--bg) 100%);padding:40px 0}
+  .quiz-section{background:rgba(30,34,48,.3);border-radius:0}
+  .testimonials{padding:28px 0}
+  .faq{padding:24px 0}
+}
 </style>
 </head>
 <body>
@@ -399,7 +452,7 @@ section{padding:80px 0}
       <li><a href="#offerings">&#1342;&#1408;&#1377;&#1379;&#1408;&#1381;&#1408;</a></li>
       <li><a href="#quiz">&#1385;&#1381;&#1405;&#1407;</a></li>
       <li><a href="#faq">&#1344;&#1329;&#1344;</a></li>
-      <li><a href="tel:09338843" class="nav-cta">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a></li>
+      <li><a href="tel:093388443" class="nav-cta">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a></li>
     </ul>
   </div>
 </nav>
@@ -415,7 +468,7 @@ section{padding:80px 0}
   </div>
   <div class="hero-content">
     <div class="hero-eyebrow"><span class="pulse"></span> AI Academy Armenia</div>
-    <div style="margin-top:14px;display:inline-block;font-size:.8rem;color:var(--secondary);border:1px solid rgba(196,154,110,.2);padding:6px 16px;border-radius:100px;letter-spacing:.02em">&#1344;&#1377;&#1403;&#1400;&#1408;&#1380; &#1389;&#1400;&#1410;&#1396;&#1378;&#1384;&#8201;&mdash;&#8201;&#1377;&#1402;&#1408;&#1387;&#1388;&#1387; 14</div>
+    <div style="margin-top:14px;display:inline-block;font-size:.8rem;color:var(--secondary);border:1px solid rgba(196,154,110,.2);padding:6px 16px;border-radius:100px;letter-spacing:.02em" class="float-anim">&#1344;&#1377;&#1403;&#1400;&#1408;&#1380; &#1389;&#1400;&#1410;&#1396;&#1378;&#1384;&#8201;&mdash;&#8201;&#1377;&#1402;&#1408;&#1387;&#1388;&#1387; 14</div>
     <h1 class="serif">&#1357;&#1400;&#1406;&#1400;&#1408;&#1387;&#1371;&#1408; <span class="hl">AI-&#1387;</span> &#1392;&#1381;&#1407;<br>&#1377;&#1399;&#1389;&#1377;&#1407;&#1381;&#1388; &#1377;&#1406;&#1381;&#1388;&#1387; &#1377;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1377;&#1406;&#1381;&#1407;</h1>
     <p class="sub">AI-&#1387; &#1379;&#1400;&#1408;&#1390;&#1398;&#1377;&#1391;&#1377;&#1398; &#1392;&#1396;&#1407;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1398;&#1381;&#1408; &#1412;&#1400; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396; &#1391;&#1387;&#1408;&#1377;&#1404;&#1381;&#1388;&#1400;&#1410; &#1392;&#1377;&#1396;&#1377;&#1408;</p>
     <div class="hero-cta-row">
@@ -436,11 +489,11 @@ section{padding:80px 0}
 <section class="about" id="about">
   <div class="container">
     <div class="about-grid">
-      <div class="about-photo fade-in">
+      <div class="about-photo slide-left">
         <img src="photo.jpg" alt="Ed" onload="this.classList.add('loaded')" onerror="this.classList.add('broken')">
         <span class="ph">Ed</span>
       </div>
-      <div class="about-text fade-in d1">
+      <div class="about-text slide-right">
         <h2 class="serif">&#1330;&#1377;&#1408;&#1415; &#1393;&#1381;&#1382;, &#1381;&#1405; &#1335;&#1380;&#1398; &#1381;&#1396;</h2>
         <p>AI &#1400;&#1410;&#1405;&#1400;&#1410;&#1409;&#1387;&#1401; &#1415; &#1385;&#1408;&#1381;&#1397;&#1398;&#1381;&#1408;&#1417; TUMO-&#1387; &#1415; 42 Yerevan-&#1387; &#1377;&#1406;&#1377;&#1408;&#1407;&#1377;&#1390;&#1417; &#1329;&#1408;&#1380;&#1381;&#1398; &#1377;&#1406;&#1381;&#1388;&#1387; &#1412;&#1377;&#1398; 50 &#1396;&#1377;&#1408;&#1380; &#1413;&#1379;&#1407;&#1406;&#1400;&#1410;&#1396; &#1383; AI-&#1387;&#1409; &#1387;&#1408;&#1381;&#1398;&#1409; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;&#1417;</p>
         <div class="cred-row">
@@ -455,6 +508,7 @@ section{padding:80px 0}
 <!-- How It Works -->
 <section class="how-it-works" id="process">
   <div class="container">
+    <div class="section-line" style="margin-bottom:24px"></div>
     <h2 class="stitle serif fade-in">&#1339;&#1398;&#1401;&#1402;&#1381;&#1371;&#1405; &#1383; &#1377;&#1399;&#1389;&#1377;&#1407;&#1400;&#1410;&#1396;</h2>
     <p class="ssub fade-in">3 &#1412;&#1377;&#1397;&#1388; &mdash; &#1415; &#1380;&#1400;&#1410;&#1412; &#1377;&#1408;&#1380;&#1381;&#1398; &#1405;&#1400;&#1406;&#1400;&#1408;&#1400;&#1410;&#1396; &#1381;&#1412; AI</p>
     <div class="steps-row">
@@ -483,17 +537,17 @@ section{padding:80px 0}
     <h2 class="stitle serif fade-in">&#1339;&#1398;&#1401;&#1400;&#1410;&#1371; AI &#1392;&#1387;&#1396;&#1377;</h2>
     <p class="ssub fade-in">AI-&#1398; &#1377;&#1397;&#1388;&#1415;&#1405; &#1414;&#1377;&#1398;&#1407;&#1377;&#1405;&#1407;&#1387;&#1391;&#1377; &#1401;&#1383; &mdash; &#1380;&#1377; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412; &#1383;, &#1400;&#1408;&#1384; &#1411;&#1400;&#1389;&#1400;&#1410;&#1396; &#1383; &#1377;&#1396;&#1381;&#1398; &#1387;&#1398;&#1401;</p>
     <div class="reasons">
-      <div class="r-card tilt fade-in">
+      <div class="r-card tilt slide-left">
         <span class="icon">&#9889;</span>
         <h3>&#1329;&#1408;&#1377;&#1379;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;</h3>
         <p>AI-&#1398; &#1377;&#1408;&#1380;&#1381;&#1398; &#1411;&#1400;&#1389;&#1400;&#1410;&#1396; &#1383; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1387; &#1391;&#1377;&#1398;&#1400;&#1398;&#1398;&#1381;&#1408;&#1384;&#1417; &#1350;&#1408;&#1377;&#1398;&#1412;, &#1400;&#1406;&#1412;&#1381;&#1408; &#1407;&#1387;&#1408;&#1377;&#1402;&#1381;&#1407;&#1400;&#1410;&#1396; &#1381;&#1398; AI-&#1387;&#1398;, &#1377;&#1408;&#1380;&#1381;&#1398; &#1377;&#1404;&#1377;&#1403;&#1377;&#1407;&#1377;&#1408; &#1381;&#1398;&#1417;</p>
       </div>
-      <div class="r-card fade-in d1">
+      <div class="r-card slide-right stagger-1">
         <span class="icon">&#127919;</span>
         <h3>&#1343;&#1377;&#1408;&#1387;&#1381;&#1408;&#1377;</h3>
         <p>AI &#1392;&#1396;&#1407;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1398;&#1381;&#1408;&#1384; &#1377;&#1396;&#1381;&#1398;&#1377;&#1402;&#1377;&#1392;&#1377;&#1398;&#1403;&#1406;&#1377;&#1390;&#1398; &#1381;&#1398; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1399;&#1400;&#1410;&#1391;&#1377;&#1397;&#1400;&#1410;&#1396;&#1417; &#1357;&#1400;&#1406;&#1400;&#1408;&#1387;&#1371;&#1408; &#1392;&#1387;&#1396;&#1377; &#1415; &#1380;&#1377;&#1408;&#1393;&#1387;&#1371;&#1408; &#1377;&#1404;&#1377;&#1403;&#1377;&#1407;&#1377;&#1408;&#1417;</p>
       </div>
-      <div class="r-card fade-in d2">
+      <div class="r-card slide-left stagger-2">
         <span class="icon">&#127462;&#127474;</span>
         <h3>&#1344;&#1377;&#1397;&#1377;&#1405;&#1407;&#1377;&#1398;</h3>
         <p>&#1344;&#1377;&#1397;&#1377;&#1405;&#1407;&#1377;&#1398;&#1387; AI &#1399;&#1400;&#1410;&#1391;&#1377;&#1398; &#1380;&#1381;&#1404; &#1398;&#1400;&#1408; &#1383;&#1417; &#1357;&#1400;&#1406;&#1400;&#1408;&#1387;&#1371;&#1408; &#1392;&#1387;&#1396;&#1377;, &#1415; &#1391;&#1388;&#1387;&#1398;&#1381;&#1412; &#1377;&#1404;&#1377;&#1403;&#1387;&#1398;&#1398;&#1381;&#1408;&#1387;&#1409;&#1417;</p>
@@ -519,9 +573,10 @@ section{padding:80px 0}
 <!-- Quiz -->
 <section class="quiz-section" id="quiz">
   <div class="container">
+    <div class="section-line" style="margin-bottom:24px"></div>
     <h2 class="stitle serif fade-in">&#1357;&#1377; &#1412;&#1381;&#1382; &#1392;&#1377;&#1396;&#1377;&#1408;&#1373;</h2>
     <p class="ssub fade-in">&#1354;&#1377;&#1407;&#1377;&#1405;&#1389;&#1377;&#1398;&#1387;&#1371;&#1408; 5 &#1392;&#1377;&#1408;&#1409;&#1387; &#1415; &#1387;&#1396;&#1377;&#1409;&#1381;&#1371;&#1412; &#1393;&#1381;&#1382; &#1392;&#1377;&#1396;&#1377;&#1402;&#1377;&#1407;&#1377;&#1405;&#1389;&#1377;&#1398; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;</p>
-    <div class="quiz-box fade-in glow-border" id="quizBox">
+    <div class="quiz-box scale-in glow-border" id="quizBox">
       <div class="quiz-progress" id="progress">
         <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
@@ -580,9 +635,9 @@ section{padding:80px 0}
         <div class="res-desc" id="resDesc"></div>
         <div class="btn-group">
           <div class="cta-multi">
-            <a href="tel:09338843" class="btn btn-magnetic">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+            <a href="tel:093388443" class="btn btn-magnetic">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
             <span class="cta-or">&#1391;&#1377;&#1396;</span>
-            <a href="https://wa.me/37493388843" class="btn btn-ghost btn-sm btn-magnetic">WhatsApp</a>
+            <a href="https://wa.me/37493388443" class="btn btn-ghost btn-sm btn-magnetic">WhatsApp</a>
           </div>
           <button class="btn btn-ghost btn-sm" onclick="resetQuiz()">&#1350;&#1400;&#1408;&#1387;&#1409; &#1411;&#1400;&#1408;&#1393;&#1381;&#1388;</button>
           <div class="share-row">
@@ -597,10 +652,11 @@ section{padding:80px 0}
 <!-- Offerings -->
 <section class="offerings" id="offerings">
   <div class="container">
+    <div class="section-line" style="margin-bottom:24px"></div>
     <h2 class="stitle serif fade-in">&#1348;&#1381;&#1408; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;&#1381;&#1408;&#1384;</h2>
     <p class="ssub fade-in">&#1336;&#1398;&#1407;&#1408;&#1381;&#1371;&#1412; &#1393;&#1381;&#1408; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398; &#1391;&#1377;&#1396; &#1377;&#1398;&#1409;&#1381;&#1371;&#1412; &#1385;&#1381;&#1405;&#1407;&#1384;</p>
     <div class="tracks">
-      <div class="t-card tilt fade-in" id="track-career">
+      <div class="t-card tilt scale-in stagger-1" id="track-career">
         <span class="rec-badge">&#1329;&#1404;&#1377;&#1403;&#1377;&#1408;&#1391;&#1406;&#1400;&#1410;&#1396; &#1383;</span>
         <div class="t-icon">&#128188;</div>
         <h3 class="serif">AI &#1415; &#1343;&#1377;&#1408;&#1387;&#1381;&#1408;&#1377;</h3>
@@ -615,7 +671,7 @@ section{padding:80px 0}
         <div class="t-spots">&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</div>
         <button class="btn btn-sm" onclick="openModal('career')">&#1329;&#1406;&#1381;&#1388;&#1387;&#1398;</button>
       </div>
-      <div class="t-card tilt fade-in d1" id="track-creative">
+      <div class="t-card tilt scale-in stagger-2" id="track-creative">
         <span class="rec-badge">&#1329;&#1404;&#1377;&#1403;&#1377;&#1408;&#1391;&#1406;&#1400;&#1410;&#1396; &#1383;</span>
         <div class="t-icon">&#127912;</div>
         <h3 class="serif">Creative AI</h3>
@@ -630,7 +686,7 @@ section{padding:80px 0}
         <div class="t-spots">&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</div>
         <button class="btn btn-sm" onclick="openModal('creative')">&#1329;&#1406;&#1381;&#1388;&#1387;&#1398;</button>
       </div>
-      <div class="t-card tilt fade-in d2" id="track-teen">
+      <div class="t-card tilt scale-in stagger-3" id="track-teen">
         <span class="rec-badge">&#1329;&#1404;&#1377;&#1403;&#1377;&#1408;&#1391;&#1406;&#1400;&#1410;&#1396; &#1383;</span>
         <div class="t-icon">&#127891;</div>
         <h3 class="serif">AI Teenagers 13+</h3>
@@ -652,25 +708,26 @@ section{padding:80px 0}
 <!-- Testimonials -->
 <section class="testimonials" id="testimonials">
   <div class="container">
+    <div class="section-line" style="margin-bottom:24px"></div>
     <h2 class="stitle serif fade-in">&#1339;&#1398;&#1401; &#1381;&#1398; &#1377;&#1405;&#1400;&#1410;&#1396;</h2>
     <p class="ssub fade-in">&#1339;&#1408;&#1377;&#1391;&#1377;&#1398; &#1396;&#1377;&#1408;&#1380;&#1387;&#1391;, &#1387;&#1408;&#1377;&#1391;&#1377;&#1398; &#1377;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;</p>
     <div class="test-grid">
-      <div class="test-card tilt fade-in">
+      <div class="test-card tilt slide-left">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="quote">&laquo;&#1329;&#1404;&#1377;&#1403;&#1387;&#1398; &#1380;&#1377;&#1405;&#1384;&#1398;&#1385;&#1377;&#1409;&#1387;&#1409; &#1392;&#1381;&#1407;&#1400; &#1405;&#1391;&#1405;&#1381;&#1409;&#1387; ChatGPT-&#1400;&#1406; &#1379;&#1408;&#1381;&#1388; &#1387;&#1396; &#1385;&#1381;&#1382;&#1387;&#1405;&#1384;&#1417; &#1344;&#1387;&#1396;&#1377; &#1377;&#1396;&#1381;&#1398; &#1413;&#1408; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1400;&#1410;&#1396; &#1381;&#1396;&#1417;&raquo;</p>
         <div class="author-row"><div class="avatar">&#1329;</div><div><div class="author">&#1329;&#1398;&#1387; &#1329;.</div><div class="role">&#1352;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;</div></div></div>
       </div>
-      <div class="test-card fade-in d1">
+      <div class="test-card slide-right stagger-1">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="quote">&laquo;&#1335;&#1380;&#1384; &#1399;&#1377;&#1407; &#1392;&#1377;&#1405;&#1391;&#1377;&#1398;&#1377;&#1388;&#1387; &#1378;&#1377;&#1409;&#1377;&#1407;&#1408;&#1400;&#1410;&#1396; &#1383;&#1417; &#1329;&#1396;&#1381;&#1398; &#1387;&#1398;&#1401; &#1402;&#1377;&#1408;&#1382; &#1383; &#1415; &#1379;&#1400;&#1408;&#1390;&#1398;&#1377;&#1391;&#1377;&#1398;&#1417; AI-&#1398; &#1377;&#1397;&#1388;&#1415;&#1405; &#1387;&#1396; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1387; &#1377;&#1398;&#1378;&#1377;&#1386;&#1377;&#1398; &#1396;&#1377;&#1405;&#1398; &#1383;&#1417;&raquo;</p>
         <div class="author-row"><div class="avatar">&#1330;</div><div><div class="author">&#1356;&#1400;&#1410;&#1382;&#1377;&#1398; &#1330;.</div><div class="role">&#1348;&#1381;&#1398;&#1381;&#1403;&#1381;&#1408;</div></div></div>
       </div>
-      <div class="test-card fade-in d2">
+      <div class="test-card slide-left stagger-2">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="quote">&laquo;&#1357;&#1400;&#1406;&#1400;&#1408;&#1381;&#1409;&#1387; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;, &#1400;&#1408;&#1400;&#1398;&#1409; &#1396;&#1377;&#1405;&#1387;&#1398; &#1379;&#1377;&#1394;&#1377;&#1411;&#1377;&#1408; &#1401;&#1400;&#1410;&#1398;&#1381;&#1387;&#1417; &#1344;&#1387;&#1396;&#1377; &#1377;&#1396;&#1381;&#1398; &#1413;&#1408; &#1402;&#1408;&#1377;&#1391;&#1407;&#1387;&#1391; &#1391;&#1387;&#1408;&#1377;&#1404;&#1400;&#1410;&#1396; &#1381;&#1396;&#1417;&raquo;</p>
         <div class="author-row"><div class="avatar">&#1331;</div><div><div class="author">&#1359;&#1387;&#1379;&#1408;&#1377;&#1398; &#1343;.</div><div class="role">&#1352;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;</div></div></div>
       </div>
-      <div class="test-card fade-in d3">
+      <div class="test-card slide-right stagger-3">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="quote">&laquo;&#1339;&#1396; &#1400;&#1408;&#1380;&#1387;&#1398; &#1377;&#1408;&#1380;&#1381;&#1398; AI-&#1398; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1400;&#1410;&#1396; &#1383; &#1380;&#1402;&#1408;&#1400;&#1409;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;&#1417; &#1335;&#1380;&#1387; &#1396;&#1400;&#1407;&#1381;&#1409;&#1400;&#1410;&#1396;&#1398; &#1400;&#1410; &#1381;&#1398;&#1381;&#1408;&#1379;&#1387;&#1377;&#1398; &#1399;&#1377;&#1407; &#1379;&#1408;&#1377;&#1406;&#1387;&#1401; &#1383;&#1417;&raquo;</p>
         <div class="author-row"><div class="avatar">&#1332;</div><div><div class="author">&#1329;&#1408;&#1396;&#1381;&#1398; &#1356;.</div><div class="role">&#1332;&#1387;&#1382;&#1377;&#1397;&#1398;&#1381;&#1408;</div></div></div>
@@ -682,6 +739,7 @@ section{padding:80px 0}
 <!-- FAQ -->
 <section class="faq" id="faq">
   <div class="container">
+    <div class="section-line" style="margin-bottom:24px"></div>
     <h2 class="stitle serif fade-in">&#1344;&#1377;&#1395;&#1377;&#1389; &#1407;&#1408;&#1406;&#1400;&#1394; &#1392;&#1377;&#1408;&#1409;&#1381;&#1408;</h2>
     <p class="ssub fade-in">&#1329;&#1396;&#1381;&#1398; &#1387;&#1398;&#1401; &#1402;&#1381;&#1407;&#1412; &#1383; &#1387;&#1396;&#1377;&#1398;&#1377;&#1388;</p>
     <div class="faq-list">
@@ -698,9 +756,9 @@ section{padding:80px 0}
   <div class="container fade-in">
     <h2 class="stitle serif">&#1354;&#1377;&#1407;&#1408;&#1377;&#1371;&#1405;&#1407; &#1381;&#1405; &#1405;&#1391;&#1405;&#1381;&#1388; &#1392;&#1387;&#1396;&#1377;</h2>
     <p>&#1329;&#1398;&#1406;&#1395;&#1377;&#1408; &#1389;&#1400;&#1408;&#1392;&#1408;&#1380;&#1377;&#1407;&#1406;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398; &mdash; &#1379;&#1408;&#1377;&#1398;&#1409;&#1406;&#1387;&#1371;&#1408; &#1415; &#1405;&#1407;&#1377;&#1409;&#1387;&#1371;&#1408; &#1393;&#1381;&#1408; AI &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;</p>
-    <a href="tel:09338843" class="btn btn-magnetic">&#128222; &#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+    <a href="tel:093388443" class="btn btn-magnetic">&#128222; &#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
     <div class="footer-channels">
-      <a href="https://wa.me/37493388843" class="btn btn-ghost btn-sm btn-magnetic">&#128172; WhatsApp</a>
+      <a href="https://wa.me/37493388443" class="btn btn-ghost btn-sm btn-magnetic">&#128172; WhatsApp</a>
       <a href="https://www.instagram.com/harutyunyan_ed/" class="btn btn-ghost btn-sm btn-magnetic" target="_blank" rel="noopener">&#128247; Instagram</a>
       <a href="https://www.linkedin.com/in/edik-harutyunyan-78b91a227/" class="btn btn-ghost btn-sm btn-magnetic" target="_blank" rel="noopener">&#128279; LinkedIn</a>
     </div>
@@ -710,8 +768,8 @@ section{padding:80px 0}
 <!-- Sticky Mobile CTA -->
 <div class="sticky-cta" id="stickyCta">
   <div style="display:flex;gap:8px;align-items:center;justify-content:center;width:100%">
-    <a href="https://wa.me/37493388843" class="btn btn-ghost btn-sm" style="padding:10px 18px;font-size:.78rem;flex:1;text-align:center">WhatsApp</a>
-    <a href="tel:09338843" class="btn btn-sm" style="padding:10px 18px;font-size:.78rem;flex:1;text-align:center">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+    <a href="https://wa.me/37493388443" class="btn btn-ghost btn-sm" style="padding:10px 18px;font-size:.78rem;flex:1;text-align:center">WhatsApp</a>
+    <a href="tel:093388443" class="btn btn-sm" style="padding:10px 18px;font-size:.78rem;flex:1;text-align:center">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
   </div>
 </div>
 
@@ -728,7 +786,7 @@ section{padding:80px 0}
       <li>&#1343;&#1405;&#1407;&#1381;&#1394;&#1390;&#1381;&#1412; &#1402;&#1408;&#1400;&#1414;&#1381;&#1405;&#1387;&#1400;&#1398;&#1377;&#1388; AI &#1402;&#1400;&#1408;&#1407;&#1414;&#1400;&#1388;&#1387;&#1400;</li>
     </ul>
     <div class="m-meta"><span>3 &#1399;&#1377;&#1378;&#1377;&#1385;</span><span>&#1399;&#1377;&#1378;&#1377;&#1385;&#1384; 2 &#1380;&#1377;&#1405;</span><span>Online + Offline</span><span>&#1341;&#1396;&#1378;. + &#1377;&#1398;&#1392;&#1377;&#1407;.</span></div>
-    <a href="tel:09338843" class="btn">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+    <a href="tel:093388443" class="btn">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
   </div>
 </div>
 <div class="modal-overlay" id="modal-creative" onclick="closeModal(event)">
@@ -743,7 +801,7 @@ section{padding:80px 0}
       <li>&#1343;&#1377;&#1408;&#1395; &#1407;&#1381;&#1405;&#1377;&#1398;&#1397;&#1400;&#1410;&#1385; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1400;&#1406;</li>
     </ul>
     <div class="m-meta"><span>3 &#1399;&#1377;&#1378;&#1377;&#1385;</span><span>&#1399;&#1377;&#1378;&#1377;&#1385;&#1384; 2 &#1380;&#1377;&#1405;</span><span>Online + Offline</span><span>&#1341;&#1396;&#1378;. + &#1377;&#1398;&#1392;&#1377;&#1407;.</span></div>
-    <a href="tel:09338843" class="btn">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+    <a href="tel:093388443" class="btn">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
   </div>
 </div>
 <div class="modal-overlay" id="modal-teen" onclick="closeModal(event)">
@@ -758,7 +816,7 @@ section{padding:80px 0}
       <li>&#1354;&#1400;&#1408;&#1407;&#1414;&#1400;&#1388;&#1387;&#1400; &#1390;&#1398;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387;&#1398; &#1409;&#1400;&#1410;&#1409;&#1377;&#1380;&#1408;&#1381;&#1388;&#1400;&#1410; &#1392;&#1377;&#1396;&#1377;&#1408;</li>
     </ul>
     <div class="m-meta"><span>3 &#1399;&#1377;&#1378;&#1377;&#1385;</span><span>&#1399;&#1377;&#1378;&#1377;&#1385;&#1384; 2 &#1380;&#1377;&#1405;</span><span>Online + Offline</span><span>&#1341;&#1396;&#1378;&#1377;&#1391;&#1377;&#1397;&#1387;&#1398;</span></div>
-    <a href="tel:09338843" class="btn">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+    <a href="tel:093388443" class="btn">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
   </div>
 </div>
 
@@ -801,7 +859,7 @@ section{padding:80px 0}
     document.querySelectorAll('.hero-stat .num[data-count]').forEach(function(el){
       var target=parseInt(el.getAttribute('data-count'));
       var suffix=el.querySelector('span')?el.querySelector('span').outerHTML:'';
-      var duration=1200;
+      var duration=800;
       var start=performance.now();
       function tick(now){
         var elapsed=now-start;
@@ -990,7 +1048,7 @@ section{padding:80px 0}
   var obs=new IntersectionObserver(function(entries){
     entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
   },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.fade-in').forEach(function(el){obs.observe(el);});
+  document.querySelectorAll('.fade-in,.slide-left,.slide-right,.scale-in').forEach(function(el){obs.observe(el);});
 
   /* ── Button ripple effect ── */
   document.querySelectorAll('.btn').forEach(function(btn){
