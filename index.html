@@ -47,12 +47,13 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .btn-ghost{background:rgba(240,236,230,.03);color:var(--text);border:1px solid rgba(240,236,230,.15);box-shadow:none;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .btn-ghost::before{display:none}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent);background:var(--card-hover);box-shadow:none;transform:translateY(-1px)}
-section{padding:110px 0}
-@media(max-width:640px){section{padding:80px 0}}
+section{padding:80px 0}
+@media(max-width:640px){section{padding:50px 0}}
 
 /* ── Section titles ── */
 .stitle{text-align:center;font-size:clamp(1.6rem,4.5vw,2.3rem);margin-bottom:14px;font-weight:700;letter-spacing:-.02em}
-.ssub{text-align:center;color:var(--text-dim);margin-bottom:52px;font-size:.92rem;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.8}
+.ssub{text-align:center;color:#b5b0a8;margin-bottom:52px;font-size:.92rem;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.8}
+@media(max-width:640px){.ssub{font-size:.88rem;margin-bottom:36px}}
 
 /* ── Nav ── */
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;transition:all .35s cubic-bezier(.4,0,.2,1);border-bottom:1px solid transparent}
@@ -113,7 +114,7 @@ section{padding:110px 0}
 
 /* ── Trust bar ── */
 .trust-bar{padding:32px 0;border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border);background:rgba(30,34,48,.35)}
-@media(max-width:480px){.trust-bar{padding:24px 0}.trust-logos{gap:16px 20px}.trust-logos span{font-size:.72rem}.trust-logos span svg{width:16px;height:16px}}
+@media(max-width:480px){.trust-bar{padding:20px 0}.trust-logos{gap:12px 16px}.trust-logos span{font-size:.7rem}.trust-logos span svg{width:15px;height:15px}.trust-label{font-size:.68rem;margin-bottom:4px}}
 .trust-bar .container{display:flex;flex-direction:column;align-items:center;gap:14px}
 .trust-label{font-size:.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
 .trust-logos{display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap}
@@ -185,7 +186,7 @@ section{padding:110px 0}
 .btn-group{display:flex;flex-direction:column;gap:10px;align-items:center}
 
 /* ── Offerings ── */
-.offerings{position:relative}
+.offerings{position:relative;background:linear-gradient(180deg,var(--bg) 0%,rgba(30,34,48,.3) 50%,var(--bg) 100%)}
 .tracks{display:grid;grid-template-columns:1fr;gap:16px}
 @media(min-width:640px){.tracks{grid-template-columns:repeat(3,1fr)}}
 .t-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:32px 26px;display:flex;flex-direction:column;position:relative;transition:all .3s cubic-bezier(.4,0,.2,1);overflow:hidden}
@@ -239,7 +240,7 @@ section{padding:110px 0}
 .footer-channels{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
 
 /* ── Sticky Mobile CTA ── */
-.sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(12,15,20,.92);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border-top:1px solid var(--card-border);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(12,15,20,.92);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border-top:1px solid var(--card-border);padding:8px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
 .sticky-cta.visible{transform:translateY(0)}
 .sticky-text{font-size:.68rem;color:var(--text-dim);line-height:1.2;max-width:55%}
 .sticky-text strong{color:var(--accent);display:block;font-size:.72rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -321,8 +322,12 @@ section{padding:110px 0}
 .t-card::after{content:'';position:absolute;inset:0;border-radius:var(--radius);background:radial-gradient(circle at var(--glow-x,50%) var(--glow-y,50%),rgba(224,122,58,.06),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
 .t-card:hover::after{opacity:1}
 
-/* ── Smooth section separators ── */
-.why-ai::before,.formats::before,.offerings::before,.testimonials::before,.faq::before{content:'';display:block;width:40px;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:0 auto 60px;opacity:.3}
+/* ── Section dividers on mobile ── */
+@media(max-width:640px){
+  .about,.how-it-works,.why-ai,.formats,.quiz-section,.offerings,.testimonials,.faq{
+    border-top:1px solid var(--card-border);
+  }
+}
 
 /* ── 3D tilt effect ── */
 .tilt{transform-style:preserve-3d;transition:transform .2s ease-out}
@@ -376,6 +381,26 @@ section{padding:110px 0}
   ::-webkit-scrollbar-track{background:var(--bg)}
   ::-webkit-scrollbar-thumb{background:rgba(240,236,230,.12);border-radius:3px}
   ::-webkit-scrollbar-thumb:hover{background:rgba(240,236,230,.2)}
+}
+
+/* ── Mobile: hide filler sections ── */
+@media(max-width:640px){
+  .how-it-works,.formats{display:none}
+}
+
+/* ── Mobile: about padding reduction ── */
+@media(max-width:640px){
+  .about{padding:40px 0}
+}
+
+/* ── Mobile: track card accent border ── */
+@media(max-width:640px){
+  .t-card{border-left:3px solid rgba(224,122,58,.3);padding:24px 20px}
+}
+
+/* ── Mobile: quiz box sizing ── */
+@media(max-width:640px){
+  .quiz-box{min-height:280px;padding:28px 20px}
 }
 
 /* ── Reduce motion for accessibility ── */
@@ -445,9 +470,9 @@ section{padding:110px 0}
       <a href="#offerings" class="btn btn-ghost">&#1342;&#1408;&#1377;&#1379;&#1408;&#1381;&#1408;</a>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat"><span class="num" data-count="50">0<span>+</span></span><span class="lbl">&#1400;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;</span></div>
-      <div class="hero-stat"><span class="num" data-count="3">0</span><span class="lbl">&#1400;&#1410;&#1394;&#1394;&#1387;&#1398;</span></div>
-      <div class="hero-stat"><span class="num" data-count="4">0</span><span class="lbl">&#1414;&#1400;&#1408;&#1396;&#1377;&#1407;</span></div>
+      <div class="hero-stat"><span class="num" data-count="50">50<span>+</span></span><span class="lbl">&#1400;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;</span></div>
+      <div class="hero-stat"><span class="num" data-count="3">3</span><span class="lbl">&#1400;&#1410;&#1394;&#1394;&#1387;&#1398;</span></div>
+      <div class="hero-stat"><span class="num" data-count="4">4</span><span class="lbl">&#1414;&#1400;&#1408;&#1396;&#1377;&#1407;</span></div>
     </div>
   </div>
   <div class="scroll-hint"><span>scroll</span><div class="chevron"></div></div>
@@ -1037,7 +1062,7 @@ section{padding:110px 0}
   /* ── Sticky CTA ── */
   var stickyCta=document.getElementById('stickyCta');
   window.addEventListener('scroll',function(){
-    stickyCta.classList.toggle('visible',window.scrollY>600);
+    stickyCta.classList.toggle('visible',window.scrollY>1200);
   },{passive:true});
 
   /* ── Scroll fade ── */
