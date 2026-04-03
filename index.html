@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI Academy &mdash; Ed Harutyunyan</title>
+<meta name="description" content="AI &#1400;&#1410;&#1405;&#1400;&#1410;&#1409;&#1400;&#1410;&#1396; &#1344;&#1377;&#1397;&#1377;&#1405;&#1407;&#1377;&#1398;&#1400;&#1410;&#1396; &mdash; online, offline, &#1377;&#1398;&#1392;&#1377;&#1407;&#1377;&#1391;&#1377;&#1398; &#1415; &#1389;&#1396;&#1378;&#1377;&#1391;&#1377;&#1397;&#1387;&#1398;">
+<meta property="og:title" content="AI Academy Armenia">
+<meta property="og:description" content="AI &#1400;&#1410;&#1405;&#1400;&#1410;&#1409;&#1400;&#1410;&#1396; &#1344;&#1377;&#1397;&#1377;&#1405;&#1407;&#1377;&#1398;&#1400;&#1410;&#1396; &mdash; &#1405;&#1400;&#1406;&#1400;&#1408;&#1387;&#1371;&#1408; AI-&#1387; &#1392;&#1381;&#1407; &#1377;&#1399;&#1389;&#1377;&#1407;&#1381;&#1388; &#1377;&#1406;&#1381;&#1388;&#1387; &#1377;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1377;&#1406;&#1381;&#1407;">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#e07a3a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Armenian:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#10131a;
+  --bg2:#161a24;
+  --accent:#e07a3a;
+  --accent-hover:#eb8d52;
+  --accent-glow:rgba(224,122,58,.10);
+  --secondary:#c49a6e;
+  --text:#f0ece6;
+  --text-dim:#9e9890;
+  --card:#1e2230;
+  --card-border:rgba(240,236,230,.11);
+  --card-hover:rgba(224,122,58,.05);
+  --nav-h:56px;
+  --radius:14px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 40px)}
+body{font-family:'Inter','Noto Serif Armenian',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:16px}
+
+/* Noise overlay for texture */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.012;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+.container{max-width:800px;margin:0 auto;padding:0 24px}
+.serif{font-family:'Noto Serif Armenian',Georgia,serif}
+
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:#fff;border:none;padding:14px 30px;font-family:inherit;font-size:.88rem;font-weight:600;border-radius:10px;cursor:pointer;text-decoration:none;transition:all .25s cubic-bezier(.4,0,.2,1);box-shadow:0 2px 20px rgba(224,122,58,.18),inset 0 1px 0 rgba(255,255,255,.08);letter-spacing:.02em;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.06) 0%,transparent 60%);pointer-events:none}
+.btn:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:0 4px 30px rgba(224,122,58,.25),inset 0 1px 0 rgba(255,255,255,.1)}
+.btn:active{transform:translateY(0);box-shadow:0 1px 10px rgba(224,122,58,.15)}
+.btn-sm{padding:11px 22px;font-size:.84rem}
+.btn-ghost{background:rgba(240,236,230,.03);color:var(--text);border:1px solid rgba(240,236,230,.15);box-shadow:none;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.btn-ghost::before{display:none}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);background:var(--card-hover);box-shadow:none;transform:translateY(-1px)}
+section{padding:110px 0}
+@media(max-width:640px){section{padding:80px 0}}
+
+/* ── Section titles ── */
+.stitle{text-align:center;font-size:clamp(1.6rem,4.5vw,2.3rem);margin-bottom:14px;font-weight:700;letter-spacing:-.02em}
+.ssub{text-align:center;color:var(--text-dim);margin-bottom:52px;font-size:.92rem;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.8}
+
+/* ── Nav ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;transition:all .35s cubic-bezier(.4,0,.2,1);border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(12,15,20,.88);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid var(--card-border)}
+.nav .container{display:flex;align-items:center;justify-content:space-between;width:100%}
+.nav-logo{font-family:'Noto Serif Armenian',serif;font-weight:700;font-size:.95rem;color:var(--text);text-decoration:none;letter-spacing:-.01em}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:28px;align-items:center;list-style:none}
+.nav-links a{color:var(--text-dim);text-decoration:none;font-size:.78rem;font-weight:500;transition:color .2s;letter-spacing:.02em;text-transform:uppercase}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--accent);color:#fff;padding:7px 16px;border-radius:8px;font-size:.76rem;font-weight:600;text-decoration:none;transition:all .2s;letter-spacing:.02em}
+.nav-cta:hover{background:var(--accent-hover)}
+@media(max-width:640px){
+  .nav-links{gap:16px}
+  .nav-links a{font-size:.7rem}
+  .nav-cta{display:none}
+}
+
+/* ── FOMO ticker ── */
+.ticker{position:fixed;top:var(--nav-h);left:0;right:0;z-index:99;background:rgba(224,122,58,.88);padding:7px 12px;overflow:hidden;height:30px}
+.ticker-inner{display:flex;align-items:center;justify-content:center;gap:12px;font-size:.72rem;font-weight:600;color:#fff;letter-spacing:.03em;white-space:nowrap}
+@media(max-width:480px){.ticker-inner{gap:8px;font-size:.65rem}.ticker-dot:last-of-type,.ticker-dot:last-of-type~span{display:none}}
+.ticker-dot{width:4px;height:4px;border-radius:50%;background:#fff;opacity:.5}
+
+/* ── Floating particles ── */
+.particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--accent);opacity:0;animation:floatUp var(--dur,8s) var(--delay,0s) infinite}
+@keyframes floatUp{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:.08}90%{opacity:.04}100%{opacity:0;transform:translateY(-20vh) scale(1)}}
+
+/* ── Gradient border animation ── */
+/* glow-border: subtle static accent border instead of animation */
+.glow-border{border-color:rgba(224,122,58,.18)}
+
+/* ── Hero ── */
+.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.hero-bg .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.035}
+.hero-bg .orb1{width:600px;height:600px;background:var(--accent);top:-20%;left:-10%}
+.hero-bg .orb2{width:400px;height:400px;background:#eb8d52;bottom:-10%;right:-10%}
+.hero-bg .grid-lines{position:absolute;inset:0;background-image:linear-gradient(var(--card-border) 1px,transparent 1px),linear-gradient(90deg,var(--card-border) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 70%);opacity:.4}
+.hero-content{position:relative;z-index:1;max-width:640px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:600;color:var(--accent);border:1px solid rgba(224,122,58,.25);border-radius:100px;padding:7px 18px;margin-bottom:32px;letter-spacing:.06em;text-transform:uppercase;background:rgba(224,122,58,.06)}
+.hero-eyebrow .pulse{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.hero h1{font-family:'Noto Serif Armenian',serif;font-size:clamp(2.2rem,7vw,3.6rem);font-weight:900;line-height:1.1;margin-bottom:20px;letter-spacing:-.03em}
+.hero h1 .hl{background:linear-gradient(90deg,var(--accent),#f0a06a,var(--accent));background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmerText 4s ease-in-out infinite}
+@keyframes shimmerText{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero .sub{font-size:clamp(.95rem,2.5vw,1.08rem);color:var(--text-dim);max-width:480px;margin:0 auto 40px;line-height:1.8}
+.hero-cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+@media(max-width:400px){.hero-cta-row{flex-direction:column;align-items:center}.hero-cta-row .btn{width:100%;max-width:280px}}
+.hero-stats{display:flex;gap:40px;justify-content:center;margin-top:52px;flex-wrap:wrap}
+.hero-stat{text-align:center;position:relative}
+.hero-stat::after{content:'';position:absolute;right:-20px;top:50%;transform:translateY(-50%);width:1px;height:24px;background:var(--card-border)}
+.hero-stat:last-child::after{display:none}
+.hero-stat .num{font-family:'Noto Serif Armenian',serif;font-size:1.5rem;font-weight:900;color:var(--text);display:block;letter-spacing:-.02em}
+.hero-stat .num span{color:var(--accent)}
+.hero-stat .lbl{font-size:.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+
+/* ── Trust bar ── */
+.trust-bar{padding:32px 0;border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border);background:rgba(30,34,48,.35)}
+@media(max-width:480px){.trust-bar{padding:24px 0}.trust-logos{gap:16px 20px}.trust-logos span{font-size:.72rem}.trust-logos span svg{width:16px;height:16px}}
+.trust-bar .container{display:flex;flex-direction:column;align-items:center;gap:14px}
+.trust-label{font-size:.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.trust-logos{display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap}
+.trust-logos span{font-size:.78rem;font-weight:600;color:var(--text);letter-spacing:.02em;white-space:nowrap;display:flex;align-items:center;gap:7px;opacity:.65;transition:opacity .2s}
+.trust-logos span:hover{opacity:1}
+.trust-logos span svg{width:18px;height:18px;flex-shrink:0}
+
+/* ── About ── */
+.about{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--bg) 0%,rgba(26,30,40,.5) 50%,var(--bg) 100%)}
+.about::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--card-border),transparent)}
+.about-grid{display:grid;grid-template-columns:220px 1fr;gap:48px;align-items:center}
+@media(max-width:640px){.about-grid{grid-template-columns:1fr;text-align:center;gap:32px}}
+.about-photo{width:220px;height:260px;border-radius:20px;background:var(--card);border:1px solid rgba(224,122,58,.18);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;margin:0 auto;box-shadow:0 8px 40px rgba(0,0,0,.4),0 0 80px rgba(224,122,58,.08)}
+.about-photo::after{content:'';position:absolute;inset:-2px;border-radius:22px;background:linear-gradient(135deg,rgba(224,122,58,.2),transparent 40%,transparent 60%,rgba(176,132,94,.15));z-index:0}
+.about-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:20px;position:relative;z-index:1}
+.about-photo .ph{color:var(--accent);font-size:3rem;font-family:'Noto Serif Armenian',serif;font-weight:900;position:relative;z-index:1;letter-spacing:-.02em;background:linear-gradient(135deg,rgba(224,122,58,.12),rgba(224,122,58,.04));width:100%;height:100%;display:none;align-items:center;justify-content:center;border-radius:20px}
+.about-photo img.broken{display:none!important}
+.about-photo img.broken~.ph{display:flex!important}
+.about-text h2{font-family:'Noto Serif Armenian',serif;font-size:clamp(1.25rem,3.5vw,1.55rem);font-weight:700;margin-bottom:14px;letter-spacing:-.02em}
+.about-text p{color:#c0bbb3;font-size:.92rem;line-height:1.8;margin-bottom:22px}
+.cred-row{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:640px){.cred-row{justify-content:center}}
+.cred{font-size:.74rem;padding:7px 14px;border-radius:8px;background:rgba(224,122,58,.06);border:1px solid rgba(224,122,58,.16);color:var(--secondary);font-weight:600;letter-spacing:.01em}
+
+/* ── Why AI ── */
+.why-ai{position:relative}
+.reasons{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.reasons{grid-template-columns:repeat(3,1fr)}}
+.r-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:32px 26px;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.r-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(224,122,58,.2),transparent);opacity:0;transition:opacity .3s}
+.r-card:hover{border-color:rgba(224,122,58,.2);transform:translateY(-2px)}.r-card:hover::before{opacity:1}
+.r-card .icon{font-size:1.6rem;margin-bottom:14px;display:block}
+.r-card h3{font-size:1rem;font-weight:700;margin-bottom:10px;letter-spacing:-.01em}
+.r-card p{font-size:.86rem;color:var(--text-dim);line-height:1.75}
+
+/* ── Formats ── */
+.formats{position:relative}
+.format-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:540px;margin:0 auto}
+@media(max-width:480px){.format-grid{grid-template-columns:1fr}}
+.f-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px 22px;text-align:center;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.f-card:hover{border-color:rgba(224,122,58,.2);transform:translateY(-2px)}
+.f-card .f-icon{font-size:1.5rem;margin-bottom:10px;display:block}
+.f-card h3{font-size:.92rem;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+.f-card p{font-size:.8rem;color:var(--text-dim);line-height:1.65}
+
+/* ── Quiz ── */
+.quiz-section{text-align:center;position:relative}
+.quiz-box{background:var(--card);border:1px solid var(--card-border);border-radius:20px;padding:40px 28px;max-width:540px;margin:0 auto;position:relative;min-height:340px;overflow:hidden}
+.quiz-progress{display:flex;gap:6px;justify-content:center;margin-bottom:32px}
+.quiz-progress .dot{width:36px;height:4px;border-radius:4px;background:rgba(240,236,230,.1);transition:all .4s cubic-bezier(.4,0,.2,1)}
+.quiz-progress .dot.active{background:var(--accent);width:52px}
+.quiz-progress .dot.done{background:var(--secondary)}
+.q-step{display:none;opacity:0;transform:translateX(40px);transition:all .45s cubic-bezier(.4,0,.2,1)}
+.q-step.active{display:block;opacity:1;transform:translateX(0)}
+.q-step.exit-left{display:block;opacity:0;transform:translateX(-40px)}
+.q-step h3{font-family:'Noto Serif Armenian',serif;font-size:1.1rem;font-weight:600;margin-bottom:24px;line-height:1.6}
+.q-opts{display:flex;flex-direction:column;gap:10px}
+.q-opt{background:rgba(240,236,230,.03);border:1px solid rgba(240,236,230,.12);border-radius:12px;padding:15px 20px;font-family:inherit;font-size:.9rem;color:var(--text);cursor:pointer;transition:all .2s cubic-bezier(.4,0,.2,1);text-align:left;line-height:1.5}
+.q-opt:hover{border-color:rgba(224,122,58,.4);background:rgba(224,122,58,.06);padding-left:24px}
+.q-opt:active{transform:scale(.98)}
+
+/* ── Result ── */
+#result{display:none;text-align:center;padding:16px 0}
+#result.visible{display:block;animation:fadeUp .5s cubic-bezier(.4,0,.2,1)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.res-label{font-size:.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.res-track{font-family:'Noto Serif Armenian',serif;font-size:clamp(1.3rem,4vw,1.8rem);font-weight:900;background:linear-gradient(135deg,var(--accent),#f0a06a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
+.res-desc{color:var(--text-dim);max-width:380px;margin:0 auto 28px;font-size:.88rem;line-height:1.7}
+.btn-group{display:flex;flex-direction:column;gap:10px;align-items:center}
+
+/* ── Offerings ── */
+.offerings{position:relative}
+.tracks{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.tracks{grid-template-columns:repeat(3,1fr)}}
+.t-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:32px 26px;display:flex;flex-direction:column;position:relative;transition:all .3s cubic-bezier(.4,0,.2,1);overflow:hidden}
+.t-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s}
+.t-card:hover{border-color:rgba(224,122,58,.2);transform:translateY(-3px)}.t-card:hover::before{opacity:1}
+.t-card.recommended{border-color:rgba(224,122,58,.3);box-shadow:0 0 60px var(--accent-glow)}
+.t-card.recommended::before{opacity:1}
+.t-card .t-icon{font-size:1.6rem;margin-bottom:14px}
+.t-card h3{font-family:'Noto Serif Armenian',serif;font-size:1.05rem;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+.t-card .t-desc{font-size:.86rem;color:var(--text-dim);line-height:1.7;margin-bottom:16px}
+.t-outcomes{list-style:none;margin-bottom:16px;text-align:left}
+.t-outcomes li{font-size:.82rem;color:var(--text-dim);padding:4px 0 4px 20px;position:relative;line-height:1.65}
+.t-outcomes li::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.6}
+.t-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.t-meta span{font-size:.7rem;padding:4px 10px;border-radius:6px;border:1px solid var(--card-border);color:var(--text-dim);letter-spacing:.02em}
+.t-spots{font-size:.72rem;color:var(--accent);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:6px}
+.t-spots::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+.t-card .btn-sm{width:100%;text-align:center;margin-top:auto}
+.rec-badge{position:absolute;top:0;left:50%;transform:translateX(-50%) translateY(-50%);background:var(--accent);color:#fff;font-size:.65rem;font-weight:700;padding:4px 14px;border-radius:100px;white-space:nowrap;display:none;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 4px 12px rgba(224,122,58,.3)}
+.t-card.recommended .rec-badge{display:block}
+
+/* ── Testimonials ── */
+.testimonials{position:relative}
+.test-grid{display:grid;grid-template-columns:1fr;gap:12px;max-width:600px;margin:0 auto}
+@media(min-width:500px){.test-grid{grid-template-columns:1fr 1fr}}
+.test-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:26px;text-align:left;transition:all .3s}
+.test-card:hover{border-color:rgba(224,122,58,.15)}
+.test-card .stars{color:var(--accent);font-size:.7rem;margin-bottom:10px;letter-spacing:2px}
+.test-card .quote{font-size:.88rem;color:var(--text-dim);line-height:1.75;margin-bottom:16px}
+.test-card .author-row{display:flex;align-items:center;gap:10px}
+.test-card .avatar{width:32px;height:32px;border-radius:50%;background:rgba(224,122,58,.1);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--accent);font-weight:700}
+.test-card .author{font-size:.8rem;font-weight:600}
+.test-card .role{font-size:.68rem;color:var(--text-dim)}
+
+/* ── FAQ ── */
+.faq{position:relative}
+.faq-list{max-width:560px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--card-border)}
+.faq-q{width:100%;background:none;border:none;color:var(--text);font-family:inherit;font-size:.95rem;font-weight:600;padding:22px 0;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:color .2s;letter-spacing:-.01em}
+.faq-q:hover{color:var(--accent)}
+.faq-q .arrow{width:20px;height:20px;border-radius:50%;background:rgba(245,239,230,.04);display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:.6rem;color:var(--text-dim);flex-shrink:0}
+.faq-item.open .faq-q .arrow{transform:rotate(180deg);background:var(--accent);color:#fff}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a p{font-size:.88rem;color:var(--text-dim);line-height:1.8;padding-bottom:22px}
+
+/* ── Footer CTA ── */
+.footer-cta{text-align:center;padding:110px 24px 150px;position:relative;overflow:hidden;background:linear-gradient(180deg,var(--bg),rgba(30,34,48,.4),var(--bg))}
+.footer-cta::before{content:'';position:absolute;bottom:-200px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,var(--accent-glow),transparent 70%);pointer-events:none}
+.footer-cta p{color:var(--text-dim);margin-bottom:36px;font-size:.98rem;line-height:1.7}
+.footer-channels{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+
+/* ── Sticky Mobile CTA ── */
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(12,15,20,.92);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border-top:1px solid var(--card-border);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.sticky-cta.visible{transform:translateY(0)}
+.sticky-text{font-size:.68rem;color:var(--text-dim);line-height:1.2;max-width:55%}
+.sticky-text strong{color:var(--accent);display:block;font-size:.72rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ── Modal ── */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:flex-end;justify-content:center;padding:0}
+@media(min-width:640px){.modal-overlay{align-items:center;padding:20px}}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--card-border);border-radius:20px 20px 0 0;width:100%;max-width:520px;max-height:90svh;overflow-y:auto;padding:32px 24px;position:relative;animation:modalUp .35s cubic-bezier(.4,0,.2,1)}
+@media(min-width:640px){.modal{border-radius:20px}}
+@keyframes modalUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.modal-bar{width:36px;height:4px;border-radius:4px;background:rgba(245,239,230,.1);margin:0 auto 20px;display:block}
+@media(min-width:640px){.modal-bar{display:none}}
+.modal-close{position:absolute;top:16px;right:16px;background:rgba(245,239,230,.04);border:1px solid var(--card-border);color:var(--text-dim);font-size:1rem;cursor:pointer;transition:all .2s;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:var(--card-hover);border-color:rgba(224,122,58,.2);color:var(--accent)}
+.modal h2{font-family:'Noto Serif Armenian',serif;font-size:1.2rem;font-weight:700;margin-bottom:4px;letter-spacing:-.02em}
+.modal .modal-for{font-size:.76rem;color:var(--accent);margin-bottom:16px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.modal p{font-size:.86rem;color:var(--text-dim);line-height:1.7;margin-bottom:16px}
+.modal .o-list{list-style:none;margin-bottom:24px}
+.modal .o-list li{font-size:.84rem;color:var(--text);padding:8px 0 8px 22px;position:relative;line-height:1.5;border-bottom:1px solid rgba(245,239,230,.03)}
+.modal .o-list li::before{content:'';position:absolute;left:0;top:15px;width:8px;height:8px;border-radius:50%;border:2px solid var(--accent);background:transparent}
+.modal .o-list li:last-child{border-bottom:none}
+.modal .m-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.modal .m-meta span{font-size:.72rem;padding:5px 12px;border-radius:8px;border:1px solid var(--card-border);color:var(--text-dim)}
+.modal .btn{width:100%;text-align:center}
+
+/* ── Scroll progress bar ── */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),#f0a06a);z-index:999;width:0;transition:none}
+
+/* ── Hamburger ── */
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;z-index:101}
+.hamburger span{display:block;width:20px;height:2px;background:var(--text);margin:4px 0;transition:all .3s cubic-bezier(.4,0,.2,1);border-radius:2px}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+@media(max-width:640px){
+  .hamburger{display:block}
+  .nav-links{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(12,15,20,.97);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);flex-direction:column;justify-content:center;align-items:center;gap:32px;opacity:0;pointer-events:none;transition:opacity .35s}
+  .nav-links.open{opacity:1;pointer-events:auto}
+  .nav-links a{font-size:1.1rem;text-transform:none;letter-spacing:0}
+  .nav-links .nav-cta{display:inline-flex;padding:12px 28px;font-size:.9rem}
+}
+
+/* ── Scroll down indicator ── */
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.4;animation:scrollBounce 2s ease-in-out infinite}
+.scroll-hint span{font-size:.65rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase}
+.scroll-hint .chevron{width:20px;height:20px;border-right:2px solid var(--text-dim);border-bottom:2px solid var(--text-dim);transform:rotate(45deg)}
+@keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+/* ── Animated counter ── */
+.hero-stat .num{display:block;min-width:2ch}
+
+/* ── Countdown timer ── */
+.countdown{display:inline-flex;gap:4px;align-items:center;font-variant-numeric:tabular-nums}
+.countdown .cd-unit{display:flex;flex-direction:column;align-items:center;gap:0}
+.countdown .cd-num{font-weight:800;font-size:.72rem;min-width:20px;text-align:center}
+.countdown .cd-lbl{font-size:.48rem;opacity:.7;text-transform:uppercase;letter-spacing:.04em}
+.countdown .cd-sep{opacity:.4;font-size:.6rem;margin:0 1px}
+
+/* ── How it works ── */
+.how-it-works{position:relative}
+.steps-row{display:flex;gap:0;justify-content:center;align-items:flex-start;max-width:600px;margin:0 auto;position:relative}
+.step-item{flex:1;text-align:center;position:relative;padding:0 12px}
+.step-num{width:40px;height:40px;border-radius:50%;background:var(--card);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif Armenian',serif;font-weight:900;font-size:.9rem;color:var(--accent);margin:0 auto 14px;position:relative;z-index:1}
+.step-item:not(:last-child)::after{content:'';position:absolute;top:20px;left:calc(50% + 24px);width:calc(100% - 48px);height:1px;background:linear-gradient(90deg,var(--accent),var(--card-border));z-index:0}
+.step-item h4{font-size:.92rem;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+.step-item p{font-size:.8rem;color:var(--text-dim);line-height:1.6}
+@media(max-width:480px){
+  .steps-row{flex-direction:column;gap:24px;align-items:center}
+  .step-item:not(:last-child)::after{display:none}
+}
+
+/* ── Button ripple ── */
+.btn{position:relative;overflow:hidden}
+.btn .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.2);transform:scale(0);animation:rippleOut .6s ease-out forwards;pointer-events:none}
+@keyframes rippleOut{to{transform:scale(4);opacity:0}}
+
+/* ── Card glow on hover ── */
+.t-card::after{content:'';position:absolute;inset:0;border-radius:var(--radius);background:radial-gradient(circle at var(--glow-x,50%) var(--glow-y,50%),rgba(224,122,58,.06),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.t-card:hover::after{opacity:1}
+
+/* ── Smooth section separators ── */
+.why-ai::before,.formats::before,.offerings::before,.testimonials::before,.faq::before{content:'';display:block;width:40px;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:0 auto 60px;opacity:.3}
+
+/* ── 3D tilt effect ── */
+.tilt{transform-style:preserve-3d;transition:transform .2s ease-out}
+
+/* ── Magnetic button ── */
+.btn-magnetic{transition:transform .2s cubic-bezier(.4,0,.2,1)}
+
+/* ── Quiz back button ── */
+.q-back{display:inline-flex;align-items:center;gap:4px;background:none;border:none;color:var(--text-dim);font-family:inherit;font-size:.76rem;cursor:pointer;padding:6px 0;margin-bottom:12px;transition:color .2s;letter-spacing:.02em}
+.q-back:hover{color:var(--accent)}
+.q-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* ── Share result ── */
+.share-row{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.share-btn{background:rgba(245,239,230,.04);border:1px solid var(--card-border);color:var(--text-dim);padding:8px 16px;border-radius:8px;font-family:inherit;font-size:.76rem;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.share-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--card-hover)}
+.share-copied{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:10px 20px;border-radius:10px;font-size:.82rem;font-weight:600;z-index:300;animation:fadeUp .3s ease-out;pointer-events:none}
+
+/* ── CTA row with messaging ── */
+.cta-multi{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center}
+.cta-or{font-size:.72rem;color:var(--text-dim);padding:0 4px}
+
+/* ── Persona tag on tracks ── */
+.t-persona{font-size:.74rem;color:var(--accent);font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:6px;opacity:.85}
+.t-persona::before{content:'';width:14px;height:1px;background:var(--accent)}
+
+/* ── Scroll fade ── */
+.fade-in{opacity:0;transform:translateY(20px);transition:all .7s cubic-bezier(.4,0,.2,1)}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in.d1{transition-delay:.1s}
+.fade-in.d2{transition-delay:.2s}
+.fade-in.d3{transition-delay:.3s}
+
+/* ── Page load: no FOUC ── */
+
+/* ── Focus states for accessibility ── */
+.btn:focus-visible,.q-opt:focus-visible,.faq-q:focus-visible,.nav-links a:focus-visible,.nav-cta:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+.q-opt:focus-visible{border-color:var(--accent)}
+
+/* ── Selection color ── */
+::selection{background:rgba(224,122,58,.25);color:var(--text)}
+
+/* ── Smooth image load ── */
+.about-photo img{opacity:0;transition:opacity .4s ease-out}
+.about-photo img.loaded{opacity:1}
+.about-photo img.broken{opacity:0!important}
+
+/* ── Better scrollbar ── */
+@media(min-width:640px){
+  ::-webkit-scrollbar{width:6px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:rgba(240,236,230,.12);border-radius:3px}
+  ::-webkit-scrollbar-thumb:hover{background:rgba(240,236,230,.2)}
+}
+
+/* ── Reduce motion for accessibility ── */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .particle{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <a href="#hero" class="nav-logo"><span>Ed</span> Harutyunyan</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">&#1339;&#1396; &#1396;&#1377;&#1405;&#1387;&#1398;</a></li>
+      <li><a href="#process">&#1364;&#1377;&#1397;&#1388;&#1381;&#1408;</a></li>
+      <li><a href="#offerings">&#1342;&#1408;&#1377;&#1379;&#1408;&#1381;&#1408;</a></li>
+      <li><a href="#quiz">&#1385;&#1381;&#1405;&#1407;</a></li>
+      <li><a href="#faq">&#1344;&#1329;&#1344;</a></li>
+      <li><a href="tel:09338843" class="nav-cta">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Ticker -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>&#1344;&#1377;&#1403;&#1400;&#1408;&#1380; &#1389;&#1400;&#1410;&#1396;&#1378;&#1384;&#1373; &#1377;&#1402;&#1408;&#1387;&#1388;&#1387; 14</span>
+    <span class="ticker-dot"></span>
+    <span class="countdown" id="countdown" data-target="2026-04-14T18:00:00"></span>
+    <span class="ticker-dot"></span>
+    <span>&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</span>
+    <span class="ticker-dot"></span>
+    <span>Online + Offline</span>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="grid-lines"></div>
+    <div class="particles">
+      <div class="particle" style="left:10%;--dur:7s;--delay:0s"></div>
+      <div class="particle" style="left:20%;--dur:9s;--delay:1s"></div>
+      <div class="particle" style="left:35%;--dur:6s;--delay:2.5s"></div>
+      <div class="particle" style="left:50%;--dur:8s;--delay:0.5s"></div>
+      <div class="particle" style="left:65%;--dur:10s;--delay:3s"></div>
+      <div class="particle" style="left:78%;--dur:7.5s;--delay:1.5s"></div>
+      <div class="particle" style="left:90%;--dur:9s;--delay:4s"></div>
+      <div class="particle" style="left:45%;--dur:11s;--delay:2s"></div>
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="pulse"></span> AI Academy Armenia</div>
+    <h1 class="serif">&#1357;&#1400;&#1406;&#1400;&#1408;&#1387;&#1371;&#1408; <span class="hl">AI-&#1387;</span> &#1392;&#1381;&#1407;<br>&#1377;&#1399;&#1389;&#1377;&#1407;&#1381;&#1388; &#1377;&#1406;&#1381;&#1388;&#1387; &#1377;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1377;&#1406;&#1381;&#1407;</h1>
+    <p class="sub">&#1329;&#1398;&#1392;&#1377;&#1407;&#1377;&#1391;&#1377;&#1398; &#1400;&#1410;&#1405;&#1400;&#1410;&#1409;&#1400;&#1410;&#1396; AI-&#1387; &#1396;&#1377;&#1405;&#1387;&#1398; &mdash; &#1412;&#1400; &#1391;&#1377;&#1408;&#1387;&#1381;&#1408;&#1377;&#1387;, &#1405;&#1407;&#1381;&#1394;&#1390;&#1377;&#1379;&#1400;&#1408;&#1390;&#1400;&#1410;&#1385;&#1397;&#1377;&#1398; &#1415; &#1377;&#1402;&#1377;&#1379;&#1377;&#1397;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</p>
+    <div class="hero-cta-row">
+      <a href="#quiz" class="btn">&#1339;&#1396;&#1377;&#1409;&#1387;&#1371;&#1408; &#1393;&#1381;&#1408; &#1396;&#1377;&#1391;&#1377;&#1408;&#1380;&#1377;&#1391;&#1384;</a>
+      <a href="#offerings" class="btn btn-ghost">&#1342;&#1408;&#1377;&#1379;&#1408;&#1381;&#1408;</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num" data-count="50">0<span>+</span></span><span class="lbl">&#1400;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;</span></div>
+      <div class="hero-stat"><span class="num" data-count="3">0</span><span class="lbl">&#1400;&#1410;&#1394;&#1394;&#1387;&#1398;</span></div>
+      <div class="hero-stat"><span class="num" data-count="4">0</span><span class="lbl">&#1414;&#1400;&#1408;&#1396;&#1377;&#1407;</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>scroll</span><div class="chevron"></div></div>
+</section>
+
+<!-- Trust bar -->
+<div class="trust-bar fade-in">
+  <div class="container">
+    <span class="trust-label">&#1339;&#1398;&#1401; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408; &#1391;&#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1412;</span>
+    <div class="trust-logos">
+      <span><svg viewBox="0 0 24 24" fill="none"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v3.005l-2.606 1.5-2.603-1.5z" fill="#74aa9c"/></svg> ChatGPT</span>
+      <span><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#f5c842" stroke-width="2"/><path d="M8 15c0-2 1.5-4 4-4s4 2 4 4" stroke="#f5c842" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="9" r="1.2" fill="#f5c842"/><circle cx="14" cy="9" r="1.2" fill="#f5c842"/></svg> Nanobanana</span>
+      <span><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L8.5 8.5 2 12l6.5 3.5L12 22l3.5-6.5L22 12l-6.5-3.5z" fill="#c15f3c"/></svg> Claude</span>
+      <span><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="14" rx="3" stroke="#a78bfa" stroke-width="1.8"/><circle cx="8" cy="11" r="2" fill="#a78bfa"/><circle cx="16" cy="11" r="2" fill="#a78bfa"/><path d="M6 21l2-3h8l2 3" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Higgsfield</span>
+      <span><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#7d2ae8" stroke-width="2"/><path d="M7 13.5C8 10 10 8.5 12 8.5s4 1.5 5 5" stroke="#7d2ae8" stroke-width="1.8" stroke-linecap="round"/></svg> Canva AI</span>
+      <span><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" rx="2" stroke="#4285f4" stroke-width="1.8"/><path d="M8 8h8M8 12h6M8 16h4" stroke="#4285f4" stroke-width="1.5" stroke-linecap="round"/><circle cx="18" cy="18" r="4" fill="#4285f4"/><path d="M16.5 18h3M18 16.5v3" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg> NotebookLM</span>
+    </div>
+  </div>
+</div>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo fade-in">
+        <img src="photo.jpg" alt="Ed" onload="this.classList.add('loaded')" onerror="this.classList.add('broken')">
+        <span class="ph">Ed</span>
+      </div>
+      <div class="about-text fade-in d1">
+        <h2 class="serif">&#1330;&#1377;&#1408;&#1415; &#1393;&#1381;&#1382;, &#1381;&#1405; Ed Harutyunyan-&#1398; &#1381;&#1396;</h2>
+        <p>&#1333;&#1405; &#1335;&#1380; &#1344;&#1377;&#1404;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1397;&#1377;&#1398;&#1398; &#1381;&#1396;, AI &#1411;&#1400;&#1408;&#1393;&#1377;&#1379;&#1381;&#1407; &#1415; &#1391;&#1408;&#1385;&#1400;&#1410;&#1385;&#1397;&#1377;&#1398; &#1407;&#1381;&#1389;&#1398;&#1400;&#1388;&#1400;&#1379;&#1387;&#1377;&#1398;&#1381;&#1408;&#1387; &#1396;&#1377;&#1405;&#1398;&#1377;&#1379;&#1381;&#1407;. &#1343;&#1377;&#1404;&#1377;&#1406;&#1377;&#1408;&#1381;&#1388; &#1381;&#1396; 42 &#1396;&#1387;&#1403;&#1377;&#1382;&#1379;&#1377;&#1397;&#1387;&#1398; &#1390;&#1408;&#1377;&#1379;&#1408;&#1377;&#1406;&#1400;&#1408;&#1396;&#1377;&#1398; &#1380;&#1402;&#1408;&#1400;&#1409;&#1384; TUMO-&#1387; &#1392;&#1400;&#1406;&#1377;&#1398;&#1400;&#1409; &#1398;&#1381;&#1408;&#1412;&#1400;. &#1357;&#1400;&#1406;&#1400;&#1408;&#1381;&#1409;&#1398;&#1400;&#1410;&#1396; &#1381;&#1396; &#1396;&#1377;&#1408;&#1380;&#1391;&#1377;&#1398;&#1409; &#1413;&#1379;&#1398;&#1400;&#1410;&#1396; &#1381;&#1396; AI-&#1398; &#1387;&#1408;&#1381;&#1398;&#1409; &#1377;&#1396;&#1381;&#1398;&#1413;&#1408;&#1397;&#1377; &#1391;&#1397;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1381;&#1388;.</p>
+        <div class="cred-row">
+          <span class="cred">50+ &#1400;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;</span>
+          <span class="cred">42 / TUMO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="how-it-works" id="process">
+  <div class="container">
+    <h2 class="stitle serif fade-in">&#1339;&#1398;&#1401;&#1402;&#1381;&#1371;&#1405; &#1383; &#1377;&#1399;&#1389;&#1377;&#1407;&#1400;&#1410;&#1396;</h2>
+    <p class="ssub fade-in">3 &#1412;&#1377;&#1397;&#1388; &mdash; &#1415; &#1380;&#1400;&#1410;&#1412; &#1377;&#1408;&#1380;&#1381;&#1398; &#1405;&#1400;&#1406;&#1400;&#1408;&#1400;&#1410;&#1396; &#1381;&#1412; AI</p>
+    <div class="steps-row">
+      <div class="step-item fade-in">
+        <div class="step-num">1</div>
+        <h4>&#1329;&#1398;&#1409;&#1381;&#1371;&#1412; &#1385;&#1381;&#1405;&#1407;&#1384;</h4>
+        <p>&#1354;&#1377;&#1407;&#1377;&#1405;&#1389;&#1377;&#1398;&#1381;&#1371;&#1412; 5 &#1392;&#1377;&#1408;&#1409;&#1387; &#1415; &#1387;&#1396;&#1377;&#1409;&#1381;&#1371;&#1412; &#1393;&#1381;&#1408; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;&#1384;</p>
+      </div>
+      <div class="step-item fade-in d1">
+        <div class="step-num">2</div>
+        <h4>&#1329;&#1398;&#1406;&#1395;&#1377;&#1408; &#1389;&#1400;&#1408;&#1392;&#1408;&#1380;&#1377;&#1407;&#1406;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;</h4>
+        <p>&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1371;&#1412; &mdash; &#1412;&#1398;&#1398;&#1377;&#1408;&#1391;&#1381;&#1398;&#1412; &#1396;&#1377;&#1398;&#1408;&#1377;&#1396;&#1377;&#1405;&#1398;&#1381;&#1408;&#1384; &#1415; &#1379;&#1387;&#1398;&#1384;</p>
+      </div>
+      <div class="step-item fade-in d2">
+        <div class="step-num">3</div>
+        <h4>&#1357;&#1391;&#1405;&#1381;&#1371;&#1412; &#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1388;</h4>
+        <p>&#1348;&#1387;&#1377;&#1409;&#1381;&#1371;&#1412; &#1389;&#1396;&#1378;&#1387;&#1398; &#1415; &#1405;&#1391;&#1405;&#1381;&#1371;&#1412; AI &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why AI -->
+<section class="why-ai" id="why">
+  <div class="container">
+    <h2 class="stitle serif fade-in">&#1339;&#1398;&#1401;&#1400;&#1410;&#1371; AI &#1392;&#1387;&#1396;&#1377;</h2>
+    <p class="ssub fade-in">AI-&#1398; &#1377;&#1397;&#1388;&#1415;&#1405; &#1414;&#1377;&#1398;&#1407;&#1377;&#1405;&#1407;&#1387;&#1391;&#1377; &#1401;&#1383; &mdash; &#1380;&#1377; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412; &#1383;, &#1400;&#1408;&#1384; &#1411;&#1400;&#1389;&#1400;&#1410;&#1396; &#1383; &#1377;&#1396;&#1381;&#1398; &#1387;&#1398;&#1401;</p>
+    <div class="reasons">
+      <div class="r-card tilt fade-in">
+        <span class="icon">&#9889;</span>
+        <h3>&#1329;&#1408;&#1377;&#1379;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;</h3>
+        <p>AI-&#1398; &#1377;&#1408;&#1380;&#1381;&#1398; &#1411;&#1400;&#1389;&#1400;&#1410;&#1396; &#1383; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1399;&#1400;&#1410;&#1391;&#1377;&#1398; &#1396;&#1408;&#1409;&#1400;&#1410;&#1397;&#1385;&#1398;&#1381;&#1408;&#1384;&#1417; &#1350;&#1408;&#1377;&#1398;&#1412;, &#1400;&#1406; &#1407;&#1387;&#1408;&#1377;&#1402;&#1381;&#1407;&#1400;&#1410;&#1396; &#1381;&#1398;, &#1399;&#1377;&#1392;&#1400;&#1410;&#1396; &#1381;&#1398; &#1377;&#1406;&#1381;&#1388;&#1387;&#1384;&#1417;</p>
+      </div>
+      <div class="r-card fade-in d1">
+        <span class="icon">&#127919;</span>
+        <h3>&#1343;&#1377;&#1408;&#1387;&#1381;&#1408;&#1377;</h3>
+        <p>AI &#1392;&#1396;&#1407;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1398;&#1381;&#1408;&#1384; &#1377;&#1396;&#1381;&#1398;&#1377;&#1402;&#1377;&#1392;&#1377;&#1398;&#1403;&#1406;&#1377;&#1390; &#1381;&#1398;&#1417; &#1365;&#1379;&#1407;&#1406;&#1381;&#1388; &#1380;&#1408;&#1377;&#1398;&#1412; &#1392;&#1387;&#1396;&#1377; &#1398;&#1399;&#1377;&#1398;&#1377;&#1391;&#1400;&#1410;&#1396; &#1383; &#1377;&#1404;&#1377;&#1403;&#1377;&#1380;&#1387;&#1396;&#1377;&#1391; &#1388;&#1387;&#1398;&#1381;&#1388;&#1417;</p>
+      </div>
+      <div class="r-card fade-in d2">
+        <span class="icon">&#127462;&#127474;</span>
+        <h3>&#1344;&#1377;&#1397;&#1377;&#1405;&#1407;&#1377;&#1398;</h3>
+        <p>&#1344;&#1377;&#1397;&#1377;&#1405;&#1407;&#1377;&#1398;&#1387; &#1399;&#1400;&#1410;&#1391;&#1377;&#1398; &#1377;&#1395;&#1400;&#1410;&#1396; &#1383; AI-&#1384;&#1417; &#1340;&#1387;&#1398;&#1381;&#1388; &#1377;&#1404;&#1377;&#1403;&#1387;&#1398;&#1398;&#1381;&#1408;&#1387;&#1409; &#1398;&#1399;&#1377;&#1398;&#1377;&#1391;&#1400;&#1410;&#1396; &#1383; &#1407;&#1377;&#1408;&#1377;&#1390;&#1377;&#1399;&#1408;&#1403;&#1377;&#1398;&#1377;&#1397;&#1387;&#1398; &#1377;&#1404;&#1377;&#1406;&#1381;&#1388;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1417;</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Formats -->
+<section class="formats" id="formats">
+  <div class="container">
+    <h2 class="stitle serif fade-in">&#1336;&#1398;&#1407;&#1408;&#1381;&#1371;&#1412; &#1393;&#1381;&#1408; &#1414;&#1400;&#1408;&#1396;&#1377;&#1407;&#1384;</h2>
+    <p class="ssub fade-in">&#1343;&#1400;&#1396;&#1378;&#1387;&#1398;&#1377;&#1409;&#1408;&#1381;&#1371;&#1412; &#1407;&#1381;&#1394;&#1384; &#1415; &#1414;&#1400;&#1408;&#1396;&#1377;&#1407;&#1384; &#1393;&#1381;&#1408; &#1392;&#1377;&#1408;&#1396;&#1377;&#1408;&#1400;&#1410;&#1385;&#1397;&#1377;&#1398;&#1384;</p>
+    <div class="format-grid">
+      <div class="f-card tilt fade-in"><span class="f-icon">&#128187;&#128101;</span><h3>Online &#1389;&#1396;&#1378;&#1377;&#1391;&#1377;&#1397;&#1387;&#1398;</h3><p>Zoom / Google Meet &mdash; 4&#8211;8 &#1392;&#1400;&#1379;&#1377;&#1398;&#1400;&#1409; &#1389;&#1396;&#1378;</p></div>
+      <div class="f-card tilt fade-in d1"><span class="f-icon">&#127979;&#128101;</span><h3>Offline &#1389;&#1396;&#1378;&#1377;&#1391;&#1377;&#1397;&#1387;&#1398;</h3><p>&#1329;&#1398;&#1393;&#1377;&#1396;&#1378; &#1392;&#1377;&#1398;&#1380;&#1387;&#1402;&#1400;&#1410;&#1396;&#1398;&#1381;&#1408; &#1333;&#1408;&#1415;&#1377;&#1398;&#1400;&#1410;&#1396;</p></div>
+      <div class="f-card tilt fade-in d2"><span class="f-icon">&#128187;&#128100;</span><h3>Online &#1377;&#1398;&#1392;&#1377;&#1407;&#1377;&#1391;&#1377;&#1398;</h3><p>1-&#1384;-1 Zoom &mdash; &#1393;&#1381;&#1408; &#1407;&#1381;&#1396;&#1402;&#1400;&#1406;</p></div>
+      <div class="f-card tilt fade-in d3"><span class="f-icon">&#127979;&#128100;</span><h3>Offline &#1377;&#1398;&#1392;&#1377;&#1407;&#1377;&#1391;&#1377;&#1398;</h3><p>1-&#1384;-1 &#1392;&#1377;&#1398;&#1380;&#1387;&#1402;&#1400;&#1410;&#1396; &#1333;&#1408;&#1415;&#1377;&#1398;&#1400;&#1410;&#1396;</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Quiz -->
+<section class="quiz-section" id="quiz">
+  <div class="container">
+    <h2 class="stitle serif fade-in">&#1357;&#1377; &#1412;&#1381;&#1382; &#1392;&#1377;&#1396;&#1377;&#1408;&#1373;</h2>
+    <p class="ssub fade-in">&#1354;&#1377;&#1407;&#1377;&#1405;&#1389;&#1377;&#1398;&#1387;&#1371;&#1408; 5 &#1392;&#1377;&#1408;&#1409;&#1387; &#1415; &#1387;&#1396;&#1377;&#1409;&#1381;&#1371;&#1412; &#1393;&#1381;&#1382; &#1392;&#1377;&#1396;&#1377;&#1402;&#1377;&#1407;&#1377;&#1405;&#1389;&#1377;&#1398; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;</p>
+    <div class="quiz-box fade-in glow-border" id="quizBox">
+      <div class="quiz-progress" id="progress">
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+      <div class="q-step active" data-q="0">
+        <h3>&#1339;&#1374;&#1398;&#1401; &#1398;&#1402;&#1377;&#1407;&#1377;&#1391;&#1400;&#1406; &#1381;&#1405; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1400;&#1410;&#1396; AI</h3>
+
+        <div class="q-opts">
+          <button class="q-opt" data-val="nothing">&#1352;&#1401;&#1387;&#1398;&#1401; &#1401;&#1381;&#1396; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1400;&#1410;&#1396;</button>
+          <button class="q-opt" data-val="work">&#1329;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</button>
+          <button class="q-opt" data-val="creative">&#1357;&#1407;&#1381;&#1394;&#1390;&#1377;&#1379;&#1400;&#1408;&#1390;&#1377;&#1391;&#1377;&#1398; &#1398;&#1402;&#1377;&#1407;&#1377;&#1391;&#1398;&#1381;&#1408;&#1400;&#1406;</button>
+          <button class="q-opt" data-val="curious">&#1354;&#1377;&#1408;&#1382;&#1377;&#1402;&#1381;&#1405; &#1392;&#1381;&#1407;&#1377;&#1412;&#1408;&#1412;&#1408;&#1406;&#1377;&#1390; &#1381;&#1396;</button>
+        </div>
+      </div>
+      <div class="q-step" data-q="1">
+        <button class="q-back" onclick="goBack()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> &#1350;&#1377;&#1389;&#1400;&#1408;&#1380;</button>
+        <h3>&#1352;&#1374;&#1408;&#1398; &#1383; &#1412;&#1400; &#1392;&#1387;&#1396;&#1398;&#1377;&#1391;&#1377;&#1398; &#1398;&#1402;&#1377;&#1407;&#1377;&#1391;&#1384;</h3>
+        <div class="q-opts">
+          <button class="q-opt" data-val="time">&#1338;&#1377;&#1396;&#1377;&#1398;&#1377;&#1391; &#1389;&#1398;&#1377;&#1397;&#1381;&#1388;</button>
+          <button class="q-opt" data-val="content">&#1329;&#1406;&#1381;&#1388;&#1387; &#1388;&#1377;&#1406; &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; &#1405;&#1407;&#1381;&#1394;&#1390;&#1381;&#1388;</button>
+          <button class="q-opt" data-val="career">&#1343;&#1377;&#1408;&#1387;&#1381;&#1408;&#1377;&#1397;&#1387;&#1398; &#1377;&#1395;</button>
+          <button class="q-opt" data-val="learning">&#1354;&#1377;&#1408;&#1382;&#1377;&#1402;&#1381;&#1405; &#1405;&#1400;&#1406;&#1400;&#1408;&#1400;&#1410;&#1396; &#1381;&#1396;</button>
+        </div>
+      </div>
+      <div class="q-step" data-q="2">
+        <button class="q-back" onclick="goBack()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> &#1350;&#1377;&#1389;&#1400;&#1408;&#1380;</button>
+        <h3>&#1364;&#1377;&#1398;&#1387;&#1374; &#1407;&#1377;&#1408;&#1381;&#1391;&#1377;&#1398; &#1381;&#1405;</h3>
+        <div class="q-opts">
+          <button class="q-opt" data-val="13-17">13&#8211;17</button>
+          <button class="q-opt" data-val="18-25">18&#8211;25</button>
+          <button class="q-opt" data-val="26+">26+</button>
+        </div>
+      </div>
+      <div class="q-step" data-q="3">
+        <button class="q-back" onclick="goBack()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> &#1350;&#1377;&#1389;&#1400;&#1408;&#1380;</button>
+        <h3>&#1352;&#1374;&#1408; &#1400;&#1388;&#1400;&#1408;&#1407;&#1400;&#1410;&#1396; &#1381;&#1405; &#1377;&#1399;&#1389;&#1377;&#1407;&#1400;&#1410;&#1396;</h3>
+        <div class="q-opts">
+          <button class="q-opt" data-val="creative">&#1357;&#1407;&#1381;&#1394;&#1390;&#1377;&#1379;&#1400;&#1408;&#1390;&#1377;&#1391;&#1377;&#1398; / &#1380;&#1387;&#1382;&#1377;&#1397;&#1398;</button>
+          <button class="q-opt" data-val="business">&#1330;&#1387;&#1382;&#1398;&#1381;&#1405; / &#1391;&#1377;&#1404;&#1377;&#1406;&#1377;&#1408;&#1400;&#1410;&#1396;</button>
+          <button class="q-opt" data-val="student">&#1352;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;</button>
+          <button class="q-opt" data-val="other">&#1329;&#1397;&#1388;</button>
+        </div>
+      </div>
+      <div class="q-step" data-q="4">
+        <button class="q-back" onclick="goBack()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> &#1350;&#1377;&#1389;&#1400;&#1408;&#1380;</button>
+        <h3>&#1352;&#1374;&#1408;&#1398; &#1383; AI-&#1387; &#1392;&#1381;&#1407; &#1412;&#1400; &#1392;&#1387;&#1396;&#1398;&#1377;&#1391;&#1377;&#1398; &#1389;&#1398;&#1380;&#1387;&#1408;&#1384;</h3>
+        <div class="q-opts">
+          <button class="q-opt" data-val="start">&#1353;&#1379;&#1387;&#1407;&#1381;&#1396; &#1400;&#1408;&#1407;&#1381;&#1394;&#1387;&#1409; &#1405;&#1391;&#1405;&#1381;&#1396;</button>
+          <button class="q-opt" data-val="time">&#1338;&#1377;&#1396;&#1377;&#1398;&#1377;&#1391; &#1401;&#1400;&#1410;&#1398;&#1381;&#1396;</button>
+          <button class="q-opt" data-val="value">&#1329;&#1408;&#1386;&#1381;&#1412;&#1384; &#1401;&#1381;&#1396; &#1407;&#1381;&#1405;&#1398;&#1400;&#1410;&#1396;</button>
+          <button class="q-opt" data-val="advanced">&#1329;&#1406;&#1381;&#1388;&#1387; &#1389;&#1400;&#1408;&#1384; &#1400;&#1410;&#1382;&#1400;&#1410;&#1396; &#1381;&#1396;</button>
+        </div>
+      </div>
+      <div id="result">
+        <div class="res-label">&#1364;&#1381;&#1382; &#1392;&#1377;&#1396;&#1377;&#1402;&#1377;&#1407;&#1377;&#1405;&#1389;&#1377;&#1398; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;&#1373;</div>
+        <div class="res-track" id="resTrack"></div>
+        <div class="res-desc" id="resDesc"></div>
+        <div class="btn-group">
+          <div class="cta-multi">
+            <a href="tel:09338843" class="btn btn-magnetic">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+            <span class="cta-or">&#1391;&#1377;&#1396;</span>
+            <a href="https://wa.me/37493388843" class="btn btn-ghost btn-sm btn-magnetic">WhatsApp</a>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="resetQuiz()">&#1350;&#1400;&#1408;&#1387;&#1409; &#1411;&#1400;&#1408;&#1393;&#1381;&#1388;</button>
+          <div class="share-row">
+            <button class="share-btn" onclick="shareResult()">&#128279; &#1343;&#1387;&#1405;&#1381;&#1371;&#1412; &#1377;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1412;&#1384;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Offerings -->
+<section class="offerings" id="offerings">
+  <div class="container">
+    <h2 class="stitle serif fade-in">&#1348;&#1381;&#1408; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;&#1381;&#1408;&#1384;</h2>
+    <p class="ssub fade-in">&#1336;&#1398;&#1407;&#1408;&#1381;&#1371;&#1412; &#1393;&#1381;&#1408; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398; &#1391;&#1377;&#1396; &#1377;&#1398;&#1409;&#1381;&#1371;&#1412; &#1385;&#1381;&#1405;&#1407;&#1384;</p>
+    <div class="tracks">
+      <div class="t-card tilt fade-in" id="track-career">
+        <span class="rec-badge">&#1329;&#1404;&#1377;&#1403;&#1377;&#1408;&#1391;&#1406;&#1400;&#1410;&#1396; &#1383;</span>
+        <div class="t-icon">&#128188;</div>
+        <h3 class="serif">AI &#1415; &#1343;&#1377;&#1408;&#1387;&#1381;&#1408;&#1377;</h3>
+        <div class="t-persona">&#1329;&#1399;&#1389;&#1377;&#1407;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387;, &#1396;&#1381;&#1398;&#1381;&#1403;&#1381;&#1408;&#1398;&#1381;&#1408;&#1387;, &#1414;&#1408;&#1387;&#1388;&#1377;&#1398;&#1405;&#1381;&#1408;&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</div>
+        <p class="t-desc">&#1357;&#1400;&#1406;&#1400;&#1408;&#1381;&#1412; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1381;&#1388; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1384; &#1393;&#1381;&#1408; &#1377;&#1396;&#1381;&#1398;&#1413;&#1408;&#1397;&#1377; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;. ChatGPT, Claude, NotebookLM &#1415; &#1377;&#1397;&#1388; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408; &#1402;&#1408;&#1400;&#1414;&#1381;&#1405;&#1387;&#1400;&#1398;&#1377;&#1388; &#1396;&#1377;&#1391;&#1377;&#1408;&#1380;&#1377;&#1391;&#1400;&#1406;.</p>
+        <ul class="t-outcomes">
+          <li>AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1384; &#1377;&#1396;&#1381;&#1398;&#1413;&#1408;&#1397;&#1377; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;</li>
+          <li>&#1343;&#1408;&#1391;&#1398;&#1406;&#1400;&#1394; &#1377;&#1404;&#1377;&#1403;&#1377;&#1380;&#1408;&#1377;&#1398;&#1412;&#1398;&#1381;&#1408;&#1387; &#1377;&#1406;&#1407;&#1400;&#1396;&#1377;&#1407;&#1377;&#1409;&#1400;&#1410;&#1396;</li>
+          <li>&#1354;&#1408;&#1400;&#1414;&#1381;&#1405;&#1387;&#1400;&#1398;&#1377;&#1388; AI &#1402;&#1400;&#1408;&#1407;&#1414;&#1400;&#1388;&#1387;&#1400;</li>
+        </ul>
+        <div class="t-meta"><span>3 &#1399;&#1377;&#1378;&#1377;&#1385;</span><span>Online + Offline</span></div>
+        <div class="t-spots">&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</div>
+        <button class="btn btn-sm" onclick="openModal('career')">&#1329;&#1406;&#1381;&#1388;&#1387;&#1398;</button>
+      </div>
+      <div class="t-card tilt fade-in d1" id="track-creative">
+        <span class="rec-badge">&#1329;&#1404;&#1377;&#1403;&#1377;&#1408;&#1391;&#1406;&#1400;&#1410;&#1396; &#1383;</span>
+        <div class="t-icon">&#127912;</div>
+        <h3 class="serif">Creative AI</h3>
+        <div class="t-persona">&#1332;&#1387;&#1382;&#1377;&#1397;&#1398;&#1381;&#1408;&#1398;&#1381;&#1408;&#1387;, &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; &#1405;&#1407;&#1381;&#1394;&#1390;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387;, SMM-&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</div>
+        <p class="t-desc">&#1357;&#1407;&#1381;&#1394;&#1390;&#1381;&#1412; &#1406;&#1387;&#1382;&#1400;&#1410;&#1377;&#1388; &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407;, &#1407;&#1381;&#1405;&#1377;&#1398;&#1397;&#1400;&#1410;&#1385;, &#1379;&#1400;&#1406;&#1377;&#1382;&#1380;&#1381;&#1408; &#1415; &#1398;&#1391;&#1377;&#1408;&#1398;&#1381;&#1408; AI-&#1387; &#1413;&#1379;&#1398;&#1400;&#1410;&#1385;&#1397;&#1377;&#1396;&#1378;. Nanobanana, Higgsfield, Canva AI &#1415; &#1377;&#1397;&#1388; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;.</p>
+        <ul class="t-outcomes">
+          <li>&#1358;&#1387;&#1382;&#1400;&#1410;&#1377;&#1388; &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1400;&#1406;</li>
+          <li>&#1359;&#1381;&#1412;&#1405;&#1407;, &#1398;&#1391;&#1377;&#1408;&#1398;&#1381;&#1408;, &#1379;&#1400;&#1406;&#1377;&#1382;&#1380;&#1381;&#1408; AI-&#1400;&#1406;</li>
+          <li>&#1357;&#1400;&#1409;&#1387;&#1377;&#1388; &#1396;&#1381;&#1380;&#1387;&#1377;&#1397;&#1387; &#1405;&#1407;&#1408;&#1377;&#1407;&#1381;&#1379;&#1387;&#1377;</li>
+        </ul>
+        <div class="t-meta"><span>3 &#1399;&#1377;&#1378;&#1377;&#1385;</span><span>Online + Offline</span></div>
+        <div class="t-spots">&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</div>
+        <button class="btn btn-sm" onclick="openModal('creative')">&#1329;&#1406;&#1381;&#1388;&#1387;&#1398;</button>
+      </div>
+      <div class="t-card tilt fade-in d2" id="track-teen">
+        <span class="rec-badge">&#1329;&#1404;&#1377;&#1403;&#1377;&#1408;&#1391;&#1406;&#1400;&#1410;&#1396; &#1383;</span>
+        <div class="t-icon">&#127891;</div>
+        <h3 class="serif">AI Teenagers 13+</h3>
+        <div class="t-persona">13&#8211;17 &#1407;&#1377;&#1408;&#1381;&#1391;&#1377;&#1398; &#1380;&#1381;&#1404;&#1377;&#1392;&#1377;&#1405;&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</div>
+        <p class="t-desc">&#1332;&#1381;&#1404;&#1377;&#1392;&#1377;&#1405;&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408; &#1398;&#1377;&#1389;&#1377;&#1379;&#1390;&#1406;&#1377;&#1390; &#1390;&#1408;&#1377;&#1379;&#1387;&#1408;, &#1400;&#1408;&#1384; &#1391;&#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1409;&#1398;&#1387; AI-&#1387; &#1392;&#1387;&#1396;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;&#1384; &#1382;&#1408;&#1400;&#1397;&#1387;&#1409; &#1396;&#1387;&#1398;&#1401;&#1415; &#1387;&#1408;&#1381;&#1398;&#1409; &#1377;&#1404;&#1377;&#1403;&#1387;&#1398; &#1402;&#1408;&#1400;&#1381;&#1391;&#1407;&#1384;.</p>
+        <ul class="t-outcomes">
+          <li>AI-&#1387; &#1392;&#1387;&#1396;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;&#1384; &#1402;&#1377;&#1408;&#1382; &#1388;&#1381;&#1382;&#1406;&#1400;&#1406;</li>
+          <li>&#1339;&#1408;&#1381;&#1398;&#1409; &#1377;&#1404;&#1377;&#1403;&#1387;&#1398; AI &#1402;&#1408;&#1400;&#1381;&#1391;&#1407;&#1384;</li>
+          <li>&#1329;&#1402;&#1377;&#1379;&#1377;&#1397;&#1387; &#1392;&#1396;&#1407;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1398;&#1381;&#1408;</li>
+        </ul>
+        <div class="t-meta"><span>3 &#1399;&#1377;&#1378;&#1377;&#1385;</span><span>Online + Offline</span></div>
+        <div class="t-spots">&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</div>
+        <button class="btn btn-sm" onclick="openModal('teen')">&#1329;&#1406;&#1381;&#1388;&#1387;&#1398;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <h2 class="stitle serif fade-in">&#1339;&#1398;&#1401; &#1381;&#1398; &#1377;&#1405;&#1400;&#1410;&#1396;</h2>
+    <p class="ssub fade-in">&#1339;&#1408;&#1377;&#1391;&#1377;&#1398; &#1396;&#1377;&#1408;&#1380;&#1387;&#1391;, &#1387;&#1408;&#1377;&#1391;&#1377;&#1398; &#1377;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;</p>
+    <div class="test-grid">
+      <div class="test-card tilt fade-in">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="quote">&laquo;&#1332;&#1377;&#1405;&#1384;&#1398;&#1385;&#1377;&#1409;&#1387;&#1409; &#1392;&#1381;&#1407;&#1400; &#1405;&#1391;&#1405;&#1381;&#1409;&#1387; AI-&#1398; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1381;&#1388; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;. &#1344;&#1387;&#1396;&#1377; &#1391;&#1387;&#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1388; &#1383;&#1387; &#1391;&#1377;&#1408;&#1381;&#1388;&#1387;.&raquo;</p>
+        <div class="author-row"><div class="avatar">&#1329;</div><div><div class="author">&#1329;&#1398;&#1387; &#1329;.</div><div class="role">&#1352;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;</div></div></div>
+      </div>
+      <div class="test-card fade-in d1">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="quote">&laquo;&#1335;&#1380;&#1384; &#1399;&#1377;&#1407; &#1388;&#1377;&#1406; &#1378;&#1377;&#1409;&#1377;&#1407;&#1408;&#1400;&#1410;&#1396; &#1383;. &#1329;&#1396;&#1381;&#1398; &#1387;&#1398;&#1401; &#1402;&#1377;&#1408;&#1382; &#1400;&#1410; &#1392;&#1377;&#1405;&#1391;&#1377;&#1398;&#1377;&#1388;&#1387; &#1383;. AI-&#1398; &#1377;&#1397;&#1388;&#1415;&#1405; &#1387;&#1396; &#1377;&#1396;&#1381;&#1398;&#1413;&#1408;&#1397;&#1377; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1387; &#1396;&#1377;&#1405;&#1398; &#1383;.&raquo;</p>
+        <div class="author-row"><div class="avatar">&#1330;</div><div><div class="author">&#1356;&#1400;&#1410;&#1382;&#1377;&#1398; &#1330;.</div><div class="role">&#1348;&#1381;&#1398;&#1381;&#1403;&#1381;&#1408;</div></div></div>
+      </div>
+      <div class="test-card fade-in d2">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="quote">&laquo;&#1357;&#1402;&#1377;&#1405;&#1400;&#1410;&#1396; &#1383;&#1387; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1381;&#1388;&#1400;&#1410; &#1392;&#1377;&#1396;&#1377;&#1408;, &#1400;&#1408;&#1400;&#1398;&#1409; &#1396;&#1377;&#1405;&#1387;&#1398; &#1401;&#1383;&#1387; &#1387;&#1396;&#1377;&#1398;&#1400;&#1410;&#1396;. &#1344;&#1387;&#1396;&#1377; &#1402;&#1408;&#1377;&#1391;&#1407;&#1387;&#1391; &#1383;.&raquo;</p>
+        <div class="author-row"><div class="avatar">&#1331;</div><div><div class="author">&#1359;&#1387;&#1379;&#1408;&#1377;&#1398; &#1343;.</div><div class="role">&#1352;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;</div></div></div>
+      </div>
+      <div class="test-card fade-in d3">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="quote">&laquo;&#1339;&#1396; &#1400;&#1408;&#1380;&#1400;&#1410;&#1398; &#1377;&#1408;&#1380;&#1381;&#1398; AI-&#1398; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1400;&#1410;&#1396; &#1383; &#1380;&#1402;&#1408;&#1400;&#1409;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;. &#1335;&#1380;&#1387; &#1396;&#1400;&#1407;&#1381;&#1409;&#1400;&#1410;&#1396;&#1384; &#1399;&#1377;&#1407; &#1392;&#1381;&#1407;&#1377;&#1412;&#1408;&#1412;&#1387;&#1408; &#1383;.&raquo;</p>
+        <div class="author-row"><div class="avatar">&#1332;</div><div><div class="author">&#1329;&#1408;&#1396;&#1381;&#1398; &#1356;.</div><div class="role">&#1332;&#1387;&#1382;&#1377;&#1397;&#1398;&#1381;&#1408;</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <h2 class="stitle serif fade-in">&#1344;&#1377;&#1395;&#1377;&#1389; &#1407;&#1408;&#1406;&#1400;&#1394; &#1392;&#1377;&#1408;&#1409;&#1381;&#1408;</h2>
+    <p class="ssub fade-in">&#1329;&#1396;&#1381;&#1398; &#1387;&#1398;&#1401; &#1402;&#1381;&#1407;&#1412; &#1383; &#1387;&#1396;&#1377;&#1398;&#1377;&#1388;</p>
+    <div class="faq-list">
+      <div class="faq-item fade-in"><button class="faq-q">&#1354;&#1381;&#1371;&#1407;&#1412; &#1383; &#1398;&#1377;&#1389;&#1398;&#1377;&#1391;&#1377;&#1398; &#1411;&#1400;&#1408;&#1393; &#1400;&#1410;&#1398;&#1381;&#1398;&#1377;&#1388;<span class="arrow">&#9660;</span></button><div class="faq-a"><p>&#1352;&#1401;&#1417; &#1330;&#1400;&#1388;&#1400;&#1408; &#1390;&#1408;&#1377;&#1379;&#1408;&#1381;&#1408;&#1384; &#1405;&#1391;&#1405;&#1406;&#1400;&#1410;&#1396; &#1381;&#1398; &#1382;&#1408;&#1400;&#1397;&#1387;&#1409;&#1417; &#1329;&#1398;&#1392;&#1408;&#1377;&#1386;&#1381;&#1399;&#1407; &#1383; &#1396;&#1387;&#1377;&#1397;&#1398; &#1392;&#1381;&#1407;&#1377;&#1412;&#1408;&#1412;&#1408;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1384; &#1415; &#1409;&#1377;&#1398;&#1391;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1384; &#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1388;&#1417;</p></div></div>
+      <div class="faq-item fade-in"><button class="faq-q">&#1339;&#1398;&#1401;&#1412;&#1377;&#1374;&#1398; &#1383; &#1407;&#1415;&#1400;&#1394;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1384;<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[DURATION_TEXT &mdash; &#1413;&#1408;&#1387;&#1398;&#1377;&#1391;&#1373; &#171;&#1337;&#1408;&#1381;&#1397;&#1398;&#1387;&#1398;&#1379;&#1384; &#1407;&#1415;&#1400;&#1410;&#1396; &#1383; 3 &#1399;&#1377;&#1378;&#1377;&#1385;, &#1399;&#1377;&#1378;&#1377;&#1385;&#1384; 2 &#1380;&#1377;&#1405;&#1417;&#187;]</p></div></div>
+      <div class="faq-item fade-in"><button class="faq-q">&#1339;&#1374;&#1398;&#1401; &#1391;&#1388;&#1387;&#1398;&#1387;, &#1381;&#1385;&#1381; &#1378;&#1377;&#1409; &#1385;&#1400;&#1394;&#1381;&#1396; &#1380;&#1377;&#1405;<span class="arrow">&#9660;</span></button><div class="faq-a"><p>&#1330;&#1400;&#1388;&#1400;&#1408; &#1380;&#1377;&#1405;&#1381;&#1408;&#1384; &#1393;&#1377;&#1397;&#1398;&#1377;&#1379;&#1408;&#1406;&#1400;&#1410;&#1396; &#1381;&#1398;&#1417; &#1332;&#1400;&#1410;&#1412; &#1391;&#1377;&#1408;&#1400;&#1394; &#1381;&#1412; &#1380;&#1387;&#1407;&#1381;&#1388; &#1393;&#1381;&#1408; &#1392;&#1377;&#1408;&#1396;&#1377;&#1408; &#1386;&#1377;&#1396;&#1377;&#1398;&#1377;&#1391;&#1387;&#1398;&#1417;</p></div></div>
+      <div class="faq-item fade-in"><button class="faq-q">Online &#1385;&#1381;&#1371; offline &mdash; &#1387;&#1374;&#1398;&#1401; &#1407;&#1377;&#1408;&#1378;&#1381;&#1408;&#1377;&#1391; &#1391;&#1377;<span class="arrow">&#9660;</span></button><div class="faq-a"><p>&#1333;&#1408;&#1391;&#1400;&#1410;&#1405;&#1398; &#1383;&#1388; &#1392;&#1377;&#1406;&#1377;&#1405;&#1377;&#1408;&#1377;&#1402;&#1381;&#1405; &#1377;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1377;&#1406;&#1381;&#1407; &#1381;&#1398;&#1417; &#1336;&#1398;&#1407;&#1408;&#1381;&#1371;&#1412; &#1393;&#1381;&#1382; &#1392;&#1377;&#1408;&#1396;&#1377;&#1408; &#1414;&#1400;&#1408;&#1396;&#1377;&#1407;&#1384; &#1415; &#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1371;&#1412; &#1393;&#1381;&#1408; &#1407;&#1381;&#1396;&#1402;&#1400;&#1406;&#1417;</p></div></div>
+      <div class="faq-item fade-in"><button class="faq-q">&#1343;&#1377;&#1408;&#1400;&#1394; &#1381;&#1396; &#1396;&#1377;&#1405;&#1398;&#1377;&#1391;&#1409;&#1381;&#1388; &#1377;&#1398;&#1392;&#1377;&#1407;&#1377;&#1391;&#1377;&#1398; &#1380;&#1377;&#1405;&#1381;&#1408;&#1387;&#1374;<span class="arrow">&#9660;</span></button><div class="faq-a"><p>&#1329;&#1397;&#1400;&#1417; 1-&#1384;-1 &#1380;&#1377;&#1405;&#1381;&#1408;&#1384; &#1392;&#1377;&#1405;&#1377;&#1398;&#1381;&#1388;&#1387; &#1381;&#1398; &#1393;&#1381;&#1408; &#1379;&#1408;&#1377;&#1414;&#1387;&#1391;&#1387;&#1398; &#1415; &#1407;&#1381;&#1396;&#1402;&#1387;&#1398;&#1417; &#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1371;&#1412; &#1415; &#1391;&#1412;&#1398;&#1398;&#1377;&#1408;&#1391;&#1381;&#1398;&#1412;&#1417;</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer CTA -->
+<section class="footer-cta" id="cta">
+  <div class="container fade-in">
+    <h2 class="stitle serif">&#1354;&#1377;&#1407;&#1408;&#1377;&#1371;&#1405;&#1407; &#1381;&#1405; &#1405;&#1391;&#1405;&#1381;&#1388; &#1392;&#1387;&#1396;&#1377;</h2>
+    <p>&#1329;&#1398;&#1406;&#1395;&#1377;&#1408; &#1389;&#1400;&#1408;&#1392;&#1408;&#1380;&#1377;&#1407;&#1406;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398; &mdash; &#1379;&#1408;&#1377;&#1398;&#1409;&#1406;&#1387;&#1371;&#1408; &#1415; &#1405;&#1407;&#1377;&#1409;&#1387;&#1371;&#1408; &#1393;&#1381;&#1408; AI &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;</p>
+    <a href="tel:09338843" class="btn btn-magnetic">&#128222; &#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+    <div class="footer-channels">
+      <a href="https://wa.me/37493388843" class="btn btn-ghost btn-sm btn-magnetic">&#128172; WhatsApp</a>
+      <a href="https://www.instagram.com/harutyunyan_ed/" class="btn btn-ghost btn-sm btn-magnetic" target="_blank" rel="noopener">&#128247; Instagram</a>
+      <a href="https://www.linkedin.com/in/edik-harutyunyan-78b91a227/" class="btn btn-ghost btn-sm btn-magnetic" target="_blank" rel="noopener">&#128279; LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- Sticky Mobile CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <div class="sticky-text"><strong>&#1344;&#1377;&#1403;&#1400;&#1408;&#1380; &#1389;&#1400;&#1410;&#1396;&#1378;&#1384;&#1373; &#1377;&#1402;&#1408;&#1387;&#1388;&#1387; 14</strong>&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</div>
+  <div style="display:flex;gap:6px;align-items:center">
+    <a href="https://wa.me/37493388843" class="btn btn-ghost btn-sm" style="padding:8px 12px;font-size:.7rem">WA</a>
+    <a href="tel:09338843" class="btn btn-sm" style="padding:8px 14px">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+  </div>
+</div>
+
+<!-- Modals -->
+<div class="modal-overlay" id="modal-career" onclick="closeModal(event)">
+  <div class="modal"><span class="modal-bar"></span><button class="modal-close" onclick="closeModal(event,true)">&times;</button>
+    <h2 class="serif">AI &#1415; &#1343;&#1377;&#1408;&#1387;&#1381;&#1408;&#1377;</h2>
+    <div class="modal-for">&#1330;&#1400;&#1388;&#1400;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;, &#1400;&#1406; &#1400;&#1410;&#1382;&#1400;&#1410;&#1396; &#1383; AI-&#1398; &#1391;&#1387;&#1408;&#1377;&#1404;&#1381;&#1388; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;</div>
+    <p>&#1341;&#1400;&#1408;&#1377;&#1409;&#1406;&#1377;&#1390; &#1390;&#1408;&#1377;&#1379;&#1387;&#1408; &#1398;&#1408;&#1377;&#1398;&#1409; &#1392;&#1377;&#1396;&#1377;&#1408;, &#1400;&#1406; &#1400;&#1410;&#1382;&#1400;&#1410;&#1396; &#1383; AI-&#1398; &#1391;&#1387;&#1408;&#1377;&#1404;&#1381;&#1388; &#1387;&#1408; &#1377;&#1396;&#1381;&#1398;&#1413;&#1408;&#1397;&#1377; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;. &#1343;&#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1412; &#1402;&#1408;&#1400;&#1414;&#1381;&#1405;&#1387;&#1400;&#1398;&#1377;&#1388; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1381;&#1388; &#1377;&#1396;&#1381;&#1398;&#1377;&#1402;&#1377;&#1392;&#1377;&#1398;&#1403;&#1406;&#1377;&#1390; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1384;.</p>
+    <ul class="o-list">
+      <li>&#1343;&#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1381;&#1412; ChatGPT, Claude &#1415; &#1377;&#1397;&#1388; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408; &#1402;&#1408;&#1400;&#1414;&#1381;&#1405;&#1387;&#1400;&#1398;&#1377;&#1388;</li>
+      <li>&#1343;&#1377;&#1406;&#1407;&#1400;&#1396;&#1377;&#1407;&#1377;&#1409;&#1398;&#1381;&#1412; &#1391;&#1408;&#1391;&#1398;&#1406;&#1400;&#1394; &#1377;&#1404;&#1377;&#1403;&#1377;&#1380;&#1408;&#1377;&#1398;&#1412;&#1398;&#1381;&#1408;&#1384;</li>
+      <li>&#1343;&#1379;&#1408;&#1381;&#1412; &#1377;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1377;&#1406;&#1381;&#1407; prompt-&#1381;&#1408;</li>
+      <li>&#1343;&#1405;&#1407;&#1381;&#1394;&#1390;&#1381;&#1412; &#1402;&#1408;&#1400;&#1414;&#1381;&#1405;&#1387;&#1400;&#1398;&#1377;&#1388; AI &#1402;&#1400;&#1408;&#1407;&#1414;&#1400;&#1388;&#1387;&#1400;</li>
+    </ul>
+    <div class="m-meta"><span>3 &#1399;&#1377;&#1378;&#1377;&#1385;</span><span>&#1399;&#1377;&#1378;&#1377;&#1385;&#1384; 2 &#1380;&#1377;&#1405;</span><span>Online + Offline</span><span>&#1341;&#1396;&#1378;. + &#1377;&#1398;&#1392;&#1377;&#1407;.</span></div>
+    <a href="tel:09338843" class="btn">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-creative" onclick="closeModal(event)">
+  <div class="modal"><span class="modal-bar"></span><button class="modal-close" onclick="closeModal(event,true)">&times;</button>
+    <h2 class="serif">Creative AI</h2>
+    <div class="modal-for">&#1357;&#1407;&#1381;&#1394;&#1390;&#1377;&#1379;&#1400;&#1408;&#1390;&#1398;&#1381;&#1408;&#1387; &#1415; &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; &#1405;&#1407;&#1381;&#1394;&#1390;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</div>
+    <p>&#1357;&#1407;&#1381;&#1394;&#1390;&#1377;&#1379;&#1400;&#1408;&#1390;&#1377;&#1391;&#1377;&#1398; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398; &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; &#1405;&#1407;&#1381;&#1394;&#1390;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387;, &#1380;&#1387;&#1382;&#1377;&#1397;&#1398;&#1381;&#1408;&#1398;&#1381;&#1408;&#1387; &#1415; SMM &#1396;&#1377;&#1405;&#1398;&#1377;&#1379;&#1381;&#1407;&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;. &#1357;&#1400;&#1406;&#1400;&#1408;&#1381;&#1412; &#1405;&#1407;&#1381;&#1394;&#1390;&#1381;&#1388; &#1402;&#1408;&#1400;&#1414;&#1381;&#1405;&#1387;&#1400;&#1398;&#1377;&#1388; &#1406;&#1387;&#1382;&#1400;&#1410;&#1377;&#1388; &#1415; &#1407;&#1381;&#1412;&#1405;&#1407;&#1377;&#1397;&#1387;&#1398; &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; AI-&#1387; &#1413;&#1379;&#1398;&#1400;&#1410;&#1385;&#1397;&#1377;&#1396;&#1378;.</p>
+    <ul class="o-list">
+      <li>&#1358;&#1387;&#1382;&#1400;&#1410;&#1377;&#1388; &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; Nanobanana, DALL-E, Higgsfield-&#1400;&#1406;</li>
+      <li>&#1359;&#1381;&#1412;&#1405;&#1407;&#1381;&#1408;, &#1379;&#1400;&#1406;&#1377;&#1382;&#1380;&#1381;&#1408;, &#1398;&#1391;&#1377;&#1408;&#1398;&#1381;&#1408; AI-&#1400;&#1406;</li>
+      <li>&#1357;&#1400;&#1409;&#1387;&#1377;&#1388; &#1396;&#1381;&#1380;&#1387;&#1377; &#1391;&#1377;&#1396; &#1378;&#1408;&#1381;&#1398;&#1380;&#1387; &#1405;&#1407;&#1408;&#1377;&#1407;&#1381;&#1379;&#1387;&#1377;</li>
+      <li>&#1343;&#1377;&#1408;&#1395; &#1407;&#1381;&#1405;&#1377;&#1398;&#1397;&#1400;&#1410;&#1385; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1400;&#1406;</li>
+    </ul>
+    <div class="m-meta"><span>3 &#1399;&#1377;&#1378;&#1377;&#1385;</span><span>&#1399;&#1377;&#1378;&#1377;&#1385;&#1384; 2 &#1380;&#1377;&#1405;</span><span>Online + Offline</span><span>&#1341;&#1396;&#1378;. + &#1377;&#1398;&#1392;&#1377;&#1407;.</span></div>
+    <a href="tel:09338843" class="btn">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-teen" onclick="closeModal(event)">
+  <div class="modal"><span class="modal-bar"></span><button class="modal-close" onclick="closeModal(event,true)">&times;</button>
+    <h2 class="serif">AI Teenagers 13+</h2>
+    <div class="modal-for">13&#8211;17 &#1407;&#1377;&#1408;&#1381;&#1391;&#1377;&#1398; &#1380;&#1381;&#1404;&#1377;&#1392;&#1377;&#1405;&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</div>
+    <p>&#1348;&#1377;&#1405;&#1398;&#1377;&#1379;&#1387;&#1407;&#1377;&#1409;&#1406;&#1377;&#1390; &#1390;&#1408;&#1377;&#1379;&#1387;&#1408; 13&#8211;17 &#1407;&#1377;&#1408;&#1381;&#1391;&#1377;&#1398; &#1380;&#1381;&#1404;&#1377;&#1392;&#1377;&#1405;&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;. AI-&#1387; &#1392;&#1387;&#1396;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;&#1384; &#1402;&#1377;&#1408;&#1382; &#1388;&#1381;&#1382;&#1406;&#1400;&#1406;, &#1379;&#1400;&#1408;&#1390;&#1398;&#1377;&#1391;&#1377;&#1398; &#1398;&#1377;&#1389;&#1377;&#1379;&#1390;&#1381;&#1408;&#1400;&#1406; &#1415; &#1387;&#1408;&#1381;&#1398;&#1409; &#1377;&#1404;&#1377;&#1403;&#1387;&#1398; &#1402;&#1408;&#1400;&#1381;&#1391;&#1407;&#1387; &#1405;&#1407;&#1381;&#1394;&#1390;&#1400;&#1410;&#1396;&#1400;&#1406;.</p>
+    <ul class="o-list">
+      <li>AI-&#1387; &#1392;&#1387;&#1396;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;&#1384; &#1402;&#1377;&#1408;&#1382; &#1388;&#1381;&#1382;&#1406;&#1400;&#1406;</li>
+      <li>&#1339;&#1408;&#1381;&#1398;&#1409; &#1377;&#1404;&#1377;&#1403;&#1387;&#1398; AI &#1402;&#1408;&#1400;&#1381;&#1391;&#1407;&#1384;</li>
+      <li>&#1364;&#1398;&#1398;&#1377;&#1380;&#1377;&#1407;&#1377;&#1391;&#1377;&#1398; &#1396;&#1407;&#1377;&#1390;&#1400;&#1394;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398; &#1415; &#1391;&#1408;&#1387;&#1407;&#1387;&#1391; &#1396;&#1407;&#1377;&#1390;&#1381;&#1388;&#1377;&#1391;&#1381;&#1408;&#1402;</li>
+      <li>&#1354;&#1400;&#1408;&#1407;&#1414;&#1400;&#1388;&#1387;&#1400; &#1390;&#1398;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387;&#1398; &#1409;&#1400;&#1410;&#1409;&#1377;&#1380;&#1408;&#1381;&#1388;&#1400;&#1410; &#1392;&#1377;&#1396;&#1377;&#1408;</li>
+    </ul>
+    <div class="m-meta"><span>3 &#1399;&#1377;&#1378;&#1377;&#1385;</span><span>&#1399;&#1377;&#1378;&#1377;&#1385;&#1384; 2 &#1380;&#1377;&#1405;</span><span>Online + Offline</span><span>&#1341;&#1396;&#1378;&#1377;&#1391;&#1377;&#1397;&#1387;&#1398;</span></div>
+    <a href="tel:09338843" class="btn">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ── Scroll progress bar ── */
+  var progressBar=document.getElementById('scrollProgress');
+  function updateProgress(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    progressBar.style.width=(window.scrollY/h*100)+'%';
+  }
+
+  /* ── Nav scroll + hamburger ── */
+  var nav=document.getElementById('nav');
+  var hamburger=document.getElementById('hamburger');
+  var navLinks=document.getElementById('navLinks');
+  window.addEventListener('scroll',function(){
+    nav.classList.toggle('scrolled',window.scrollY>40);
+    updateProgress();
+  },{passive:true});
+  hamburger.addEventListener('click',function(){
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+    document.body.style.overflow=navLinks.classList.contains('open')?'hidden':'';
+  });
+  navLinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+      document.body.style.overflow='';
+    });
+  });
+
+  /* ── Countdown timer ── */
+  var cdEl=document.getElementById('countdown');
+  var targetDate=cdEl.getAttribute('data-target');
+  function updateCountdown(){
+    var now=new Date();
+    var target=new Date(targetDate);
+    if(isNaN(target.getTime())){cdEl.textContent='';return;}
+    var diff=target-now;
+    if(diff<=0){cdEl.innerHTML='<span style="font-weight:700">&#1357;&#1391;&#1405;&#1406;&#1381;&#1388; &#1383;!</span>';return;}
+    var d=Math.floor(diff/86400000);
+    var h=Math.floor((diff%86400000)/3600000);
+    var m=Math.floor((diff%3600000)/60000);
+    cdEl.innerHTML='<span class="cd-unit"><span class="cd-num">'+d+'</span><span class="cd-lbl">&#1413;&#1408;</span></span><span class="cd-sep">:</span><span class="cd-unit"><span class="cd-num">'+h+'</span><span class="cd-lbl">&#1386;</span></span><span class="cd-sep">:</span><span class="cd-unit"><span class="cd-num">'+m+'</span><span class="cd-lbl">&#1408;</span></span>';
+  }
+  updateCountdown();
+  setInterval(updateCountdown,60000);
+
+  /* ── Animated counters ── */
+  var countersAnimated=false;
+  function animateCounters(){
+    if(countersAnimated)return;
+    countersAnimated=true;
+    document.querySelectorAll('.hero-stat .num[data-count]').forEach(function(el){
+      var target=parseInt(el.getAttribute('data-count'));
+      var suffix=el.querySelector('span')?el.querySelector('span').outerHTML:'';
+      var duration=1200;
+      var start=performance.now();
+      function tick(now){
+        var elapsed=now-start;
+        var progress=Math.min(elapsed/duration,1);
+        var eased=1-Math.pow(1-progress,3);
+        var val=Math.round(eased*target);
+        el.innerHTML=val+suffix;
+        if(progress<1)requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+  var heroObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting)animateCounters();});
+  },{threshold:0.5});
+  var statsEl=document.querySelector('.hero-stats');
+  if(statsEl)heroObs.observe(statsEl);
+
+  /* ── 3D tilt on cards ── */
+  document.querySelectorAll('.tilt').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var rect=card.getBoundingClientRect();
+      var x=(e.clientX-rect.left)/rect.width;
+      var y=(e.clientY-rect.top)/rect.height;
+      var rotateX=(y-.5)*-12;
+      var rotateY=(x-.5)*12;
+      card.style.transform='perspective(600px) rotateX('+rotateX+'deg) rotateY('+rotateY+'deg) translateY(-3px)';
+    });
+    card.addEventListener('mouseleave',function(){
+      card.style.transform='perspective(600px) rotateX(0) rotateY(0) translateY(0)';
+    });
+  });
+
+  /* ── Magnetic buttons ── */
+  document.querySelectorAll('.btn-magnetic').forEach(function(btn){
+    btn.addEventListener('mousemove',function(e){
+      var rect=btn.getBoundingClientRect();
+      var x=e.clientX-rect.left-rect.width/2;
+      var y=e.clientY-rect.top-rect.height/2;
+      btn.style.transform='translate('+x*.15+'px,'+y*.15+'px)';
+    });
+    btn.addEventListener('mouseleave',function(){
+      btn.style.transform='translate(0,0)';
+    });
+  });
+
+  /* ── Scroll hint hide on scroll ── */
+  var scrollHint=document.querySelector('.scroll-hint');
+  if(scrollHint){
+    window.addEventListener('scroll',function(){
+      scrollHint.style.opacity=window.scrollY>100?'0':'0.4';
+      scrollHint.style.pointerEvents=window.scrollY>100?'none':'auto';
+    },{passive:true});
+  }
+
+  /* ── Quiz ── */
+  var answers=[],current=0;
+  var steps=document.querySelectorAll('.q-step');
+  var dots=document.querySelectorAll('.quiz-progress .dot');
+  var resultEl=document.getElementById('result');
+
+  document.querySelectorAll('.q-opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      answers[current]=this.getAttribute('data-val');
+      next();
+    });
+  });
+
+  function next(){
+    var prev=steps[current];
+    dots[current].classList.remove('active');
+    dots[current].classList.add('done');
+    prev.classList.remove('active');
+    prev.classList.add('exit-left');
+    current++;
+    if(current<steps.length){
+      dots[current].classList.add('active');
+      setTimeout(function(){prev.classList.remove('exit-left');steps[current].classList.add('active');},300);
+    }else{
+      setTimeout(function(){prev.classList.remove('exit-left');document.querySelector('.quiz-progress').style.display='none';showResult();},300);
+    }
+  }
+
+  /* ── Quiz back button ── */
+  window.goBack=function(){
+    if(current<=0)return;
+    var curr=steps[current];
+    curr.classList.remove('active');
+    dots[current].classList.remove('active');
+    current--;
+    dots[current].classList.remove('done');
+    dots[current].classList.add('active');
+    steps[current].classList.add('active');
+    answers[current]=undefined;
+  };
+
+  function showResult(){
+    var track=getRecommendation();
+    var trackEl=document.getElementById('resTrack');
+    var descEl=document.getElementById('resDesc');
+    if(track==='teen'){
+      trackEl.textContent='AI Teenagers 13+';
+      descEl.textContent='\u0531\u0575\u057D \u056E\u0580\u0561\u0563\u056B\u0580\u0568 \u0570\u0561\u057F\u0578\u0582\u056F \u0576\u0561\u056D\u0561\u0563\u056E\u057E\u0561\u056E \u0567 13\u201317 \u057F\u0561\u0580\u0565\u056F\u0561\u0576\u0576\u0565\u0580\u056B \u0570\u0561\u0574\u0561\u0580\u055D \u0561\u057A\u0561\u0563\u0561\u0575\u056B \u0570\u0574\u057F\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0576\u0565\u0580 \u0587 \u057E\u0561\u0572 \u0574\u0565\u056F\u0576\u0561\u0580\u056F:';
+      highlightTrack('track-teen');
+    }else if(track==='creative'){
+      trackEl.textContent='Creative AI';
+      descEl.textContent='\u054D\u057F\u0565\u0572\u056E\u0561\u0563\u0578\u0580\u056E\u0561\u056F\u0561\u0576 \u0578\u0582\u0572\u0572\u056B\u0576\u055D \u056F\u0578\u0576\u057F\u0565\u0576\u057F, \u057E\u056B\u0566\u0578\u0582\u0561\u056C, \u057F\u0565\u057D\u0561\u0576\u0575\u0578\u0582\u0569 \u0587 \u0563\u0578\u057E\u0561\u0566\u0564 AI-\u056B \u0585\u0563\u0576\u0578\u0582\u0569\u0575\u0561\u0574\u0562:';
+      highlightTrack('track-creative');
+    }else{
+      trackEl.textContent='AI \u0587 \u053F\u0561\u0580\u056B\u0565\u0580\u0561';
+      descEl.textContent='\u0540\u056B\u0574\u0576\u0561\u0580\u0561\u0580 \u0578\u0582\u0572\u0572\u056B\u0576\u055D \u057D\u0578\u057E\u0578\u0580\u056B\u0580 AI-\u056B \u0570\u056B\u0574\u0578\u0582\u0576\u0584\u0576\u0565\u0580\u056B\u0581 \u0574\u056B\u0576\u0579\u0587 \u056F\u056B\u0580\u0561\u057C\u0561\u056F\u0561\u0576 \u056F\u056B\u0580\u0561\u057C\u0578\u0582\u0569\u0575\u0578\u0582\u0576:';
+      highlightTrack('track-career');
+    }
+    resultEl.classList.add('visible');
+    setTimeout(function(){document.getElementById('offerings').scrollIntoView({behavior:'smooth'});},700);
+  }
+
+  function getRecommendation(){
+    if(answers[2]==='13-17') return 'teen';
+    if(answers[0]==='creative'||answers[3]==='creative') return 'creative';
+    return 'career';
+  }
+
+  function highlightTrack(id){
+    document.querySelectorAll('.t-card').forEach(function(c){c.classList.remove('recommended');});
+    document.getElementById(id).classList.add('recommended');
+  }
+
+  /* ── Share quiz result ── */
+  window.shareResult=function(){
+    var track=document.getElementById('resTrack').textContent;
+    var text='AI Academy Armenia \u0569\u0565\u057D\u057F\u056B \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0568\u055D '+track+'! \u0531\u0576\u0581\u056B\u0580 \u0569\u0565\u057D\u057F\u0568 \u0587 \u056B\u0574\u0561\u0581\u056B\u0580 \u0584\u0578 \u0578\u0582\u0572\u0572\u056B\u0576\u0568 \u2192 '+window.location.href;
+    if(navigator.share){
+      navigator.share({title:'AI Academy Armenia',text:text}).catch(function(){});
+    }else if(navigator.clipboard){
+      navigator.clipboard.writeText(text).then(function(){
+        var toast=document.createElement('div');
+        toast.className='share-copied';
+        toast.textContent='\u054A\u0561\u057F\u0573\u0565\u0576\u057E\u0565\u0581!';
+        document.body.appendChild(toast);
+        setTimeout(function(){toast.remove();},2000);
+      });
+    }
+  };
+
+  window.resetQuiz=function(){
+    answers=[];current=0;
+    resultEl.classList.remove('visible');
+    document.querySelector('.quiz-progress').style.display='flex';
+    steps.forEach(function(s,i){s.classList.remove('active','exit-left');if(i===0)s.classList.add('active');});
+    dots.forEach(function(d,i){d.classList.remove('active','done');if(i===0)d.classList.add('active');});
+    document.querySelectorAll('.t-card').forEach(function(c){c.classList.remove('recommended');});
+    document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+  };
+
+  /* ── Modals ── */
+  window.openModal=function(track){
+    document.getElementById('modal-'+track).classList.add('open');
+    document.body.style.overflow='hidden';
+  };
+  window.closeModal=function(e,force){
+    if(force||e.target.classList.contains('modal-overlay')){
+      document.querySelectorAll('.modal-overlay').forEach(function(m){m.classList.remove('open');});
+      document.body.style.overflow='';
+    }
+  };
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal(e,true);});
+
+  /* ── FAQ ── */
+  document.querySelectorAll('.faq-q').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var item=this.parentElement;
+      var wasOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+      if(!wasOpen)item.classList.add('open');
+    });
+  });
+
+  /* ── Sticky CTA ── */
+  var stickyCta=document.getElementById('stickyCta');
+  window.addEventListener('scroll',function(){
+    stickyCta.classList.toggle('visible',window.scrollY>600);
+  },{passive:true});
+
+  /* ── Scroll fade ── */
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.fade-in').forEach(function(el){obs.observe(el);});
+
+  /* ── Button ripple effect ── */
+  document.querySelectorAll('.btn').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      var r=document.createElement('span');
+      r.className='ripple';
+      var rect=btn.getBoundingClientRect();
+      var size=Math.max(rect.width,rect.height);
+      r.style.width=r.style.height=size+'px';
+      r.style.left=(e.clientX-rect.left-size/2)+'px';
+      r.style.top=(e.clientY-rect.top-size/2)+'px';
+      btn.appendChild(r);
+      setTimeout(function(){r.remove();},600);
+    });
+  });
+
+  /* ── Card glow follow cursor ── */
+  document.querySelectorAll('.t-card').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var rect=card.getBoundingClientRect();
+      card.style.setProperty('--glow-x',((e.clientX-rect.left)/rect.width*100)+'%');
+      card.style.setProperty('--glow-y',((e.clientY-rect.top)/rect.height*100)+'%');
+    });
+  });
+
+  /* ── Parallax orbs on scroll ── */
+  var orb1=document.querySelector('.orb1');
+  var orb2=document.querySelector('.orb2');
+  window.addEventListener('scroll',function(){
+    var s=window.scrollY;
+    if(s<window.innerHeight&&orb1&&orb2){
+      orb1.style.transform='translateY('+s*.15+'px)';
+      orb2.style.transform='translateY('+s*-.1+'px)';
+    }
+  },{passive:true});
+
+  /* ── Page ready ── */
+})();
+</script>
+</body>
+</html>
