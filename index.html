@@ -274,18 +274,6 @@ section{padding:80px 0}
 .hero-stat .num{display:block;min-width:2ch}
 
 
-/* ── How it works ── */
-.how-it-works{position:relative}
-.steps-row{display:flex;gap:0;justify-content:center;align-items:flex-start;max-width:600px;margin:0 auto;position:relative}
-.step-item{flex:1;text-align:center;position:relative;padding:0 12px}
-.step-num{width:40px;height:40px;border-radius:50%;background:var(--card);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif Armenian',serif;font-weight:900;font-size:.9rem;color:var(--accent);margin:0 auto 14px;position:relative;z-index:1}
-.step-item:not(:last-child)::after{content:'';position:absolute;top:20px;left:calc(50% + 24px);width:calc(100% - 48px);height:1px;background:linear-gradient(90deg,var(--accent),var(--card-border));z-index:0}
-.step-item h4{font-size:.92rem;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
-.step-item p{font-size:.8rem;color:var(--text-dim);line-height:1.6}
-@media(max-width:480px){
-  .steps-row{flex-direction:column;gap:24px;align-items:center}
-  .step-item:not(:last-child)::after{display:none}
-}
 
 /* ── Button ripple ── */
 .btn{position:relative;overflow:hidden}
@@ -298,7 +286,7 @@ section{padding:80px 0}
 
 /* ── Section dividers on mobile ── */
 @media(max-width:640px){
-  .about,.how-it-works,.why-ai,.formats,.quiz-section,.offerings,.testimonials,.faq{
+  .about,.quiz-section,.offerings,.testimonials,.faq{
     border-top:1px solid var(--card-border);
   }
 }
@@ -359,7 +347,7 @@ section{padding:80px 0}
 
 /* ── Mobile: hide filler sections ── */
 @media(max-width:640px){
-  .why-ai,.formats{display:none}
+  
 }
 
 /* ── Mobile: about padding reduction ── */
@@ -434,6 +422,72 @@ section{padding:80px 0}
   .testimonials{padding:28px 0}
   .faq{padding:24px 0}
 }
+
+/* ── 3D Hero text depth ── */
+.hero h1{text-shadow:0 1px 0 rgba(224,122,58,.08),0 2px 4px rgba(0,0,0,.15),0 8px 24px rgba(0,0,0,.2)}
+
+/* ── Animated gradient mesh background ── */
+@keyframes meshMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.hero-bg{background:linear-gradient(-45deg,#10131a,#1a1525,#10131a,#151a28);background-size:400% 400%;animation:meshMove 20s ease infinite}
+
+/* ── Mouse-follow light ── */
+.hero-light{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(224,122,58,.06),transparent 60%);pointer-events:none;transform:translate(-50%,-50%);transition:left .15s ease-out,top .15s ease-out;z-index:0}
+
+/* ── 3D Card transforms ── */
+.t-card{transform-style:preserve-3d;transition:all .4s cubic-bezier(.4,0,.2,1)}
+@media(min-width:641px){.t-card:hover{transform:perspective(800px) rotateY(-3deg) rotateX(2deg) translateZ(10px) translateY(-8px);box-shadow:0 20px 60px rgba(0,0,0,.3),0 0 40px rgba(224,122,58,.08)}}
+
+/* ── 3D scroll reveal ── */
+.reveal-3d{opacity:0;transform:perspective(800px) rotateX(8deg) translateY(50px);transition:all .8s cubic-bezier(.4,0,.2,1)}
+.reveal-3d.visible{opacity:1;transform:perspective(800px) rotateX(0) translateY(0)}
+
+/* ── Glassmorphism quiz box ── */
+.quiz-box{background:rgba(30,34,48,.5)!important;backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);border:1px solid rgba(255,255,255,.06)!important}
+
+/* ── Animated gradient border on offerings cards ── */
+@keyframes borderPulse{0%,100%{border-color:rgba(224,122,58,.15)}50%{border-color:rgba(224,122,58,.35)}}
+.t-card.recommended{animation:borderPulse 2s ease-in-out infinite}
+
+/* ── Cursor glow ── */
+.cursor-glow{position:fixed;width:20px;height:20px;border-radius:50%;background:rgba(224,122,58,.15);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .2s;mix-blend-mode:screen}
+.cursor-glow.expand{width:50px;height:50px;opacity:.08}
+@media(max-width:640px){.cursor-glow{display:none}}
+
+/* ── Animated accent line under hero ── */
+@keyframes lineExpand{from{width:0;opacity:0}to{width:120px;opacity:.4}}
+.hero-line{height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);animation:lineExpand 1.5s ease-out 1s both;margin:24px auto 0}
+
+/* ── Smooth section transitions ── */
+section{position:relative}
+section::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:1px;background:linear-gradient(90deg,transparent,rgba(224,122,58,.2),transparent);transition:width .8s ease-out}
+section.visible::after{width:200px}
+
+/* ── Floating elements ── */
+@keyframes floatSlow{0%,100%{transform:translateY(0) rotate(0deg)}33%{transform:translateY(-8px) rotate(1deg)}66%{transform:translateY(4px) rotate(-1deg)}}
+
+/* ── Better offerings layout on mobile ── */
+@media(max-width:640px){
+  .offerings{padding:40px 0;background:linear-gradient(180deg,var(--bg) 0%,rgba(224,122,58,.02) 40%,rgba(224,122,58,.03) 60%,var(--bg) 100%)}
+  .tracks{gap:20px}
+  .t-card{border-left:3px solid rgba(224,122,58,.25);padding:24px 20px;border-radius:16px;background:rgba(30,34,48,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+}
+
+/* ── Hero stats with glow ── */
+.hero-stat .num{text-shadow:0 0 20px rgba(224,122,58,.2)}
+.hero-stat .num span{text-shadow:0 0 30px rgba(224,122,58,.4)}
+
+/* ── Quiz option 3D hover ── */
+.q-opt{transition:all .25s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+.q-opt:hover{transform:translateX(8px) scale(1.01);border-color:rgba(224,122,58,.5);background:rgba(224,122,58,.08);box-shadow:0 4px 20px rgba(224,122,58,.1)}
+
+/* ── Testimonial card glass effect ── */
+.test-card{background:rgba(30,34,48,.4);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+
+/* ── Interactive button hover 3D ── */
+.btn{transform-style:preserve-3d;transition:all .25s cubic-bezier(.4,0,.2,1)}
+.btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 30px rgba(224,122,58,.3),inset 0 1px 0 rgba(255,255,255,.1)}
+.btn:active{transform:translateY(0) scale(.98)}
+
 </style>
 </head>
 <body>
@@ -448,7 +502,6 @@ section{padding:80px 0}
     <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">&#1339;&#1396; &#1396;&#1377;&#1405;&#1387;&#1398;</a></li>
-      <li><a href="#process">&#1364;&#1377;&#1397;&#1388;&#1381;&#1408;</a></li>
       <li><a href="#offerings">&#1342;&#1408;&#1377;&#1379;&#1408;&#1381;&#1408;</a></li>
       <li><a href="#quiz">&#1385;&#1381;&#1405;&#1407;</a></li>
       <li><a href="#faq">&#1344;&#1329;&#1344;</a></li>
@@ -475,6 +528,7 @@ section{padding:80px 0}
       <a href="#quiz" class="btn">&#1339;&#1396;&#1377;&#1409;&#1387;&#1371;&#1408; &#1393;&#1381;&#1408; &#1396;&#1377;&#1391;&#1377;&#1408;&#1380;&#1377;&#1391;&#1384;</a>
       <a href="#offerings" class="btn btn-ghost">&#1342;&#1408;&#1377;&#1379;&#1408;&#1381;&#1408;</a>
     </div>
+    <div class="hero-line"></div>
     <div class="hero-stats">
       <div class="hero-stat"><span class="num" data-count="50">50<span>+</span></span><span class="lbl">&#1400;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;</span></div>
       <div class="hero-stat"><span class="num" data-count="3">3</span><span class="lbl">&#1400;&#1410;&#1394;&#1394;&#1387;&#1398;</span></div>
@@ -484,88 +538,58 @@ section{padding:80px 0}
   <div class="scroll-hint"><span>scroll</span><div class="chevron"></div></div>
 </section>
 
-
-<!-- About -->
-<section class="about" id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-photo slide-left">
-        <img src="photo.jpg" alt="Ed" onload="this.classList.add('loaded')" onerror="this.classList.add('broken')">
-        <span class="ph">Ed</span>
-      </div>
-      <div class="about-text slide-right">
-        <h2 class="serif">&#1330;&#1377;&#1408;&#1415; &#1393;&#1381;&#1382;, &#1381;&#1405; &#1335;&#1380;&#1398; &#1381;&#1396;</h2>
-        <p>AI &#1400;&#1410;&#1405;&#1400;&#1410;&#1409;&#1387;&#1401; &#1415; &#1385;&#1408;&#1381;&#1397;&#1398;&#1381;&#1408;&#1417; TUMO-&#1387; &#1415; 42 Yerevan-&#1387; &#1377;&#1406;&#1377;&#1408;&#1407;&#1377;&#1390;&#1417; &#1329;&#1408;&#1380;&#1381;&#1398; &#1377;&#1406;&#1381;&#1388;&#1387; &#1412;&#1377;&#1398; 50 &#1396;&#1377;&#1408;&#1380; &#1413;&#1379;&#1407;&#1406;&#1400;&#1410;&#1396; &#1383; AI-&#1387;&#1409; &#1387;&#1408;&#1381;&#1398;&#1409; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;&#1417;</p>
-        <div class="cred-row">
-          <span class="cred">50+ &#1400;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;</span>
-          <span class="cred">42 / TUMO</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- How It Works -->
-<section class="how-it-works" id="process">
+<!-- Offerings -->
+<section class="offerings" id="offerings">
   <div class="container">
     <div class="section-line" style="margin-bottom:24px"></div>
-    <h2 class="stitle serif fade-in">&#1339;&#1398;&#1401;&#1402;&#1381;&#1371;&#1405; &#1383; &#1377;&#1399;&#1389;&#1377;&#1407;&#1400;&#1410;&#1396;</h2>
-    <p class="ssub fade-in">3 &#1412;&#1377;&#1397;&#1388; &mdash; &#1415; &#1380;&#1400;&#1410;&#1412; &#1377;&#1408;&#1380;&#1381;&#1398; &#1405;&#1400;&#1406;&#1400;&#1408;&#1400;&#1410;&#1396; &#1381;&#1412; AI</p>
-    <div class="steps-row">
-      <div class="step-item fade-in">
-        <div class="step-num">1</div>
-        <h4>&#1329;&#1398;&#1409;&#1381;&#1371;&#1412; &#1385;&#1381;&#1405;&#1407;&#1384;</h4>
-        <p>&#1354;&#1377;&#1407;&#1377;&#1405;&#1389;&#1377;&#1398;&#1381;&#1371;&#1412; 5 &#1392;&#1377;&#1408;&#1409;&#1387; &#1415; &#1387;&#1396;&#1377;&#1409;&#1381;&#1371;&#1412; &#1393;&#1381;&#1408; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;&#1384;</p>
+    <h2 class="stitle serif reveal-3d">&#1348;&#1381;&#1408; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;&#1381;&#1408;&#1384;</h2>
+    <p class="ssub fade-in">&#1336;&#1398;&#1407;&#1408;&#1381;&#1371;&#1412; &#1393;&#1381;&#1408; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398; &#1391;&#1377;&#1396; &#1377;&#1398;&#1409;&#1381;&#1371;&#1412; &#1385;&#1381;&#1405;&#1407;&#1384;</p>
+    <div class="tracks">
+      <div class="t-card tilt scale-in stagger-1" id="track-career">
+        <span class="rec-badge">&#1329;&#1404;&#1377;&#1403;&#1377;&#1408;&#1391;&#1406;&#1400;&#1410;&#1396; &#1383;</span>
+        <div class="t-icon">&#128188;</div>
+        <h3 class="serif">AI &#1415; &#1343;&#1377;&#1408;&#1387;&#1381;&#1408;&#1377;</h3>
+        <div class="t-persona">&#1329;&#1399;&#1389;&#1377;&#1407;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387;, &#1396;&#1381;&#1398;&#1381;&#1403;&#1381;&#1408;&#1398;&#1381;&#1408;&#1387;, &#1414;&#1408;&#1387;&#1388;&#1377;&#1398;&#1405;&#1381;&#1408;&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</div>
+        <p class="t-desc">&#1343;&#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1412; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1381;&#1388; ChatGPT, Claude, NotebookLM &#1415; &#1377;&#1397;&#1388; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1384; &#1393;&#1381;&#1408; &#1377;&#1396;&#1381;&#1398;&#1413;&#1408;&#1397;&#1377; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;&#1417;</p>
+        <ul class="t-outcomes">
+          <li>AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1384; &#1377;&#1396;&#1381;&#1398;&#1413;&#1408;&#1397;&#1377; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;</li>
+          <li>&#1343;&#1408;&#1391;&#1398;&#1406;&#1400;&#1394; &#1377;&#1404;&#1377;&#1403;&#1377;&#1380;&#1408;&#1377;&#1398;&#1412;&#1398;&#1381;&#1408;&#1387; &#1377;&#1406;&#1407;&#1400;&#1396;&#1377;&#1407;&#1377;&#1409;&#1400;&#1410;&#1396;</li>
+          <li>&#1354;&#1408;&#1400;&#1414;&#1381;&#1405;&#1387;&#1400;&#1398;&#1377;&#1388; AI &#1402;&#1400;&#1408;&#1407;&#1414;&#1400;&#1388;&#1387;&#1400;</li>
+        </ul>
+        <div class="t-meta"><span>5&ndash;6 &#1380;&#1377;&#1405;</span><span>Online + Offline</span></div>
+        <div class="t-spots">&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</div>
+        <button class="btn btn-sm" onclick="openModal('career')">&#1329;&#1406;&#1381;&#1388;&#1387;&#1398;</button>
       </div>
-      <div class="step-item fade-in d1">
-        <div class="step-num">2</div>
-        <h4>&#1329;&#1398;&#1406;&#1395;&#1377;&#1408; &#1389;&#1400;&#1408;&#1392;&#1408;&#1380;&#1377;&#1407;&#1406;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;</h4>
-        <p>&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1371;&#1412; &mdash; &#1412;&#1398;&#1398;&#1377;&#1408;&#1391;&#1381;&#1398;&#1412; &#1396;&#1377;&#1398;&#1408;&#1377;&#1396;&#1377;&#1405;&#1398;&#1381;&#1408;&#1384; &#1415; &#1379;&#1387;&#1398;&#1384;</p>
+      <div class="t-card tilt scale-in stagger-2" id="track-creative">
+        <span class="rec-badge">&#1329;&#1404;&#1377;&#1403;&#1377;&#1408;&#1391;&#1406;&#1400;&#1410;&#1396; &#1383;</span>
+        <div class="t-icon">&#127912;</div>
+        <h3 class="serif">Creative AI</h3>
+        <div class="t-persona">&#1332;&#1387;&#1382;&#1377;&#1397;&#1398;&#1381;&#1408;&#1398;&#1381;&#1408;&#1387;, &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; &#1405;&#1407;&#1381;&#1394;&#1390;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387;, SMM-&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</div>
+        <p class="t-desc">&#1343;&#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1412; &#1405;&#1407;&#1381;&#1394;&#1390;&#1381;&#1388; &#1407;&#1381;&#1405;&#1377;&#1398;&#1397;&#1400;&#1410;&#1385;&#1381;&#1408;, &#1398;&#1391;&#1377;&#1408;&#1398;&#1381;&#1408;, &#1379;&#1400;&#1406;&#1377;&#1382;&#1380;&#1381;&#1408; &#1415; &#1406;&#1387;&#1382;&#1400;&#1410;&#1377;&#1388; &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; Nanobanana, Higgsfield, Canva AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1400;&#1406;&#1417;</p>
+        <ul class="t-outcomes">
+          <li>&#1358;&#1387;&#1382;&#1400;&#1410;&#1377;&#1388; &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1400;&#1406;</li>
+          <li>&#1359;&#1381;&#1412;&#1405;&#1407;, &#1398;&#1391;&#1377;&#1408;&#1398;&#1381;&#1408;, &#1379;&#1400;&#1406;&#1377;&#1382;&#1380;&#1381;&#1408; AI-&#1400;&#1406;</li>
+          <li>&#1357;&#1400;&#1409;&#1387;&#1377;&#1388; &#1396;&#1381;&#1380;&#1387;&#1377;&#1397;&#1387; &#1405;&#1407;&#1408;&#1377;&#1407;&#1381;&#1379;&#1387;&#1377;</li>
+        </ul>
+        <div class="t-meta"><span>5&ndash;6 &#1380;&#1377;&#1405;</span><span>Online + Offline</span></div>
+        <div class="t-spots">&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</div>
+        <button class="btn btn-sm" onclick="openModal('creative')">&#1329;&#1406;&#1381;&#1388;&#1387;&#1398;</button>
       </div>
-      <div class="step-item fade-in d2">
-        <div class="step-num">3</div>
-        <h4>&#1357;&#1391;&#1405;&#1381;&#1371;&#1412; &#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1388;</h4>
-        <p>&#1348;&#1387;&#1377;&#1409;&#1381;&#1371;&#1412; &#1389;&#1396;&#1378;&#1387;&#1398; &#1415; &#1405;&#1391;&#1405;&#1381;&#1371;&#1412; AI &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;</p>
+      <div class="t-card tilt scale-in stagger-3" id="track-teen">
+        <span class="rec-badge">&#1329;&#1404;&#1377;&#1403;&#1377;&#1408;&#1391;&#1406;&#1400;&#1410;&#1396; &#1383;</span>
+        <div class="t-icon">&#127891;</div>
+        <h3 class="serif">AI Teenagers 13+</h3>
+        <div class="t-persona">13&#8211;17 &#1407;&#1377;&#1408;&#1381;&#1391;&#1377;&#1398; &#1380;&#1381;&#1404;&#1377;&#1392;&#1377;&#1405;&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</div>
+        <p class="t-desc">AI-&#1387; &#1392;&#1387;&#1396;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;&#1384; &#1382;&#1408;&#1400;&#1397;&#1387;&#1409;&#1373; &#1379;&#1400;&#1408;&#1390;&#1398;&#1377;&#1391;&#1377;&#1398; &#1398;&#1377;&#1389;&#1377;&#1379;&#1390;&#1381;&#1408;&#1400;&#1406; &#1415; &#1405;&#1381;&#1411;&#1377;&#1391;&#1377;&#1398; &#1402;&#1408;&#1400;&#1381;&#1391;&#1407;&#1387; &#1405;&#1407;&#1381;&#1394;&#1390;&#1400;&#1410;&#1396;&#1400;&#1406;&#1417;</p>
+        <ul class="t-outcomes">
+          <li>AI-&#1387; &#1392;&#1387;&#1396;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;&#1384; &#1402;&#1377;&#1408;&#1382; &#1388;&#1381;&#1382;&#1406;&#1400;&#1406;</li>
+          <li>&#1339;&#1408;&#1381;&#1398;&#1409; &#1377;&#1404;&#1377;&#1403;&#1387;&#1398; AI &#1402;&#1408;&#1400;&#1381;&#1391;&#1407;&#1384;</li>
+          <li>&#1329;&#1402;&#1377;&#1379;&#1377;&#1397;&#1387; &#1392;&#1396;&#1407;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1398;&#1381;&#1408;</li>
+        </ul>
+        <div class="t-meta"><span>5&ndash;6 &#1380;&#1377;&#1405;</span><span>Online + Offline</span></div>
+        <div class="t-spots">&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</div>
+        <button class="btn btn-sm" onclick="openModal('teen')">&#1329;&#1406;&#1381;&#1388;&#1387;&#1398;</button>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- Why AI -->
-<section class="why-ai" id="why">
-  <div class="container">
-    <h2 class="stitle serif fade-in">&#1339;&#1398;&#1401;&#1400;&#1410;&#1371; AI &#1392;&#1387;&#1396;&#1377;</h2>
-    <p class="ssub fade-in">AI-&#1398; &#1377;&#1397;&#1388;&#1415;&#1405; &#1414;&#1377;&#1398;&#1407;&#1377;&#1405;&#1407;&#1387;&#1391;&#1377; &#1401;&#1383; &mdash; &#1380;&#1377; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412; &#1383;, &#1400;&#1408;&#1384; &#1411;&#1400;&#1389;&#1400;&#1410;&#1396; &#1383; &#1377;&#1396;&#1381;&#1398; &#1387;&#1398;&#1401;</p>
-    <div class="reasons">
-      <div class="r-card tilt slide-left">
-        <span class="icon">&#9889;</span>
-        <h3>&#1329;&#1408;&#1377;&#1379;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;</h3>
-        <p>AI-&#1398; &#1377;&#1408;&#1380;&#1381;&#1398; &#1411;&#1400;&#1389;&#1400;&#1410;&#1396; &#1383; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1387; &#1391;&#1377;&#1398;&#1400;&#1398;&#1398;&#1381;&#1408;&#1384;&#1417; &#1350;&#1408;&#1377;&#1398;&#1412;, &#1400;&#1406;&#1412;&#1381;&#1408; &#1407;&#1387;&#1408;&#1377;&#1402;&#1381;&#1407;&#1400;&#1410;&#1396; &#1381;&#1398; AI-&#1387;&#1398;, &#1377;&#1408;&#1380;&#1381;&#1398; &#1377;&#1404;&#1377;&#1403;&#1377;&#1407;&#1377;&#1408; &#1381;&#1398;&#1417;</p>
-      </div>
-      <div class="r-card slide-right stagger-1">
-        <span class="icon">&#127919;</span>
-        <h3>&#1343;&#1377;&#1408;&#1387;&#1381;&#1408;&#1377;</h3>
-        <p>AI &#1392;&#1396;&#1407;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1398;&#1381;&#1408;&#1384; &#1377;&#1396;&#1381;&#1398;&#1377;&#1402;&#1377;&#1392;&#1377;&#1398;&#1403;&#1406;&#1377;&#1390;&#1398; &#1381;&#1398; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1399;&#1400;&#1410;&#1391;&#1377;&#1397;&#1400;&#1410;&#1396;&#1417; &#1357;&#1400;&#1406;&#1400;&#1408;&#1387;&#1371;&#1408; &#1392;&#1387;&#1396;&#1377; &#1415; &#1380;&#1377;&#1408;&#1393;&#1387;&#1371;&#1408; &#1377;&#1404;&#1377;&#1403;&#1377;&#1407;&#1377;&#1408;&#1417;</p>
-      </div>
-      <div class="r-card slide-left stagger-2">
-        <span class="icon">&#127462;&#127474;</span>
-        <h3>&#1344;&#1377;&#1397;&#1377;&#1405;&#1407;&#1377;&#1398;</h3>
-        <p>&#1344;&#1377;&#1397;&#1377;&#1405;&#1407;&#1377;&#1398;&#1387; AI &#1399;&#1400;&#1410;&#1391;&#1377;&#1398; &#1380;&#1381;&#1404; &#1398;&#1400;&#1408; &#1383;&#1417; &#1357;&#1400;&#1406;&#1400;&#1408;&#1387;&#1371;&#1408; &#1392;&#1387;&#1396;&#1377;, &#1415; &#1391;&#1388;&#1387;&#1398;&#1381;&#1412; &#1377;&#1404;&#1377;&#1403;&#1387;&#1398;&#1398;&#1381;&#1408;&#1387;&#1409;&#1417;</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Formats -->
-<section class="formats" id="formats">
-  <div class="container">
-    <h2 class="stitle serif fade-in">&#1336;&#1398;&#1407;&#1408;&#1381;&#1371;&#1412; &#1393;&#1381;&#1408; &#1414;&#1400;&#1408;&#1396;&#1377;&#1407;&#1384;</h2>
-    <p class="ssub fade-in">&#1343;&#1400;&#1396;&#1378;&#1387;&#1398;&#1377;&#1409;&#1408;&#1381;&#1371;&#1412; &#1407;&#1381;&#1394;&#1384; &#1415; &#1414;&#1400;&#1408;&#1396;&#1377;&#1407;&#1384; &#1393;&#1381;&#1408; &#1392;&#1377;&#1408;&#1396;&#1377;&#1408;&#1400;&#1410;&#1385;&#1397;&#1377;&#1398;&#1384;</p>
-    <div class="format-grid">
-      <div class="f-card tilt fade-in"><span class="f-icon">&#128187;&#128101;</span><h3>Online &#1389;&#1396;&#1378;&#1377;&#1391;&#1377;&#1397;&#1387;&#1398;</h3><p>Zoom / Google Meet &mdash; 4&#8211;8 &#1392;&#1400;&#1379;&#1377;&#1398;&#1400;&#1409; &#1389;&#1396;&#1378;</p></div>
-      <div class="f-card tilt fade-in d1"><span class="f-icon">&#127979;&#128101;</span><h3>Offline &#1389;&#1396;&#1378;&#1377;&#1391;&#1377;&#1397;&#1387;&#1398;</h3><p>&#1329;&#1398;&#1393;&#1377;&#1396;&#1378; &#1392;&#1377;&#1398;&#1380;&#1387;&#1402;&#1400;&#1410;&#1396;&#1398;&#1381;&#1408; &#1333;&#1408;&#1415;&#1377;&#1398;&#1400;&#1410;&#1396;</p></div>
-      <div class="f-card tilt fade-in d2"><span class="f-icon">&#128187;&#128100;</span><h3>Online &#1377;&#1398;&#1392;&#1377;&#1407;&#1377;&#1391;&#1377;&#1398;</h3><p>1-&#1384;-1 Zoom &mdash; &#1393;&#1381;&#1408; &#1407;&#1381;&#1396;&#1402;&#1400;&#1406;</p></div>
-      <div class="f-card tilt fade-in d3"><span class="f-icon">&#127979;&#128100;</span><h3>Offline &#1377;&#1398;&#1392;&#1377;&#1407;&#1377;&#1391;&#1377;&#1398;</h3><p>1-&#1384;-1 &#1392;&#1377;&#1398;&#1380;&#1387;&#1402;&#1400;&#1410;&#1396; &#1333;&#1408;&#1415;&#1377;&#1398;&#1400;&#1410;&#1396;</p></div>
     </div>
   </div>
 </section>
@@ -574,7 +598,7 @@ section{padding:80px 0}
 <section class="quiz-section" id="quiz">
   <div class="container">
     <div class="section-line" style="margin-bottom:24px"></div>
-    <h2 class="stitle serif fade-in">&#1357;&#1377; &#1412;&#1381;&#1382; &#1392;&#1377;&#1396;&#1377;&#1408;&#1373;</h2>
+    <h2 class="stitle serif reveal-3d">&#1357;&#1377; &#1412;&#1381;&#1382; &#1392;&#1377;&#1396;&#1377;&#1408;&#1373;</h2>
     <p class="ssub fade-in">&#1354;&#1377;&#1407;&#1377;&#1405;&#1389;&#1377;&#1398;&#1387;&#1371;&#1408; 5 &#1392;&#1377;&#1408;&#1409;&#1387; &#1415; &#1387;&#1396;&#1377;&#1409;&#1381;&#1371;&#1412; &#1393;&#1381;&#1382; &#1392;&#1377;&#1396;&#1377;&#1402;&#1377;&#1407;&#1377;&#1405;&#1389;&#1377;&#1398; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;</p>
     <div class="quiz-box scale-in glow-border" id="quizBox">
       <div class="quiz-progress" id="progress">
@@ -646,57 +670,21 @@ section{padding:80px 0}
   </div>
 </section>
 
-<!-- Offerings -->
-<section class="offerings" id="offerings">
+<!-- About -->
+<section class="about" id="about">
   <div class="container">
-    <div class="section-line" style="margin-bottom:24px"></div>
-    <h2 class="stitle serif fade-in">&#1348;&#1381;&#1408; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398;&#1381;&#1408;&#1384;</h2>
-    <p class="ssub fade-in">&#1336;&#1398;&#1407;&#1408;&#1381;&#1371;&#1412; &#1393;&#1381;&#1408; &#1400;&#1410;&#1394;&#1394;&#1387;&#1398; &#1391;&#1377;&#1396; &#1377;&#1398;&#1409;&#1381;&#1371;&#1412; &#1385;&#1381;&#1405;&#1407;&#1384;</p>
-    <div class="tracks">
-      <div class="t-card tilt scale-in stagger-1" id="track-career">
-        <span class="rec-badge">&#1329;&#1404;&#1377;&#1403;&#1377;&#1408;&#1391;&#1406;&#1400;&#1410;&#1396; &#1383;</span>
-        <div class="t-icon">&#128188;</div>
-        <h3 class="serif">AI &#1415; &#1343;&#1377;&#1408;&#1387;&#1381;&#1408;&#1377;</h3>
-        <div class="t-persona">&#1329;&#1399;&#1389;&#1377;&#1407;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387;, &#1396;&#1381;&#1398;&#1381;&#1403;&#1381;&#1408;&#1398;&#1381;&#1408;&#1387;, &#1414;&#1408;&#1387;&#1388;&#1377;&#1398;&#1405;&#1381;&#1408;&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</div>
-        <p class="t-desc">&#1343;&#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1412; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1381;&#1388; ChatGPT, Claude, NotebookLM &#1415; &#1377;&#1397;&#1388; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1384; &#1393;&#1381;&#1408; &#1377;&#1396;&#1381;&#1398;&#1413;&#1408;&#1397;&#1377; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;&#1417;</p>
-        <ul class="t-outcomes">
-          <li>AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1384; &#1377;&#1396;&#1381;&#1398;&#1413;&#1408;&#1397;&#1377; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;</li>
-          <li>&#1343;&#1408;&#1391;&#1398;&#1406;&#1400;&#1394; &#1377;&#1404;&#1377;&#1403;&#1377;&#1380;&#1408;&#1377;&#1398;&#1412;&#1398;&#1381;&#1408;&#1387; &#1377;&#1406;&#1407;&#1400;&#1396;&#1377;&#1407;&#1377;&#1409;&#1400;&#1410;&#1396;</li>
-          <li>&#1354;&#1408;&#1400;&#1414;&#1381;&#1405;&#1387;&#1400;&#1398;&#1377;&#1388; AI &#1402;&#1400;&#1408;&#1407;&#1414;&#1400;&#1388;&#1387;&#1400;</li>
-        </ul>
-        <div class="t-meta"><span>5&ndash;6 &#1380;&#1377;&#1405;</span><span>Online + Offline</span></div>
-        <div class="t-spots">&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</div>
-        <button class="btn btn-sm" onclick="openModal('career')">&#1329;&#1406;&#1381;&#1388;&#1387;&#1398;</button>
+    <div class="about-grid">
+      <div class="about-photo slide-left">
+        <img src="photo.jpg" alt="Ed" onload="this.classList.add('loaded')" onerror="this.classList.add('broken')">
+        <span class="ph">Ed</span>
       </div>
-      <div class="t-card tilt scale-in stagger-2" id="track-creative">
-        <span class="rec-badge">&#1329;&#1404;&#1377;&#1403;&#1377;&#1408;&#1391;&#1406;&#1400;&#1410;&#1396; &#1383;</span>
-        <div class="t-icon">&#127912;</div>
-        <h3 class="serif">Creative AI</h3>
-        <div class="t-persona">&#1332;&#1387;&#1382;&#1377;&#1397;&#1398;&#1381;&#1408;&#1398;&#1381;&#1408;&#1387;, &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; &#1405;&#1407;&#1381;&#1394;&#1390;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387;, SMM-&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</div>
-        <p class="t-desc">&#1343;&#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1412; &#1405;&#1407;&#1381;&#1394;&#1390;&#1381;&#1388; &#1407;&#1381;&#1405;&#1377;&#1398;&#1397;&#1400;&#1410;&#1385;&#1381;&#1408;, &#1398;&#1391;&#1377;&#1408;&#1398;&#1381;&#1408;, &#1379;&#1400;&#1406;&#1377;&#1382;&#1380;&#1381;&#1408; &#1415; &#1406;&#1387;&#1382;&#1400;&#1410;&#1377;&#1388; &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; Nanobanana, Higgsfield, Canva AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1400;&#1406;&#1417;</p>
-        <ul class="t-outcomes">
-          <li>&#1358;&#1387;&#1382;&#1400;&#1410;&#1377;&#1388; &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1400;&#1406;</li>
-          <li>&#1359;&#1381;&#1412;&#1405;&#1407;, &#1398;&#1391;&#1377;&#1408;&#1398;&#1381;&#1408;, &#1379;&#1400;&#1406;&#1377;&#1382;&#1380;&#1381;&#1408; AI-&#1400;&#1406;</li>
-          <li>&#1357;&#1400;&#1409;&#1387;&#1377;&#1388; &#1396;&#1381;&#1380;&#1387;&#1377;&#1397;&#1387; &#1405;&#1407;&#1408;&#1377;&#1407;&#1381;&#1379;&#1387;&#1377;</li>
-        </ul>
-        <div class="t-meta"><span>5&ndash;6 &#1380;&#1377;&#1405;</span><span>Online + Offline</span></div>
-        <div class="t-spots">&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</div>
-        <button class="btn btn-sm" onclick="openModal('creative')">&#1329;&#1406;&#1381;&#1388;&#1387;&#1398;</button>
-      </div>
-      <div class="t-card tilt scale-in stagger-3" id="track-teen">
-        <span class="rec-badge">&#1329;&#1404;&#1377;&#1403;&#1377;&#1408;&#1391;&#1406;&#1400;&#1410;&#1396; &#1383;</span>
-        <div class="t-icon">&#127891;</div>
-        <h3 class="serif">AI Teenagers 13+</h3>
-        <div class="t-persona">13&#8211;17 &#1407;&#1377;&#1408;&#1381;&#1391;&#1377;&#1398; &#1380;&#1381;&#1404;&#1377;&#1392;&#1377;&#1405;&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</div>
-        <p class="t-desc">AI-&#1387; &#1392;&#1387;&#1396;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;&#1384; &#1382;&#1408;&#1400;&#1397;&#1387;&#1409;&#1373; &#1379;&#1400;&#1408;&#1390;&#1398;&#1377;&#1391;&#1377;&#1398; &#1398;&#1377;&#1389;&#1377;&#1379;&#1390;&#1381;&#1408;&#1400;&#1406; &#1415; &#1405;&#1381;&#1411;&#1377;&#1391;&#1377;&#1398; &#1402;&#1408;&#1400;&#1381;&#1391;&#1407;&#1387; &#1405;&#1407;&#1381;&#1394;&#1390;&#1400;&#1410;&#1396;&#1400;&#1406;&#1417;</p>
-        <ul class="t-outcomes">
-          <li>AI-&#1387; &#1392;&#1387;&#1396;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;&#1384; &#1402;&#1377;&#1408;&#1382; &#1388;&#1381;&#1382;&#1406;&#1400;&#1406;</li>
-          <li>&#1339;&#1408;&#1381;&#1398;&#1409; &#1377;&#1404;&#1377;&#1403;&#1387;&#1398; AI &#1402;&#1408;&#1400;&#1381;&#1391;&#1407;&#1384;</li>
-          <li>&#1329;&#1402;&#1377;&#1379;&#1377;&#1397;&#1387; &#1392;&#1396;&#1407;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1398;&#1381;&#1408;</li>
-        </ul>
-        <div class="t-meta"><span>5&ndash;6 &#1380;&#1377;&#1405;</span><span>Online + Offline</span></div>
-        <div class="t-spots">&#1348;&#1398;&#1377;&#1409;&#1381;&#1388; &#1383; 4 &#1407;&#1381;&#1394;</div>
-        <button class="btn btn-sm" onclick="openModal('teen')">&#1329;&#1406;&#1381;&#1388;&#1387;&#1398;</button>
+      <div class="about-text slide-right">
+        <h2 class="serif">&#1330;&#1377;&#1408;&#1415; &#1393;&#1381;&#1382;, &#1381;&#1405; &#1335;&#1380;&#1398; &#1381;&#1396;</h2>
+        <p>AI &#1400;&#1410;&#1405;&#1400;&#1410;&#1409;&#1387;&#1401; &#1415; &#1385;&#1408;&#1381;&#1397;&#1398;&#1381;&#1408;&#1417; TUMO-&#1387; &#1415; 42 Yerevan-&#1387; &#1377;&#1406;&#1377;&#1408;&#1407;&#1377;&#1390;&#1417; &#1329;&#1408;&#1380;&#1381;&#1398; &#1377;&#1406;&#1381;&#1388;&#1387; &#1412;&#1377;&#1398; 50 &#1396;&#1377;&#1408;&#1380; &#1413;&#1379;&#1407;&#1406;&#1400;&#1410;&#1396; &#1383; AI-&#1387;&#1409; &#1387;&#1408;&#1381;&#1398;&#1409; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;&#1417;</p>
+        <div class="cred-row">
+          <span class="cred">50+ &#1400;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;</span>
+          <span class="cred">42 / TUMO</span>
+        </div>
       </div>
     </div>
   </div>
@@ -706,7 +694,7 @@ section{padding:80px 0}
 <section class="testimonials" id="testimonials">
   <div class="container">
     <div class="section-line" style="margin-bottom:24px"></div>
-    <h2 class="stitle serif fade-in">&#1339;&#1398;&#1401; &#1381;&#1398; &#1377;&#1405;&#1400;&#1410;&#1396;</h2>
+    <h2 class="stitle serif reveal-3d">&#1339;&#1398;&#1401; &#1381;&#1398; &#1377;&#1405;&#1400;&#1410;&#1396;</h2>
     <p class="ssub fade-in">&#1339;&#1408;&#1377;&#1391;&#1377;&#1398; &#1396;&#1377;&#1408;&#1380;&#1387;&#1391;, &#1387;&#1408;&#1377;&#1391;&#1377;&#1398; &#1377;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;</p>
     <div class="test-grid">
       <div class="test-card tilt slide-left">
@@ -737,7 +725,7 @@ section{padding:80px 0}
 <section class="faq" id="faq">
   <div class="container">
     <div class="section-line" style="margin-bottom:24px"></div>
-    <h2 class="stitle serif fade-in">&#1344;&#1377;&#1395;&#1377;&#1389; &#1407;&#1408;&#1406;&#1400;&#1394; &#1392;&#1377;&#1408;&#1409;&#1381;&#1408;</h2>
+    <h2 class="stitle serif reveal-3d">&#1344;&#1377;&#1395;&#1377;&#1389; &#1407;&#1408;&#1406;&#1400;&#1394; &#1392;&#1377;&#1408;&#1409;&#1381;&#1408;</h2>
     <p class="ssub fade-in">&#1329;&#1396;&#1381;&#1398; &#1387;&#1398;&#1401; &#1402;&#1381;&#1407;&#1412; &#1383; &#1387;&#1396;&#1377;&#1398;&#1377;&#1388;</p>
     <div class="faq-list">
       <div class="faq-item fade-in"><button class="faq-q">&#1354;&#1381;&#1371;&#1407;&#1412; &#1383; &#1398;&#1377;&#1389;&#1398;&#1377;&#1391;&#1377;&#1398; &#1411;&#1400;&#1408;&#1393; &#1400;&#1410;&#1398;&#1381;&#1398;&#1377;&#1388;<span class="arrow">&#9660;</span></button><div class="faq-a"><p>&#1352;&#1401;&#1417; &#1330;&#1400;&#1388;&#1400;&#1408; &#1390;&#1408;&#1377;&#1379;&#1408;&#1381;&#1408;&#1384; &#1405;&#1391;&#1405;&#1406;&#1400;&#1410;&#1396; &#1381;&#1398; &#1382;&#1408;&#1400;&#1397;&#1387;&#1409;&#1417; &#1329;&#1398;&#1392;&#1408;&#1377;&#1382;&#1381;&#1399;&#1407; &#1383; &#1396;&#1387;&#1377;&#1397;&#1398; &#1392;&#1381;&#1407;&#1377;&#1412;&#1408;&#1412;&#1408;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1384; &#1415; &#1409;&#1377;&#1398;&#1391;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1384; &#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1388;&#1417;</p></div></div>
@@ -747,6 +735,16 @@ section{padding:80px 0}
     </div>
   </div>
 </section>
+
+
+
+
+
+
+
+
+
+
 
 <!-- Footer CTA -->
 <section class="footer-cta" id="cta">
@@ -1081,6 +1079,54 @@ section{padding:80px 0}
       orb2.style.transform='translateY('+s*-.1+'px)';
     }
   },{passive:true});
+
+
+  /* ── Mouse-follow light in hero ── */
+  var heroSection=document.querySelector('.hero');
+  var heroLight=document.createElement('div');
+  heroLight.className='hero-light';
+  document.querySelector('.hero-bg').appendChild(heroLight);
+  heroSection.addEventListener('mousemove',function(e){
+    var rect=heroSection.getBoundingClientRect();
+    heroLight.style.left=(e.clientX-rect.left)+'px';
+    heroLight.style.top=(e.clientY-rect.top)+'px';
+  });
+
+  /* ── Custom cursor glow ── */
+  var cursorGlow=document.createElement('div');
+  cursorGlow.className='cursor-glow';
+  document.body.appendChild(cursorGlow);
+  document.addEventListener('mousemove',function(e){
+    cursorGlow.style.left=e.clientX+'px';
+    cursorGlow.style.top=e.clientY+'px';
+  });
+  document.querySelectorAll('a,.btn,.q-opt,button').forEach(function(el){
+    el.addEventListener('mouseenter',function(){cursorGlow.classList.add('expand');});
+    el.addEventListener('mouseleave',function(){cursorGlow.classList.remove('expand');});
+  });
+
+  /* ── 3D tilt on hero content ── */
+  var heroContent=document.querySelector('.hero-content');
+  heroSection.addEventListener('mousemove',function(e){
+    var rect=heroSection.getBoundingClientRect();
+    var x=(e.clientX-rect.left)/rect.width-.5;
+    var y=(e.clientY-rect.top)/rect.height-.5;
+    heroContent.style.transform='perspective(1000px) rotateY('+x*3+'deg) rotateX('+(-y*3)+'deg)';
+  });
+  heroSection.addEventListener('mouseleave',function(){
+    heroContent.style.transform='perspective(1000px) rotateY(0) rotateX(0)';
+    heroContent.style.transition='transform .5s ease-out';
+    setTimeout(function(){heroContent.style.transition='';},500);
+  });
+
+  /* ── Observe new animation classes ── */
+  document.querySelectorAll('.reveal-3d').forEach(function(el){obs.observe(el);});
+
+  /* ── Section visible class for border animation ── */
+  var sectionObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:0.2});
+  document.querySelectorAll('section').forEach(function(s){sectionObs.observe(s);});
 
   /* ── Page ready ── */
 })();
