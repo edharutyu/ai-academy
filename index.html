@@ -1106,7 +1106,7 @@ section.visible::after{width:200px}
     var track=document.getElementById('sf-track').value;
     var msg='\u0532\u0561\u0580\u0587\u0589 \u0535\u057D '+name+' \u0565\u0574\u0589\n\u0540\u0565\u057F\u0561\u0584\u0580\u0584\u057E\u0578\u0582\u0574 \u0565\u0574 '+track+' \u056E\u0580\u0561\u0563\u0580\u0578\u057E\u0589\n\u0540\u0565\u057C\u0561\u056D\u0578\u057D\u055D '+phone;
     var url='https://wa.me/37493388443?text='+encodeURIComponent(msg);
-    window.open(url,'_blank');
+    var a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();document.body.removeChild(a);
     return false;
   };
 
