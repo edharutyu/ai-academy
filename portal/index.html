@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Academy &#8212; Student Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#1A1714;--bg2:#221f1a;--gold:#C4956A;--gold-dim:rgba(196,149,106,.12);
+  --gold-glow:rgba(196,149,106,.25);--text:#F5EDE4;--text-dim:#b0a89e;
+  --card:#252119;--card-border:rgba(196,149,106,.12);--danger:#e05a5a;
+  --success:#5aad6a;--radius:14px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit;cursor:pointer}
+input,textarea,select{font-family:inherit}
+::selection{background:var(--gold);color:var(--bg)}
+
+/* ── LOGIN ── */
+#loginGate{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.login-box{background:var(--bg2);border:1px solid var(--card-border);border-radius:20px;padding:52px 36px;max-width:380px;width:100%;text-align:center}
+.login-box h1{font-size:1.5rem;font-weight:800;margin-bottom:4px;color:var(--gold)}
+.login-box .login-sub{color:var(--text-dim);font-size:.82rem;margin-bottom:32px}
+.login-box input{width:100%;padding:14px 18px;border-radius:12px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.92rem;outline:none;transition:border-color .25s;margin-bottom:14px}
+.login-box input:focus{border-color:var(--gold)}
+.login-box .btn{width:100%}
+.login-error{color:var(--danger);font-size:.8rem;margin-top:10px;display:none}
+.login-emoji{font-size:2.4rem;margin-bottom:16px;display:block}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;border-radius:12px;border:none;background:var(--gold);color:#1a1714;font-weight:700;font-size:.88rem;transition:all .25s;cursor:pointer}
+.btn:hover{background:#d4a67a;transform:translateY(-1px);text-decoration:none}
+.btn:active{transform:translateY(0)}
+.btn-sm{padding:8px 16px;font-size:.78rem;border-radius:8px}
+.btn-outline{background:transparent;border:1.5px solid var(--gold);color:var(--gold)}
+.btn-outline:hover{background:var(--gold-dim)}
+.btn-ghost{background:transparent;color:var(--text-dim);border:1px solid var(--card-border)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn-success{background:var(--success);color:#fff}
+.btn-icon{width:36px;height:36px;padding:0;border-radius:10px;font-size:1rem}
+
+/* ── NAV ── */
+#portal{display:none}
+.portal-nav{position:sticky;top:0;z-index:100;background:rgba(26,23,20,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--card-border);padding:0 24px}
+.portal-nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.portal-nav .logo{font-weight:800;font-size:1rem;color:var(--gold)}
+.portal-nav .nav-links{display:flex;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.portal-nav .nav-links a{padding:8px 14px;border-radius:10px;font-size:.76rem;font-weight:600;color:var(--text-dim);white-space:nowrap;transition:all .2s}
+.portal-nav .nav-links a:hover,.portal-nav .nav-links a.active{color:var(--gold);background:var(--gold-dim);text-decoration:none}
+.nav-right{display:flex;align-items:center;gap:10px}
+.role-badge{font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:8px;text-transform:uppercase;letter-spacing:.6px}
+.role-badge.student{background:var(--gold-dim);color:var(--gold)}
+.role-badge.teacher{background:rgba(90,173,106,.15);color:var(--success)}
+.logout-btn{background:none;border:none;color:var(--text-dim);font-size:.76rem;cursor:pointer;padding:4px}
+.logout-btn:hover{color:var(--danger)}
+
+/* ── LAYOUT ── */
+.container{max-width:900px;margin:0 auto;padding:36px 20px}
+.section{margin-bottom:64px}
+.section-header{margin-bottom:28px}
+.section-title{font-size:1.35rem;font-weight:800;margin-bottom:4px}
+.section-sub{color:var(--text-dim);font-size:.84rem}
+.section-emoji{font-size:1.6rem;margin-bottom:8px;display:block}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px;transition:all .3s}
+.card:hover{border-color:var(--gold-glow)}
+
+/* ── SESSION GUIDE ── */
+.session-item{margin-bottom:14px}
+.session-header{display:flex;align-items:center;gap:14px;padding:20px 24px;background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);cursor:pointer;transition:all .3s;user-select:none;-webkit-user-select:none}
+.session-header:hover{border-color:var(--gold-glow);background:#2a2520}
+.session-header.active{border-color:var(--gold);border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom:none}
+.session-num-badge{width:38px;height:38px;min-width:38px;border-radius:10px;background:var(--gold-dim);color:var(--gold);font-weight:800;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+.session-header.active .session-num-badge{background:var(--gold);color:var(--bg)}
+.session-header-text{flex:1}
+.session-header-title{font-size:1rem;font-weight:700}
+.session-header-sub{font-size:.78rem;color:var(--text-dim);margin-top:2px}
+.session-chevron{font-size:.8rem;color:var(--text-dim);transition:transform .3s}
+.session-header.active .session-chevron{transform:rotate(180deg);color:var(--gold)}
+.session-body{background:var(--card);border:1px solid var(--gold);border-top:none;border-bottom-left-radius:var(--radius);border-bottom-right-radius:var(--radius);padding:0 24px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease}
+.session-body.open{max-height:1200px;padding:24px 24px 28px}
+.session-block{margin-bottom:22px}
+.session-block:last-child{margin-bottom:0}
+.session-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--gold);margin-bottom:8px}
+.session-goal{font-size:.95rem;color:var(--text);line-height:1.6}
+.golden-rule{background:linear-gradient(135deg,rgba(196,149,106,.08),rgba(196,149,106,.03));border-left:3px solid var(--gold);padding:14px 18px;border-radius:0 10px 10px 0;font-size:.88rem;color:var(--text);line-height:1.6}
+.session-bullets{list-style:none}
+.session-bullets li{font-size:.86rem;color:var(--text-dim);padding:6px 0;padding-left:22px;position:relative;line-height:1.5}
+.session-bullets li::before{content:'\2192';position:absolute;left:0;color:var(--gold);font-weight:700}
+.session-hw{background:rgba(245,237,228,.03);border:1px solid var(--card-border);border-radius:10px;padding:14px 18px;font-size:.86rem;color:var(--text-dim);line-height:1.5}
+.session-hw strong{color:var(--text);font-weight:600}
+.progress-bar-wrap{background:rgba(245,237,228,.06);border-radius:8px;height:8px;overflow:hidden;margin-top:10px}
+.progress-bar-fill{height:100%;background:var(--gold);border-radius:8px;transition:width .5s ease}
+.progress-bar-label{font-size:.72rem;color:var(--text-dim);margin-top:6px}
+
+/* locked session */
+.session-locked .session-header{opacity:.5;cursor:default}
+.session-locked .session-header:hover{border-color:var(--card-border);background:var(--card)}
+.session-lock-msg{font-size:.8rem;color:var(--text-dim);display:flex;align-items:center;gap:6px}
+
+/* ── PROMPT BUILDER ── */
+.formula-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:18px 20px;background:rgba(196,149,106,.06);border:1px solid var(--card-border);border-radius:var(--radius);margin-bottom:28px}
+.formula-tag{background:var(--gold-dim);color:var(--gold);font-weight:700;font-size:.75rem;padding:6px 12px;border-radius:8px;letter-spacing:.3px}
+.formula-plus{color:var(--text-dim);font-weight:700;font-size:.9rem}
+.formula-eq{color:var(--gold);font-weight:800;font-size:1rem}
+.builder-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.builder-field label{display:block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:6px}
+.builder-field select,.builder-field input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.86rem;outline:none;transition:border-color .25s}
+.builder-field select:focus,.builder-field input:focus{border-color:var(--gold)}
+.builder-field select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23b0a89e'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.prompt-output{background:var(--bg2);border:1px solid var(--card-border);border-radius:var(--radius);padding:20px;margin-top:20px;display:none}
+.prompt-output.visible{display:block}
+.prompt-output-text{font-family:'Courier New',monospace;font-size:.88rem;color:var(--text);line-height:1.7;white-space:pre-wrap;margin-bottom:14px}
+.prompt-output-actions{display:flex;gap:10px}
+.why-section{margin-top:32px;padding:24px;background:rgba(245,237,228,.02);border:1px dashed var(--card-border);border-radius:var(--radius)}
+.why-section h4{font-size:.9rem;font-weight:700;margin-bottom:14px;color:var(--gold)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.why-item{font-size:.82rem;color:var(--text-dim);line-height:1.5}
+.why-item strong{color:var(--text);display:block;margin-bottom:2px;font-size:.78rem}
+
+/* ── TOOL FINDER ── */
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.filter-btn{padding:10px 18px;border-radius:10px;border:1.5px solid var(--card-border);background:transparent;color:var(--text-dim);font-weight:600;font-size:.82rem;transition:all .25s}
+.filter-btn:hover{border-color:var(--gold);color:var(--gold)}
+.filter-btn.active{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.tool-card{padding:22px}
+.tool-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tool-card-name{font-size:1.05rem;font-weight:700}
+.tool-badge{font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
+.badge-free{background:rgba(90,173,106,.12);color:var(--success)}
+.badge-paid{background:rgba(224,90,90,.1);color:var(--danger)}
+.badge-trial{background:var(--gold-dim);color:var(--gold)}
+.tool-card-desc{font-size:.84rem;color:var(--text-dim);margin-bottom:10px;line-height:1.5}
+.tool-card-example{font-size:.78rem;color:var(--text-dim);font-style:italic;padding:10px 14px;background:rgba(245,237,228,.03);border-radius:8px;margin-bottom:14px;line-height:1.5}
+.tool-card-example::before{content:'\1F4A1 ';font-style:normal}
+.tool-card-link{font-size:.8rem;font-weight:600}
+
+/* ── INSPIRATION GALLERY ── */
+.inspo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.inspo-card{overflow:hidden}
+.inspo-gradient{width:100%;aspect-ratio:16/10;border-radius:10px;margin-bottom:14px;display:flex;align-items:center;justify-content:center;font-size:2.2rem}
+.inspo-card h4{font-size:.92rem;font-weight:700;margin-bottom:4px}
+.inspo-meta{font-size:.78rem;color:var(--text-dim);margin-bottom:12px}
+.inspo-prompt-toggle{font-size:.76rem;color:var(--gold);cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;transition:opacity .2s}
+.inspo-prompt-toggle:hover{opacity:.8}
+.inspo-prompt-box{display:none;background:rgba(245,237,228,.03);border:1px solid var(--card-border);border-radius:8px;padding:12px;margin-top:8px}
+.inspo-prompt-box.open{display:block}
+.inspo-prompt-text{font-family:'Courier New',monospace;font-size:.78rem;color:var(--text-dim);line-height:1.5;margin-bottom:10px;white-space:pre-wrap}
+
+/* ── MY PROGRESS ── */
+.progress-overview{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:28px}
+.progress-stat{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:20px;text-align:center}
+.progress-stat-num{font-size:1.8rem;font-weight:800;color:var(--gold)}
+.progress-stat-label{font-size:.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.progress-stat-bar{margin-top:10px}
+.diary-input-wrap{display:flex;gap:10px;margin-bottom:20px}
+.diary-input-wrap input{flex:1;padding:13px 16px;border-radius:12px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.88rem;outline:none;transition:border-color .25s}
+.diary-input-wrap input:focus{border-color:var(--gold)}
+.diary-log{max-height:300px;overflow-y:auto}
+.diary-entry{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--card-border)}
+.diary-entry:last-child{border-bottom:none}
+.diary-date{font-size:.68rem;color:var(--text-dim);white-space:nowrap;min-width:60px;padding-top:2px}
+.diary-text{font-size:.86rem;color:var(--text-dim);line-height:1.5}
+.diary-empty{font-size:.84rem;color:var(--text-dim);text-align:center;padding:24px 0}
+
+/* ── TEACHER ── */
+.teacher-only{display:none}
+.teacher-active .teacher-only{display:block}
+.teacher-badge{background:rgba(90,173,106,.1);border:1px solid rgba(90,173,106,.2);border-radius:8px;padding:4px 10px;font-size:.65rem;font-weight:700;color:var(--success);text-transform:uppercase;letter-spacing:.6px;margin-left:8px}
+
+/* teacher unlock */
+.unlock-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--card-border)}
+.unlock-row:last-child{border-bottom:none}
+.unlock-label{font-size:.88rem;font-weight:600;flex:1}
+.unlock-date{width:130px}
+.unlock-date input{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.78rem;outline:none}
+.unlock-date input:focus{border-color:var(--gold)}
+.toggle{position:relative;width:44px;height:24px;border-radius:12px;background:var(--card-border);border:none;cursor:pointer;transition:background .25s}
+.toggle.on{background:var(--success)}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .25s}
+.toggle.on::after{transform:translateX(20px)}
+
+/* teacher planner */
+.planner-card{margin-bottom:16px}
+.planner-card h4{font-size:.92rem;font-weight:700;margin-bottom:12px;color:var(--gold)}
+.planner-field{margin-bottom:12px}
+.planner-field label{display:block;font-size:.68rem;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+.planner-field textarea{width:100%;min-height:70px;padding:12px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.84rem;resize:vertical;outline:none;transition:border-color .25s}
+.planner-field textarea:focus{border-color:var(--gold)}
+
+/* teacher students */
+.student-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--card-border)}
+.student-row:last-child{border-bottom:none}
+.student-name{font-size:.86rem;font-weight:600;flex:1}
+.student-hw-checks{display:flex;gap:5px}
+.student-hw-checks button{width:26px;height:26px;border-radius:6px;border:1px solid var(--card-border);background:transparent;color:var(--text-dim);font-size:.66rem;font-weight:700;cursor:pointer;transition:all .2s}
+.student-hw-checks button.done{background:var(--success);border-color:var(--success);color:#fff}
+.add-student-row{display:flex;gap:10px;margin-top:14px}
+.add-student-row input{flex:1;padding:10px 14px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.84rem;outline:none}
+.add-student-row input:focus{border-color:var(--gold)}
+
+/* teacher hw progress */
+.hw-progress-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--card-border)}
+.hw-progress-row:last-child{border-bottom:none}
+.hw-progress-label{font-size:.84rem;font-weight:600;flex:1}
+.hw-progress-input{width:60px;padding:6px 10px;border-radius:8px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.84rem;text-align:center;outline:none}
+.hw-progress-input:focus{border-color:var(--gold)}
+
+/* teacher certificate */
+.cert-controls{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.cert-controls input{flex:1;min-width:200px;padding:12px 16px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.88rem;outline:none}
+.cert-controls input:focus{border-color:var(--gold)}
+#certPreview{display:none}
+.certificate{background:#0e0c0a;border:3px solid var(--gold);border-radius:18px;padding:60px 48px;text-align:center;position:relative;overflow:hidden;max-width:700px;margin:0 auto}
+.certificate::before{content:'';position:absolute;inset:8px;border:1px solid rgba(196,149,106,.2);border-radius:14px;pointer-events:none}
+.cert-corner{position:absolute;width:36px;height:36px;border-color:var(--gold);border-style:solid}
+.cert-corner.tl{top:16px;left:16px;border-width:2px 0 0 2px}
+.cert-corner.tr{top:16px;right:16px;border-width:2px 2px 0 0}
+.cert-corner.bl{bottom:16px;left:16px;border-width:0 0 2px 2px}
+.cert-corner.br{bottom:16px;right:16px;border-width:0 2px 2px 0}
+.cert-label{font-size:.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.cert-title{font-size:1.9rem;font-weight:800;color:var(--gold);margin-bottom:4px}
+.cert-sub{font-size:.82rem;color:var(--text-dim);margin-bottom:36px}
+.cert-name{font-size:1.7rem;font-weight:700;color:var(--text);margin-bottom:8px;border-bottom:2px solid var(--gold);display:inline-block;padding-bottom:6px}
+.cert-body{font-size:.86rem;color:var(--text-dim);margin:24px auto;max-width:460px;line-height:1.7}
+.cert-footer{display:flex;justify-content:space-between;align-items:flex-end;margin-top:40px;padding-top:24px;border-top:1px solid rgba(196,149,106,.12)}
+.cert-sig{text-align:left}
+.cert-sig .name{font-size:1rem;font-weight:700;color:var(--text)}
+.cert-sig .role{font-size:.74rem;color:var(--text-dim)}
+.cert-date{text-align:right}
+.cert-date .label{font-size:.66rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+.cert-date .value{font-size:.9rem;color:var(--text);font-weight:600}
+
+/* teacher content bank */
+.bank-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.bank-tab{padding:8px 16px;border-radius:8px;border:1px solid var(--card-border);background:transparent;color:var(--text-dim);font-weight:600;font-size:.78rem;transition:all .2s}
+.bank-tab:hover{border-color:var(--gold);color:var(--gold)}
+.bank-tab.active{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.bank-item{padding:16px 0;border-bottom:1px solid var(--card-border)}
+.bank-item:last-child{border-bottom:none}
+.bank-item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.bank-item-text{font-family:'Courier New',monospace;font-size:.82rem;color:var(--text-dim);line-height:1.5;white-space:pre-wrap;background:rgba(245,237,228,.03);border-radius:8px;padding:12px}
+.bank-add{margin-top:16px}
+.bank-add textarea{width:100%;min-height:60px;padding:12px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.84rem;resize:vertical;outline:none;margin-bottom:10px}
+.bank-add textarea:focus{border-color:var(--gold)}
+.share-toggle{font-size:.72rem;font-weight:600;cursor:pointer;padding:4px 10px;border-radius:6px;border:1px solid var(--card-border);background:transparent;color:var(--text-dim);transition:all .2s}
+.share-toggle.shared{background:rgba(90,173,106,.12);color:var(--success);border-color:rgba(90,173,106,.2)}
+
+/* ── MOBILE NAV ── */
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(26,23,20,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--card-border);padding:6px 0;padding-bottom:env(safe-area-inset-bottom,6px)}
+.mobile-nav-inner{display:flex;justify-content:space-around}
+.mobile-nav a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.6rem;color:var(--text-dim);padding:6px 4px;font-weight:600;text-decoration:none;transition:color .2s}
+.mobile-nav a.active{color:var(--gold)}
+.mobile-nav a span.icon{font-size:1.1rem}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .portal-nav .nav-links{display:none}
+  .mobile-nav{display:block}
+  .container{padding:24px 16px;padding-bottom:80px}
+  .section-title{font-size:1.15rem}
+  .builder-grid{grid-template-columns:1fr}
+  .progress-overview{grid-template-columns:1fr}
+  .inspo-grid{grid-template-columns:1fr}
+  .tools-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .formula-bar{flex-direction:column;align-items:flex-start;gap:6px}
+  .certificate{padding:36px 20px}
+  .cert-title{font-size:1.3rem}
+  .cert-name{font-size:1.2rem}
+  .cert-footer{flex-direction:column;align-items:center;gap:16px}
+  .cert-sig,.cert-date{text-align:center}
+  .login-box{padding:36px 24px}
+  .session-header{padding:16px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginGate">
+  <div class="login-box">
+    <span class="login-emoji">&#129302;</span>
+    <h1>AI Academy</h1>
+    <p class="login-sub">&#1364;&#1400; &#1377;&#1398;&#1393;&#1398;&#1377;&#1391;&#1377;&#1398; &#1400;&#1410;&#1394;&#1381;&#1409;&#1400;&#1410;&#1397;&#1409;&#1384; AI-&#1387; &#1377;&#1399;&#1389;&#1377;&#1408;&#1392;&#1400;&#1410;&#1396;</p>
+    <input type="password" id="passInput" placeholder="&#1331;&#1377;&#1394;&#1407;&#1398;&#1377;&#1378;&#1377;&#1404;" autocomplete="off" autofocus>
+    <button class="btn" onclick="tryLogin()">&#1348;&#1400;&#1410;&#1407;&#1412;</button>
+    <div class="login-error" id="loginErr">&#1357;&#1389;&#1377;&#1388; &#1379;&#1377;&#1394;&#1407;&#1398;&#1377;&#1378;&#1377;&#1404;&#1417; &#1363;&#1400;&#1408;&#1393;&#1381;&#1412; &#1398;&#1400;&#1408;&#1387;&#1409;&#1417;</div>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div id="portal">
+<nav class="portal-nav">
+  <div class="portal-nav-inner">
+    <span class="logo">AI Academy</span>
+    <div class="nav-links">
+      <a href="#sessions" class="active" onclick="scrollNav(this)">&#1332;&#1377;&#1405;&#1381;&#1408;</a>
+      <a href="#builder" onclick="scrollNav(this)">Prompt Builder</a>
+      <a href="#tools" onclick="scrollNav(this)">&#1331;&#1400;&#1408;&#1390;&#1387;&#1412;</a>
+      <a href="#gallery" onclick="scrollNav(this)">&#1352;&#1394;&#1381;&#1399;&#1396;&#1400;&#1410;&#1398;&#1412;</a>
+      <a href="#progress" onclick="scrollNav(this)">&#1354;&#1408;&#1400;&#1379;&#1408;&#1381;&#1405;</a>
+      <a href="#planner" onclick="scrollNav(this)" class="teacher-only">Planner</a>
+      <a href="#bank" onclick="scrollNav(this)" class="teacher-only">Content Bank</a>
+      <a href="#certificate" onclick="scrollNav(this)" class="teacher-only">&#1358;&#1391;&#1377;&#1397;&#1377;&#1391;&#1377;&#1398;</a>
+    </div>
+    <div class="nav-right">
+      <span class="role-badge" id="roleBadge">Student</span>
+      <button class="logout-btn" onclick="logout()">&#1333;&#1388;&#1412;</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- 1: SESSION GUIDE -->
+<div class="section" id="sessions">
+  <div class="section-header">
+    <span class="section-emoji">&#128218;</span>
+    <h2 class="section-title">&#1364;&#1400; &#1400;&#1410;&#1394;&#1381;&#1409;&#1400;&#1410;&#1397;&#1409;&#1384;</h2>
+    <p class="section-sub">&#1329;&#1396;&#1381;&#1398; &#1380;&#1377;&#1405; &#1396;&#1387; &#1398;&#1400;&#1408; &#1392;&#1396;&#1407;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398; &#1383;&#1373; &#1400;&#1408;&#1384; &#1391;&#1411;&#1400;&#1389;&#1381;&#1405; &#1412;&#1400; &#1391;&#1397;&#1377;&#1398;&#1412;&#1384;&#1417;</p>
+  </div>
+  <div id="sessionList"></div>
+</div>
+
+<!-- 2: PROMPT BUILDER -->
+<div class="section" id="builder">
+  <div class="section-header">
+    <span class="section-emoji">&#9997;&#65039;</span>
+    <h2 class="section-title">Prompt Builder</h2>
+    <p class="section-sub">&#1343;&#1377;&#1404;&#1400;&#1410;&#1409;&#1387;&#1408; &#1412;&#1400; prompt-&#1384;&#1373; &#1412;&#1377;&#1397;&#1388; &#1377;&#1404; &#1412;&#1377;&#1397;&#1388;&#1417;</p>
+  </div>
+  <div class="formula-bar">
+    <span class="formula-tag">ROLE</span><span class="formula-plus">+</span>
+    <span class="formula-tag">TASK</span><span class="formula-plus">+</span>
+    <span class="formula-tag">CONTEXT</span><span class="formula-plus">+</span>
+    <span class="formula-tag">FORMAT</span><span class="formula-eq">=</span>
+    <span class="formula-tag" style="background:var(--gold);color:var(--bg)">&#10024; Great Prompt</span>
+  </div>
+  <div class="builder-grid">
+    <div class="builder-field">
+      <label>Role &#8212; &#1400;&#1406; &#1383; AI-&#1398;</label>
+      <select id="bRole">
+        <option value="Act as a professional copywriter">&#1354;&#1408;&#1400;&#1414;&#1381;&#1405;&#1387;&#1400;&#1398;&#1377;&#1388; &#1391;&#1400;&#1402;&#1387;&#1404;&#1377;&#1397;&#1407;&#1381;&#1408;</option>
+        <option value="Act as a business consultant">&#1330;&#1387;&#1382;&#1398;&#1381;&#1405; &#1389;&#1400;&#1408;&#1392;&#1408;&#1380;&#1377;&#1407;&#1400;&#1410;</option>
+        <option value="Act as a creative director">&#1343;&#1408;&#1381;&#1377;&#1407;&#1387;&#1406; &#1380;&#1387;&#1408;&#1381;&#1391;&#1407;&#1400;&#1408;</option>
+        <option value="Act as an Armenian translator">&#1344;&#1377;&#1397;&#1381;&#1408;&#1381;&#1398; &#1385;&#1377;&#1408;&#1379;&#1396;&#1377;&#1398;&#1387;&#1401;</option>
+        <option value="Act as a coding assistant">&#1342;&#1408;&#1377;&#1379;&#1408;&#1377;&#1406;&#1400;&#1408;&#1396;&#1377;&#1398; &#1413;&#1379;&#1398;&#1377;&#1391;&#1377;&#1398;</option>
+        <option value="Act as a social media expert">Social media &#1411;&#1400;&#1408;&#1393;&#1377;&#1379;&#1381;&#1407;</option>
+        <option value="Act as a video script writer">&#1358;&#1387;&#1380;&#1381;&#1400; &#1405;&#1409;&#1381;&#1398;&#1377;&#1408;&#1387;&#1405;&#1407;</option>
+      </select>
+    </div>
+    <div class="builder-field">
+      <label>Task &#8212; &#1387;&#1398;&#1401; &#1377;&#1398;&#1381;&#1388;</label>
+      <input type="text" id="bTask" placeholder="Write / Create / Summarize / Translate...">
+    </div>
+    <div class="builder-field">
+      <label>Context &#8212; &#1400;&#1410;&#1396; &#1415; &#1387;&#1398;&#1401;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</label>
+      <input type="text" id="bContext" placeholder="For my [audience], about [topic]">
+    </div>
+    <div class="builder-field">
+      <label>Format &#8212; &#1387;&#1398;&#1401; &#1407;&#1381;&#1405;&#1412;&#1400;&#1406;</label>
+      <select id="bFormat">
+        <option value="Write in Armenian">&#1344;&#1377;&#1397;&#1381;&#1408;&#1381;&#1398;&#1400;&#1406;</option>
+        <option value="As bullet points">Bullet points</option>
+        <option value="Under 150 words">150 &#1378;&#1377;&#1404;&#1387;&#1409; &#1412;&#1387;&#1401;</option>
+        <option value="As a table">&#1329;&#1394;&#1397;&#1400;&#1410;&#1405;&#1377;&#1391;&#1387; &#1407;&#1381;&#1405;&#1412;&#1400;&#1406;</option>
+        <option value="Step by step">&#1364;&#1377;&#1397;&#1388; &#1377;&#1404; &#1412;&#1377;&#1397;&#1388;</option>
+        <option value="In a casual, friendly tone">&#1336;&#1398;&#1391;&#1381;&#1408;&#1377;&#1391;&#1377;&#1398; &#1407;&#1400;&#1398;&#1400;&#1406;</option>
+      </select>
+    </div>
+  </div>
+  <button class="btn" onclick="buildPrompt()" style="width:100%">&#1343;&#1377;&#1404;&#1400;&#1410;&#1409;&#1387;&#1408; &#1387;&#1396; prompt-&#1384; &#8594;</button>
+  <div class="prompt-output" id="promptOutput">
+    <div class="prompt-output-text" id="promptText"></div>
+    <div class="prompt-output-actions">
+      <button class="btn btn-sm" onclick="copyBuiltPrompt()">&#128203; Copy</button>
+      <button class="btn btn-sm btn-outline" onclick="clearBuilder()">&#1350;&#1400;&#1408;&#1387;&#1409;</button>
+    </div>
+  </div>
+  <div class="why-section">
+    <h4>&#1336;&#1398;&#1401;&#1400;&#1410;&#8228; &#1405;&#1377; &#1377;&#1399;&#1389;&#1377;&#1407;&#1400;&#1410;&#1396; &#1383;</h4>
+    <div class="why-grid">
+      <div class="why-item"><strong>ROLE</strong>AI-&#1398; &#1377;&#1406;&#1381;&#1388;&#1387; &#1388;&#1377;&#1406; &#1402;&#1377;&#1407;&#1377;&#1405;&#1389;&#1377;&#1398;&#1400;&#1410;&#1396; &#1383;, &#1381;&#1408;&#1378; &#1379;&#1387;&#1407;&#1387;, &#1400;&#1406; &#1383;&#1417; &#1336;&#1398;&#1407;&#1408;&#1387;&#1408; &#1380;&#1381;&#1408;&#1384;, &#1405;&#1407;&#1377;&#1409;&#1387;&#1408; &#1377;&#1406;&#1381;&#1388;&#1387; &#1411;&#1400;&#1408;&#1393;&#1377;&#1379;&#1381;&#1407; &#1402;&#1377;&#1407;&#1377;&#1405;&#1389;&#1377;&#1398;&#1417;</div>
+      <div class="why-item"><strong>TASK</strong>&#1344;&#1405;&#1407;&#1377;&#1391; &#1377;&#1405;&#1377;, &#1387;&#1398;&#1401; &#1381;&#1405; &#1400;&#1410;&#1382;&#1400;&#1410;&#1396;&#1417; &#1330;&#1377;&#1397;&#1409; &#171;&#1379;&#1408;&#1387;&#1408;&#187; &#1377;&#1405;&#1381;&#1388;&#1400;&#1410; &#1411;&#1400;&#1389;&#1377;&#1408;&#1381;&#1398;&#1373; &#1407;&#1400;&#1410;&#1408; &#1391;&#1400;&#1398;&#1391;&#1408;&#1381;&#1407; &#1389;&#1398;&#1380;&#1387;&#1408;&#1417;</div>
+      <div class="why-item"><strong>CONTEXT</strong>&#1329;&#1404;&#1377;&#1398;&#1409; &#1391;&#1400;&#1398;&#1407;&#1381;&#1412;&#1405;&#1407;&#1387; AI-&#1398; &#1401;&#1387; &#1391;&#1377;&#1408;&#1400;&#1394; &#1387;&#1396;&#1377;&#1398;&#1377;&#1388;&#1373; &#1387;&#1398;&#1401;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408; &#1381;&#1405; &#1379;&#1408;&#1400;&#1410;&#1396;&#1417; &#1329;&#1405;&#1377; &#1398;&#1408;&#1377;&#1398; &#1385;&#1381; &#1400;&#1406; &#1383; &#1412;&#1400; &#1388;&#1405;&#1377;&#1408;&#1377;&#1398;&#1384;&#1417;</div>
+      <div class="why-item"><strong>FORMAT</strong>&#1329;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1412;&#1384; &#1393;&#1415;&#1387;&#1398; &#1391;&#1377;&#1389;&#1406;&#1377;&#1390; &#1383; &#1399;&#1377;&#1407; &#1378;&#1377;&#1398;&#1381;&#1408;&#1387;&#1409;&#1417; &#1329;&#1405;&#1377;&#1373; &#1385;&#1381; &#1387;&#1398;&#1401; &#1407;&#1381;&#1405;&#1412;&#1400;&#1406; &#1381;&#1405; &#1400;&#1410;&#1382;&#1400;&#1410;&#1396;&#1417;</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3: TOOL FINDER -->
+<div class="section" id="tools">
+  <div class="section-header">
+    <span class="section-emoji">&#128736;&#65039;</span>
+    <h2 class="section-title">&#1331;&#1407;&#1387;&#1408; &#1412;&#1400; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1384;</h2>
+    <p class="section-sub">&#1336;&#1398;&#1401;&#1387;&#8228;&#1398;&#1417; &#1381;&#1405; &#1400;&#1410;&#1382;&#1400;&#1410;&#1396; &#1377;&#1398;&#1381;&#1388;&#1417;</p>
+  </div>
+  <div class="filter-row" id="filterRow"></div>
+  <div class="tools-grid" id="toolsGrid"></div>
+</div>
+
+<!-- 4: INSPIRATION GALLERY -->
+<div class="section" id="gallery">
+  <div class="section-header">
+    <span class="section-emoji">&#10024;</span>
+    <h2 class="section-title">&#1359;&#1381;&#1405;&#1373; &#1387;&#1398;&#1401; &#1383; &#1392;&#1398;&#1377;&#1408;&#1377;&#1406;&#1400;&#1408;</h2>
+    <p class="section-sub">&#1329;&#1396;&#1381;&#1398; &#1387;&#1398;&#1401; &#1380;&#1400;&#1410; &#1391;&#1377;&#1408;&#1400;&#1394; &#1381;&#1405; &#1405;&#1407;&#1381;&#1394;&#1390;&#1381;&#1388; AI-&#1400;&#1406;&#1373; &#1408;&#1400;&#1402;&#1381;&#1398;&#1381;&#1408;&#1387; &#1384;&#1398;&#1385;&#1377;&#1409;&#1412;&#1400;&#1410;&#1396;</p>
+  </div>
+  <div class="inspo-grid" id="inspoGrid"></div>
+</div>
+
+<!-- 5: MY PROGRESS -->
+<div class="section" id="progress">
+  <div class="section-header">
+    <span class="section-emoji">&#128200;</span>
+    <h2 class="section-title">&#1364;&#1400; &#1395;&#1377;&#1396;&#1411;&#1377;&#1398;</h2>
+    <p class="section-sub">&#1344;&#1381;&#1407;&#1415;&#1387;&#1408; &#1387;&#1398;&#1401;&#1412;&#1377;&#1398; &#1381;&#1405; &#1392;&#1377;&#1405;&#1381;&#1388;</p>
+  </div>
+  <div class="progress-overview" id="progressStats"></div>
+  <div class="card">
+    <h4 style="font-size:.9rem;font-weight:700;margin-bottom:4px">&#128221; &#1364;&#1400; AI &#1413;&#1408;&#1377;&#1379;&#1387;&#1408;&#1384;</h4>
+    <p style="font-size:.78rem;color:var(--text-dim);margin-bottom:16px">&#1331;&#1408;&#1387;&#1408; &#1377;&#1396;&#1381;&#1398; &#1413;&#1408;&#1373; &#1387;&#1398;&#1401; &#1405;&#1407;&#1381;&#1394;&#1390;&#1381;&#1409;&#1387;&#1408; AI-&#1400;&#1406;</p>
+    <div class="diary-input-wrap">
+      <input type="text" id="diaryInput" placeholder="&#1329;&#1397;&#1405;&#1413;&#1408; &#1381;&#1405;...">
+      <button class="btn btn-sm" onclick="addDiary()">&#1354;&#1377;&#1392;&#1381;&#1388;</button>
+    </div>
+    <div class="diary-log" id="diaryLog"></div>
+  </div>
+</div>
+
+<!-- TEACHER: SESSION UNLOCK + HW PROGRESS -->
+<div class="section teacher-only" id="teacherUnlock">
+  <h2 class="section-title">&#1332;&#1377;&#1405;&#1381;&#1408;&#1387; &#1391;&#1377;&#1404;&#1377;&#1406;&#1377;&#1408;&#1400;&#1410;&#1396; <span class="teacher-badge">Teacher</span></h2>
+  <p class="section-sub">&#1330;&#1377;&#1409;&#1387;&#1408;/&#1411;&#1377;&#1391;&#1387;&#1408; &#1380;&#1377;&#1405;&#1381;&#1408;&#1384; &#1415; &#1398;&#1399;&#1387;&#1408; &#1377;&#1396;&#1405;&#1377;&#1385;&#1387;&#1406;&#1384;</p>
+  <div class="card" id="unlockList"></div>
+  <h4 style="margin-top:28px;margin-bottom:12px;font-size:.9rem">Homework &#1391;&#1377;&#1407;&#1377;&#1408;&#1396;&#1377;&#1398; %</h4>
+  <div class="card" id="hwProgressList"></div>
+</div>
+
+<!-- TEACHER: PLANNER -->
+<div class="section teacher-only" id="planner">
+  <h2 class="section-title">&#1332;&#1377;&#1405;&#1387; &#1402;&#1388;&#1377;&#1398; <span class="teacher-badge">Teacher</span></h2>
+  <p class="section-sub">&#1354;&#1388;&#1377;&#1398;&#1377;&#1406;&#1400;&#1408;&#1381;&#1412; &#1393;&#1381;&#1408; &#1380;&#1377;&#1405;&#1381;&#1408;&#1384; &#1396;&#1377;&#1398;&#1408;&#1377;&#1396;&#1377;&#1405;&#1398;&#1400;&#1408;&#1381;&#1398;</p>
+  <div id="plannerList"></div>
+</div>
+
+<!-- TEACHER: STUDENTS -->
+<div class="section teacher-only" id="students">
+  <h2 class="section-title">&#1352;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;&#1398;&#1381;&#1408; <span class="teacher-badge">Teacher</span></h2>
+  <div class="card">
+    <div id="studentList"></div>
+    <div class="add-student-row">
+      <input type="text" id="newStudentName" placeholder="&#1329;&#1398;&#1400;&#1410;&#1398;...">
+      <button class="btn btn-sm" onclick="addStudent()">+ &#1329;&#1406;&#1381;&#1388;&#1377;&#1409;&#1398;&#1381;&#1388;</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER: CONTENT BANK -->
+<div class="section teacher-only" id="bank">
+  <h2 class="section-title">Content Bank <span class="teacher-badge">Teacher</span></h2>
+  <p class="section-sub">&#1364;&#1400; &#1387;&#1408;&#1377;&#1391;&#1377;&#1398; &#1377;&#1399;&#1389;&#1377;&#1407;&#1400;&#1394; prompt-&#1398;&#1381;&#1408;&#1384;&#1417; &#1365;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1387;&#1408; Share &#1391;&#1400;&#1395;&#1377;&#1391;&#1384;&#1373; &#1400;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387;&#1398; &#1409;&#1400;&#1410;&#1397;&#1409; &#1407;&#1377;&#1388;&#1400;&#1410; &#1392;&#1377;&#1396;&#1377;&#1408;&#1417;</p>
+  <div class="bank-tabs" id="bankTabs"></div>
+  <div class="card" id="bankContent"></div>
+  <div class="bank-add">
+    <textarea id="bankNewText" placeholder="&#1331;&#1408;&#1381;&#1412; &#1398;&#1400;&#1408; prompt..."></textarea>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="btn btn-sm" onclick="addBankItem()">+ &#1329;&#1406;&#1381;&#1388;&#1377;&#1409;&#1398;&#1381;&#1388;</button>
+      <span style="font-size:.76rem;color:var(--text-dim)">&#1343;&#1377;&#1407;&#1381;&#1379;&#1400;&#1408;&#1387;&#1377;&#1373; <span id="bankCatLabel">Text</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER: CERTIFICATE -->
+<div class="section teacher-only" id="certificate">
+  <h2 class="section-title">&#1358;&#1391;&#1377;&#1397;&#1377;&#1391;&#1377;&#1398; <span class="teacher-badge">Teacher</span></h2>
+  <div class="cert-controls">
+    <input type="text" id="certName" placeholder="&#1352;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;&#1387; &#1377;&#1398;&#1400;&#1410;&#1398;...">
+    <button class="btn" onclick="generateCert()">&#1357;&#1407;&#1381;&#1394;&#1390;&#1381;&#1388;</button>
+  </div>
+  <div id="certPreview">
+    <div class="certificate" id="certCard">
+      <div class="cert-corner tl"></div><div class="cert-corner tr"></div>
+      <div class="cert-corner bl"></div><div class="cert-corner br"></div>
+      <div class="cert-label">Certificate of Completion</div>
+      <div class="cert-title">AI Academy Armenia</div>
+      <div class="cert-sub">Artificial Intelligence Education Program</div>
+      <div class="cert-name" id="certStudentName"></div>
+      <div class="cert-body">&#1344;&#1377;&#1403;&#1400;&#1394;&#1400;&#1410;&#1385;&#1397;&#1377;&#1396;&#1378; &#1377;&#1406;&#1377;&#1408;&#1407;&#1381;&#1388; &#1383; AI Academy Armenia &#1380;&#1377;&#1405;&#1384;&#1398;&#1385;&#1377;&#1409;&#1384;&#1373; &#1409;&#1400;&#1410;&#1409;&#1377;&#1380;&#1408;&#1381;&#1388;&#1400;&#1406; &#1377;&#1408;&#1392;&#1381;&#1405;&#1407;&#1377;&#1391;&#1377;&#1398; &#1387;&#1398;&#1407;&#1381;&#1388;&#1381;&#1391;&#1407;&#1387; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1387; &#1387;&#1396;&#1377;&#1409;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398; &#1415; &#1391;&#1387;&#1408;&#1377;&#1404;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1417;</div>
+      <div class="cert-footer">
+        <div class="cert-sig"><div class="name">Ed Harutyunyan</div><div class="role">Founder, AI Academy Armenia</div></div>
+        <div class="cert-date"><div class="label">Date</div><div class="value" id="certDate"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <a href="#sessions" class="active" onclick="scrollNav(this)"><span class="icon">&#128218;</span>&#1332;&#1377;&#1405;&#1381;&#1408;</a>
+    <a href="#builder" onclick="scrollNav(this)"><span class="icon">&#9997;&#65039;</span>Builder</a>
+    <a href="#tools" onclick="scrollNav(this)"><span class="icon">&#128736;&#65039;</span>&#1331;&#1400;&#1408;&#1390;&#1387;&#1412;</a>
+    <a href="#progress" onclick="scrollNav(this)"><span class="icon">&#128200;</span>&#1354;&#1408;&#1400;&#1379;&#1408;&#1381;&#1405;</a>
+    <a href="#bank" onclick="scrollNav(this)" class="teacher-only"><span class="icon">&#128451;&#65039;</span>Bank</a>
+  </div>
+</div>
+
+</div><!-- /portal -->
+
+<script>
+(function(){
+
+var PASS_STUDENT='academy2026';
+var PASS_TEACHER='TEACHER_PASS';
+var role='';
+
+/* ── DATA ── */
+var sessions=[
+  {n:1,title:'AI-\u0568 \u0574\u0565\u0580 \u056f\u0575\u0561\u0576\u0584\u0578\u0582\u0574',
+   goal:'\u0531\u0575\u057d \u0564\u0561\u057d\u056b\u0581 \u0570\u0565\u057f\u0578 \u0564\u0578\u0582 \u056f\u0561\u0580\u0578\u0572\u0561\u0576\u0561\u057d \u0562\u0561\u0581\u0565\u056c ChatGPT-\u0576 \u0587 \u057d\u057f\u0561\u0576\u0561\u056c \u0561\u057c\u0561\u057b\u056b\u0576 \u0585\u0563\u057f\u0561\u056f\u0561\u0580 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584 \u056b\u0580\u0561\u056f\u0561\u0576 \u056f\u0575\u0561\u0576\u0584\u056b \u0570\u0561\u0574\u0561\u0580\u0589',
+   rule:'AI-\u0576 Google \u0579\u0567\u0589 \u0544\u056b\u055d \u0583\u0576\u057f\u0580\u056b\u0580\u0589 \u053d\u0578\u057d\u056b\u055d\u0580 \u0576\u0580\u0561 \u0570\u0565\u057f\u0589',
+   bullets:['\u0532\u0561\u0581\u056b\u0580 ChatGPT-\u0576 \u0587 \u056d\u0578\u057d\u056b\u0580 \u0576\u0580\u0561 \u0570\u0565\u057f \u056b\u0576\u0579\u057a\u0565\u057d \u056d\u0565\u056c\u0561\u0581\u056b \u0563\u0578\u0580\u056e\u0568\u0576\u056f\u0565\u0580\u0578\u057b\u056b \u0570\u0565\u057f',
+     '\u0540\u0561\u0574\u0565\u0574\u0561\u057f\u056b\u0580 \u057e\u0561\u057f prompt vs \u056c\u0561\u057e prompt \u2014 \u057f\u0561\u0580\u0562\u0565\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0568 \u057f\u0565\u057d\u056b\u0580 \u0561\u0576\u0574\u056b\u057b\u0561\u057a\u0565\u057d',
+     '\u054d\u057f\u0565\u0572\u056e\u056b\u0580 \u0584\u0578 \u0561\u057c\u0561\u057b\u056b\u0576 \u0585\u0563\u057f\u0561\u056f\u0561\u0580 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0568 \u056b\u0580\u0561\u056f\u0561\u0576 \u056f\u0575\u0561\u0576\u0584\u056b \u0570\u0561\u0574\u0561\u0580'],
+   hw:'\u0533\u0580\u056b\u0580 3 prompt \u0584\u0578 \u056b\u0580\u0561\u056f\u0561\u0576 \u0561\u0577\u056d\u0561\u057f\u0561\u0576\u0584\u056b \u056f\u0561\u0574 \u056f\u0575\u0561\u0576\u0584\u056b \u0574\u0561\u057d\u056b\u0576\u0589 Screenshot \u0561\u0580\u0561 \u056c\u0561\u057e\u0561\u0563\u0578\u0582\u0575\u0576\u0568\u0589 \u0532\u0565\u0580 \u0570\u0561\u057b\u0578\u0580\u0564 \u0564\u0561\u057d\u0589'},
+  {n:2,title:'Prompt Engineering',
+   goal:'\u0531\u0575\u057d \u0564\u0561\u057d\u056b\u0581 \u0570\u0565\u057f\u0578 \u056f\u0561\u0580\u0578\u0572\u0561\u0576\u0561\u057d \u0563\u0580\u0565\u056c prompt, \u0578\u0580\u0568 \u0561\u057c\u0561\u057b\u056b\u0576 \u0561\u0576\u0563\u0561\u0574\u056b\u0581 \u0584\u0565\u0566 \u057f\u0561 \u0570\u0565\u0576\u0581 \u0561\u0575\u0576 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0568, \u056b\u0576\u0579 \u0578\u0582\u0566\u0578\u0582\u0574 \u0565\u0584\u0589',
+   rule:'\u0553\u0578\u0584\u0580 \u056f\u0578\u0576\u057f\u0565\u0584\u057d\u057f = \u0553\u0578\u0584\u0580 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0589 AI-\u0576 \u0579\u056b \u056f\u0561\u0580\u0564\u0561\u0581\u0578\u0572 \u0574\u057f\u0584\u0565\u0580\u0568\u0589',
+   bullets:['\u054d\u0578\u057e\u0578\u0580\u056b\u0580 \u057f\u0561\u056c context, role \u0587 format \u0561\u0574\u0565\u0576 prompt-\u056b \u0574\u0565\u057b',
+     '\u0555\u0563\u057f\u0561\u0563\u0578\u0580\u056e\u056b\u0580 \u0570\u0561\u0575\u0565\u0580\u0565\u0576\u056b\u0581 \u0561\u0576\u0563\u056c\u0565\u0580\u0565\u0576 \u0569\u0561\u0580\u0563\u0574\u0561\u0576\u0565\u056c\u0578\u0582 trick-\u0568 \u2014 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0576\u0565\u0580\u0568 10x \u056c\u0561\u057e\u0561\u0576\u0578\u0582\u0574 \u0565\u0576',
+     '\u054e\u0565\u0580\u0581\u0580\u056b\u0580 1 \u057e\u0561\u057f prompt, \u057e\u0565\u0580\u0561\u0563\u0580\u056b\u0580 3 \u057f\u0561\u0580\u0562\u0565\u0580\u0561\u056f \u2014 \u057f\u0565\u057d\u056b\u0580 \u0574\u0561\u0563\u056b\u0561\u0576'],
+   hw:'\u054e\u0565\u0580\u0581\u0580\u056b\u0580 1 \u057e\u0561\u057f prompt, \u057e\u0565\u0580\u0561\u0563\u0580\u056b\u0580 3 \u057f\u0561\u0580\u0562\u0565\u0580\u0561\u056f\u0578\u057e, \u0570\u0561\u0574\u0565\u0574\u0561\u057f\u056b\u0580 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0576\u0565\u0580\u0568\u0589 \u054d\u056f\u0580\u056b\u0576\u0577\u0578\u057f\u056b\u0580 \u056c\u0561\u057e\u0561\u0563\u0578\u0582\u0575\u0576\u0568\u0589'},
+  {n:3,title:'\u054a\u0561\u057f\u056f\u0565\u0580\u056b \u057d\u057f\u0565\u0572\u056e\u0578\u0582\u0574',
+   goal:'\u0531\u0575\u057d \u0564\u0561\u057d\u056b\u0581 \u0570\u0565\u057f\u0578 \u056f\u0561\u0580\u0578\u0572\u0561\u0576\u0561\u057d \u057d\u057f\u0565\u0572\u056e\u0565\u056c \u057a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580 prompt-\u0578\u057e \u2014 \u0561\u057c\u0561\u0576\u0581 \u0564\u056b\u0566\u0561\u0575\u0576\u0565\u0580\u056b \u0585\u0563\u0576\u0578\u0582\u0569\u0575\u0561\u0576\u0589',
+   rule:'\u054a\u0561\u057f\u056f\u0565\u0580\u0568 = subject + style + mood + \u057f\u0565\u056d\u0576\u056b\u056f\u0561\u056f\u0561\u0576 \u0564\u0565\u057f\u0561\u056c\u0576\u0565\u0580\u0589 \u0531\u0574\u0565\u0576 \u0562\u0561\u057c \u056f\u0561\u0580\u0587\u0578\u0580 \u0567\u0589',
+   bullets:['\u054d\u0578\u057e\u0578\u0580\u056b\u0580 Midjourney \u056f\u0561\u0574 Flux-\u056b \u0570\u056b\u0574\u0578\u0582\u0576\u0584\u0576\u0565\u0580\u0568',
+     '\u053f\u0561\u057c\u0578\u0582\u0581\u056b\u0580 \u057a\u0561\u057f\u056f\u0565\u0580\u056b prompt-\u056b \u056f\u0561\u057c\u0578\u0582\u0581\u057e\u0561\u056e\u0584\u0568 \u2014 style, lighting, camera',
+     '\u054d\u057f\u0565\u0572\u056e\u056b\u0580 3 \u057a\u0561\u057f\u056f\u0565\u0580 \u056b\u0580\u0561\u056f\u0561\u0576 \u056f\u056b\u0580\u0561\u057c\u0574\u0561\u0576 \u0570\u0561\u0574\u0561\u0580'],
+   hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 3 \u057a\u0561\u057f\u056f\u0565\u0580 \u056b\u0580\u0561\u056f\u0561\u0576 \u056f\u056b\u0580\u0561\u057c\u0574\u0561\u0576 \u0570\u0561\u0574\u0561\u0580 (\u057d\u0578\u0581\u0581\u0561\u0576\u0581, \u0562\u056b\u0566\u0576\u0565\u057d, \u0561\u0576\u0571\u0576\u0561\u056f\u0561\u0576)\u0589 \u054a\u0561\u0570\u056b\u0580 prompt-\u0568 \u0587 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0568\u0589'},
+  {n:4,title:'Content Creation Workflow',
+   goal:'\u054d\u0578\u057e\u0578\u0580\u056b\u0580 \u057d\u057f\u0565\u0572\u056e\u0565\u056c \u0561\u0574\u0562\u0578\u0572\u057b\u0561\u056f\u0561\u0576 social media post \u2014 \u057f\u0565\u0584\u057d\u057f, \u057a\u0561\u057f\u056f\u0565\u0580 \u0587 caption \u0574\u056b\u0561\u057d\u056b\u0576\u0589',
+   rule:'\u053f\u0578\u0576\u057f\u0565\u0576\u057f\u0568 \u057d\u057f\u0565\u0572\u056e\u057e\u0578\u0582\u0574 \u0567 \u0570\u0561\u0576\u0578\u0582\u0576 \u0570\u0561\u0574\u0561\u0580\u0589 \u0544\u056b\u055d \u057d\u057f\u0565\u0572\u056e\u056b\u0580 \u056b\u0576\u0579-\u0578\u0580 \u0562\u0561\u0576 \u0570\u0561\u0576\u0578\u0582\u0576 \u0570\u0561\u0574\u0561\u0580\u0589',
+   bullets:['\u054d\u0578\u057e\u0578\u0580\u056b\u0580 \u0563\u0561\u0572\u0561\u0583\u0561\u0580\u056b\u0581 \u0574\u056b\u0576\u0579\u0587 \u057a\u0578\u057d\u057f\u056b \u0561\u0574\u0562\u0578\u0572\u057b workflow',
+     'AI-\u0578\u057e \u057d\u057f\u0565\u0572\u056e\u056b\u0580 \u056b\u0580\u0561\u056f\u0561\u0576 \u056f\u0578\u0576\u057f\u0565\u0576\u057f, \u0578\u0580 \u056f\u0561\u0580\u0578\u0572 \u0567 \u0570\u0580\u0561\u057a\u0561\u0580\u0561\u056f\u0565\u056c',
+     '\u054f\u0565\u0584\u057d\u057f + \u057a\u0561\u057f\u056f\u0565\u0580 + caption \u056f\u0578\u0574\u0562\u056b\u0576\u0561\u0581\u0576\u0565\u056c \u0574\u056b\u0561\u057d\u056b\u0576'],
+   hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 1 \u0561\u0574\u0562\u0578\u0572\u057b\u0561\u056f\u0561\u0576 social media \u057a\u0578\u057d\u057f, \u0578\u0580 \u056b\u057d\u056f\u0561\u057a\u0565\u057d \u056f\u0561\u0580\u0578\u0572 \u0565\u057d \u0570\u0580\u0561\u057a\u0561\u0580\u0561\u056f\u0565\u056c\u0589'},
+  {n:5,title:'\u0554\u0578 Track-\u056b Deep Dive',
+   goal:'\u0554\u0578 \u0578\u0582\u0572\u0572\u0578\u0582\u0569\u0575\u0561\u0576 \u0574\u0561\u057d\u0576\u0561\u0563\u056b\u057f\u0561\u0581\u057e\u0561\u056e \u0563\u0578\u0580\u056e\u056b\u0584\u0576\u0565\u0580\u0578\u057e \u056f\u057d\u057f\u0565\u0572\u056e\u0565\u057d \u056b\u0576\u0579-\u0578\u0580 \u0562\u0561\u0576 \u0566\u0580\u0578\u0575\u056b\u0581 45 \u0580\u0578\u057a\u0565\u0578\u0582\u0574\u0589',
+   rule:'\u053c\u0561\u057e\u0561\u0563\u0578\u0582\u0575\u0576 \u0563\u0578\u0580\u056e\u056b\u0584\u0568 \u0561\u0575\u0576 \u0567, \u0578\u0580\u0568 \u056f\u0585\u0563\u057f\u0561\u0563\u0578\u0580\u056e\u0565\u057d \u0561\u0574\u0565\u0576 \u0585\u0580\u0589',
+   bullets:['\u0555\u0563\u057f\u0561\u0563\u0578\u0580\u056e\u056b\u0580 \u0584\u0578 track-\u056b \u0574\u0561\u057d\u0576\u0561\u0563\u056b\u057f\u0561\u0581\u057e\u0561\u056e \u0563\u0578\u0580\u056e\u056b\u0584\u0576\u0565\u0580\u0568',
+     'AI at Work / Creative AI / AI for Teenagers',
+     '\u054d\u057f\u0565\u0572\u056e\u056b\u0580 \u0563\u0578\u0580\u056e\u0576\u0561\u056f\u0561\u0576 \u0576\u0561\u056d\u0561\u0563\u056e\u0565\u0580 \u056b\u0580\u0561\u056f\u0561\u0576 \u056d\u0576\u0564\u056b\u0580\u0576\u0565\u0580\u0578\u057e'],
+   hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 \u056b\u0576\u0579-\u0578\u0580 \u0562\u0561\u0576 \u0566\u0580\u0578\u0575\u056b\u0581 45 \u0580\u0578\u057a\u0565\u0578\u0582\u0574\u055d \u0585\u0563\u057f\u0561\u0563\u0578\u0580\u056e\u0565\u056c\u0578\u057e \u0574\u056b\u0561\u0575\u0576 AI \u0563\u0578\u0580\u056e\u056b\u0584\u0576\u0565\u0580\u0589'},
+  {n:6,title:'Final Project + Certification',
+   goal:'\u0546\u0565\u0580\u056f\u0561\u0575\u0561\u0581\u0580\u056b\u0580 \u0584\u0578 \u0576\u0561\u056d\u0561\u0563\u056b\u056e\u0568, \u057d\u057f\u0561\u0576\u0561\u056c feedback \u0587 \u057d\u057f\u0561\u0576\u0561\u056c \u0584\u0578 \u057e\u056f\u0561\u0575\u0561\u056f\u0561\u0576\u0568\u0589',
+   rule:'\u054c\u0561\u057e\u0561\u0563\u0578\u0582\u0575\u0576 \u0576\u0561\u056d\u0561\u0563\u056b\u056e\u0568 \u0561\u0575\u0576 \u0567, \u0578\u0580\u0568 \u056f\u0561\u0580\u0578\u0572 \u0565\u057d \u0581\u0578\u0582\u0575\u0581 \u057f\u0561\u056c \u0578\u0582\u0580\u056b\u0577\u056b\u0576\u0589',
+   bullets:['\u0546\u0565\u0580\u056f\u0561\u0575\u0561\u0581\u0580\u056b\u0580 \u0584\u0578 \u0576\u0561\u056d\u0561\u0563\u056b\u056e\u0568 \u0564\u0561\u057d\u0561\u0580\u0561\u0576\u056b\u0576',
+     '\u054d\u057f\u0561\u0576\u0561\u056c feedback \u0578\u0582\u057d\u0561\u0576\u0578\u0572\u0576\u0565\u0580\u056b\u0581 \u0587 \u0564\u0561\u057d\u0561\u057e\u0561\u0576\u0564\u056b\u0581',
+     '\u054d\u057f\u0561\u0576\u0561\u056c AI Academy Armenia \u057e\u056f\u0561\u0575\u0561\u056f\u0561\u0576\u0568 \ud83c\udf93'],
+   hw:'\u0554\u0578 \u0561\u057e\u0561\u0580\u057f\u057e\u0561\u056e \u0576\u0561\u056d\u0561\u0563\u056b\u056e\u0568 = \u0564\u0561\u057d\u056b \u057f\u0576\u0561\u0575\u056b\u0576 \u0561\u057c\u0561\u057b\u0561\u0564\u0580\u0561\u0576\u0584\u0568\u0589 \ud83d\ude80'}
+];
+
+var toolsData=[
+  {name:'ChatGPT',desc:'\u054f\u0565\u0584\u057d\u057f, \u0566\u0580\u0578\u0582\u0575\u0581, \u0570\u0565\u057f\u0561\u0566\u0578\u057f\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u2014 \u0561\u0574\u0565\u0576\u0561\u057e\u0561\u0580\u057a\u0568\u057d AI \u0563\u0578\u0580\u056e\u056b\u0584\u0568\u0589',cat:['write','save'],price:'trial',link:'chat.openai.com',
+   example:'\u054a\u0561\u057f\u056f\u0565\u0580\u0561\u0581\u0580\u0578\u0582\u0574 \u0565\u057d\u055d \u0531\u0580\u0561\u0574\u0568 \u0585\u0580\u0568 20 email \u0567 \u0563\u0580\u0578\u0582\u0574\u0589 \u0540\u056b\u0574\u0561 ChatGPT-\u0576 \u0563\u0580\u0578\u0582\u0574 \u0567 2 \u0580\u0578\u057a\u0565\u0578\u0582\u0574\u0589'},
+  {name:'Claude',desc:'\u0533\u0580\u0561\u057e\u0578\u0580, \u057e\u0565\u0580\u056c\u0578\u0582\u056e\u0578\u0582\u0569\u0575\u0578\u0582\u0576, \u056e\u0580\u0561\u0563\u0580\u0561\u057e\u0578\u0580\u0578\u0582\u0574 \u2014 \u0565\u0580\u056f\u0561\u0580 \u057f\u0565\u0584\u057d\u057f\u0565\u0580\u056b \u0570\u0561\u0574\u0561\u0580\u0589',cat:['write','save'],price:'trial',link:'claude.ai',
+   example:'\u0544\u0561\u0580\u056b\u0576\u0565\u0576 30 \u0567\u057b\u0561\u0576\u0578\u0581 \u0583\u0561\u057d\u057f\u0561\u0569\u0578\u0582\u0572\u0569\u0568 \u057f\u057e\u0565\u0581 Claude-\u056b\u0576\u055d 5 \u0580\u0578\u057a\u0565\u0578\u0582\u0574 \u056f\u057d\u057f\u0561\u0576\u0561 \u0561\u0574\u0583\u0578\u0583\u0578\u0582\u0574\u0568\u0589'},
+  {name:'Gemini',desc:'Google \u0561\u057c\u0561\u057b\u0561\u0564\u0580\u0561\u0576\u0584\u0576\u0565\u0580, \u0569\u0561\u0580\u0563\u0574\u0561\u0576\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u2014 \u056c\u0561\u057e\u0561\u0563\u0578\u0582\u0575\u0576\u0568 \u0570\u0561\u0575\u0565\u0580\u0565\u0576\u056b \u0570\u0561\u0574\u0561\u0580\u0589',cat:['write','save'],price:'free',link:'gemini.google.com',
+   example:'\u054d\u0578\u0576\u056b\u0561\u0576 \u0569\u0561\u0580\u0563\u0574\u0561\u0576\u0578\u0582\u0574 \u0567 \u0562\u056b\u0566\u0576\u0565\u057d \u0583\u0561\u057d\u057f\u0561\u0569\u0572\u0569\u0565\u0580 \u0570\u0561\u0575\u0565\u0580\u0565\u0576\u056b\u0581 \u0561\u0576\u0563\u056c\u0565\u0580\u0565\u0576 \u2014 \u0561\u0576\u057e\u0573\u0561\u0580\u0589'},
+  {name:'Perplexity',desc:'AI \u0570\u0565\u057f\u0561\u0566\u0578\u057f\u0578\u0582\u0569\u0575\u0561\u0576 \u0585\u0563\u0576\u0561\u056f\u0561\u0576 \u2014 Google-\u056b\u0581 10x \u056c\u0561\u057e\u0589',cat:['write','save'],price:'free',link:'perplexity.ai',
+   example:'\u0540\u0561\u0580\u0581\u0580\u056b\u0580 Perplexity-\u056b\u0576\u055d \u0578\u0580 \u0567 \u0561\u057c\u0561\u057b\u056b\u0576 trend-\u0568 \u0584\u0578 \u0578\u056c\u0578\u0580\u057f\u0578\u0582\u0574\u0589 \u054d\u057f\u0561\u0576\u0578\u0582\u0574 \u0565\u057d \u0570\u0572\u0578\u0582\u0574\u0576\u0565\u0580\u0578\u057e\u0589'},
+  {name:'Midjourney',desc:'\u054a\u0561\u057f\u056f\u0565\u0580\u056b \u057d\u057f\u0565\u0572\u056e\u0578\u0582\u0574 \u2014 \u0561\u0574\u0565\u0576\u0561\u0563\u0565\u0572\u0565\u0581\u056b\u056f \u0587 \u057a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c\u0589',cat:['image'],price:'paid',link:'midjourney.com',
+   example:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 \u056c\u0578\u0563\u0578 \u0584\u0578 \u0562\u0580\u0565\u0576\u0564\u056b \u0570\u0561\u0574\u0561\u0580 1 \u0580\u0578\u057a\u0565\u0578\u0582\u0574 \u2014 \u0564\u056b\u0566\u0561\u0575\u0576\u0565\u0580\u056b\u0576 \u0579\u057f\u0561\u057d\u0589'},
+  {name:'Flux',desc:'\u054b\u0565\u0561\u056c\u056b\u057d\u057f\u056b\u056f \u057a\u0561\u057f\u056f\u0565\u0580 \u2014 \u0574\u0561\u0580\u0564\u056f\u0561\u0576\u0581 \u056b\u0580\u0561\u056f\u0561\u0576 \u056c\u0578\u0582\u057d\u0561\u0576\u056f\u0561\u0580\u0579\u0565\u0580\u056b \u0570\u0561\u0574\u0561\u0580\u0589',cat:['image'],price:'trial',link:'fal.ai',
+   example:'Product \u056c\u0578\u0582\u057d\u0561\u0576\u056f\u0561\u0580\u0579\u0578\u0582\u0574 \u057d\u057f\u0565\u0572\u056e\u056b\u0580 30 \u057e\u0561\u0575\u0580\u056f\u0575\u0561\u0576\u0578\u0582\u0574\u0589'},
+  {name:'Krea.ai',desc:'\u054b\u0565\u0561\u056c-\u057f\u0561\u0575\u0574 \u057a\u0561\u057f\u056f\u0565\u0580\u056b \u057d\u057f\u0565\u0572\u056e\u0578\u0582\u0574 \u2014 \u057f\u0565\u057d\u0576\u0578\u0582\u0574 \u0565\u057d \u056b\u0580\u0561\u056f\u0561\u0576 \u056a\u0561\u0574\u0561\u0576\u0561\u056f\u0578\u0582\u0574\u0589',cat:['image'],price:'trial',link:'krea.ai',
+   example:'Background \u0570\u0565\u057c\u0561\u0581\u0580\u056b\u0580 \u0584\u0578 product-\u056b \u056c\u0578\u0582\u057d\u0561\u0576\u056f\u0561\u0580\u056b\u0581 \u2014 30 \u057e\u0561\u0575\u0580\u056f\u0575\u0561\u0576\u0589'},
+  {name:'Adobe Firefly',desc:'Adobe-\u056b AI \u0563\u0578\u0580\u056e\u056b\u0584 \u2014 \u057a\u0561\u057f\u056f\u0565\u0580 \u0587 \u0564\u056b\u0566\u0561\u0575\u0576\u0589',cat:['image'],price:'trial',link:'firefly.adobe.com',
+   example:'\u054d\u0578\u0581\u056b\u0561\u056c \u0574\u0565\u0564\u056b\u0561 \u057a\u0578\u057d\u057f\u056b \u0570\u0561\u0574\u0561\u0580 \u057e\u056b\u0566\u0578\u0582\u0561\u056c \u057d\u057f\u0565\u0572\u056e\u056b\u0580 2 \u0580\u0578\u057a\u0565\u0578\u0582\u0574\u0589'},
+  {name:'Remove.bg',desc:'\u054a\u0561\u057f\u056f\u0565\u0580\u056b background-\u0568 \u0570\u0565\u057c\u0561\u0581\u0580\u056b\u0580 1 \u056f\u056c\u056b\u056f\u0578\u057e\u0589',cat:['image','save'],price:'free',link:'remove.bg',
+   example:'Product \u056c\u0578\u0582\u057d\u0561\u0576\u056f\u0561\u0580\u0568 \u0574\u0561\u0584\u0580\u056b\u0580 background-\u056b\u0581 5 \u057e\u0561\u0575\u0580\u056f\u0575\u0561\u0576\u0578\u0582\u0574\u0589'},
+  {name:'Kling',desc:'AI \u057e\u056b\u0564\u0565\u0578 \u057d\u057f\u0565\u0572\u056e\u0578\u0582\u0574 \u2014 \u0581\u056b\u0576\u0565\u0574\u0561\u057f\u056b\u056f \u0578\u0580\u0561\u056f\u0578\u057e\u0589',cat:['video'],price:'trial',link:'klingai.com',
+   example:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 15-\u057e\u0561\u0575\u0580\u056f\u0575\u0561\u0576\u0561\u0576\u0578\u0581 \u0563\u0578\u057e\u0561\u0566\u0564\u0561\u0575\u056b\u0576 \u057e\u056b\u0564\u0565\u0578 \u0584\u0578 \u0562\u0580\u0565\u0576\u0564\u056b \u0570\u0561\u0574\u0561\u0580\u0589'},
+  {name:'Higgsfield',desc:'Motion control \u057e\u056b\u0564\u0565\u0578 \u2014 \u0574\u0561\u0580\u0564\u056f\u0561\u0576\u0581 \u0577\u0561\u0580\u056a\u0578\u0582\u0574\u0576\u0565\u0580\u0568 \u056f\u0561\u057c\u0561\u057e\u0561\u0580\u056b\u0580\u0589',cat:['video'],price:'paid',link:'higgsfield.ai',
+   example:'\u054d\u0578\u0581\u056b\u0561\u056c \u057e\u056b\u0564\u0565\u0578 \u057d\u057f\u0565\u0572\u056e\u056b\u0580 \u056f\u0578\u0576\u056f\u0580\u0565\u057f \u0577\u0561\u0580\u056a\u0578\u0582\u0574\u0576\u0565\u0580\u0578\u057e\u0589'},
+  {name:'Runway',desc:'AI \u057e\u056b\u0564\u0565\u0578 editing \u2014 \u057a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c \u0574\u0578\u0576\u057f\u0561\u056a\u0589',cat:['video'],price:'trial',link:'runwayml.com',
+   example:'Instagram reel-\u0568 \u0574\u0578\u0576\u057f\u0561\u056a\u056b\u0580 \u057a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c \u0574\u0561\u056f\u0561\u0580\u0564\u0561\u056f\u0578\u057e\u0589'},
+  {name:'ElevenLabs',desc:'\u0541\u0561\u0575\u0576\u056b \u056f\u056c\u0578\u0576\u0561\u057e\u0578\u0580\u0578\u0582\u0574, TTS \u2014 \u056b\u0580\u0561\u056f\u0561\u0576 \u0571\u0561\u0575\u0576\u056b \u0578\u0580\u0561\u056f\u0589',cat:['video','save'],price:'trial',link:'elevenlabs.io',
+   example:'Podcast intro \u057d\u057f\u0565\u0572\u056e\u056b\u0580 \u0584\u0578 \u0571\u0561\u0575\u0576\u0578\u057e 3 \u0580\u0578\u057a\u0565\u0578\u0582\u0574\u0589'},
+  {name:'CapCut',desc:'\u054e\u056b\u0564\u0565\u0578 \u0574\u0578\u0576\u057f\u0561\u056a + AI \u0565\u0586\u0565\u056f\u057f\u0576\u0565\u0580\u0589',cat:['video','save'],price:'free',link:'capcut.com',
+   example:'TikTok/Reels \u057e\u056b\u0564\u0565\u0578 \u057d\u057f\u0565\u0572\u056e\u056b\u0580 \u0561\u057e\u057f\u0578\u0574\u0561\u057f \u057d\u0578\u0582\u0562\u057f\u056b\u057f\u0580\u0565\u0580\u0578\u057e\u0589'},
+  {name:'Canva AI',desc:'\u0534\u056b\u0566\u0561\u0575\u0576 + AI \u0570\u0576\u0561\u0580\u0561\u057e\u0578\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0576\u0565\u0580\u0589',cat:['image','save'],price:'trial',link:'canva.com',
+   example:'\u054a\u0580\u0565\u0566\u0565\u0576\u057f\u0561\u0581\u056b\u0561 \u057d\u057f\u0565\u0572\u056e\u056b\u0580 10 \u0580\u0578\u057a\u0565\u0578\u0582\u0574 \u2014 AI-\u0576 \u056f\u0585\u0563\u0576\u056b\u0589'},
+  {name:'Gamma',desc:'AI \u057a\u0580\u0565\u0566\u0565\u0576\u057f\u0561\u0581\u056b\u0561 \u057d\u057f\u0565\u0572\u056e\u0578\u0572 \u2014 slide-\u0576\u0565\u0580\u0568 \u057a\u0561\u057f\u0580\u0561\u057d\u057f\u0589',cat:['write','save'],price:'free',link:'gamma.app',
+   example:'\u054a\u056b\u057f\u0579\u056b \u057a\u0580\u0565\u0566\u0565\u0576\u057f\u0561\u0581\u056b\u0561 \u057d\u057f\u0565\u0572\u056e\u056b\u0580 5 \u0580\u0578\u057a\u0565\u0578\u0582\u0574\u0589'},
+  {name:'Suno',desc:'AI \u0565\u0580\u0561\u056a\u0577\u057f\u0578\u0582\u0569\u0575\u0561\u0576 \u057d\u057f\u0565\u0572\u056e\u0578\u0572 \u2014 \u0584\u0578 \u0565\u0580\u0563\u0568\u0589',cat:['video'],price:'free',link:'suno.com',
+   example:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 jingle \u0584\u0578 \u0562\u0580\u0565\u0576\u0564\u056b \u0570\u0561\u0574\u0561\u0580 2 \u0580\u0578\u057a\u0565\u0578\u0582\u0574\u0589'},
+  {name:'Notion AI',desc:'AI \u0576\u0578\u0569\u0565\u0580 + \u0563\u0580\u0561\u057e\u0578\u0580 \u2014 \u056f\u0561\u0566\u0574\u0561\u056f\u0565\u0580\u057a\u056b\u0580 \u0584\u0578 \u0574\u057f\u0584\u0565\u0580\u0568\u0589',cat:['write','save'],price:'trial',link:'notion.so',
+   example:'\u0544\u056b\u057f\u056b\u0576\u0563\u056b \u0576\u0578\u0569\u0565\u0580\u0568 \u057e\u0565\u0580\u0561\u056e\u056b\u0580 action items-\u056b 1 \u056f\u056c\u056b\u056f\u0578\u057e\u0589'}
+];
+
+var inspoData=[
+  {title:'\u054a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c LinkedIn \u057a\u0578\u057d\u057f',sub:'Made with ChatGPT in 2 min',grad:'linear-gradient(135deg,#2a1f14,#3d2b1a)',icon:'\u{1F4DD}',
+   prompt:'Act as a LinkedIn content strategist. Write a professional post about [topic]. Tone: confident but approachable. Include a hook in the first line, 3 value points, and a call-to-action. Under 200 words. Write in Armenian.'},
+  {title:'Product photo background',sub:'Made with Krea.ai in 30 sec',grad:'linear-gradient(135deg,#1a2014,#1a3020)',icon:'\u{1F4F8}',
+   prompt:'Product photography, [product] centered on marble surface, soft studio lighting, clean white background, commercial photography, 8K, high detail'},
+  {title:'Logo concept',sub:'Made with Midjourney in 1 min',grad:'linear-gradient(135deg,#201420,#301a30)',icon:'\u{1F3A8}',
+   prompt:'Minimal modern logo design for [brand name], [industry], clean lines, geometric, vector style, professional, on dark background, high contrast'},
+  {title:'Cinematic video ad',sub:'Made with Kling in 5 min',grad:'linear-gradient(135deg,#141a20,#1a2030)',icon:'\u{1F3AC}',
+   prompt:'[Product] on table, camera slowly orbiting around it, dramatic rim lighting, dark moody background, shallow depth of field, cinematic, 4K, 9:16 vertical'},
+  {title:'\u0539\u0561\u0580\u0563\u0574\u0561\u0576\u057e\u0561\u056e \u0583\u0561\u057d\u057f\u0561\u0569\u0578\u0582\u0572\u0569',sub:'Made with Claude in 1 min',grad:'linear-gradient(135deg,#1a1914,#2a2514)',icon:'\u{1F4C4}',
+   prompt:'Translate this document from Armenian to English. Keep the formatting. Maintain professional tone. If any term is ambiguous, provide both possible translations in brackets: [paste document]'},
+  {title:'Podcast intro',sub:'Made with ElevenLabs in 3 min',grad:'linear-gradient(135deg,#201414,#301a1a)',icon:'\u{1F3A4}',
+   prompt:'Record a 15-second podcast intro: "Welcome to [podcast name], the show where we explore [topic]. I\'m your host [name]. Let\'s dive in." Voice: warm, professional, medium pace.'}
+];
+
+var filterCats=[
+  {id:'write',label:'\u{270D}\uFE0F \u0533\u0580\u0565\u056c \u056b\u0576\u0579-\u0578\u0580 \u0562\u0561\u0576',en:'Write something'},
+  {id:'image',label:'\u{1F3A8} \u054d\u057f\u0565\u0572\u056e\u0565\u056c \u057a\u0561\u057f\u056f\u0565\u0580',en:'Make an image'},
+  {id:'video',label:'\u{1F3AC} \u054d\u057f\u0565\u0572\u056e\u0565\u056c \u057e\u056b\u0564\u0565\u0578',en:'Make a video'},
+  {id:'save',label:'\u26A1 \u053d\u0576\u0561\u0575\u0565\u056c \u056a\u0561\u0574\u0561\u0576\u0561\u056f',en:'Save time'}
+];
+
+var bankCats=['Text','Image','Video','Business'];
+
+/* ── HELPERS ── */
+function LS(k,v){if(v===undefined)return JSON.parse(localStorage.getItem('aap_'+k)||'null');localStorage.setItem('aap_'+k,JSON.stringify(v));}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function escA(s){return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+
+/* ── AUTH ── */
+window.tryLogin=function(){
+  var p=document.getElementById('passInput').value.trim();
+  if(p===PASS_TEACHER){role='teacher';LS('role','teacher');}
+  else if(p===PASS_STUDENT){role='student';LS('role','student');}
+  else{document.getElementById('loginErr').style.display='block';return;}
+  enterPortal();
+};
+function enterPortal(){
+  document.getElementById('loginGate').style.display='none';
+  document.getElementById('portal').style.display='block';
+  if(role==='teacher'){
+    document.body.classList.add('teacher-active');
+    document.getElementById('roleBadge').textContent='Teacher';
+    document.getElementById('roleBadge').className='role-badge teacher';
+  }else{
+    document.body.classList.remove('teacher-active');
+    document.getElementById('roleBadge').textContent='Student';
+    document.getElementById('roleBadge').className='role-badge student';
+  }
+  renderAll();
+}
+window.logout=function(){
+  LS('role',null);role='';
+  document.getElementById('portal').style.display='none';
+  document.getElementById('loginGate').style.display='flex';
+  document.getElementById('passInput').value='';
+  document.getElementById('loginErr').style.display='none';
+  document.body.classList.remove('teacher-active');
+};
+var savedRole=LS('role');
+if(savedRole==='teacher'||savedRole==='student'){role=savedRole;enterPortal();}
+
+function renderAll(){
+  renderSessions();renderTools();renderGallery();renderProgress();
+  if(role==='teacher'){renderUnlocks();renderHwProgress();renderPlanner();renderStudents();renderBank();}
+}
+
+/* ── 1: SESSIONS ── */
+function getUnlocked(){return LS('unlocked')||[1,2];}
+function getUnlockDates(){return LS('unlock_dates')||{};}
+function getHwPercent(){return LS('hw_percent')||{};}
+
+function renderSessions(){
+  var unlocked=getUnlocked();var dates=getUnlockDates();var hwP=getHwPercent();
+  var c=document.getElementById('sessionList');c.innerHTML='';
+  sessions.forEach(function(s){
+    var isLocked=unlocked.indexOf(s.n)===-1;
+    var d=document.createElement('div');
+    d.className='session-item'+(isLocked?' session-locked':'');
+    var pct=hwP['s'+s.n]||0;
+    if(isLocked){
+      var dateStr=dates['s'+s.n]||'';
+      d.innerHTML='<div class="session-header"><div class="session-num-badge">'+s.n+'</div><div class="session-header-text"><div class="session-header-title">'+esc(s.title)+'</div><div class="session-lock-msg">\u{1F512} '+(dateStr?'\u0532\u0561\u0581\u057e\u0578\u0582\u0574 \u0567 '+esc(dateStr)+' \u2014 \u056f\u057f\u0565\u057d\u0576\u057e\u0565\u0576\u0584 \u{1F44B}':'\u0534\u0565\u057c \u0579\u056b \u0562\u0561\u0581\u057e\u0565\u056c \u2014 \u0577\u0578\u0582\u057f\u0578\u057e')+'</div></div></div>';
+    }else{
+      d.innerHTML='<div class="session-header" onclick="toggleSession('+s.n+',this)"><div class="session-num-badge">'+s.n+'</div><div class="session-header-text"><div class="session-header-title">'+esc(s.title)+'</div><div class="session-header-sub">\u{1F3AF} '+esc(s.goal).substring(0,60)+'...</div></div><span class="session-chevron">\u25BC</span></div>'+
+        '<div class="session-body" id="sbody'+s.n+'">'+
+        '<div class="session-block"><div class="session-label">\u{1F3AF} \u0546\u057A\u0561\u057F\u0561\u056F</div><div class="session-goal">'+esc(s.goal)+'</div></div>'+
+        '<div class="session-block"><div class="session-label">\u{1F4A1} \u0555\u057D\u056F\u0565 \u056F\u0561\u0576\u0578\u0576</div><div class="golden-rule">'+esc(s.rule)+'</div></div>'+
+        '<div class="session-block"><div class="session-label">\u{1F91D} \u053b\u0576\u0579 \u056F\u0561\u0576\u0565\u0576\u0584 \u0574\u056B\u0561\u057D\u056B\u0576</div><ul class="session-bullets">'+s.bullets.map(function(b){return '<li>'+esc(b)+'</li>';}).join('')+'</ul></div>'+
+        '<div class="session-block"><div class="session-label">\u{1F4DD} \u054F\u0576\u0561\u0575\u056B\u0576</div><div class="session-hw"><strong>&#1329;&#1404;&#1377;&#1403;&#1377;&#1380;&#1408;&#1377;&#1398;&#1412;&#1373;</strong> '+esc(s.hw)+'</div></div>'+
+        '<div class="session-block"><div class="session-label">Homework \u056F\u0561\u057F\u0561\u0580\u0574\u0561\u0576 %</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:'+pct+'%"></div></div><div class="progress-bar-label">'+pct+'% \u0578\u0582\u057d\u0561\u0576\u0578\u0572\u0576\u0565\u0580\u056b\u0581</div></div>'+
+        '</div>';
+    }
+    c.appendChild(d);
+  });
+}
+
+window.toggleSession=function(n,el){
+  var body=document.getElementById('sbody'+n);
+  var isOpen=body.classList.contains('open');
+  document.querySelectorAll('.session-body').forEach(function(b){b.classList.remove('open');});
+  document.querySelectorAll('.session-header').forEach(function(h){h.classList.remove('active');});
+  if(!isOpen){body.classList.add('open');el.classList.add('active');}
+};
+
+/* ── 2: PROMPT BUILDER ── */
+window.buildPrompt=function(){
+  var role=document.getElementById('bRole').value;
+  var task=document.getElementById('bTask').value.trim();
+  var ctx=document.getElementById('bContext').value.trim();
+  var fmt=document.getElementById('bFormat').value;
+  if(!task){document.getElementById('bTask').focus();return;}
+  var p=role+'.\n\n'+task+(ctx?'\n\nContext: '+ctx:'')+'\n\nFormat: '+fmt+'.';
+  document.getElementById('promptText').textContent=p;
+  document.getElementById('promptOutput').classList.add('visible');
+  document.getElementById('promptOutput').scrollIntoView({behavior:'smooth',block:'center'});
+};
+window.copyBuiltPrompt=function(){
+  var t=document.getElementById('promptText').textContent;
+  navigator.clipboard.writeText(t).then(function(){
+    var btn=document.querySelector('#promptOutput .btn');
+    btn.textContent='\u2713 Copied!';setTimeout(function(){btn.textContent='\u{1F4CB} Copy';},1500);
+  });
+};
+window.clearBuilder=function(){
+  document.getElementById('bTask').value='';
+  document.getElementById('bContext').value='';
+  document.getElementById('promptOutput').classList.remove('visible');
+};
+
+/* ── 3: TOOLS ── */
+var activeFilter='all';
+function renderTools(){
+  var fr=document.getElementById('filterRow');
+  fr.innerHTML='<button class="filter-btn active" onclick="setFilter(\'all\',this)">\u{1F30D} \u0532\u0578\u056c\u0578\u0580\u0568</button>';
+  filterCats.forEach(function(f){
+    fr.innerHTML+='<button class="filter-btn" onclick="setFilter(\''+f.id+'\',this)">'+f.label+'</button>';
+  });
+  renderToolCards();
+}
+function renderToolCards(){
+  var g=document.getElementById('toolsGrid');g.innerHTML='';
+  toolsData.forEach(function(t){
+    if(activeFilter!=='all'&&t.cat.indexOf(activeFilter)===-1)return;
+    var badge=t.price==='free'?'<span class="tool-badge badge-free">Free</span>':
+              t.price==='paid'?'<span class="tool-badge badge-paid">Paid</span>':
+              '<span class="tool-badge badge-trial">Free Trial</span>';
+    var d=document.createElement('div');d.className='card tool-card';
+    d.innerHTML='<div class="tool-card-header"><span class="tool-card-name">'+t.name+'</span>'+badge+'</div>'+
+      '<div class="tool-card-desc">'+esc(t.desc)+'</div>'+
+      '<div class="tool-card-example">'+esc(t.example)+'</div>'+
+      '<a href="https://'+t.link+'" target="_blank" rel="noopener" class="tool-card-link">Open tool \u2192</a>';
+    g.appendChild(d);
+  });
+}
+window.setFilter=function(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  renderToolCards();
+};
+
+/* ── 4: GALLERY ── */
+function renderGallery(){
+  var g=document.getElementById('inspoGrid');g.innerHTML='';
+  inspoData.forEach(function(item,i){
+    var d=document.createElement('div');d.className='card inspo-card';
+    d.innerHTML='<div class="inspo-gradient" style="background:'+item.grad+'">'+item.icon+'</div>'+
+      '<h4>'+esc(item.title)+'</h4><div class="inspo-meta">'+esc(item.sub)+'</div>'+
+      '<div class="inspo-prompt-toggle" onclick="toggleInspoPrompt('+i+')">&#128065; \u054f\u0565\u057d\u0576\u0565\u056c prompt-\u0568 <span id="inspoChev'+i+'">\u25B6</span></div>'+
+      '<div class="inspo-prompt-box" id="inspoBox'+i+'"><div class="inspo-prompt-text">'+esc(item.prompt)+'</div>'+
+      '<button class="btn btn-sm btn-outline" onclick="copyInspo('+i+')">Copy Prompt</button></div>';
+    g.appendChild(d);
+  });
+}
+window.toggleInspoPrompt=function(i){
+  var box=document.getElementById('inspoBox'+i);
+  var ch=document.getElementById('inspoChev'+i);
+  box.classList.toggle('open');
+  ch.textContent=box.classList.contains('open')?'\u25BC':'\u25B6';
+};
+window.copyInspo=function(i){
+  navigator.clipboard.writeText(inspoData[i].prompt).then(function(){
+    var btns=document.querySelectorAll('#inspoBox'+i+' .btn');
+    btns[0].textContent='\u2713 Copied!';setTimeout(function(){btns[0].textContent='Copy Prompt';},1500);
+  });
+};
+
+/* ── 5: PROGRESS ── */
+function getHwDone(){return LS('hw_done')||{};}
+function getDiary(){return LS('diary')||[];}
+function getStreak(){return LS('streak')||0;}
+
+function renderProgress(){
+  var done=getHwDone();var unlocked=getUnlocked();
+  var sessCount=0;var hwCount=0;
+  sessions.forEach(function(s){
+    if(unlocked.indexOf(s.n)!==-1)sessCount++;
+    if(done['hw'+s.n])hwCount++;
+  });
+  var streak=getStreak();
+  var c=document.getElementById('progressStats');
+  c.innerHTML='<div class="progress-stat"><div class="progress-stat-num">'+sessCount+'/6</div><div class="progress-stat-label">\u0332\u0561\u057d\u0565\u0580 \u0562\u0561\u0581\u057e\u0561\u056e</div><div class="progress-stat-bar"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:'+Math.round(sessCount/6*100)+'%"></div></div></div></div>'+
+    '<div class="progress-stat"><div class="progress-stat-num">'+hwCount+'/6</div><div class="progress-stat-label">Homework \u056f\u0561\u057f\u0561\u0580\u057e\u0561\u056e</div><div class="progress-stat-bar"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:'+Math.round(hwCount/6*100)+'%"></div></div></div></div>'+
+    '<div class="progress-stat"><div class="progress-stat-num">'+streak+'</div><div class="progress-stat-label">\u0555\u0580 streak \u{1F525}</div></div>';
+  renderDiary();
+}
+
+window.addDiary=function(){
+  var input=document.getElementById('diaryInput');
+  var text=input.value.trim();if(!text)return;
+  var diary=getDiary();
+  var now=new Date();
+  var dateStr=now.getDate()+'.'+(now.getMonth()+1);
+  diary.unshift({text:text,date:dateStr});
+  if(diary.length>50)diary=diary.slice(0,50);
+  LS('diary',diary);
+
+  var today=now.toDateString();
+  var lastDay=LS('last_diary_day');
+  if(lastDay!==today){
+    var yesterday=new Date(now);yesterday.setDate(yesterday.getDate()-1);
+    if(lastDay===yesterday.toDateString()){LS('streak',(getStreak()||0)+1);}
+    else{LS('streak',1);}
+    LS('last_diary_day',today);
+  }
+  input.value='';renderProgress();
+};
+
+function renderDiary(){
+  var c=document.getElementById('diaryLog');var diary=getDiary();
+  if(!diary.length){c.innerHTML='<div class="diary-empty">\u0534\u0565\u057c \u0563\u0580\u0561\u057c\u0578\u0582\u0574\u0576\u0565\u0580 \u0579\u056f\u0561\u0576\u0589 \u054d\u056f\u057d\u056b\u0580 \u0563\u0580\u0565\u056c\u0589 \u{1F4AA}</div>';return;}
+  c.innerHTML=diary.map(function(e){return '<div class="diary-entry"><div class="diary-date">'+esc(e.date)+'</div><div class="diary-text">'+esc(e.text)+'</div></div>';}).join('');
+}
+
+document.getElementById('diaryInput').addEventListener('keydown',function(e){if(e.key==='Enter')addDiary();});
+
+/* ── TEACHER: UNLOCKS ── */
+function renderUnlocks(){
+  var c=document.getElementById('unlockList');c.innerHTML='';
+  var unlocked=getUnlocked();var dates=getUnlockDates();
+  sessions.forEach(function(s){
+    var isOn=unlocked.indexOf(s.n)!==-1;
+    var dateVal=dates['s'+s.n]||'';
+    var d=document.createElement('div');d.className='unlock-row';
+    d.innerHTML='<span class="unlock-label">Session '+s.n+' \u2014 '+esc(s.title)+'</span>'+
+      '<div class="unlock-date"><input type="text" placeholder="\u0531\u0574\u057d\u0561\u0569\u056b\u057e..." value="'+escA(dateVal)+'" data-sn="'+s.n+'" onchange="saveUnlockDate(this)"></div>'+
+      '<button class="toggle'+(isOn?' on':'')+'" data-sn="'+s.n+'"></button>';
+    d.querySelector('.toggle').addEventListener('click',function(){
+      var n=parseInt(this.getAttribute('data-sn'));
+      var u=getUnlocked();var idx=u.indexOf(n);
+      if(idx===-1)u.push(n);else u.splice(idx,1);
+      LS('unlocked',u);this.classList.toggle('on');renderSessions();
+    });
+    c.appendChild(d);
+  });
+}
+window.saveUnlockDate=function(el){
+  var n=el.getAttribute('data-sn');var dates=getUnlockDates();
+  dates['s'+n]=el.value;LS('unlock_dates',dates);renderSessions();
+};
+
+/* ── TEACHER: HW PROGRESS ── */
+function renderHwProgress(){
+  var c=document.getElementById('hwProgressList');c.innerHTML='';
+  var hwP=getHwPercent();
+  sessions.forEach(function(s){
+    var pct=hwP['s'+s.n]||0;
+    var d=document.createElement('div');d.className='hw-progress-row';
+    d.innerHTML='<span class="hw-progress-label">Session '+s.n+'</span>'+
+      '<input type="number" class="hw-progress-input" min="0" max="100" value="'+pct+'" data-sn="'+s.n+'" onchange="saveHwPct(this)">'+
+      '<span style="font-size:.78rem;color:var(--text-dim)">%</span>';
+    c.appendChild(d);
+  });
+}
+window.saveHwPct=function(el){
+  var n=el.getAttribute('data-sn');var hwP=getHwPercent();
+  hwP['s'+n]=Math.max(0,Math.min(100,parseInt(el.value)||0));
+  LS('hw_percent',hwP);renderSessions();
+};
+
+/* ── TEACHER: PLANNER ── */
+function renderPlanner(){
+  var c=document.getElementById('plannerList');c.innerHTML='';
+  sessions.forEach(function(s){
+    var saved=LS('plan_'+s.n)||{talk:'',show:'',timing:'',tool:''};
+    var d=document.createElement('div');d.className='card planner-card';
+    d.innerHTML='<h4>Session '+s.n+' \u2014 '+esc(s.title)+'</h4>'+
+      mkF(s.n,'talk','\u053b\u0576\u0579 \u0561\u057d\u0565\u056c (Talking Points)',saved.talk)+
+      mkF(s.n,'show','\u053b\u0576\u0579 \u0581\u0578\u0582\u0575\u0581 \u057f\u0561\u056c (Demos)',saved.show)+
+      mkF(s.n,'timing','\u053a\u0561\u0574\u0561\u0576\u0561\u056f (Minutes)',saved.timing,'50px')+
+      mkF(s.n,'tool','\u053b\u0576\u0579 \u0563\u0578\u0580\u056e\u056b\u0584 \u0562\u0561\u0581\u0565\u056c',saved.tool,'50px');
+    d.querySelectorAll('textarea').forEach(function(ta){
+      ta.addEventListener('input',function(){
+        var n=this.getAttribute('data-p');var f=this.getAttribute('data-f');
+        var sv=LS('plan_'+n)||{talk:'',show:'',timing:'',tool:''};
+        sv[f]=this.value;LS('plan_'+n,sv);
+      });
+    });
+    c.appendChild(d);
+  });
+}
+function mkF(n,f,l,v,mh){return '<div class="planner-field"><label>'+l+'</label><textarea data-p="'+n+'" data-f="'+f+'"'+(mh?' style="min-height:'+mh+'"':'')+'>'+esc(v)+'</textarea></div>';}
+
+/* ── TEACHER: STUDENTS ── */
+function getStudents(){return LS('students')||[];}
+function renderStudents(){
+  var c=document.getElementById('studentList');c.innerHTML='';
+  var students=getStudents();
+  if(!students.length){c.innerHTML='<p style="color:var(--text-dim);font-size:.84rem;padding:12px 0">\u0534\u0565\u057c \u0578\u0582\u057d\u0561\u0576\u0578\u0572\u0576\u0565\u0580 \u0579\u056f\u0561\u0576\u0589</p>';return;}
+  students.forEach(function(st,si){
+    var d=document.createElement('div');d.className='student-row';
+    d.innerHTML='<span class="student-name">'+esc(st.name)+'</span>'+
+      '<div class="student-hw-checks">'+sessions.map(function(s){
+        var done=st.hw&&st.hw['s'+s.n];
+        return '<button class="'+(done?'done':'')+'" data-si="'+si+'" data-sn="'+s.n+'" title="S'+s.n+'">'+s.n+'</button>';
+      }).join('')+'</div>'+
+      '<button class="btn btn-sm btn-ghost" data-rm="'+si+'" style="margin-left:6px;padding:4px 8px;font-size:.7rem;color:var(--danger);border-color:var(--danger)">\u2715</button>';
+    d.querySelectorAll('.student-hw-checks button').forEach(function(b){
+      b.addEventListener('click',function(){
+        var si2=parseInt(this.getAttribute('data-si'));
+        var sn=parseInt(this.getAttribute('data-sn'));
+        var sts=getStudents();if(!sts[si2].hw)sts[si2].hw={};
+        sts[si2].hw['s'+sn]=!sts[si2].hw['s'+sn];
+        LS('students',sts);this.classList.toggle('done');
+      });
+    });
+    d.querySelector('[data-rm]').addEventListener('click',function(){
+      var i2=parseInt(this.getAttribute('data-rm'));
+      var sts=getStudents();sts.splice(i2,1);LS('students',sts);renderStudents();
+    });
+    c.appendChild(d);
+  });
+}
+window.addStudent=function(){
+  var inp=document.getElementById('newStudentName');
+  var nm=inp.value.trim();if(!nm)return;
+  var sts=getStudents();sts.push({name:nm,hw:{}});LS('students',sts);inp.value='';renderStudents();
+};
+
+/* ── TEACHER: CONTENT BANK ── */
+var activeBankCat='Text';
+function getBank(){return LS('bank')||{Text:[],Image:[],Video:[],Business:[]};}
+function renderBank(){
+  var tabs=document.getElementById('bankTabs');tabs.innerHTML='';
+  bankCats.forEach(function(cat){
+    tabs.innerHTML+='<button class="bank-tab'+(cat===activeBankCat?' active':'')+'" onclick="setBankCat(\''+cat+'\',this)">'+cat+'</button>';
+  });
+  document.getElementById('bankCatLabel').textContent=activeBankCat;
+  renderBankItems();
+}
+function renderBankItems(){
+  var c=document.getElementById('bankContent');c.innerHTML='';
+  var bank=getBank();var items=bank[activeBankCat]||[];
+  if(!items.length){c.innerHTML='<p style="color:var(--text-dim);font-size:.84rem;padding:12px 0">\u0534\u0565\u057c prompt-\u0576\u0565\u0580 \u0579\u056f\u0561\u0576\u0589 \u0531\u057e\u0565\u056c\u0561\u0581\u0580\u056b\u0580 \u057d\u057f\u0578\u0580\u0587\u0589</p>';return;}
+  items.forEach(function(item,i){
+    var d=document.createElement('div');d.className='bank-item';
+    d.innerHTML='<div class="bank-item-header"><button class="share-toggle'+(item.shared?' shared':'')+'" onclick="toggleShare(\''+activeBankCat+'\','+i+',this)">'+(item.shared?'\u2713 Shared':'Private')+'</button>'+
+      '<button class="btn btn-sm btn-ghost" onclick="removeBankItem(\''+activeBankCat+'\','+i+')" style="padding:4px 8px;font-size:.7rem;color:var(--danger);border-color:var(--danger)">\u2715</button></div>'+
+      '<div class="bank-item-text">'+esc(item.text)+'</div>';
+    c.appendChild(d);
+  });
+}
+window.setBankCat=function(cat,btn){
+  activeBankCat=cat;
+  document.querySelectorAll('.bank-tab').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.getElementById('bankCatLabel').textContent=cat;
+  renderBankItems();
+};
+window.addBankItem=function(){
+  var ta=document.getElementById('bankNewText');
+  var text=ta.value.trim();if(!text)return;
+  var bank=getBank();if(!bank[activeBankCat])bank[activeBankCat]=[];
+  bank[activeBankCat].push({text:text,shared:false});
+  LS('bank',bank);ta.value='';renderBankItems();
+};
+window.toggleShare=function(cat,i,btn){
+  var bank=getBank();bank[cat][i].shared=!bank[cat][i].shared;
+  LS('bank',bank);
+  btn.className='share-toggle'+(bank[cat][i].shared?' shared':'');
+  btn.textContent=bank[cat][i].shared?'\u2713 Shared':'Private';
+};
+window.removeBankItem=function(cat,i){
+  var bank=getBank();bank[cat].splice(i,1);LS('bank',bank);renderBankItems();
+};
+
+/* ── TEACHER: CERTIFICATE ── */
+window.generateCert=function(){
+  var nm=document.getElementById('certName').value.trim();if(!nm)return;
+  document.getElementById('certStudentName').textContent=nm;
+  var now=new Date();
+  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('certDate').textContent=months[now.getMonth()]+' '+now.getDate()+', '+now.getFullYear();
+  document.getElementById('certPreview').style.display='block';
+  document.getElementById('certPreview').scrollIntoView({behavior:'smooth',block:'center'});
+};
+
+/* ── NAV ── */
+window.scrollNav=function(el){
+  document.querySelectorAll('.nav-links a,.mobile-nav a').forEach(function(a){a.classList.remove('active');});
+  document.querySelectorAll('a[href="'+el.getAttribute('href')+'"]').forEach(function(a){a.classList.add('active');});
+};
+
+document.getElementById('passInput').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin();});
+
+})();
+</script>
+</body>
+</html>
