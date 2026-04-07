@@ -13,7 +13,8 @@
   --gold-glow:rgba(196,149,106,.25);--text:#F5EDE4;--text-dim:#b0a89e;
   --card:#252119;--card-border:rgba(196,149,106,.12);--danger:#e05a5a;
   --success:#5aad6a;--radius:14px;
-  --creative:#8B7EC8;--creative-dim:rgba(139,126,200,.12);--creative-glow:rgba(139,126,200,.25);
+  --purple:#9B7ED8;--red:#E05A5A;--green:#5AAD6A;
+  --accent:var(--gold);
 }
 html{scroll-behavior:smooth}
 body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
@@ -44,15 +45,16 @@ input,textarea,select{font-family:inherit}
 .btn-ghost{background:transparent;color:var(--text-dim);border:1px solid var(--card-border)}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
 .btn-success{background:var(--success);color:#fff}
+.btn-danger{background:var(--danger);color:#fff}
 .btn-icon{width:36px;height:36px;padding:0;border-radius:10px;font-size:1rem}
 
 /* ── NAV ── */
 #portal{display:none}
 .portal-nav{position:sticky;top:0;z-index:100;background:rgba(26,23,20,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--card-border);padding:0 24px}
-.portal-nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.portal-nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
 .portal-nav .logo{font-weight:800;font-size:1rem;color:var(--gold)}
 .portal-nav .nav-links{display:flex;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.portal-nav .nav-links a{padding:8px 14px;border-radius:10px;font-size:.76rem;font-weight:600;color:var(--text-dim);white-space:nowrap;transition:all .2s}
+.portal-nav .nav-links a{padding:8px 14px;border-radius:10px;font-size:.76rem;font-weight:600;color:var(--text-dim);white-space:nowrap;transition:all .2s;cursor:pointer}
 .portal-nav .nav-links a:hover,.portal-nav .nav-links a.active{color:var(--gold);background:var(--gold-dim);text-decoration:none}
 .nav-right{display:flex;align-items:center;gap:10px}
 .role-badge{font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:8px;text-transform:uppercase;letter-spacing:.6px}
@@ -60,1097 +62,917 @@ input,textarea,select{font-family:inherit}
 .role-badge.teacher{background:rgba(90,173,106,.15);color:var(--success)}
 .logout-btn{background:none;border:none;color:var(--text-dim);font-size:.76rem;cursor:pointer;padding:4px}
 .logout-btn:hover{color:var(--danger)}
+.teacher-only{display:none}
 
 /* ── LAYOUT ── */
-.container{max-width:900px;margin:0 auto;padding:36px 20px}
-.section{margin-bottom:64px}
+.container{max-width:960px;margin:0 auto;padding:36px 20px 120px}
+.section{margin-bottom:64px;display:none}
+.section.visible{display:block}
 .section-header{margin-bottom:28px}
 .section-title{font-size:1.35rem;font-weight:800;margin-bottom:4px}
 .section-sub{color:var(--text-dim);font-size:.84rem}
-.section-emoji{font-size:1.6rem;margin-bottom:8px;display:block}
 
 /* ── CARDS ── */
 .card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px;transition:all .3s}
 .card:hover{border-color:var(--gold-glow)}
 
-/* ── PATH HEADER ── */
-.path-header{border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;position:relative;overflow:hidden}
-.path-header::before{content:'';position:absolute;inset:0;opacity:.06;pointer-events:none}
-.path-header.path-1{background:linear-gradient(135deg,rgba(196,149,106,.15),rgba(196,149,106,.04));border:1.5px solid rgba(196,149,106,.25)}
-.path-header.path-2{background:linear-gradient(135deg,rgba(139,126,200,.15),rgba(139,126,200,.04));border:1.5px solid rgba(139,126,200,.25)}
-.path-header.path-locked{opacity:.55;filter:saturate(.5)}
-.path-num{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px}
-.path-1 .path-num{color:var(--gold)}
-.path-2 .path-num{color:var(--creative)}
-.path-header h3{font-size:1.2rem;font-weight:800;margin-bottom:4px}
-.path-header .path-desc{font-size:.82rem;color:var(--text-dim);line-height:1.5}
-.path-progress-bar{margin-top:14px;display:flex;align-items:center;gap:10px}
-.path-progress-bar .bar-wrap{flex:1;background:rgba(245,237,228,.06);border-radius:8px;height:6px;overflow:hidden}
-.path-progress-bar .bar-fill{height:100%;border-radius:8px;transition:width .5s ease}
-.path-1 .bar-fill{background:var(--gold)}
-.path-2 .bar-fill{background:var(--creative)}
-.path-progress-bar .bar-label{font-size:.72rem;color:var(--text-dim);white-space:nowrap}
+/* ── COURSE HEADER ── */
+.course-header{border-radius:var(--radius);padding:28px 24px;margin-bottom:24px;position:relative;overflow:hidden}
+.course-header .course-icon{font-size:2.2rem;margin-bottom:8px;display:block}
+.course-header .course-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px}
+.course-header h2{font-size:1.4rem;font-weight:800;margin-bottom:4px}
+.course-header .course-sub{font-size:.84rem;opacity:.75;margin-bottom:14px}
+.course-progress{display:flex;align-items:center;gap:10px}
+.course-progress .bar-wrap{flex:1;background:rgba(245,237,228,.08);border-radius:8px;height:6px;overflow:hidden}
+.course-progress .bar-fill{height:100%;border-radius:8px;transition:width .5s ease}
+.course-progress .bar-label{font-size:.72rem;color:var(--text-dim);white-space:nowrap}
 
-/* ── LESSON ITEMS ── */
-.lesson-item{margin-bottom:12px;margin-left:20px;position:relative}
-.lesson-item::before{content:'';position:absolute;left:-12px;top:0;bottom:0;width:2px;background:var(--card-border)}
-.lesson-item:last-child::before{bottom:50%}
-.lesson-item::after{content:'';position:absolute;left:-16px;top:24px;width:10px;height:10px;border-radius:50%;border:2px solid var(--card-border);background:var(--bg)}
-.lesson-item.unlocked::after{border-color:var(--gold);background:var(--gold)}
-.lesson-item.unlocked.creative-path::after{border-color:var(--creative);background:var(--creative)}
+/* ── SESSION CONTENT ── */
+.session-card{border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;background:var(--card);border:1px solid var(--card-border)}
+.session-num{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.session-card h3{font-size:1.15rem;font-weight:800;margin-bottom:8px}
+.session-desc{color:var(--text-dim);font-size:.88rem;margin-bottom:16px}
+.session-theory{padding:16px 18px;border-radius:10px;font-size:.84rem;margin-bottom:16px;line-height:1.6}
+.key-points{list-style:none;padding:0;margin:0 0 16px}
+.key-points li{position:relative;padding-left:20px;margin-bottom:8px;font-size:.84rem;color:var(--text-dim)}
+.key-points li::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%}
+.tool-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.tool-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:8px;font-size:.72rem;font-weight:600;background:rgba(245,237,228,.06);color:var(--text-dim);border:1px solid rgba(245,237,228,.08)}
 
-.lesson-header{display:flex;align-items:center;gap:14px;padding:18px 22px;background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);cursor:pointer;transition:all .3s;user-select:none;-webkit-user-select:none}
-.lesson-header:hover{border-color:var(--gold-glow);background:#2a2520}
-.lesson-header.active{border-color:var(--gold);border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom:none}
-.lesson-header.active.creative-active{border-color:var(--creative)}
-.lesson-num-badge{width:36px;height:36px;min-width:36px;border-radius:10px;background:var(--gold-dim);color:var(--gold);font-weight:800;font-size:.82rem;display:flex;align-items:center;justify-content:center}
-.creative-path .lesson-num-badge{background:var(--creative-dim);color:var(--creative)}
-.lesson-header.active .lesson-num-badge{background:var(--gold);color:var(--bg)}
-.lesson-header.active.creative-active .lesson-num-badge{background:var(--creative);color:var(--bg)}
-.lesson-header-text{flex:1}
-.lesson-header-title{font-size:.95rem;font-weight:700}
-.lesson-header-sub{font-size:.76rem;color:var(--text-dim);margin-top:2px}
-.lesson-chevron{font-size:.8rem;color:var(--text-dim);transition:transform .3s}
-.lesson-header.active .lesson-chevron{transform:rotate(180deg);color:var(--gold)}
-.lesson-header.active.creative-active .lesson-chevron{color:var(--creative)}
-
-.lesson-body{background:var(--card);border:1px solid var(--gold);border-top:none;border-bottom-left-radius:var(--radius);border-bottom-right-radius:var(--radius);padding:0 22px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease}
-.lesson-body.creative-border{border-color:var(--creative)}
-.lesson-body.open{max-height:1200px;padding:22px 22px 26px}
-.lesson-block{margin-bottom:20px}
-.lesson-block:last-child{margin-bottom:0}
-.lesson-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--gold);margin-bottom:8px}
-.creative-path .lesson-label{color:var(--creative)}
-.lesson-goal{font-size:.92rem;color:var(--text);line-height:1.6}
-.golden-rule{background:linear-gradient(135deg,rgba(196,149,106,.08),rgba(196,149,106,.03));border-left:3px solid var(--gold);padding:14px 18px;border-radius:0 10px 10px 0;font-size:.88rem;color:var(--text);line-height:1.6}
-.creative-path .golden-rule{background:linear-gradient(135deg,rgba(139,126,200,.08),rgba(139,126,200,.03));border-left-color:var(--creative)}
-.lesson-bullets{list-style:none}
-.lesson-bullets li{font-size:.84rem;color:var(--text-dim);padding:5px 0;padding-left:22px;position:relative;line-height:1.5}
-.lesson-bullets li::before{content:'\2192';position:absolute;left:0;color:var(--gold);font-weight:700}
-.creative-path .lesson-bullets li::before{color:var(--creative)}
-.lesson-hw{background:rgba(245,237,228,.03);border:1px solid var(--card-border);border-radius:10px;padding:14px 18px;font-size:.84rem;color:var(--text-dim);line-height:1.5}
-.lesson-hw strong{color:var(--text);font-weight:600}
-.progress-bar-wrap{background:rgba(245,237,228,.06);border-radius:8px;height:8px;overflow:hidden;margin-top:10px}
-.progress-bar-fill{height:100%;background:var(--gold);border-radius:8px;transition:width .5s ease}
-.progress-bar-label{font-size:.72rem;color:var(--text-dim);margin-top:6px}
-
-/* locked lesson */
-.lesson-locked .lesson-header{opacity:.5;cursor:default}
-.lesson-locked .lesson-header:hover{border-color:var(--card-border);background:var(--card)}
-.lesson-lock-msg{font-size:.78rem;color:var(--text-dim);display:flex;align-items:center;gap:6px}
-
-/* ── PROMPT BUILDER ── */
-.formula-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:18px 20px;background:rgba(196,149,106,.06);border:1px solid var(--card-border);border-radius:var(--radius);margin-bottom:28px}
-.formula-tag{background:var(--gold-dim);color:var(--gold);font-weight:700;font-size:.75rem;padding:6px 12px;border-radius:8px;letter-spacing:.3px}
-.formula-plus{color:var(--text-dim);font-weight:700;font-size:.9rem}
-.formula-eq{color:var(--gold);font-weight:800;font-size:1rem}
-.builder-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
-.builder-field label{display:block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:6px}
-.builder-field select,.builder-field input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.86rem;outline:none;transition:border-color .25s}
-.builder-field select:focus,.builder-field input:focus{border-color:var(--gold)}
-.builder-field select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23b0a89e'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
-.prompt-output{background:var(--bg2);border:1px solid var(--card-border);border-radius:var(--radius);padding:20px;margin-top:20px;display:none}
-.prompt-output.visible{display:block}
-.prompt-output-text{font-family:'Courier New',monospace;font-size:.88rem;color:var(--text);line-height:1.7;white-space:pre-wrap;margin-bottom:14px}
-.prompt-output-actions{display:flex;gap:10px}
-.why-section{margin-top:32px;padding:24px;background:rgba(245,237,228,.02);border:1px dashed var(--card-border);border-radius:var(--radius)}
-.why-section h4{font-size:.9rem;font-weight:700;margin-bottom:14px;color:var(--gold)}
-.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.why-item{font-size:.82rem;color:var(--text-dim);line-height:1.5}
-.why-item strong{color:var(--text);display:block;margin-bottom:2px;font-size:.78rem}
+/* ── HOMEWORK ── */
+.hw-card{border-radius:var(--radius);padding:24px;background:var(--card);border:2px solid var(--gold);margin-bottom:20px}
+.hw-card h4{font-size:.95rem;font-weight:700;margin-bottom:10px;color:var(--gold)}
+.hw-card p{font-size:.86rem;color:var(--text-dim);margin-bottom:14px;line-height:1.6}
+.hw-check{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:.84rem;font-weight:600}
+.hw-check input{width:18px;height:18px;accent-color:var(--gold);cursor:pointer}
+.hw-check.done{color:var(--success)}
 
 /* ── PROMPT LIBRARY ── */
-.pl-filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-.pl-filter-btn{padding:10px 18px;border-radius:10px;border:1.5px solid var(--card-border);background:transparent;color:var(--text-dim);font-weight:600;font-size:.82rem;transition:all .25s}
-.pl-filter-btn:hover{border-color:var(--gold);color:var(--gold)}
-.pl-filter-btn.active{background:var(--gold);color:var(--bg);border-color:var(--gold)}
-.pl-grid{display:grid;gap:14px}
-.pl-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:20px;transition:all .3s}
-.pl-card:hover{border-color:var(--gold-glow)}
-.pl-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
-.pl-card-tags{display:flex;gap:6px;flex-wrap:wrap}
-.pl-tag{font-size:.62rem;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
-.pl-tag-tool{background:var(--gold-dim);color:var(--gold)}
-.pl-tag-beginner{background:rgba(90,173,106,.12);color:var(--success)}
-.pl-tag-intermediate{background:rgba(196,149,106,.12);color:var(--gold)}
-.pl-tag-advanced{background:rgba(224,90,90,.1);color:var(--danger)}
-.pl-card-text{font-family:'Courier New',monospace;font-size:.84rem;color:var(--text-dim);line-height:1.6;white-space:pre-wrap;margin-bottom:12px;background:rgba(245,237,228,.03);border-radius:8px;padding:14px}
-.pl-card-copy{align-self:flex-start}
+.prompt-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.prompt-filters button{padding:6px 14px;border-radius:8px;font-size:.74rem;font-weight:600;border:1px solid var(--card-border);background:transparent;color:var(--text-dim);cursor:pointer;transition:all .2s}
+.prompt-filters button.active{background:var(--gold-dim);border-color:var(--gold);color:var(--gold)}
+.prompt-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:18px;margin-bottom:12px}
+.prompt-card .prompt-text{font-family:'Courier New',monospace;font-size:.8rem;color:var(--text);line-height:1.5;margin-bottom:12px;white-space:pre-wrap;word-break:break-word}
+.prompt-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.prompt-meta .tool-tag{padding:3px 10px;border-radius:6px;font-size:.68rem;font-weight:600;background:rgba(196,149,106,.1);color:var(--gold)}
+.prompt-meta .level-tag{padding:3px 10px;border-radius:6px;font-size:.68rem;font-weight:600}
+.level-tag.beginner{background:rgba(90,173,106,.12);color:var(--success)}
+.level-tag.intermediate{background:rgba(196,149,106,.12);color:var(--gold)}
+.level-tag.advanced{background:rgba(224,90,90,.12);color:var(--danger)}
+.copy-btn{margin-left:auto;padding:4px 12px;border-radius:6px;font-size:.72rem;font-weight:600;border:1px solid var(--card-border);background:transparent;color:var(--text-dim);cursor:pointer;transition:all .2s}
+.copy-btn:hover{border-color:var(--gold);color:var(--gold)}
+.copy-btn.copied{border-color:var(--success);color:var(--success)}
 
-/* ── TOOL FINDER ── */
-.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-.filter-btn{padding:10px 18px;border-radius:10px;border:1.5px solid var(--card-border);background:transparent;color:var(--text-dim);font-weight:600;font-size:.82rem;transition:all .25s}
-.filter-btn:hover{border-color:var(--gold);color:var(--gold)}
-.filter-btn.active{background:var(--gold);color:var(--bg);border-color:var(--gold)}
-.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-.tool-card{padding:20px}
-.tool-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.tool-card-name{font-size:1rem;font-weight:700}
-.tool-badge{font-size:.62rem;font-weight:700;padding:3px 9px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
-.badge-free{background:rgba(90,173,106,.12);color:var(--success)}
-.badge-paid{background:rgba(224,90,90,.1);color:var(--danger)}
-.badge-trial{background:var(--gold-dim);color:var(--gold)}
-.tool-card-desc{font-size:.82rem;color:var(--text-dim);margin-bottom:10px;line-height:1.5}
-.tool-card-link{font-size:.8rem;font-weight:600}
+/* ── TOOL GUIDE ── */
+.tool-cat{margin-bottom:24px}
+.tool-cat h4{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;color:var(--text-dim)}
+.tool-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.tool-item{background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:14px;display:flex;gap:10px;align-items:flex-start}
+.tool-item .tool-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+.tool-item .tool-info{flex:1;min-width:0}
+.tool-item .tool-name{font-size:.82rem;font-weight:700;margin-bottom:2px}
+.tool-item .tool-desc{font-size:.72rem;color:var(--text-dim);line-height:1.4}
+.tool-item .pricing-badge{display:inline-block;padding:2px 8px;border-radius:5px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.pricing-badge.free{background:rgba(90,173,106,.12);color:var(--success)}
+.pricing-badge.paid{background:rgba(224,90,90,.12);color:var(--danger)}
+.pricing-badge.freemium{background:rgba(196,149,106,.12);color:var(--gold)}
 
-/* ── MY PROGRESS ── */
-.progress-overview{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
-.progress-stat{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:20px;text-align:center}
-.progress-stat-num{font-size:1.8rem;font-weight:800;color:var(--gold)}
-.progress-stat-num.creative{color:var(--creative)}
-.progress-stat-label{font-size:.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
-.progress-stat-bar{margin-top:10px}
-.diary-input-wrap{display:flex;gap:10px;margin-bottom:20px}
-.diary-input-wrap input{flex:1;padding:13px 16px;border-radius:12px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.88rem;outline:none;transition:border-color .25s}
-.diary-input-wrap input:focus{border-color:var(--gold)}
-.diary-log{max-height:300px;overflow-y:auto}
-.diary-entry{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--card-border)}
-.diary-entry:last-child{border-bottom:none}
-.diary-date{font-size:.68rem;color:var(--text-dim);white-space:nowrap;min-width:60px;padding-top:2px}
-.diary-text{font-size:.86rem;color:var(--text-dim);line-height:1.5}
-.diary-empty{font-size:.84rem;color:var(--text-dim);text-align:center;padding:24px 0}
+/* ── TEACHER: ROADMAP ── */
+.roadmap-course{margin-bottom:24px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--card-border)}
+.roadmap-course-header{padding:20px 24px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:background .2s}
+.roadmap-course-header:hover{background:rgba(245,237,228,.03)}
+.roadmap-course-header .rc-icon{font-size:1.6rem}
+.roadmap-course-header .rc-info{flex:1}
+.roadmap-course-header .rc-title{font-size:1rem;font-weight:800}
+.roadmap-course-header .rc-sub{font-size:.76rem;color:var(--text-dim)}
+.roadmap-course-header .rc-arrow{font-size:.8rem;color:var(--text-dim);transition:transform .3s}
+.roadmap-course.open .rc-arrow{transform:rotate(180deg)}
+.roadmap-sessions{display:none;padding:0 24px 20px}
+.roadmap-course.open .roadmap-sessions{display:block}
+.roadmap-session{background:rgba(245,237,228,.03);border-radius:10px;padding:16px;margin-bottom:10px}
+.roadmap-session h5{font-size:.88rem;font-weight:700;margin-bottom:6px}
+.roadmap-session p{font-size:.78rem;color:var(--text-dim);margin-bottom:6px;line-height:1.5}
+.roadmap-session .rs-tools{font-size:.72rem;color:var(--text-dim)}
+.roadmap-session .rs-hw{font-size:.78rem;color:var(--gold);margin-top:8px;padding-top:8px;border-top:1px solid var(--card-border)}
 
-/* ── TEACHER ── */
-.teacher-only{display:none}
-.teacher-active .teacher-only{display:block}
-.teacher-badge{background:rgba(90,173,106,.1);border:1px solid rgba(90,173,106,.2);border-radius:8px;padding:4px 10px;font-size:.65rem;font-weight:700;color:var(--success);text-transform:uppercase;letter-spacing:.6px;margin-left:8px}
+/* ── TEACHER: CONTROLS ── */
+.control-panel{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px;margin-bottom:24px}
+.control-panel h4{font-size:.95rem;font-weight:700;margin-bottom:14px;color:var(--success)}
+.control-row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px}
+.control-row label{font-size:.78rem;font-weight:600;color:var(--text-dim);display:block;margin-bottom:4px}
+.control-row select{padding:10px 14px;border-radius:10px;border:1px solid var(--card-border);background:var(--bg);color:var(--text);font-size:.84rem;outline:none;min-width:180px}
+.control-row select:focus{border-color:var(--gold)}
 
-/* teacher unlock */
-.unlock-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--card-border)}
-.unlock-row:last-child{border-bottom:none}
-.unlock-label{font-size:.86rem;font-weight:600;flex:1}
-.unlock-date{width:130px}
-.unlock-date input{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.78rem;outline:none}
-.unlock-date input:focus{border-color:var(--gold)}
-.toggle{position:relative;width:44px;height:24px;border-radius:12px;background:var(--card-border);border:none;cursor:pointer;transition:background .25s}
-.toggle.on{background:var(--success)}
-.toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .25s}
-.toggle.on::after{transform:translateX(20px)}
+/* ── TEACHER: STUDENT TRACKER ── */
+.tracker-table{width:100%;border-collapse:collapse;font-size:.78rem}
+.tracker-table th{text-align:left;padding:10px 8px;font-weight:700;color:var(--text-dim);border-bottom:1px solid var(--card-border);font-size:.72rem;text-transform:uppercase;letter-spacing:.5px}
+.tracker-table td{padding:8px;border-bottom:1px solid rgba(245,237,228,.04)}
+.tracker-table td input[type="checkbox"]{width:16px;height:16px;accent-color:var(--gold);cursor:pointer}
+.tracker-add{display:flex;gap:10px;margin-bottom:16px}
+.tracker-add input{flex:1;padding:10px 14px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.84rem;outline:none}
+.tracker-add input:focus{border-color:var(--gold)}
+.del-student{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:.8rem;padding:2px 6px;border-radius:4px}
+.del-student:hover{color:var(--danger);background:rgba(224,90,90,.1)}
 
-/* teacher planner */
-.planner-card{margin-bottom:16px}
-.planner-card h4{font-size:.92rem;font-weight:700;margin-bottom:12px;color:var(--gold)}
-.planner-field{margin-bottom:12px}
-.planner-field label{display:block;font-size:.68rem;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
-.planner-field textarea{width:100%;min-height:70px;padding:12px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.84rem;resize:vertical;outline:none;transition:border-color .25s}
-.planner-field textarea:focus{border-color:var(--gold)}
+/* ── TEACHER: CONTENT BANK ── */
+.cb-form{margin-bottom:20px}
+.cb-form textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.84rem;outline:none;min-height:80px;resize:vertical;margin-bottom:10px}
+.cb-form textarea:focus{border-color:var(--gold)}
+.cb-form .cb-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.cb-form select{padding:8px 12px;border-radius:8px;border:1px solid var(--card-border);background:var(--bg);color:var(--text);font-size:.8rem;outline:none}
+.cb-item{background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:14px;margin-bottom:10px;position:relative}
+.cb-item .cb-text{font-family:'Courier New',monospace;font-size:.78rem;line-height:1.5;margin-bottom:8px}
+.cb-actions{display:flex;gap:8px;align-items:center}
+.share-toggle{display:flex;align-items:center;gap:6px;font-size:.72rem;color:var(--text-dim);cursor:pointer}
+.share-toggle input{accent-color:var(--success);width:14px;height:14px}
 
-/* teacher students */
-.student-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--card-border)}
-.student-row:last-child{border-bottom:none}
-.student-name{font-size:.86rem;font-weight:600;flex:1}
-.student-hw-checks{display:flex;gap:4px;flex-wrap:wrap}
-.student-hw-checks button{width:24px;height:24px;border-radius:5px;border:1px solid var(--card-border);background:transparent;color:var(--text-dim);font-size:.6rem;font-weight:700;cursor:pointer;transition:all .2s}
-.student-hw-checks button.done{background:var(--success);border-color:var(--success);color:#fff}
-.add-student-row{display:flex;gap:10px;margin-top:14px}
-.add-student-row input{flex:1;padding:10px 14px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.84rem;outline:none}
-.add-student-row input:focus{border-color:var(--gold)}
+/* ── CERTIFICATE ── */
+.cert-form{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.cert-form input{flex:1;min-width:200px;padding:12px 16px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.88rem;outline:none}
+.cert-form input:focus{border-color:var(--gold)}
+.cert-preview{display:none;background:#faf5ec;border-radius:16px;padding:12px;margin-top:20px}
+.cert-inner{border:3px double #c4956a;border-radius:12px;padding:48px 36px;text-align:center;color:#1a1714;background:linear-gradient(135deg,#faf5ec,#f0e6d6)}
+.cert-inner .cert-logo{font-size:.7rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#c4956a;margin-bottom:20px}
+.cert-inner h2{font-size:1.6rem;font-weight:800;margin-bottom:4px;color:#1a1714}
+.cert-inner .cert-name{font-size:1.8rem;font-weight:800;color:#c4956a;margin:20px 0}
+.cert-inner .cert-text{font-size:.82rem;color:#6b5e50;margin-bottom:20px;line-height:1.6}
+.cert-inner .cert-date{font-size:.72rem;color:#b0a89e}
 
-/* teacher hw progress */
-.hw-progress-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--card-border)}
-.hw-progress-row:last-child{border-bottom:none}
-.hw-progress-label{font-size:.84rem;font-weight:600;flex:1}
-.hw-progress-input{width:60px;padding:6px 10px;border-radius:8px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.84rem;text-align:center;outline:none}
-.hw-progress-input:focus{border-color:var(--gold)}
-
-/* teacher certificate */
-.cert-controls{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
-.cert-controls input{flex:1;min-width:200px;padding:12px 16px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.88rem;outline:none}
-.cert-controls input:focus{border-color:var(--gold)}
-#certPreview{display:none}
-.certificate{background:#0e0c0a;border:3px solid var(--gold);border-radius:18px;padding:60px 48px;text-align:center;position:relative;overflow:hidden;max-width:700px;margin:0 auto}
-.certificate::before{content:'';position:absolute;inset:8px;border:1px solid rgba(196,149,106,.2);border-radius:14px;pointer-events:none}
-.cert-corner{position:absolute;width:36px;height:36px;border-color:var(--gold);border-style:solid}
-.cert-corner.tl{top:16px;left:16px;border-width:2px 0 0 2px}
-.cert-corner.tr{top:16px;right:16px;border-width:2px 2px 0 0}
-.cert-corner.bl{bottom:16px;left:16px;border-width:0 0 2px 2px}
-.cert-corner.br{bottom:16px;right:16px;border-width:0 2px 2px 0}
-.cert-label{font-size:.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-.cert-title{font-size:1.9rem;font-weight:800;color:var(--gold);margin-bottom:4px}
-.cert-sub{font-size:.82rem;color:var(--text-dim);margin-bottom:36px}
-.cert-name{font-size:1.7rem;font-weight:700;color:var(--text);margin-bottom:8px;border-bottom:2px solid var(--gold);display:inline-block;padding-bottom:6px}
-.cert-body{font-size:.86rem;color:var(--text-dim);margin:24px auto;max-width:460px;line-height:1.7}
-.cert-footer{display:flex;justify-content:space-between;align-items:flex-end;margin-top:40px;padding-top:24px;border-top:1px solid rgba(196,149,106,.12)}
-.cert-sig{text-align:left}
-.cert-sig .name{font-size:1rem;font-weight:700;color:var(--text)}
-.cert-sig .role{font-size:.74rem;color:var(--text-dim)}
-.cert-date{text-align:right}
-.cert-date .label{font-size:.66rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
-.cert-date .value{font-size:.9rem;color:var(--text);font-weight:600}
-
-/* teacher content bank */
-.bank-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
-.bank-tab{padding:8px 16px;border-radius:8px;border:1px solid var(--card-border);background:transparent;color:var(--text-dim);font-weight:600;font-size:.78rem;transition:all .2s}
-.bank-tab:hover{border-color:var(--gold);color:var(--gold)}
-.bank-tab.active{background:var(--gold);color:var(--bg);border-color:var(--gold)}
-.bank-item{padding:16px 0;border-bottom:1px solid var(--card-border)}
-.bank-item:last-child{border-bottom:none}
-.bank-item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.bank-item-text{font-family:'Courier New',monospace;font-size:.82rem;color:var(--text-dim);line-height:1.5;white-space:pre-wrap;background:rgba(245,237,228,.03);border-radius:8px;padding:12px}
-.bank-add{margin-top:16px}
-.bank-add textarea{width:100%;min-height:60px;padding:12px;border-radius:10px;border:1px solid var(--card-border);background:rgba(245,237,228,.04);color:var(--text);font-size:.84rem;resize:vertical;outline:none;margin-bottom:10px}
-.bank-add textarea:focus{border-color:var(--gold)}
-.bank-add-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.share-toggle{font-size:.72rem;font-weight:600;cursor:pointer;padding:4px 10px;border-radius:6px;border:1px solid var(--card-border);background:transparent;color:var(--text-dim);transition:all .2s}
-.share-toggle.shared{background:rgba(90,173,106,.12);color:var(--success);border-color:rgba(90,173,106,.2)}
-
-/* ── MOBILE NAV ── */
-.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(26,23,20,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--card-border);padding:6px 0;padding-bottom:env(safe-area-inset-bottom,6px)}
-.mobile-nav-inner{display:flex;justify-content:space-around}
-.mobile-nav a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.58rem;color:var(--text-dim);padding:6px 4px;font-weight:600;text-decoration:none;transition:color .2s}
-.mobile-nav a.active{color:var(--gold)}
-.mobile-nav a span.icon{font-size:1.1rem}
+/* ── MOBILE BOTTOM NAV ── */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(26,23,20,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--card-border);padding:6px 0 env(safe-area-inset-bottom,6px)}
+.bottom-nav-inner{display:flex;justify-content:space-around;max-width:600px;margin:0 auto}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 8px;font-size:.58rem;font-weight:600;color:var(--text-dim);text-decoration:none;transition:color .2s;cursor:pointer;min-width:0}
+.bottom-nav a .bnav-icon{font-size:1.2rem}
+.bottom-nav a.active{color:var(--gold)}
+.bottom-nav a:hover{text-decoration:none}
 
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
   .portal-nav .nav-links{display:none}
-  .mobile-nav{display:block}
-  .container{padding:24px 16px;padding-bottom:80px}
-  .section-title{font-size:1.15rem}
-  .builder-grid{grid-template-columns:1fr}
-  .progress-overview{grid-template-columns:1fr}
-  .tools-grid{grid-template-columns:1fr}
-  .why-grid{grid-template-columns:1fr}
-  .formula-bar{flex-direction:column;align-items:flex-start;gap:6px}
-  .certificate{padding:36px 20px}
-  .cert-title{font-size:1.3rem}
-  .cert-name{font-size:1.2rem}
-  .cert-footer{flex-direction:column;align-items:center;gap:16px}
-  .cert-sig,.cert-date{text-align:center}
-  .login-box{padding:36px 24px}
-  .lesson-header{padding:14px 16px}
-  .lesson-item{margin-left:14px}
-  .path-header{padding:22px 18px}
+  .bottom-nav{display:block}
+  .container{padding:24px 16px 100px}
+  .course-header{padding:22px 18px}
+  .session-card{padding:22px 18px}
+  .tool-list{grid-template-columns:1fr}
+  .control-row{flex-direction:column}
+  .control-row select{min-width:100%}
+  .tracker-table{font-size:.7rem}
+  .cert-inner{padding:32px 20px}
+  .cert-inner .cert-name{font-size:1.3rem}
+}
+@media(min-width:769px){
+  .bottom-nav{display:none!important}
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ════════ LOGIN GATE ════════ -->
 <div id="loginGate">
   <div class="login-box">
-    <span class="login-emoji">&#129302;</span>
+    <span class="login-emoji">&#x1F393;</span>
     <h1>AI Academy</h1>
-    <p class="login-sub">&#1364;&#1400; &#1377;&#1398;&#1393;&#1398;&#1377;&#1391;&#1377;&#1398; &#1400;&#1410;&#1394;&#1381;&#1409;&#1400;&#1410;&#1397;&#1409;&#1384; AI-&#1387; &#1377;&#1399;&#1389;&#1377;&#1408;&#1392;&#1400;&#1410;&#1396;</p>
-    <input type="password" id="passInput" placeholder="&#1331;&#1377;&#1394;&#1407;&#1398;&#1377;&#1378;&#1377;&#1404;" autocomplete="off" autofocus>
-    <button class="btn" onclick="tryLogin()">&#1348;&#1400;&#1410;&#1407;&#1412;</button>
-    <div class="login-error" id="loginErr">&#1357;&#1389;&#1377;&#1388; &#1379;&#1377;&#1394;&#1407;&#1398;&#1377;&#1378;&#1377;&#1404;&#1417; &#1363;&#1400;&#1408;&#1393;&#1381;&#1412; &#1398;&#1400;&#1408;&#1387;&#1409;&#1417;</div>
+    <p class="login-sub">&#1348;&#1407;&#1398;&#1381;&#1409;&#1387;&#1408; &#1379;&#1377;&#1394;&#1407;&#1398;&#1377;&#1378;&#1377;&#1404;&#1384;</p>
+    <input type="password" id="loginPass" placeholder="&#1331;&#1377;&#1394;&#1407;&#1398;&#1377;&#1378;&#1377;&#1404;" autocomplete="off">
+    <button class="btn" onclick="doLogin()">&#1348;&#1407;&#1398;&#1381;&#1388;</button>
+    <div class="login-error" id="loginErr">&#1357;&#1389;&#1377;&#1388; &#1379;&#1377;&#1394;&#1407;&#1398;&#1377;&#1378;&#1377;&#1404;</div>
   </div>
 </div>
 
-<!-- PORTAL -->
+<!-- ════════ PORTAL ════════ -->
 <div id="portal">
-<nav class="portal-nav">
-  <div class="portal-nav-inner">
-    <span class="logo">AI Academy</span>
-    <div class="nav-links">
-      <a href="#lessons" class="active" onclick="scrollNav(this)">&#1332;&#1377;&#1405;&#1381;&#1408;</a>
-      <a href="#builder" onclick="scrollNav(this)">Builder</a>
-      <a href="#promptlib" onclick="scrollNav(this)">Prompts</a>
-      <a href="#tools" onclick="scrollNav(this)">&#1331;&#1400;&#1408;&#1390;&#1387;&#1412;</a>
-      <a href="#progress" onclick="scrollNav(this)">&#1354;&#1408;&#1400;&#1379;&#1408;&#1381;&#1405;</a>
-      <a href="#planner" onclick="scrollNav(this)" class="teacher-only">Planner</a>
-      <a href="#bank" onclick="scrollNav(this)" class="teacher-only">Bank</a>
-      <a href="#certificate" onclick="scrollNav(this)" class="teacher-only">&#1358;&#1391;&#1377;&#1397;&#1377;&#1391;&#1377;&#1398;</a>
-    </div>
-    <div class="nav-right">
-      <span class="role-badge" id="roleBadge">Student</span>
-      <button class="logout-btn" onclick="logout()">&#1333;&#1388;&#1412;</button>
-    </div>
-  </div>
-</nav>
 
-<div class="container">
-
-<!-- 1: LEARNING PATHS -->
-<div class="section" id="lessons">
-  <div class="section-header">
-    <span class="section-emoji">&#128218;</span>
-    <h2 class="section-title">&#1364;&#1400; &#1400;&#1410;&#1405;&#1400;&#1410;&#1396;&#1398;&#1377;&#1391;&#1377;&#1398; &#1395;&#1377;&#1396;&#1411;&#1377;&#1398;</h2>
-    <p class="section-sub">&#1333;&#1408;&#1391;&#1400;&#1410; &#1400;&#1410;&#1394;&#1387;&#1373; &#1392;&#1387;&#1396;&#1412;&#1381;&#1408;&#1387;&#1409; &#1396;&#1387;&#1398;&#1401;&#1415; &#1405;&#1407;&#1381;&#1394;&#1390;&#1377;&#1379;&#1400;&#1408;&#1390;&#1377;&#1391;&#1377;&#1398;</p>
-  </div>
-  <div id="lessonList"></div>
-</div>
-
-<!-- 2: PROMPT BUILDER -->
-<div class="section" id="builder">
-  <div class="section-header">
-    <span class="section-emoji">&#9997;&#65039;</span>
-    <h2 class="section-title">Prompt Builder</h2>
-    <p class="section-sub">&#1343;&#1377;&#1404;&#1400;&#1410;&#1409;&#1387;&#1408; &#1412;&#1400; prompt-&#1384;&#1373; &#1412;&#1377;&#1397;&#1388; &#1377;&#1404; &#1412;&#1377;&#1397;&#1388;&#1417;</p>
-  </div>
-  <div class="formula-bar">
-    <span class="formula-tag">ROLE</span><span class="formula-plus">+</span>
-    <span class="formula-tag">TASK</span><span class="formula-plus">+</span>
-    <span class="formula-tag">CONTEXT</span><span class="formula-plus">+</span>
-    <span class="formula-tag">FORMAT</span><span class="formula-eq">=</span>
-    <span class="formula-tag" style="background:var(--gold);color:var(--bg)">&#10024; Great Prompt</span>
-  </div>
-  <div class="builder-grid">
-    <div class="builder-field">
-      <label>Role &#8212; &#1400;&#1406; &#1383; AI-&#1398;</label>
-      <select id="bRole">
-        <option value="Act as a professional copywriter">&#1354;&#1408;&#1400;&#1414;&#1381;&#1405;&#1387;&#1400;&#1398;&#1377;&#1388; &#1391;&#1400;&#1402;&#1387;&#1404;&#1377;&#1397;&#1407;&#1381;&#1408;</option>
-        <option value="Act as a business consultant">&#1330;&#1387;&#1382;&#1398;&#1381;&#1405; &#1389;&#1400;&#1408;&#1392;&#1408;&#1380;&#1377;&#1407;&#1400;&#1410;</option>
-        <option value="Act as a creative director">&#1343;&#1408;&#1381;&#1377;&#1407;&#1387;&#1406; &#1380;&#1387;&#1408;&#1381;&#1391;&#1407;&#1400;&#1408;</option>
-        <option value="Act as an Armenian translator">&#1344;&#1377;&#1397;&#1381;&#1408;&#1381;&#1398; &#1385;&#1377;&#1408;&#1379;&#1396;&#1377;&#1398;&#1387;&#1401;</option>
-        <option value="Act as a coding assistant">&#1342;&#1408;&#1377;&#1379;&#1408;&#1377;&#1406;&#1400;&#1408;&#1396;&#1377;&#1398; &#1413;&#1379;&#1398;&#1377;&#1391;&#1377;&#1398;</option>
-        <option value="Act as a social media expert">Social media &#1411;&#1400;&#1408;&#1393;&#1377;&#1379;&#1381;&#1407;</option>
-        <option value="Act as a video script writer">&#1358;&#1387;&#1380;&#1381;&#1400; &#1405;&#1409;&#1381;&#1398;&#1377;&#1408;&#1387;&#1405;&#1407;</option>
-      </select>
-    </div>
-    <div class="builder-field">
-      <label>Task &#8212; &#1387;&#1398;&#1401; &#1377;&#1398;&#1381;&#1388;</label>
-      <input type="text" id="bTask" placeholder="Write / Create / Summarize / Translate...">
-    </div>
-    <div class="builder-field">
-      <label>Context &#8212; &#1400;&#1410;&#1396; &#1415; &#1387;&#1398;&#1401;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</label>
-      <input type="text" id="bContext" placeholder="For my [audience], about [topic]">
-    </div>
-    <div class="builder-field">
-      <label>Format &#8212; &#1387;&#1398;&#1401; &#1407;&#1381;&#1405;&#1412;&#1400;&#1406;</label>
-      <select id="bFormat">
-        <option value="Write in Armenian">&#1344;&#1377;&#1397;&#1381;&#1408;&#1381;&#1398;&#1400;&#1406;</option>
-        <option value="As bullet points">Bullet points</option>
-        <option value="Under 150 words">150 &#1378;&#1377;&#1404;&#1387;&#1409; &#1412;&#1387;&#1401;</option>
-        <option value="As a table">&#1329;&#1394;&#1397;&#1400;&#1410;&#1405;&#1377;&#1391;&#1387; &#1407;&#1381;&#1405;&#1412;&#1400;&#1406;</option>
-        <option value="Step by step">&#1364;&#1377;&#1397;&#1388; &#1377;&#1404; &#1412;&#1377;&#1397;&#1388;</option>
-        <option value="In a casual, friendly tone">&#1336;&#1398;&#1391;&#1381;&#1408;&#1377;&#1391;&#1377;&#1398; &#1407;&#1400;&#1398;&#1400;&#1406;</option>
-      </select>
-    </div>
-  </div>
-  <button class="btn" onclick="buildPrompt()" style="width:100%">&#1343;&#1377;&#1404;&#1400;&#1410;&#1409;&#1387;&#1408; &#1387;&#1396; prompt-&#1384; &#8594;</button>
-  <div class="prompt-output" id="promptOutput">
-    <div class="prompt-output-text" id="promptText"></div>
-    <div class="prompt-output-actions">
-      <button class="btn btn-sm" onclick="copyBuiltPrompt()">&#128203; Copy</button>
-      <button class="btn btn-sm btn-outline" onclick="clearBuilder()">&#1350;&#1400;&#1408;&#1387;&#1409;</button>
-    </div>
-  </div>
-  <div class="why-section">
-    <h4>&#1336;&#1398;&#1401;&#1400;&#1410;&#8228; &#1405;&#1377; &#1377;&#1399;&#1389;&#1377;&#1407;&#1400;&#1410;&#1396; &#1383;</h4>
-    <div class="why-grid">
-      <div class="why-item"><strong>ROLE</strong>AI-&#1398; &#1377;&#1406;&#1381;&#1388;&#1387; &#1388;&#1377;&#1406; &#1402;&#1377;&#1407;&#1377;&#1405;&#1389;&#1377;&#1398;&#1400;&#1410;&#1396; &#1383;, &#1381;&#1408;&#1378; &#1379;&#1387;&#1407;&#1387;, &#1400;&#1406; &#1383;&#1417;</div>
-      <div class="why-item"><strong>TASK</strong>&#1344;&#1405;&#1407;&#1377;&#1391; &#1377;&#1405;&#1377;, &#1387;&#1398;&#1401; &#1381;&#1405; &#1400;&#1410;&#1382;&#1400;&#1410;&#1396;&#1417;</div>
-      <div class="why-item"><strong>CONTEXT</strong>&#1329;&#1404;&#1377;&#1398;&#1409; &#1391;&#1400;&#1398;&#1407;&#1381;&#1412;&#1405;&#1407;&#1387; AI-&#1398; &#1401;&#1387; &#1391;&#1377;&#1408;&#1400;&#1394; &#1387;&#1396;&#1377;&#1398;&#1377;&#1388;&#1417;</div>
-      <div class="why-item"><strong>FORMAT</strong>&#1329;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1412;&#1384; &#1393;&#1415;&#1387;&#1398; &#1391;&#1377;&#1389;&#1406;&#1377;&#1390; &#1383; &#1399;&#1377;&#1407; &#1378;&#1377;&#1398;&#1381;&#1408;&#1387;&#1409;&#1417;</div>
-    </div>
-  </div>
-</div>
-
-<!-- 3: PROMPT LIBRARY -->
-<div class="section" id="promptlib">
-  <div class="section-header">
-    <span class="section-emoji">&#128218;</span>
-    <h2 class="section-title">Prompt &#1331;&#1408;&#1377;&#1380;&#1377;&#1408;&#1377;&#1398;</h2>
-    <p class="section-sub">&#1354;&#1377;&#1407;&#1408;&#1377;&#1405;&#1407; prompt-&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1406;&#1377;&#1412;&#1377;&#1390;&#1400;&#1410;&#1373; &#1384;&#1405;&#1407; &#1391;&#1377;&#1407;&#1381;&#1379;&#1400;&#1408;&#1387;&#1377;&#1397;&#1387;</p>
-  </div>
-  <div class="pl-filter-row" id="plFilterRow"></div>
-  <div class="pl-grid" id="plGrid"></div>
-</div>
-
-<!-- 4: TOOL FINDER -->
-<div class="section" id="tools">
-  <div class="section-header">
-    <span class="section-emoji">&#128736;&#65039;</span>
-    <h2 class="section-title">&#1331;&#1407;&#1387;&#1408; &#1412;&#1400; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1384;</h2>
-    <p class="section-sub">&#1336;&#1398;&#1401;&#1387;&#1398;&#8228; &#1381;&#1405; &#1400;&#1410;&#1382;&#1400;&#1410;&#1396; &#1377;&#1398;&#1381;&#1388;&#1417;</p>
-  </div>
-  <div class="filter-row" id="filterRow"></div>
-  <div class="tools-grid" id="toolsGrid"></div>
-</div>
-
-<!-- 5: MY PROGRESS -->
-<div class="section" id="progress">
-  <div class="section-header">
-    <span class="section-emoji">&#128200;</span>
-    <h2 class="section-title">&#1364;&#1400; &#1395;&#1377;&#1396;&#1411;&#1377;&#1398;</h2>
-    <p class="section-sub">&#1344;&#1381;&#1407;&#1415;&#1387;&#1408; &#1387;&#1398;&#1401;&#1412;&#1377;&#1398; &#1381;&#1405; &#1392;&#1377;&#1405;&#1381;&#1388;</p>
-  </div>
-  <div class="progress-overview" id="progressStats"></div>
-  <div class="card">
-    <h4 style="font-size:.9rem;font-weight:700;margin-bottom:4px">&#128221; &#1364;&#1400; AI &#1413;&#1408;&#1377;&#1379;&#1387;&#1408;&#1384;</h4>
-    <p style="font-size:.78rem;color:var(--text-dim);margin-bottom:16px">&#1331;&#1408;&#1387;&#1408; &#1377;&#1396;&#1381;&#1398; &#1413;&#1408;&#1373; &#1387;&#1398;&#1401; &#1405;&#1407;&#1381;&#1394;&#1390;&#1381;&#1409;&#1387;&#1408; AI-&#1400;&#1406;</p>
-    <div class="diary-input-wrap">
-      <input type="text" id="diaryInput" placeholder="&#1329;&#1397;&#1405;&#1413;&#1408; &#1381;&#1405;...">
-      <button class="btn btn-sm" onclick="addDiary()">&#1354;&#1377;&#1392;&#1381;&#1388;</button>
-    </div>
-    <div class="diary-log" id="diaryLog"></div>
-  </div>
-</div>
-
-<!-- TEACHER: LESSON UNLOCK + HW PROGRESS -->
-<div class="section teacher-only" id="teacherUnlock">
-  <h2 class="section-title">&#1332;&#1377;&#1405;&#1381;&#1408;&#1387; &#1391;&#1377;&#1404;&#1377;&#1406;&#1377;&#1408;&#1400;&#1410;&#1396; <span class="teacher-badge">Teacher</span></h2>
-  <p class="section-sub">&#1330;&#1377;&#1409;&#1387;&#1408;/&#1411;&#1377;&#1391;&#1387;&#1408; &#1380;&#1377;&#1405;&#1381;&#1408;&#1384; &#1415; &#1398;&#1399;&#1387;&#1408; &#1377;&#1396;&#1405;&#1377;&#1385;&#1387;&#1406;&#1384;</p>
-  <div class="card" id="unlockList"></div>
-  <h4 style="margin-top:28px;margin-bottom:12px;font-size:.9rem">Homework &#1391;&#1377;&#1407;&#1377;&#1408;&#1396;&#1377;&#1398; %</h4>
-  <div class="card" id="hwProgressList"></div>
-</div>
-
-<!-- TEACHER: PLANNER -->
-<div class="section teacher-only" id="planner">
-  <h2 class="section-title">&#1332;&#1377;&#1405;&#1387; &#1402;&#1388;&#1377;&#1398; <span class="teacher-badge">Teacher</span></h2>
-  <p class="section-sub">&#1354;&#1388;&#1377;&#1398;&#1377;&#1406;&#1400;&#1408;&#1381;&#1412; &#1393;&#1381;&#1408; &#1380;&#1377;&#1405;&#1381;&#1408;&#1384; &#1396;&#1377;&#1398;&#1408;&#1377;&#1396;&#1377;&#1405;&#1398;&#1400;&#1408;&#1381;&#1398;</p>
-  <div id="plannerList"></div>
-</div>
-
-<!-- TEACHER: STUDENTS -->
-<div class="section teacher-only" id="students">
-  <h2 class="section-title">&#1352;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;&#1398;&#1381;&#1408; <span class="teacher-badge">Teacher</span></h2>
-  <div class="card">
-    <div id="studentList"></div>
-    <div class="add-student-row">
-      <input type="text" id="newStudentName" placeholder="&#1329;&#1398;&#1400;&#1410;&#1398;...">
-      <button class="btn btn-sm" onclick="addStudent()">+ &#1329;&#1406;&#1381;&#1388;&#1377;&#1409;&#1398;&#1381;&#1388;</button>
-    </div>
-  </div>
-</div>
-
-<!-- TEACHER: CONTENT BANK -->
-<div class="section teacher-only" id="bank">
-  <h2 class="section-title">Content Bank <span class="teacher-badge">Teacher</span></h2>
-  <p class="section-sub">&#1364;&#1400; &#1387;&#1408;&#1377;&#1391;&#1377;&#1398; &#1377;&#1399;&#1389;&#1377;&#1407;&#1400;&#1394; prompt-&#1398;&#1381;&#1408;&#1384;&#1417; Share &#1391;&#1400;&#1395;&#1377;&#1391;&#1384;&#1373; &#1400;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387;&#1398; &#1409;&#1400;&#1410;&#1397;&#1409; &#1407;&#1377;&#1388;&#1400;&#1410; &#1392;&#1377;&#1396;&#1377;&#1408;&#1417;</p>
-  <div class="bank-tabs" id="bankTabs"></div>
-  <div class="card" id="bankContent"></div>
-  <div class="bank-add">
-    <textarea id="bankNewText" placeholder="&#1331;&#1408;&#1381;&#1412; &#1398;&#1400;&#1408; prompt..."></textarea>
-    <div class="bank-add-row">
-      <button class="btn btn-sm" onclick="addBankItem()">+ &#1329;&#1406;&#1381;&#1388;&#1377;&#1409;&#1398;&#1381;&#1388;</button>
-      <span style="font-size:.76rem;color:var(--text-dim)">&#1343;&#1377;&#1407;&#1381;&#1379;&#1400;&#1408;&#1387;&#1377;&#1373; <span id="bankCatLabel">Text</span></span>
-    </div>
-  </div>
-</div>
-
-<!-- TEACHER: CERTIFICATE -->
-<div class="section teacher-only" id="certificate">
-  <h2 class="section-title">&#1358;&#1391;&#1377;&#1397;&#1377;&#1391;&#1377;&#1398; <span class="teacher-badge">Teacher</span></h2>
-  <div class="cert-controls">
-    <input type="text" id="certName" placeholder="&#1352;&#1410;&#1405;&#1377;&#1398;&#1400;&#1394;&#1387; &#1377;&#1398;&#1400;&#1410;&#1398;...">
-    <button class="btn" onclick="generateCert()">&#1357;&#1407;&#1381;&#1394;&#1390;&#1381;&#1388;</button>
-  </div>
-  <div id="certPreview">
-    <div class="certificate" id="certCard">
-      <div class="cert-corner tl"></div><div class="cert-corner tr"></div>
-      <div class="cert-corner bl"></div><div class="cert-corner br"></div>
-      <div class="cert-label">Certificate of Completion</div>
-      <div class="cert-title">AI Academy Armenia</div>
-      <div class="cert-sub">Artificial Intelligence Education Program</div>
-      <div class="cert-name" id="certStudentName"></div>
-      <div class="cert-body">&#1344;&#1377;&#1403;&#1400;&#1394;&#1400;&#1410;&#1385;&#1397;&#1377;&#1396;&#1378; &#1377;&#1406;&#1377;&#1408;&#1407;&#1381;&#1388; &#1383; AI Academy Armenia &#1380;&#1377;&#1405;&#1384;&#1398;&#1385;&#1377;&#1409;&#1384;&#1373; &#1409;&#1400;&#1410;&#1409;&#1377;&#1380;&#1408;&#1381;&#1388;&#1400;&#1406; &#1377;&#1408;&#1392;&#1381;&#1405;&#1407;&#1377;&#1391;&#1377;&#1398; &#1387;&#1398;&#1407;&#1381;&#1388;&#1381;&#1391;&#1407;&#1387; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1387; &#1387;&#1396;&#1377;&#1409;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398; &#1415; &#1391;&#1387;&#1408;&#1377;&#1404;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1417;</div>
-      <div class="cert-footer">
-        <div class="cert-sig"><div class="name">Ed Harutyunyan</div><div class="role">Founder, AI Academy Armenia</div></div>
-        <div class="cert-date"><div class="label">Date</div><div class="value" id="certDate"></div></div>
+  <!-- ── TOP NAV ── -->
+  <nav class="portal-nav">
+    <div class="portal-nav-inner">
+      <span class="logo">AI Academy</span>
+      <div class="nav-links" id="navLinks"></div>
+      <div class="nav-right">
+        <span class="role-badge" id="roleBadge"></span>
+        <button class="logout-btn" onclick="doLogout()">&#x2715;</button>
       </div>
     </div>
-  </div>
-</div>
+  </nav>
 
-</div><!-- /container -->
+  <!-- ── CONTENT ── -->
+  <div class="container" id="mainContent">
 
-<!-- MOBILE NAV -->
-<div class="mobile-nav">
-  <div class="mobile-nav-inner">
-    <a href="#lessons" class="active" onclick="scrollNav(this)"><span class="icon">&#128218;</span>&#1332;&#1377;&#1405;&#1381;&#1408;</a>
-    <a href="#builder" onclick="scrollNav(this)"><span class="icon">&#9997;&#65039;</span>Builder</a>
-    <a href="#promptlib" onclick="scrollNav(this)"><span class="icon">&#128218;</span>Prompts</a>
-    <a href="#progress" onclick="scrollNav(this)"><span class="icon">&#128200;</span>&#1354;&#1408;&#1400;&#1379;&#1408;&#1381;&#1405;</a>
-    <a href="#bank" onclick="scrollNav(this)" class="teacher-only"><span class="icon">&#128451;&#65039;</span>Bank</a>
+    <!-- SEC: Current Session -->
+    <div class="section" id="secCurrent">
+      <div id="courseHeaderWrap"></div>
+      <div id="sessionContentWrap"></div>
+    </div>
+
+    <!-- SEC: Homework -->
+    <div class="section" id="secHomework">
+      <div class="section-header">
+        <div class="section-title">&#10003; &#1359;&#1398;&#1377;&#1397;&#1387;&#1398; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;</div>
+        <div class="section-sub">Homework</div>
+      </div>
+      <div id="homeworkWrap"></div>
+    </div>
+
+    <!-- SEC: Prompt Library -->
+    <div class="section" id="secPrompts">
+      <div class="section-header">
+        <div class="section-title">&#128218; Prompt Library</div>
+        <div class="section-sub">&#1354;&#1377;&#1407;&#1408;&#1377;&#1405;&#1407; prompt-&#1398;&#1381;&#1408; &#1377;&#1396;&#1381;&#1398; &#1391;&#1377;&#1407;&#1381;&#1379;&#1400;&#1408;&#1387;&#1377;&#1397;&#1387;</div>
+      </div>
+      <div class="prompt-filters" id="promptFilters"></div>
+      <div id="promptList"></div>
+    </div>
+
+    <!-- SEC: Tool Guide -->
+    <div class="section" id="secTools">
+      <div class="section-header">
+        <div class="section-title">&#128295; Tool Guide</div>
+        <div class="section-sub">&#1331;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1387; &#1407;&#1381;&#1394;&#1381;&#1391;&#1377;&#1407;&#1400;&#1410;</div>
+      </div>
+      <div id="toolGuideWrap"></div>
+    </div>
+
+    <!-- SEC: Teacher Panel -->
+    <div class="section teacher-only" id="secTeach">
+      <div class="section-header">
+        <div class="section-title">&#127891; &#1332;&#1377;&#1405;&#1377;&#1406;&#1377;&#1398;&#1380;&#1387; &#1402;&#1377;&#1398;&#1381;&#1388;</div>
+        <div class="section-sub">Course controls, roadmap, tracker</div>
+      </div>
+
+      <!-- Controls -->
+      <div class="control-panel" id="controlPanel">
+        <h4>&#9881; Active Course &amp; Session</h4>
+        <div class="control-row">
+          <div>
+            <label>Course</label>
+            <select id="selCourse" onchange="onCourseChange()"></select>
+          </div>
+          <div>
+            <label>Session</label>
+            <select id="selSession" onchange="onSessionChange()"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Roadmap -->
+      <div style="margin-bottom:32px">
+        <h4 style="font-size:.95rem;font-weight:700;margin-bottom:14px">&#128506; Full Roadmap</h4>
+        <div id="roadmapWrap"></div>
+      </div>
+
+      <!-- Student Tracker -->
+      <div style="margin-bottom:32px">
+        <h4 style="font-size:.95rem;font-weight:700;margin-bottom:14px">&#128101; Student Tracker</h4>
+        <div class="tracker-add">
+          <input type="text" id="newStudentName" placeholder="&#1329;&#1398;&#1400;&#1410;&#1398;">
+          <button class="btn btn-sm" onclick="addStudent()">+</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="tracker-table" id="trackerTable">
+            <thead id="trackerHead"></thead>
+            <tbody id="trackerBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Content Bank -->
+      <div style="margin-bottom:32px">
+        <h4 style="font-size:.95rem;font-weight:700;margin-bottom:14px">&#128203; Content Bank</h4>
+        <div class="cb-form">
+          <textarea id="cbText" placeholder="Prompt text..."></textarea>
+          <div class="cb-row">
+            <select id="cbCat">
+              <option value="Text">Text</option>
+              <option value="Image">Image</option>
+              <option value="Video">Video</option>
+              <option value="Business">Business</option>
+              <option value="Social Media">Social Media</option>
+            </select>
+            <select id="cbTool">
+              <option>ChatGPT</option><option>Claude</option><option>Gemini</option>
+              <option>Google Flow</option><option>Flux</option><option>Kling</option>
+              <option>Canva AI</option><option>Other</option>
+            </select>
+            <button class="btn btn-sm" onclick="addCBItem()">Add</button>
+          </div>
+        </div>
+        <div id="cbList"></div>
+      </div>
+
+      <!-- Certificate -->
+      <div>
+        <h4 style="font-size:.95rem;font-weight:700;margin-bottom:14px">&#127942; Certificate Generator</h4>
+        <div class="cert-form">
+          <input type="text" id="certName" placeholder="Student name">
+          <button class="btn btn-sm" onclick="genCert()">Generate</button>
+        </div>
+        <div class="cert-preview" id="certPreview">
+          <div class="cert-inner">
+            <div class="cert-logo">AI ACADEMY</div>
+            <h2>Certificate of Completion</h2>
+            <p class="cert-text">This certifies that</p>
+            <div class="cert-name" id="certNameOut"></div>
+            <p class="cert-text">has successfully completed the AI Academy program.</p>
+            <div class="cert-date" id="certDate"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+
+  <!-- ── BOTTOM NAV ── -->
+  <div class="bottom-nav" id="bottomNav">
+    <div class="bottom-nav-inner" id="bottomNavInner"></div>
   </div>
-</div>
+
 </div><!-- /portal -->
 
 <script>
-(function(){
-'use strict';
+/* ══════════════════════════════════════════════
+   DATA
+   ══════════════════════════════════════════════ */
+var PASS_STUDENT='academy2026',PASS_TEACHER='TEACHER_PASS';
 
-/* ── HELPERS ── */
 function LS(k,v){var K='aap_'+k;if(v===undefined){try{return JSON.parse(localStorage.getItem(K))}catch(e){return null}}localStorage.setItem(K,JSON.stringify(v))}
 function esc(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML}
-function escA(s){return String(s).replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-var PASS_STUDENT='academy2026';
-var PASS_TEACHER='TEACHER_PASS';
-var role='';
-
-/* ── LESSON DATA ── */
-var lessons=[
-  {n:1,path:1,title:'\u0531\u057c\u0561\u057b\u056b\u0576 \u0584\u0561\u0575\u056c\u0568 AI-\u056b \u0570\u0565\u057f',
-   teaser:'\u0532\u0561\u0581\u056b\u0580 ChatGPT, \u057d\u057f\u0561\u0581\u056b\u0580 \u0561\u057c\u0561\u057b\u056b\u0576 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0568',
-   goal:'\u0532\u0561\u0581\u0565\u056c ChatGPT, \u057d\u057f\u0561\u0576\u0561\u056c \u0561\u057c\u0561\u057b\u056b\u0576 \u0585\u0563\u057f\u0561\u056f\u0561\u0580 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0568, \u057d\u057f\u0565\u0572\u056e\u0565\u056c \u0561\u057c\u0561\u057b\u056b\u0576 \u057a\u0561\u057f\u056f\u0565\u0580\u0568',
-   rule:'AI-\u0576 Google \u0579\u0567\u0589 \u053d\u0578\u057d\u056b\u0580 \u0576\u0580\u0561 \u0570\u0565\u057f\u0589',
-   bullets:['\u0532\u0561\u0581\u0565\u056c ChatGPT \u0587 \u057d\u057f\u0561\u0576\u0561\u056c \u0561\u057c\u0561\u057b\u056b\u0576 \u0585\u0563\u057f\u0561\u056f\u0561\u0580 \u057a\u0561\u057f\u0561\u057d\u056d\u0561\u0576','\u054e\u0561\u057f prompt vs \u056c\u0561\u057e prompt \u2014 \u057f\u0561\u0580\u0562\u0565\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0568 \u057f\u0565\u057d\u0576\u0565\u056c \u0561\u0576\u0574\u056b\u057b\u0561\u057a\u0565\u057d','\u054d\u057f\u0565\u0572\u056e\u0565\u056c \u0561\u057c\u0561\u057b\u056b\u0576 AI \u057a\u0561\u057f\u056f\u0565\u0580\u0568 \u056b\u0580\u0561\u056f\u0561\u0576 \u056f\u0575\u0561\u0576\u0584\u0578\u0582\u0574'],
-   hw:'\u0533\u0580\u056b\u0580 3 \u057f\u0561\u0580\u0562\u0565\u0580 prompt-\u0576\u0565\u0580 ChatGPT-\u0578\u0582\u0574 \u0587 \u057a\u0561\u0570\u056b\u0580 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0576\u0565\u0580\u0568'},
-  {n:2,path:1,title:'Prompt-\u056b \u0563\u0561\u0572\u057f\u0576\u056b\u0584\u0568',
-   teaser:'Role + Context + Format \u0562\u0561\u0576\u0561\u0571\u0587\u0568 \u0587 \u056b\u0580\u0561\u056f\u0561\u0576 \u0585\u0580\u056b\u0576\u0561\u056f\u0576\u0565\u0580',
-   goal:'\u054d\u0578\u057e\u0578\u0580\u0565\u056c Role + Context + Format \u0562\u0561\u0576\u0561\u0571\u0587\u0568 \u0587 \u0563\u0580\u0565\u056c \u057a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c \u0574\u0561\u056f\u0561\u0580\u0564\u0561\u056f\u056b prompt-\u0576\u0565\u0580',
-   rule:'\u0531\u0576\u0563\u056c\u0565\u0580\u0565\u0576 \u0569\u0561\u0580\u0563\u0574\u0561\u0576\u056b\u0580 \u0561\u057c\u0561\u057b \u2014 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0576\u0565\u0580\u0568 10 \u0561\u0576\u0563\u0561\u0574 \u056c\u0561\u057e \u056f\u056c\u056b\u0576\u0565\u0576',
-   bullets:['Before/after \u0585\u0580\u056b\u0576\u0561\u056f\u0576\u0565\u0580\u056b \u0570\u0561\u0574\u0565\u0574\u0561\u057f\u0578\u0582\u0569\u0575\u0578\u0582\u0576','\u053f\u0561\u057c\u0578\u0582\u0581\u056b\u0580 Prompt Builder-\u0568 \u056b\u0580\u0561\u056f\u0561\u0576 \u056d\u0576\u0564\u056b\u0580\u0576\u0565\u0580\u056b \u0570\u0561\u0574\u0561\u0580','\u0539\u0561\u0580\u0563\u0574\u0561\u0576\u056b\u0580 \u0561\u0576\u0563\u056c\u0565\u0580\u0565\u0576 trick-\u0568 \u2014 \u057f\u0565\u057d\u0576\u056b\u0580 \u057f\u0561\u0580\u0562\u0565\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0568'],
-   hw:'\u0533\u0580\u056b\u0580 5 prompt-\u0576\u0565\u0580 Role+Context+Format \u0562\u0561\u0576\u0561\u0571\u0587\u0578\u057e \u057f\u0561\u0580\u0562\u0565\u0580 \u0569\u0565\u0574\u0561\u0576\u0565\u0580\u0578\u057e'},
-  {n:3,path:1,title:'\u0554\u0578 AI \u0563\u0578\u0580\u056e\u056b\u0584\u0576\u0565\u0580\u0568',
-   teaser:'\u054b\u0576\u0579 \u0563\u0578\u0580\u056e\u056b\u0584 \u056b\u0576\u0579\u056b \u0570\u0561\u0574\u0561\u0580: ChatGPT, Claude, Flux, Kling',
-   goal:'\u053b\u0574\u0561\u0576\u0561\u056c \u056b\u0576\u0579 \u0563\u0578\u0580\u056e\u056b\u0584 \u056b\u0576\u0579\u056b \u0570\u0561\u0574\u0561\u0580 \u0567 \u0587 \u056f\u0561\u0580\u0578\u0572\u0561\u0576\u0561\u056c \u0568\u0576\u057f\u0580\u0565\u056c \u056e\u0561\u057c\u0561\u0575\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0576\u0565\u0580\u056b \u0574\u056b\u057b\u0587',
-   rule:'\u0531\u0574\u0565\u0576 \u0563\u0578\u0580\u056e\u056b\u0584\u056b \u0574\u0565\u057b \u0574\u056b \u0562\u0561\u0576 \u056f\u0561\u0589 \u053b\u0574\u0561\u0581\u056b\u0580, \u0569\u0565 \u0578\u0580\u0576 \u0567 \u0584\u0565\u0566 \u0570\u0561\u0580\u056f\u0561\u057e\u0578\u0580\u0589',
-   bullets:['\u054f\u0565\u0584\u057d\u057f/\u0579\u0561\u057f: ChatGPT, Claude, Gemini, Perplexity','\u054a\u0561\u057f\u056f\u0565\u0580: Google Flow, Flux, Krea.ai','\u054e\u056b\u0564\u0565\u0578: Higgsfield, Kling'],
-   hw:'\u053e\u0561\u0576\u0578\u0569\u0561\u0581\u056b\u0580 3 \u057f\u0561\u0580\u0562\u0565\u0580 AI \u0563\u0578\u0580\u056e\u056b\u0584\u0576\u0565\u0580\u056b \u0570\u0565\u057f \u0587 \u0570\u0561\u0574\u0565\u0574\u0561\u057f\u0565\u0584 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0576\u0565\u0580\u0568'},
-  {n:4,path:2,title:'\u054c\u0565\u0561\u056c\u056b\u057d\u057f\u056b\u056f AI \u057e\u056b\u0566\u0578\u0582\u0561\u056c\u0576\u0565\u0580',
-   teaser:'\u0556\u0578\u057f\u0578\u057c\u0565\u0561\u056c\u056b\u057d\u057f\u056b\u056f \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580 \u0587 \u0564\u0565\u0574\u0584\u056b \u056f\u0561\u0575\u0578\u0582\u0576\u0578\u0582\u0569\u0575\u0578\u0582\u0576',
-   goal:'\u054d\u057f\u0565\u0572\u056e\u0565\u056c \u0586\u0578\u057f\u0578\u057c\u0565\u0561\u056c\u056b\u057d\u057f\u056b\u056f \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580 \u0587 \u057a\u0561\u0570\u0565\u056c \u0564\u0565\u0574\u0584\u056b \u056f\u0561\u0575\u0578\u0582\u0576\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0568',
-   rule:'Subject + Style + Mood + Technical details = \u056f\u0561\u057f\u0561\u0580\u0575\u0561\u056c \u057a\u0561\u057f\u056f\u0565\u0580',
-   bullets:['\u0556\u0578\u057f\u0578\u057c\u0565\u0561\u056c\u056b\u057d\u057f\u056b\u056f \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580 \u057d\u057f\u0565\u0572\u056e\u0565\u056c\u0578\u0582 \u057f\u0565\u056d\u0576\u056b\u056f\u0561\u0576\u0565\u0580','\u0534\u0565\u0574\u0584\u056b \u056f\u0561\u0575\u0578\u0582\u0576\u0578\u0582\u0569\u0575\u0561\u0576 \u057f\u0565\u056d\u0576\u056b\u056f\u0561\u0576\u0565\u0580','Google Flow \u0587 Flux \u057a\u0580\u0561\u056f\u057f\u056b\u056f \u0561\u0577\u056d\u0561\u057f\u0561\u0576\u0584'],
-   hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 3 \u0586\u0578\u057f\u0578\u057c\u0565\u0561\u056c\u056b\u057d\u057f\u056b\u056f \u057a\u0561\u057f\u056f\u0565\u0580 \u057f\u0561\u0580\u0562\u0565\u0580 \u0569\u0565\u0574\u0561\u0576\u0565\u0580\u0578\u057e'},
-  {n:5,path:2,title:'Creative Direction with AI',
-   teaser:'Light, shadow, angle, composition \u0587 "expensive" \u0567\u057d\u0569\u0565\u057f\u056b\u056f\u0561',
-   goal:'\u054f\u056b\u0580\u0561\u057a\u0565\u056c \u056c\u0578\u0582\u0575\u057d, \u057d\u057f\u057e\u0565\u0580, \u0561\u0576\u056f\u0575\u0578\u0582\u0576, \u056f\u0578\u0574\u057a\u0578\u0566\u056b\u0581\u056b\u0561 \u0587 \u057d\u057f\u0565\u0572\u056e\u0565\u056c premium \u057e\u056b\u0566\u0578\u0582\u0561\u056c\u0576\u0565\u0580',
-   rule:'\u0531\u0574\u0565\u0576 \u056f\u0561\u0564\u0580\u0578\u0582\u0574 \u057a\u0565\u057f\u0584 \u0567 "expensive" \u0569\u057e\u0561 \u2014 \u056c\u0578\u0582\u0575\u057d\u056b\u0581 \u0587 \u056f\u0578\u0574\u057a\u0578\u0566\u056b\u0581\u056b\u0561\u0575\u056b\u0581',
-   bullets:['\u053c\u0578\u0582\u0575\u057d\u056b, \u057d\u057f\u057e\u0565\u0580\u056b \u0587 \u0561\u0576\u056f\u0575\u0561\u0576 \u056f\u0561\u057c\u0561\u057e\u0561\u0580\u0578\u0582\u0574','The "expensive" aesthetic \u0561\u0574\u0565\u0576 \u056f\u0561\u0564\u0580\u0578\u0582\u0574','Visual control mastery \u057a\u0580\u0561\u056f\u057f\u056b\u056f\u0561'],
-   hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 5 \u057a\u0561\u057f\u056f\u0565\u0580 \u057f\u0561\u0580\u0562\u0565\u0580 \u056c\u0578\u0582\u0575\u057d\u056b \u0587 \u056f\u0578\u0574\u057a\u0578\u0566\u056b\u0581\u056b\u0561\u0575\u056b \u057f\u0565\u056d\u0576\u056b\u056f\u0561\u0576\u0565\u0580\u0578\u057e'},
-  {n:6,path:2,title:'\u054e\u056b\u0564\u0565\u0578 \u0587 \u0577\u0561\u0580\u056a\u0578\u0582\u0574',
-   teaser:'Higgsfield, Kling workflow, lip sync, \u057f\u0565\u0574\u057a \u0587 transitions',
-   goal:'\u054d\u0578\u057e\u0578\u0580\u0565\u056c AI \u057e\u056b\u0564\u0565\u0578 \u057d\u057f\u0565\u0572\u056e\u0565\u056c, cuts \u0587 transitions \u0561\u0576\u0565\u056c \u057a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c',
-   rule:'\u053c\u0561\u057e \u057e\u056b\u0564\u0565\u0578\u0576 \u0570\u0561\u0576\u0563\u056b\u057d\u057f \u0567 \u2014 pacing-\u0568 \u0587 cut-\u0565\u0580\u0568 \u0561\u0574\u0565\u0576 \u056b\u0576\u0579 \u0567 \u056f\u0561\u0580\u0587\u0578\u0580',
-   bullets:['Higgsfield \u0587 Kling workflow \u057d\u056f\u0566\u0562\u056b\u0581 \u0574\u056b\u0576\u0579\u0587 \u0565\u0584\u057d\u057a\u0578\u0580\u057f','\u054e\u056b\u0564\u0565\u0578\u0576\u0565\u0580 cuts-\u0578\u057e \u0578\u0580 \u056b\u0580\u0561\u056f\u0561\u0576 \u0565\u0576 \u0569\u057e\u0578\u0582\u0574','Lip sync \u0587 \u0564\u0565\u0574\u0584\u056b \u056f\u0561\u0575\u0578\u0582\u0576\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u057e\u056b\u0564\u0565\u0578\u0578\u0582\u0574'],
-   hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 15 \u057e\u0561\u0575\u0580\u056f\u0575\u0561\u0576\u056b AI \u057e\u056b\u0564\u0565\u0578 \u0569\u0580\u0561\u0576\u0566\u056b\u0577\u0576\u0576\u0565\u0580\u0578\u057e'},
-  {n:7,path:2,title:'\u0534\u056b\u0566\u0561\u0575\u0576 \u0587 \u0562\u0580\u0565\u0576\u0564 \u0570\u0561\u0574\u0561\u056f\u0561\u0580\u0563\u0565\u0580',
-   teaser:'Brand identity \u056f\u0561\u057c\u0578\u0582\u0581\u0565\u056c AI-\u0578\u057e, Canva AI, Adobe Firefly',
-   goal:'\u053f\u0561\u057c\u0578\u0582\u0581\u0565\u056c \u0570\u0565\u057f\u0587\u0578\u0572\u0561\u056f\u0561\u0576 \u0562\u0580\u0565\u0576\u0564 identity AI \u0563\u0578\u0580\u056e\u056b\u0584\u0576\u0565\u0580\u0578\u057e',
-   rule:'\u0532\u0580\u0565\u0576\u0564\u0568 \u0570\u0565\u057f\u0587\u0578\u0572\u0561\u056f\u0561\u0576\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u0567 \u2014 AI-\u0576 \u056f\u0585\u0563\u0576\u056b \u057a\u0561\u0570\u0565\u056c, \u0564\u0578\u0582 \u057d\u057f\u0565\u0572\u056e\u056b\u0580',
-   bullets:['Canva AI workflow \u0562\u0580\u0565\u0576\u0564\u056b \u0570\u0561\u0574\u0561\u0580','Adobe Firefly \u057a\u0580\u0561\u056f\u057f\u056b\u056f\u0561','\u0540\u0565\u057f\u0587\u0578\u0572\u0561\u056f\u0561\u0576 \u0562\u0580\u0565\u0576\u0564 \u056f\u056b\u057f\u056b \u057d\u057f\u0565\u0572\u056e\u0578\u0582\u0574'],
-   hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 \u0574\u056b\u0576\u056b \u0562\u0580\u0565\u0576\u0564 \u056f\u056b\u057f (logo + colors + 3 \u057a\u0578\u057d\u057f) AI-\u0578\u057e'},
-  {n:8,path:2,title:'AI \u0563\u0578\u057e\u0561\u0566\u0564 \u0587 \u0561\u057a\u0580\u0561\u0576\u0584\u0576\u0565\u0580',
-   teaser:'Product photography \u0587 \u0563\u0578\u057e\u0561\u0566\u0564\u056b workflow AI-\u0578\u057e',
-   goal:'\u054d\u057f\u0565\u0572\u056e\u0565\u056c \u057a\u0580\u0578\u0564\u0578\u0582\u056f\u057f\u056b \u0586\u0578\u057f\u0578 \u0587 \u0563\u0578\u057e\u0561\u0566\u0564\u0561\u0575\u056b\u0576 \u0576\u0575\u0578\u0582\u0569 AI-\u0578\u057e',
-   rule:'\u053c\u0561\u057e \u0563\u0578\u057e\u0561\u0566\u0564\u0568 \u057e\u0561\u0573\u0561\u057c\u0578\u0572 \u0567 1 \u0580\u0578\u057a\u0565\u0578\u0582\u0574 \u2014 AI-\u0576 \u0577\u0561\u0562\u0561\u0569\u0576\u0565\u0580\u0578\u057e \u0561\u0576\u056b',
-   bullets:['Product photography AI \u057f\u0565\u056d\u0576\u056b\u056f\u0561\u0576\u0565\u0580','\u0533\u0578\u057e\u0561\u0566\u0564\u056b \u057d\u057f\u0565\u0572\u056e\u0574\u0561\u0576 workflow','\u053f\u0578\u057a\u056b \u0587 \u057e\u056b\u0566\u0578\u0582\u0561\u056c\u056b \u0570\u0561\u0574\u0561\u0564\u0580\u0578\u0582\u0574'],
-   hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 \u057a\u0580\u0578\u0564\u0578\u0582\u056f\u057f\u056b \u0563\u0578\u057e\u0561\u0566\u0564 (3 \u057e\u0561\u0580\u056b\u0561\u0576\u057f) AI-\u0578\u057e'},
-  {n:9,path:2,title:'\u0535\u0580\u0561\u056a\u0577\u057f\u0561\u056f\u0561\u0576 \u057f\u0565\u057d\u0561\u0570\u0578\u056c\u0578\u057e\u0561\u056f\u0576\u0565\u0580',
-   teaser:'Music video \u056f\u0578\u0576\u0581\u0565\u057a\u057f\u056b\u0581 \u0574\u056b\u0576\u0579\u0587 \u057e\u0565\u0580\u057b\u0576\u0561\u056f\u0561\u0576 \u0565\u0584\u057d\u057a\u0578\u0580\u057f',
-   goal:'\u054d\u057f\u0565\u0572\u056e\u0565\u056c \u0565\u0580\u0561\u056a\u0577\u057f\u0561\u056f\u0561\u0576 \u057f\u0565\u057d\u0561\u0570\u0578\u056c\u0578\u057e\u0561\u056f \u056f\u0578\u0576\u0581\u0565\u057a\u057f\u056b\u0581 \u0574\u056b\u0576\u0579\u0587 \u057e\u0565\u0580\u057b',
-   rule:'Suno + Kling/Higgsfield = \u0561\u0574\u0562\u0578\u0572\u057b\u0561\u056f\u0561\u0576 \u0565\u0580\u0561\u056a\u0577\u057f\u0561\u056f\u0561\u0576 pipeline',
-   bullets:['Suno-\u0578\u057e \u0565\u0580\u0561\u056a\u0577\u057f\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u057d\u057f\u0565\u0572\u056e\u0565\u056c','Kling/Higgsfield \u057e\u056b\u0566\u0578\u0582\u0561\u056c\u0576\u0565\u0580 \u0565\u0580\u0561\u056a\u0577\u057f\u0578\u0582\u0569\u0575\u0561\u0576 \u0570\u0561\u0574\u0561\u0580','\u053f\u0578\u0576\u0581\u0565\u057a\u057f\u056b\u0581 \u0574\u056b\u0576\u0579\u0587 final export'],
-   hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 30 \u057e\u0561\u0575\u0580\u056f\u0575\u0561\u0576\u056b music video clip AI-\u0578\u057e'},
-  {n:10,path:2,title:'AI Video Editing & Montage',
-   teaser:'CapCut AI editing, \u057a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c montage, final project',
-   goal:'\u054f\u056b\u0580\u0561\u057a\u0565\u056c CapCut AI editing \u0587 \u057a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c montage \u057f\u0565\u056d\u0576\u056b\u056f\u0561\u0576\u0565\u0580',
-   rule:'\u054e\u0565\u0580\u057b\u0576\u0561\u056f\u0561\u0576 \u057a\u0580\u0578\u0564\u0578\u0582\u056f\u057f\u0568 \u057a\u0565\u057f\u0584 \u0567 \u0574\u056b\u0561\u0571\u0576\u0578\u0582\u0574 \u056c\u056b\u0576\u056b \u2014 \u0561\u0574\u0565\u0576 \u0562\u0561\u0576 \u0574\u056b\u0561\u057d\u056b\u0576 \u0570\u0561\u057e\u0561\u0584\u056b\u0580',
-   rule:'Final product = \u0561\u0574\u0565\u0576 \u056b\u0576\u0579 \u057d\u0578\u057e\u0578\u0580\u0565\u0581\u056b\u0580 \u0574\u056b\u0561\u057d\u056b\u0576 \u0570\u0561\u057e\u0561\u0584\u056b\u0580',
-   bullets:['CapCut AI editing \u057a\u0580\u0561\u056f\u057f\u056b\u056f\u0561','\u054a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c montage \u057f\u0565\u056d\u0576\u056b\u056f\u0561\u0576\u0565\u0580','Final project \u057d\u057f\u0565\u0572\u056e\u0578\u0582\u0574 \u0587 \u0576\u0565\u0580\u056f\u0561\u0575\u0561\u0581\u0578\u0582\u0574'],
-   hw:'\u054e\u0565\u0580\u057b\u0576\u0561\u056f\u0561\u0576 \u057a\u0580\u0578\u0565\u056f\u057f\u0573 1-2 \u0580\u0578\u057a\u0565\u0561\u0576\u0578\u0581 AI \u057e\u056b\u0564\u0565\u0578 \u0561\u0574\u0562\u0578\u0572\u057b\u0561\u056f\u0561\u0576 \u0574\u0578\u0576\u057f\u0561\u056a\u0578\u057e'}
+var courses=[
+{id:1,title:'AI \u0540\u056b\u0574\u0578\u0582\u0576\u0584\u0576\u0565\u0580',titleEn:'AI Foundations',subtitle:'\u0531\u057c\u0561\u057b\u056b\u0576 \u0584\u0561\u0575\u056c\u0568 AI-\u056b \u0561\u0577\u056d\u0561\u0580\u0570\u0578\u0582\u0574',icon:'\u{1F680}',color:'#C4956A',sessions:[
+{n:1,title:'AI-\u0576 \u056b\u0576\u0579 \u0567 \u056b\u0580\u0561\u056f\u0561\u0576\u0578\u0582\u0574',titleEn:'What AI really is',desc:'\u053d\u0578\u057d\u056b\u0580 ChatGPT-\u056b \u0570\u0565\u057f, \u057d\u057f\u0561\u0581\u056b\u0580 \u0585\u0563\u057f\u0561\u056f\u0561\u0580 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584 5 \u0580\u0578\u057a\u0565\u0578\u0582\u0574',tools:'ChatGPT',theory:'AI-\u0576 \u0566\u0580\u0578\u0582\u0575\u0581\u056b \u0563\u0578\u0580\u056e\u0568\u0576\u056f\u0565\u0580 \u0567, \u0578\u0579 \u0569\u0565 \u0578\u0580\u0578\u0576\u056b\u0579 \u0567\u057b\u056b\u0576',keyPoints:['AI-\u0576 Google \u0579\u0567 \u2014 \u056d\u0578\u057d\u056b\u0580 \u0576\u0580\u0561 \u0570\u0565\u057f, \u0574\u056b \u0583\u0576\u057f\u0580\u056b\u0580','\u054d\u056f\u057d\u056b\u0580 \u057f\u0561\u056c\u0578\u057e context \u2014 \u056b\u0576\u0579 \u0561\u057e\u0565\u056c\u056b \u0577\u0561\u057f \u057f\u0561\u057d, \u0561\u0575\u0576\u0584\u0561\u0576 \u0561\u057e\u0565\u056c\u056b \u056c\u0561\u057e \u057a\u0561\u057f\u0561\u057d\u056d\u0561\u0576','\u0553\u0578\u0580\u0563\u056b\u0580 \u056b\u0580\u0561\u056f\u0561\u0576 \u056f\u0575\u0561\u0576\u0584\u056b \u056d\u0576\u0564\u056b\u0580 \u056c\u0578\u0582\u056e\u0565\u056c\u0578\u0582 \u0570\u0561\u0574\u0561\u0580'],hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 3 prompt \u0584\u0578 \u056b\u0580\u0561\u056f\u0561\u0576 \u056f\u0575\u0561\u0576\u0584\u056b/\u0561\u0577\u056d\u0561\u057f\u0561\u0576\u0584\u056b \u0570\u0561\u0574\u0561\u0580\u0589 Screenshot \u0561\u0580\u0561 \u056c\u0561\u057e\u0561\u0563\u0578\u0582\u0575\u0576\u0568\u0589'},
+{n:2,title:'Good vs Bad Prompt',titleEn:'Good vs Bad Prompt',desc:'\u0546\u0578\u0582\u0575\u0576 \u0570\u0561\u0580\u0581\u0568 3 \u057f\u0561\u0580\u0562\u0565\u0580 \u057f\u0561\u0580\u0562\u0565\u0580\u0561\u056f\u0578\u057e \u2014 \u057f\u0565\u057d\u056b\u0580 \u057f\u0561\u0580\u0562\u0565\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0568 \u0561\u0576\u0574\u056b\u057b\u0561\u057a\u0565\u057d',tools:'ChatGPT, Claude',theory:'Prompt-\u056b \u0562\u0561\u0576\u0561\u0571\u0587\u0568\u055d Role + Task + Context + Format',keyPoints:['Role \u2014 \u0561\u057d\u0561 AI-\u056b\u0576 \u0569\u0565 \u0578\u057e \u0567','Task \u2014 \u056f\u0578\u0576\u056f\u0580\u0565\u057f \u056d\u0576\u0564\u056b\u0580, \u0578\u0579 \u0569\u0565 \u00ab\u0563\u0580\u056b\u0580\u00bb','Context \u2014 \u0578\u0582\u0574 \u0570\u0561\u0574\u0561\u0580, \u056b\u0576\u0579 \u0569\u0565\u0574\u0561\u0575\u0578\u057e','Format \u2014 \u056b\u0576\u0579 \u057f\u0565\u057d\u0584\u0578\u057e \u0565\u057d \u0578\u0582\u0566\u0578\u0582\u0574'],hw:'\u054e\u0565\u0580\u0581\u0580\u056b\u0580 1 \u057e\u0561\u057f prompt, \u057e\u0565\u0580\u0561\u0563\u0580\u056b\u0580 3 \u057f\u0561\u0580\u0562\u0565\u0580\u0561\u056f\u0578\u057e\u0589 \u054d\u056f\u0580\u056b\u0576\u0577\u0578\u057f\u056b\u0580 \u057f\u0561\u0580\u0562\u0565\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0568\u0589'},
+{n:3,title:'\u0531\u057c\u0561\u057b\u056b\u0576 AI \u057a\u0561\u057f\u056f\u0565\u0580\u0568',titleEn:'First AI image',desc:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 \u0584\u0578 \u0561\u057c\u0561\u057b\u056b\u0576 \u057a\u0561\u057f\u056f\u0565\u0580\u0568 \u057f\u0565\u0584\u057d\u057f\u056b\u0581',tools:'Google Flow (ImageFX)',theory:'\u054b\u0565\u0584\u057d\u057f\u056b\u0581-\u057a\u0561\u057f\u056f\u0565\u0580\u055d subject + style + mood + \u0574\u0561\u0576\u0580\u0561\u0574\u0561\u057d\u0576\u0565\u0580',keyPoints:['Subject \u2014 \u056b\u0576\u0579 \u057a\u0565\u057f\u0584 \u0567 \u057a\u0561\u057f\u056f\u0565\u0580\u0578\u0582\u0574','Style \u2014 \u0586\u0578\u057f\u0578\u0563\u0580\u0561\u0586\u056b\u0561, \u056b\u056c\u0578\u0582\u057d\u057f\u0580\u0561\u0581\u056b\u0561, 3D','Mood \u2014 \u0574\u0578\u0582\u0569, \u056c\u0578\u0582\u057d\u0561\u057e\u0578\u0580\u0578\u0582\u0574','\u054f\u0565\u056d\u0576\u056b\u056f\u0561\u056f\u0561\u0576 \u2014 4K, shallow DOF, \u056c\u0578\u0582\u057d\u0561\u057e\u0578\u0580\u0578\u0582\u0574'],hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 5 \u057a\u0561\u057f\u056f\u0565\u0580 \u057f\u0561\u0580\u0562\u0565\u0580 \u057d\u057f\u056b\u056c\u0578\u057e\u0589 \u0538\u0576\u057f\u0580\u056b\u0580 \u056c\u0561\u057e\u0561\u0563\u0578\u0582\u0575\u0576\u0568\u0589'},
+{n:4,title:'\u0554\u0578 AI \u0563\u0578\u0580\u056e\u056b\u0584\u0576\u0565\u0580\u0568',titleEn:'Your AI toolkit',desc:'\u0538\u0576\u0579 \u056f\u0561 \u2014 \u0561\u0576\u057e\u0573\u0561\u0580/\u057e\u0573\u0561\u0580, \u0565\u0580\u0562 \u056b\u0576\u0579 \u0585\u0563\u057f\u0561\u0563\u0578\u0580\u056e\u0565\u056c',tools:'ChatGPT, Claude, Gemini, Perplexity, Flow, Canva AI',theory:'\u0543\u056b\u0577\u057f \u0563\u0578\u0580\u056e\u056b\u0584\u0568 \u0573\u056b\u0577\u057f \u056d\u0576\u0564\u0580\u056b \u0570\u0561\u0574\u0561\u0580',keyPoints:['ChatGPT vs Claude vs Gemini \u2014 \u0578\u0582\u0574 \u0587 \u056b\u0576\u0579\u0578\u0582\u0574 \u0567 \u0561\u057e\u0565\u056c\u056b \u056c\u0561\u057e\u0568','Perplexity \u2014 \u0570\u0565\u057f\u0561\u0566\u0578\u057f\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u0587 \u0586\u0561\u057d\u057f\u0565\u0580','\u054a\u0561\u057f\u056f\u0565\u0580\u055d Flow vs Flux vs Krea.ai','\u0531\u0576\u057e\u0573\u0561\u0580 vs \u057e\u0573\u0561\u0580 \u2014 \u056b\u0580\u0561\u056f\u0561\u0576 \u057f\u0561\u0580\u0562\u0565\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0576\u0565\u0580\u0568'],hw:'\u0538\u0576\u057f\u0580\u056b\u0580 1 \u056d\u0576\u0564\u056b\u0580, \u056c\u0578\u0582\u056e\u056b\u0580 3 \u057f\u0561\u0580\u0562\u0565\u0580 \u0563\u0578\u0580\u056e\u056b\u0584\u0578\u057e, \u0570\u0561\u0574\u0565\u0574\u0561\u057f\u056b\u0580 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584\u0576\u0565\u0580\u0568\u0589'}
+]},
+{id:2,title:'Creative AI \u2014 \u054e\u056b\u0566\u0578\u0582\u0561\u056c',titleEn:'Creative AI \u2014 Visuals',subtitle:'\u054a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580 AI-\u0578\u057e',icon:'\u{1F3A8}',color:'#9B7ED8',sessions:[
+{n:1,title:'Image Prompting Deep Dive',titleEn:'Image prompting mastery',desc:'Subject + style + mood + \u057f\u0565\u056d\u0576\u056b\u056f\u0561\u056f\u0561\u0576 \u057a\u0561\u0580\u0561\u0574\u0565\u057f\u0580\u0565\u0580',tools:'Google Flow, Flux',theory:'\u053b\u0576\u0579\u0578\u0582 \u0567 \u056f\u0561\u0580\u0587\u0578\u0580 \u0574\u0561\u0576\u0580\u0561\u0574\u0561\u057d\u0576\u0565\u0580\u0568\u055d \u056c\u0578\u0582\u057d\u0561\u057e\u0578\u0580\u0578\u0582\u0574, \u057f\u0565\u057d\u0561\u056d\u0581\u056b\u0576 \u0561\u0576\u056f\u0575\u0578\u0582\u0576, \u0586\u056b\u056c\u0574\u056b \u057d\u057f\u0578\u056f\u0576\u0565\u0580',keyPoints:['\u053c\u0578\u0582\u057d\u0561\u057e\u0578\u0580\u0574\u0561\u0576 \u0562\u0561\u057c\u0565\u0580\u0568\u055d golden hour, studio lighting, rim light, soft box','\u054f\u0565\u057d\u0561\u056d\u0581\u056b\u0576 \u0561\u0576\u056f\u0575\u0578\u0582\u0576\u0576\u0565\u0580\u0568\u055d wide shot, close-up, bird\'s eye, low angle','\u0556\u056b\u056c\u0574\u056b \u057d\u057f\u0578\u056f\u0576\u0565\u0580\u0568\u055d Kodak Portra 400, Fuji Velvia, CineStill 800T','\u054d\u057f\u0565\u0572\u056e\u056b\u0580 10 \u057a\u0561\u057f\u056f\u0565\u0580, \u0570\u0561\u0574\u0565\u0574\u0561\u057f\u056b\u0580 \u057f\u0561\u0580\u0562\u0565\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0576\u0565\u0580\u0568'],hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 \u0576\u0578\u0582\u0575\u0576 \u057a\u0561\u057f\u056f\u0565\u0580\u0568 3 \u057f\u0561\u0580\u0562\u0565\u0580 \u056c\u0578\u0582\u057d\u0561\u057e\u0578\u0580\u0578\u0582\u0574\u0578\u057e\u0589 \u054f\u0565\u057d\u056b\u0580 \u057f\u0561\u0580\u0562\u0565\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0568\u0589'},
+{n:2,title:'Face Consistency & Character',titleEn:'Face consistency',desc:'\u0546\u0578\u0582\u0575\u0576 \u0574\u0561\u0580\u0564\u0568 \u057f\u0561\u0580\u0562\u0565\u0580 \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580\u0578\u0582\u0574',tools:'Kling element binding, Flow',theory:'Reference \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580, seed control, \u057d\u057f\u056b\u056c\u056b locking',keyPoints:['Element binding \u2014 \u0564\u0565\u0574\u0584\u056b \u0570\u0561\u0574\u0561\u0564\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0568 \u0561\u0574\u0565\u0576 \u0561\u0576\u056f\u0575\u0578\u0582\u0576\u056b\u0581','Reference image \u056e\u0561\u057c\u0561\u0575\u0578\u0582\u0574 \u2014 \u056b\u0576\u0579\u057a\u0565\u057d \u0578\u0580 \u0576\u0578\u0582\u0575\u0576 \u0574\u0561\u0580\u0564\u0568 \u0574\u0576\u0561 \u0576\u0578\u0582\u0575\u0576\u0568','Style reference vs subject reference','\u054d\u057f\u0565\u0572\u056e\u056b\u0580 \u056f\u0565\u0580\u057a\u0561\u0580 \u0576\u0578\u0582\u0575\u0576 \u0574\u0561\u0580\u0564\u0578\u0582 4 \u057f\u0561\u0580\u0562\u0565\u0580 \u057a\u0578\u0566\u0561\u0575\u0578\u057e'],hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 4 \u057a\u0561\u057f\u056f\u0565\u0580 \u0576\u0578\u0582\u0575\u0576 \u056f\u0565\u0580\u057a\u0561\u0580\u0578\u057e \u057f\u0561\u0580\u0562\u0565\u0580 \u057a\u0578\u0566\u0561\u0575\u0578\u057e\u0589'},
+{n:3,title:'Product & Commercial',titleEn:'Product photography',desc:'AI product shot \u0578\u0580\u0568 \u056f\u0561\u0580\u056e\u0565\u057d \u056b\u0580\u0561\u056f\u0561\u0576 \u0586\u0578\u057f\u0578\u057d\u0565\u057d\u056b\u0561',tools:'Flow, Krea.ai',theory:'\u053c\u0578\u0582\u057d\u0561\u057e\u0578\u0580\u0574\u0561\u0576 \u056c\u0565\u0566\u0578\u0582\u0576\u055d studio lighting, rim light, soft box',keyPoints:['\u054a\u0580\u0578\u0564\u0578\u0582\u056f\u057f \u0586\u0578\u057f\u0578\u0563\u0580\u0561\u0586\u056b\u0561\u0575\u056b \u0570\u056b\u0574\u0576\u0561\u056f\u0561\u0576 \u0562\u0561\u057c\u0565\u0580\u0568','Background control \u2014 marble, wood, gradient, lifestyle','\u054d\u057f\u057e\u0565\u0580 \u2014 dramatic side lighting, \u0576\u0561\u057f\u0578\u0582\u0580\u0561\u056c, overhead','Amazon/Instagram \u0578\u0573 \u057f\u0561\u0580\u0562\u0565\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0576\u0565\u0580'],hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 product shot \u056b\u0580\u0561\u056f\u0561\u0576 \u056f\u0561\u0574 \u0565\u0580\u057e\u0561\u056f\u0561\u0575\u0561\u056f\u0561\u0576 \u0561\u057a\u0580\u0561\u0576\u0584\u056b \u0570\u0561\u0574\u0561\u0580\u0589'},
+{n:4,title:'\u00ab\u0539\u0561\u0576\u056f\u00bb \u0537\u057d\u0569\u0565\u057f\u056b\u056f\u0561',titleEn:'The "expensive" look',desc:'\u053c\u0578\u0582\u0575\u057d, \u057d\u057f\u057e\u0565\u0580, \u056f\u0578\u0574\u057a\u0578\u0566\u056b\u0581\u056b\u0561 \u2014 \u0561\u0574\u0565\u0576 \u056f\u0561\u0564\u0580 \u057a\u0580\u0565\u0574\u056b\u0578\u0582\u0574',tools:'Flow, Flux',theory:'\u053b\u0576\u0579 \u0567 \u0564\u0561\u0580\u0571\u0576\u0578\u0582\u0574 \u057a\u0561\u057f\u056f\u0565\u0580\u0568 \u00ab\u0569\u0561\u0576\u056f\u00bb\u055d golden hour, shallow DOF, negative space, color grading',keyPoints:['Golden hour / blue hour \u056c\u0578\u0582\u057d\u0561\u057e\u0578\u0580\u0578\u0582\u0574','Shallow depth of field \u2014 \u0586\u0578\u056f\u0578\u0582\u057d\u056b \u0574\u0561\u0563\u056b\u0561\u0576','Negative space \u2014 \u0564\u0561\u057f\u0561\u0580\u056f\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u056f\u0578\u0574\u057a\u0578\u0566\u056b\u0581\u056b\u0561\u0575\u0578\u0582\u0574','Color grading \u057f\u0565\u0580\u0574\u056b\u0576\u0576\u0565\u0580\u0568\u055d warm, moody, desaturated, cinematic'],hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 4 \u057a\u0561\u057f\u056f\u0565\u0580\u056b \u00ab\u0569\u0561\u0576\u056f\u00bb \u057d\u0565\u0580\u056b\u0561 \u056f\u0561\u0574\u057a\u0561\u0576\u056b\u0561\u0575\u056b \u0570\u0561\u0574\u0561\u0580\u0589'}
+]},
+{id:3,title:'Creative AI \u2014 \u054e\u056b\u0564\u0565\u0578',titleEn:'Creative AI \u2014 Video',subtitle:'\u054a\u0561\u057f\u056f\u0565\u0580\u056b\u0581 \u0577\u0561\u0580\u056a\u057e\u0578\u0572 \u057a\u0561\u057f\u0574\u0578\u0582\u0569\u0575\u0578\u0582\u0576',icon:'\u{1F3AC}',color:'#E05A5A',sessions:[
+{n:1,title:'\u0531\u057c\u0561\u057b\u056b\u0576 AI \u057e\u056b\u0564\u0565\u0578',titleEn:'First AI video',desc:'\u054a\u0561\u057f\u056f\u0565\u0580\u056b\u0581 \u057e\u056b\u0564\u0565\u0578\u055d \u056f\u0565\u0576\u0564\u0561\u0576\u0561\u0581\u0580\u056b\u0580 \u0586\u0578\u057f\u0578\u0576',tools:'Kling (\u057e\u056b\u0561 Higgsfield), Google Flow',theory:'\u0531\u057c\u0561\u057b\u056b\u0576 \u056f\u0561\u0564\u0580\u0568 \u0584\u0578 \u056d\u0561\u0580\u056b\u057d\u056f\u0576 \u0567 \u2014 \u0561\u0574\u0565\u0576 \u056b\u0576\u0579 \u057d\u056f\u057d\u057e\u0578\u0582\u0574 \u0567 \u0561\u0575\u057d\u057f\u0565\u0572\u056b\u0581',keyPoints:['Image-to-video workflow \u2014 \u056c\u0561\u057e \u057a\u0561\u057f\u056f\u0565\u0580\u0568 = \u056c\u0561\u057e \u057e\u056b\u0564\u0565\u0578','Text-to-video vs image-to-video \u057f\u0561\u0580\u0562\u0565\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0568','\u054e\u056b\u0564\u0565\u0578 prompt-\u056b \u056f\u0561\u057c\u0578\u0582\u0581\u057e\u0561\u056e\u0584\u0568\u055d motion + camera + mood','Google Flow\u055d \u057d\u056f\u057d\u0562\u056b + \u057e\u0565\u0580\u057b\u056b \u057a\u0561\u057f\u056f\u0565\u0580 = \u057f\u0580\u0561\u0576\u0566\u056b\u0577\u0576'],hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 3 \u057f\u0561\u0580\u0562\u0565\u0580 \u057e\u056b\u0564\u0565\u0578 \u057f\u0561\u0580\u0562\u0565\u0580 \u0585\u0562\u0575\u0565\u056f\u057f\u0576\u0565\u0580\u0578\u057e\u0589'},
+{n:2,title:'Motion Control',titleEn:'Motion control',desc:'\u054e\u0565\u0580\u0561\u0570\u057d\u056f\u056b\u0580 \u057e\u056b\u0564\u0565\u0578, \u0583\u0578\u056d\u0561\u0576\u0581\u056b\u0580 \u0577\u0561\u0580\u056a\u0578\u0582\u0574\u0568',tools:'Kling 3.0 Motion Control',theory:'\u054f\u0565\u057d\u0561\u056d\u0581\u056b\u0576 \u057f\u056b\u057a\u0565\u0580\u0568\u055d pan, tilt, dolly, track\u0589 6-\u0561\u056e\u0561\u0576\u056b \u056f\u0578\u0576\u057f\u0580\u0578\u056c',keyPoints:['Reference video upload \u2014 \u0583\u0578\u056d\u0561\u0576\u0581\u056b\u0580 \u0577\u0561\u0580\u056a\u0578\u0582\u0574\u0568 \u057f\u0565\u057d\u0561\u0576\u0575\u0578\u0582\u0569\u056b\u0581','6-axis camera control\u055d pan, tilt, roll, dolly, truck, pedestal','Character orientation \u057d\u0565\u0569\u056b\u0576\u0563\u0568 \u2014 \u0565\u0580\u0562 \u0585\u0563\u057f\u0561\u0563\u0578\u0580\u056e\u0565\u056c','\u054f\u0565\u057d\u0561\u056d\u0581\u056b\u0576 + \u056f\u0565\u0580\u057a\u0561\u0580\u056b \u0577\u0561\u0580\u056a\u0578\u0582\u0574 \u0574\u056b\u0561\u057b\u0561\u0574\u0561\u0576\u0561\u056f'],hw:'\u054e\u0565\u0580\u0581\u0580\u056b\u0580 \u057f\u0565\u057d\u0561\u0576\u0575\u0578\u0582\u0569, \u0583\u0578\u056d\u0561\u0576\u0581\u056b\u0580 \u0577\u0561\u0580\u056a\u0578\u0582\u0574\u0568 \u057f\u0561\u0580\u0562\u0565\u0580 \u056f\u0565\u0580\u057a\u0561\u0580\u056b\u0589'},
+{n:3,title:'Lip Sync & Talking Heads',titleEn:'Lip sync & voice',desc:'\u054d\u057f\u056b\u057a\u056b\u0580 \u056f\u0565\u0580\u057a\u0561\u0580\u0576 \u056d\u0578\u057d\u056b',tools:'Kling lip sync, ElevenLabs',theory:'Audio-driven animation, voice cloning \u0570\u056b\u0574\u0578\u0582\u0576\u0584\u0576\u0565\u0580',keyPoints:['Kling avatar library \u0587 custom image avatars','Text-to-speech \u0571\u0561\u0575\u0576\u0565\u0580\u0568 \u0587 \u0568\u0576\u057f\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0568','ElevenLabs voice cloning \u2014 \u0584\u0578 \u0571\u0561\u0575\u0576\u056b AI \u057f\u0561\u0580\u0562\u0565\u0580\u0561\u056f\u0568','Lip sync + motion control \u0574\u056b\u0561\u057d\u056b\u0576'],hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 talking head \u057e\u056b\u0564\u0565\u0578 \u0584\u0578 \u0571\u0561\u0575\u0576\u0578\u057e\u0589'},
+{n:4,title:'\u054d\u056b\u0576\u0565\u0574\u0561\u057f\u056b\u056f \u056f\u057f\u0580\u057e\u0561\u056e\u0584',titleEn:'Cinematic editing',desc:'\u0544\u056b \u0584\u0561\u0576\u056b \u056f\u0561\u0564\u0580 \u0578\u0580 \u057a\u0561\u057f\u0574\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u0567 \u057a\u0561\u057f\u0574\u0578\u0582\u0574',tools:'Kling + CapCut',theory:'Shot types, 180-degree rule, pacing, rhythm',keyPoints:['Shot types\u055d wide / medium / close-up / extreme close-up','180-degree rule \u2014 \u056b\u0576\u0579\u0578\u0582 \u0567 \u056f\u0561\u0580\u0587\u0578\u0580','Pacing \u2014 \u056f\u057f\u0580\u057e\u0561\u056e\u0584\u056b \u057c\u056b\u0569\u0574\u0568, \u056b\u0576\u0579\u057a\u0565\u057d \u0574\u0578\u0576\u057f\u0561\u056a','CapCut AI \u0570\u0576\u0561\u0580\u0561\u057e\u0578\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0576\u0565\u0580\u0568 \u0587 \u057f\u0580\u0561\u0576\u0566\u056b\u0577\u0576\u0576\u0565\u0580\u0568'],hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 15-30 \u057e\u0561\u0575\u0580\u056f\u0575\u0561\u0576\u056b \u057e\u056b\u0564\u0565\u0578 3+ \u056f\u0561\u0564\u0580\u0578\u057e\u0589 \u0531\u057e\u0565\u056c\u0561\u0581\u0580\u0578\u0582 \u0565\u0580\u0561\u056a\u0577\u057f\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0589'}
+]},
+{id:4,title:'AI Production',titleEn:'AI Production',subtitle:'\u0531\u0574\u0565\u0576 \u056b\u0576\u0579 \u0574\u056b\u0561\u057d\u056b\u0576 \u2014 \u056b\u0580\u0561\u056f\u0561\u0576 \u057a\u0580\u0578\u0565\u056f\u057f\u0576\u0565\u0580',icon:'\u{1F4F0}',color:'#5AAD6A',sessions:[
+{n:1,title:'AI \u0563\u0578\u057e\u0561\u0566\u0564 & \u057a\u0580\u0578\u0564\u0578\u0582\u056f\u057f',titleEn:'AI ads & product videos',desc:'\u053f\u0578\u0576\u0581\u0565\u057a\u057f\u056b\u0581 \u0574\u056b\u0576\u0579\u0587 \u0567\u0584\u057d\u057a\u0578\u0580\u057f \u2014 \u056b\u0580\u0561\u056f\u0561\u0576 \u0563\u0578\u057e\u0561\u0566\u0564',tools:'Kling, Flow, CapCut',theory:'\u0533\u0578\u057e\u0561\u0566\u0564\u056b \u056f\u0561\u057c\u0578\u0582\u0581\u057e\u0561\u056e\u0584\u0568\u055d hook (3\u057e\u0580\u056f) \u2192 \u056d\u0576\u0564\u056b\u0580 \u2192 \u056c\u0578\u0582\u056e\u0578\u0582\u0574 \u2192 CTA',keyPoints:['Hook \u2014 \u0561\u057c\u0561\u057b\u056b\u0576 3 \u057e\u0561\u0575\u0580\u056f\u0575\u0561\u0576\u056b \u0574\u0561\u0563\u056b\u0561\u0576','Product video workflow\u055d \u057a\u0561\u057f\u056f\u0565\u0580 \u2192 \u0561\u0576\u056b\u0574\u0561\u0581\u056b\u0561 \u2192 \u057f\u0565\u0584\u057d\u057f \u2192 \u0565\u0580\u0561\u056a\u0577\u057f\u0578\u0582\u0569\u0575\u0578\u0582\u0576','UGC-style \u0563\u0578\u057e\u0561\u0566\u0564 AI-\u0578\u057e','A/B testing \u057f\u0561\u0580\u0562\u0565\u0580 \u057e\u0561\u0580\u056b\u0561\u0576\u057f\u0576\u0565\u0580\u0578\u057e'],hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 30 \u057e\u0561\u0575\u0580\u056f\u0575\u0561\u0576\u056b \u0563\u0578\u057e\u0561\u0566\u0564 \u056b\u0580\u0561\u056f\u0561\u0576 \u0561\u057a\u0580\u0561\u0576\u0584\u056b/\u0562\u0580\u0565\u0576\u0564\u056b \u0570\u0561\u0574\u0561\u0580\u0589'},
+{n:2,title:'\u0532\u0580\u0565\u0576\u0564 & \u0564\u056b\u0566\u0561\u0575\u0576',titleEn:'Brand & design systems',desc:'Brand identity \u056f\u0561\u057c\u0578\u0582\u0581\u0565\u056c AI-\u0578\u057e',tools:'Canva AI, Adobe Firefly',theory:'\u054e\u056b\u0566\u0578\u0582\u0561\u056c \u0570\u0561\u0574\u0561\u0564\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0568\u055d brand book \u0570\u056b\u0574\u0578\u0582\u0576\u0584\u0576\u0565\u0580',keyPoints:['Logo \u057f\u0561\u0580\u0562\u0565\u0580\u0561\u056f\u0576\u0565\u0580, \u0563\u0578\u0582\u0576\u0561\u0575\u056b\u0576 \u057a\u0561\u056c\u056b\u057f\u0580\u0561, social templates','\u054e\u056b\u0566\u0578\u0582\u0561\u056c \u057d\u057f\u056b\u056c\u056b \u056f\u0561\u0575\u0578\u0582\u0576\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0568 AI-\u0578\u057e','Canva AI Magic Studio \u0570\u0576\u0561\u0580\u0561\u057e\u0578\u0580\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0576\u0565\u0580\u0568','Adobe Firefly \u2014 \u056f\u0578\u0574\u0565\u0580\u0581\u056b\u0578\u0576 \u056b\u0580\u0561\u057e\u0578\u0582\u0576\u0584\u0576\u0565\u0580\u0578\u057e \u0569\u0580\u0565\u0575\u0576\u0564 \u056f\u0578\u0576\u057f\u0565\u0576\u057f'],hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 mini brand kit \u056b\u0580\u0561\u056f\u0561\u0576 \u056f\u0561\u0574 \u0565\u0580\u057e\u0561\u056f\u0561\u0575\u0561\u056f\u0561\u0576 \u0562\u0580\u0565\u0576\u0564\u056b \u0570\u0561\u0574\u0561\u0580\u0589'},
+{n:3,title:'Music Videos',titleEn:'Music videos',desc:'\u053f\u0578\u0576\u0581\u0565\u057a\u057f \u2192 \u057e\u056b\u0566\u0578\u0582\u0561\u056c \u2192 \u0577\u0561\u0580\u056a\u0578\u0582\u0574 \u2192 \u0565\u0580\u0561\u056a\u0577\u057f\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u2192 \u0574\u0578\u0576\u057f\u0561\u056a',tools:'Kling, Suno, CapCut',theory:'\u054c\u056b\u0569\u0574-synced \u056f\u057f\u0580\u057e\u0561\u056e\u0584\u0576\u0565\u0580, visual storytelling \u0565\u0580\u0561\u056a\u0577\u057f\u0578\u0582\u0569\u0575\u0561\u0576 \u0574\u0565\u057b',keyPoints:['Suno \u2014 \u0565\u0580\u0561\u056a\u0577\u057f\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u057d\u057f\u0565\u0572\u056e\u0565\u056c prompt-\u0578\u057e','\u054e\u056b\u0566\u0578\u0582\u0561\u056c \u056f\u0578\u0576\u0581\u0565\u057a\u057f\u0568 \u2014 storyboard \u0574\u0578\u057f\u0565\u0581\u0578\u0582\u0574','\u054c\u056b\u0569\u0574\u056b \u0570\u0561\u0574\u0561\u0571\u0561\u0575\u0576 \u056f\u057f\u0580\u057e\u0561\u056e\u0584\u0576\u0565\u0580','\u054e\u0565\u0580\u057b\u0576\u0561\u056f\u0561\u0576 \u0574\u0578\u0576\u057f\u0561\u056a \u0587 color grade'],hw:'\u054d\u057f\u0565\u0572\u056e\u056b\u0580 30-60 \u057e\u0561\u0575\u0580\u056f\u0575\u0561\u0576\u056b music video clip\u0589'},
+{n:4,title:'Final Project',titleEn:'Final project',desc:'\u0531\u0574\u0565\u0576 \u056b\u0576\u0579\u056b\u0576 \u0574\u0565\u056f\u057f\u0565\u0572 \u2014 \u057a\u0578\u0580\u057f\u0586\u0578\u056c\u056b\u0578',tools:'\u0532\u0578\u056c\u0578\u0580 \u0563\u0578\u0580\u056e\u056b\u0584\u0576\u0565\u0580\u0568',theory:'\u054a\u0578\u0580\u057f\u0586\u0578\u056c\u056b\u0578 \u056f\u0561\u057c\u0578\u0582\u0581\u0565\u056c, \u0576\u0565\u0580\u056f\u0561\u0575\u0561\u0581\u0576\u0565\u056c \u057d\u057f\u0565\u0572\u056e\u0561\u0563\u0578\u0580\u056e\u0561\u056f\u0561\u0576 \u0561\u0577\u056d\u0561\u057f\u0561\u0576\u0584',keyPoints:['\u054d\u057f\u0565\u0572\u056e\u0561\u0563\u0578\u0580\u056e\u0561\u056f\u0561\u0576 brief \u0563\u0580\u0565\u056c','\u053f\u0578\u0576\u0581\u0565\u057a\u057f\u056b\u0581 \u0574\u056b\u0576\u0579\u0587 \u057e\u0565\u0580\u057b\u0576\u0561\u056f\u0561\u0576 \u0561\u0580\u0564\u0575\u0578\u0582\u0576\u0584','\u054a\u0580\u0565\u0566\u0565\u0576\u057f\u0561\u0581\u056b\u0561 \u0587 feedback','Portfolio \u056f\u0561\u057c\u0578\u0582\u0581\u0565\u056c'],hw:'\u054e\u0565\u0580\u057b\u0576\u0561\u056f\u0561\u0576 \u057a\u0580\u0578\u0565\u056f\u057f \u2014 \u0584\u0578 \u056c\u0561\u057e\u0561\u0563\u0578\u0582\u0575\u0576 \u057d\u057f\u0565\u0572\u056e\u0561\u0563\u0578\u0580\u056e\u0561\u056f\u0561\u0576 \u0563\u0578\u0580\u056e\u0568\u0589'}
+]}
 ];
 
 /* ── PROMPT LIBRARY DATA ── */
-var promptLibrary=[
-  {cat:'Text',prompt:'Act as a marketing expert. Write 5 Instagram caption ideas for a coffee shop in Yerevan. Tone: casual, Gen Z. In Armenian.',tool:'ChatGPT',level:'Beginner'},
-  {cat:'Text',prompt:'You are a business consultant. Create a SWOT analysis for an online education startup in Armenia. Format as a table.',tool:'Claude',level:'Intermediate'},
-  {cat:'Text',prompt:'Act as an SEO specialist. Rewrite this product description to rank higher on Google. Keep it under 160 characters.',tool:'ChatGPT',level:'Intermediate'},
-  {cat:'Image',prompt:'Professional product photography of a handmade ceramic mug, warm studio lighting, shallow depth of field, premium feel, 4K',tool:'Google Flow',level:'Beginner'},
-  {cat:'Image',prompt:'Cinematic portrait of a young Armenian woman, golden hour light, shallow DOF, film grain, Kodak Portra 400 aesthetic',tool:'Flux',level:'Intermediate'},
-  {cat:'Image',prompt:'Luxury perfume bottle on marble surface, dramatic side lighting, dark moody atmosphere, commercial photography style',tool:'Google Flow',level:'Advanced'},
-  {cat:'Video',prompt:'A woman walking through the streets of old Yerevan, cinematic slow motion, warm color grading, golden hour',tool:'Kling',level:'Beginner'},
-  {cat:'Video',prompt:'Smooth camera orbit around a product on a table, professional lighting, 4K quality',tool:'Higgsfield',level:'Intermediate'},
-  {cat:'Business',prompt:'Create a 7-day content calendar for an Armenian restaurant\'s Instagram. Include post ideas, hashtags, and best posting times.',tool:'ChatGPT',level:'Beginner'},
-  {cat:'Business',prompt:'Analyze this customer review data and identify the top 3 pain points. Suggest actionable improvements.',tool:'Claude',level:'Advanced'},
-  {cat:'Social Media',prompt:'Write a viral TikTok script (30 seconds) about AI tools everyone should know. Hook in first 3 seconds.',tool:'ChatGPT',level:'Beginner'},
-  {cat:'Social Media',prompt:'Create 10 LinkedIn post ideas for a tech entrepreneur. Mix: 3 personal stories, 3 tips, 4 industry insights.',tool:'Claude',level:'Intermediate'}
+var prompts=[
+{cat:'Text',text:'Act as a marketing expert. Write 5 Instagram caption ideas for a coffee shop in Yerevan. Tone: casual, Gen Z. In Armenian.',tool:'ChatGPT',level:'beginner'},
+{cat:'Text',text:'You are a business consultant. Create a SWOT analysis for an online education startup in Armenia. Format as a table.',tool:'Claude',level:'intermediate'},
+{cat:'Text',text:'Act as an SEO specialist. Rewrite this product description to rank higher on Google. Keep it under 160 characters.',tool:'ChatGPT',level:'intermediate'},
+{cat:'Image',text:'Professional product photography of a handmade ceramic mug, warm studio lighting, shallow depth of field, premium feel, 4K',tool:'Google Flow',level:'beginner'},
+{cat:'Image',text:'Cinematic portrait of a young Armenian woman, golden hour light, shallow DOF, film grain, Kodak Portra 400 aesthetic',tool:'Flux',level:'intermediate'},
+{cat:'Image',text:'Luxury perfume bottle on marble surface, dramatic side lighting, dark moody atmosphere, commercial photography style',tool:'Google Flow',level:'advanced'},
+{cat:'Video',text:'A woman walking through the streets of old Yerevan, cinematic slow motion, warm color grading, golden hour',tool:'Kling',level:'beginner'},
+{cat:'Video',text:'Smooth camera orbit around a product on a table, professional lighting, 4K quality',tool:'Kling',level:'intermediate'},
+{cat:'Business',text:'Create a 7-day content calendar for an Armenian restaurant\'s Instagram. Include post ideas, hashtags, and best posting times.',tool:'ChatGPT',level:'beginner'},
+{cat:'Business',text:'Analyze this customer review data and identify the top 3 pain points. Suggest actionable improvements.',tool:'Claude',level:'advanced'},
+{cat:'Social Media',text:'Write a viral TikTok script (30 seconds) about AI tools everyone should know. Hook in first 3 seconds.',tool:'ChatGPT',level:'beginner'},
+{cat:'Social Media',text:'Create 10 LinkedIn post ideas for a tech entrepreneur. Mix: 3 personal stories, 3 tips, 4 industry insights.',tool:'Claude',level:'intermediate'}
 ];
-var plCats=['All','Text','Image','Video','Business','Social Media'];
-var activePLCat='All';
 
-/* ── TOOL DATA ── */
-var toolFilterCats=[
-  {id:'text',label:'\u054f\u0565\u0584\u057d\u057f/\u0549\u0561\u057f'},
-  {id:'image',label:'\u054a\u0561\u057f\u056f\u0565\u0580'},
-  {id:'video',label:'\u054e\u056b\u0564\u0565\u0578'},
-  {id:'audio',label:'\u0531\u0578\u0582\u0564\u056b\u0578'},
-  {id:'design',label:'\u0534\u056b\u0566\u0561\u0575\u0576'},
-  {id:'editing',label:'Editing'}
+/* ── TOOL GUIDE DATA ── */
+var toolGuide=[
+{cat:'Text / Chat',tools:[
+  {name:'ChatGPT',icon:'\u{1F4AC}',pricing:'freemium',desc:'\u0539\u0565\u0584\u057d\u057f, \u056f\u0578\u0564, \u057a\u0561\u057f\u056f\u0565\u0580 \u2014 \u0561\u0574\u0565\u0576\u0561\u057f\u0561\u0580\u0561\u056e\u0568'},
+  {name:'Claude',icon:'\u{1F9E0}',pricing:'freemium',desc:'\u0538\u0580\u056f\u0561\u0580, \u0576\u0580\u0562\u0565\u0580 \u057f\u0565\u0584\u057d\u057f\u0565\u0580, \u0570\u0565\u057f\u0561\u0566\u0578\u057f\u0578\u0582\u0569\u0575\u0578\u0582\u0576'},
+  {name:'Gemini',icon:'\u2728',pricing:'free',desc:'Google-\u056b AI \u2014 \u056b\u0576\u057f\u0565\u0563\u0580\u057e\u0561\u056e \u0567 Google \u056e\u0561\u057c\u0561\u0575\u0578\u0582\u0569\u0575\u0578\u0582\u0576\u0576\u0565\u0580\u056b\u0576'},
+  {name:'Perplexity',icon:'\u{1F50D}',pricing:'freemium',desc:'\u0540\u0565\u057f\u0561\u0566\u0578\u057f\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u0561\u0572\u0562\u0575\u0578\u0582\u0580\u0576\u0565\u0580\u0578\u057e \u2014 AI search'}
+]},
+{cat:'Image',tools:[
+  {name:'Google Flow',icon:'\u{1F3A8}',pricing:'free',desc:'\u054a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580 \u057f\u0565\u0584\u057d\u057f\u056b\u0581 \u2014 \u0561\u0576\u057e\u0573\u0561\u0580 \u0587 \u0578\u0580\u0561\u056f\u0561\u057e\u0578\u0580'},
+  {name:'Flux',icon:'\u26a1',pricing:'free',desc:'Open-source \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580\u056b \u0563\u0565\u0576\u0565\u0580\u0561\u057f\u0578\u0580'},
+  {name:'Krea.ai',icon:'\u{1F58C}\uFE0F',pricing:'freemium',desc:'Real-time AI \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580 \u0587 upscaling'},
+  {name:'Adobe Firefly',icon:'\u{1F525}',pricing:'paid',desc:'\u053f\u0578\u0574\u0565\u0580\u0581\u056b\u0578\u0576 \u056b\u0580\u0561\u057e\u0578\u0582\u0576\u0584\u0576\u0565\u0580\u0578\u057e \u0569\u0580\u0565\u0575\u0576\u0564 \u056f\u0578\u0576\u057f\u0565\u0576\u057f'}
+]},
+{cat:'Video',tools:[
+  {name:'Kling',icon:'\u{1F3AC}',pricing:'freemium',desc:'\u054a\u0561\u057f\u056f\u0565\u0580\u056b\u0581 \u057e\u056b\u0564\u0565\u0578, lip sync, motion control'},
+  {name:'Higgsfield',icon:'\u{1F39E}\uFE0F',pricing:'freemium',desc:'AI \u057e\u056b\u0564\u0565\u0578 \u0563\u0565\u0576\u0565\u0580\u0561\u057f\u0578\u0580 \u2014 \u0570\u0565\u0577\u057f \u0585\u0563\u057f\u0561\u0563\u0578\u0580\u056e\u0565\u056c\u056b'},
+  {name:'Runway',icon:'\u{1F6EB}',pricing:'paid',desc:'\u054a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c AI \u057e\u056b\u0564\u0565\u0578 \u0563\u0578\u0580\u056e\u056b\u0584\u0576\u0565\u0580'}
+]},
+{cat:'Audio',tools:[
+  {name:'ElevenLabs',icon:'\u{1F399}\uFE0F',pricing:'freemium',desc:'Voice cloning \u0587 text-to-speech'},
+  {name:'Suno',icon:'\u{1F3B5}',pricing:'freemium',desc:'\u0535\u0580\u0561\u056a\u0577\u057f\u0578\u0582\u0569\u0575\u0578\u0582\u0576 prompt-\u0578\u057e'}
+]},
+{cat:'Design',tools:[
+  {name:'Canva AI',icon:'\u{1F58C}\uFE0F',pricing:'freemium',desc:'Magic Studio \u2014 \u0564\u056b\u0566\u0561\u0575\u0576, social media, brand kit'},
+  {name:'Gamma',icon:'\u{1F4CA}',pricing:'freemium',desc:'AI \u057a\u0580\u0565\u0566\u0565\u0576\u057f\u0561\u0581\u056b\u0561\u0576\u0565\u0580 \u0587 \u0567\u057b\u0565\u0580'}
+]},
+{cat:'Editing',tools:[
+  {name:'CapCut',icon:'\u2702\uFE0F',pricing:'free',desc:'\u054e\u056b\u0564\u0565\u0578 editing + AI \u0567\u0586\u0565\u056f\u057f\u0576\u0565\u0580'},
+  {name:'Notion AI',icon:'\u{1F4DD}',pricing:'paid',desc:'AI \u0563\u0580\u0565\u056c\u0578\u0582 \u0587 \u056f\u0561\u0566\u0574\u0561\u056f\u0565\u0580\u057a\u0565\u056c\u0578\u0582 \u0563\u0578\u0580\u056e\u056b\u0584'}
+]}
 ];
-var toolsData=[
-  {name:'ChatGPT',cat:['text'],price:'trial',desc:'\u0531\u0574\u0565\u0576\u0561\u0570\u0566\u0578\u0580 AI \u0579\u0561\u057f-\u0562\u0578\u057f\u0568 \u057f\u0565\u0584\u057d\u057f\u056b, \u056f\u0578\u0564\u056b \u0587 \u057d\u057f\u0565\u0572\u056e\u0561\u0563\u0578\u0580\u056e\u0578\u0582\u0569\u0575\u0561\u0576 \u0570\u0561\u0574\u0561\u0580',link:'chat.openai.com'},
-  {name:'Claude',cat:['text'],price:'trial',desc:'\u053d\u0578\u0580\u0584\u0578\u0582\u0569 \u057e\u0565\u0580\u056c\u0578\u0582\u056e\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u0587 \u0565\u0580\u056f\u0561\u0580 \u057f\u0565\u0584\u057d\u057f\u0565\u0580\u056b \u0570\u0561\u0574\u0561\u0580',link:'claude.ai'},
-  {name:'Gemini',cat:['text'],price:'free',desc:'Google-\u056b AI \u0563\u0578\u0580\u056e\u056b\u0584\u0568 \u057f\u0565\u0584\u057d\u057f\u056b, \u056f\u0578\u0564\u056b \u0587 \u057e\u0565\u0580\u056c\u0578\u0582\u056e\u0578\u0582\u0569\u0575\u0561\u0576 \u0570\u0561\u0574\u0561\u0580',link:'gemini.google.com'},
-  {name:'Perplexity',cat:['text'],price:'trial',desc:'AI \u0578\u0580\u0578\u0576\u0578\u0572\u056b\u0579 \u0570\u0565\u057f\u0561\u0566\u0578\u057f\u0578\u0582\u0569\u0575\u0578\u0582\u0576 \u2014 \u0561\u0572\u0562\u0575\u0578\u0582\u0580\u0576\u0565\u0580\u0578\u057e',link:'perplexity.ai'},
-  {name:'Google Flow',cat:['image'],price:'free',desc:'Google-\u056b \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580\u056b \u0563\u0565\u0576\u0565\u0580\u0561\u057f\u0578\u0580\u0568 \u2014 \u0562\u0561\u0580\u0571\u0580 \u0578\u0580\u0561\u056f, \u0580\u0565\u0561\u056c\u056b\u057d\u057f\u056b\u056f',link:'aitestkitchen.withgoogle.com'},
-  {name:'Flux',cat:['image'],price:'trial',desc:'\u0532\u0561\u0581 \u056f\u0578\u0564\u056b \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580\u056b \u0563\u0565\u0576\u0565\u0580\u0561\u057f\u0578\u0580 \u2014 \u0574\u0565\u056e \u056f\u0578\u0576\u057f\u0580\u0578\u056c',link:'replicate.com/black-forest-labs/flux-schnell'},
-  {name:'Krea.ai',cat:['image'],price:'trial',desc:'Real-time AI \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580 \u0587 \u057e\u056b\u0564\u0565\u0578 \u0567\u0586\u0565\u056f\u057f\u0576\u0565\u0580',link:'krea.ai'},
-  {name:'Adobe Firefly',cat:['image'],price:'trial',desc:'Adobe-\u056b AI \u057a\u0561\u057f\u056f\u0565\u0580\u0576\u0565\u0580\u056b \u0563\u0565\u0576\u0565\u0580\u0561\u057f\u0578\u0580\u0568',link:'firefly.adobe.com'},
-  {name:'Remove.bg',cat:['image'],price:'trial',desc:'\u0556\u0578\u0576\u056b \u0570\u0565\u057c\u0561\u0581\u0578\u0582\u0574 1 \u057e\u0561\u0575\u0580\u056f\u0575\u0561\u0576\u0578\u0582\u0574',link:'remove.bg'},
-  {name:'Higgsfield',cat:['video'],price:'trial',desc:'AI \u057e\u056b\u0564\u0565\u0578 \u0563\u0565\u0576\u0565\u0580\u0561\u057f\u0578\u0580 \u2014 \u057c\u0565\u0561\u056c\u056b\u057d\u057f\u056b\u056f, \u0574\u0561\u0580\u0564\u056f\u0561\u0576\u0581 \u0577\u0561\u0580\u056a\u0578\u0582\u0574',link:'higgsfield.ai'},
-  {name:'Kling',cat:['video'],price:'trial',desc:'AI \u057e\u056b\u0564\u0565\u0578 \u0563\u0565\u0576\u0565\u0580\u0561\u057f\u0578\u0580 \u2014 \u056f\u056b\u0576\u0565\u0574\u0561\u057f\u056b\u056f \u0578\u0580\u0561\u056f, \u056c\u056b\u057a \u057d\u056b\u0576\u056f',link:'klingai.com'},
-  {name:'Runway',cat:['video'],price:'paid',desc:'\u054a\u0580\u0578\u0586\u0565\u057d\u056b\u0578\u0576\u0561\u056c AI \u057e\u056b\u0564\u0565\u0578 \u0563\u0565\u0576\u0565\u0580\u0561\u0581\u056b\u0561 \u0587 editing',link:'runwayml.com'},
-  {name:'ElevenLabs',cat:['audio'],price:'trial',desc:'AI \u0571\u0561\u0575\u0576\u056b \u0563\u0565\u0576\u0565\u0580\u0561\u057f\u0578\u0580 \u2014 \u057c\u0565\u0561\u056c\u056b\u057d\u057f\u056b\u056f \u056d\u0578\u057d\u0584',link:'elevenlabs.io'},
-  {name:'Suno',cat:['audio'],price:'trial',desc:'AI \u0565\u0580\u0561\u056a\u0577\u057f\u0578\u0582\u0569\u0575\u0561\u0576 \u0563\u0565\u0576\u0565\u0580\u0561\u057f\u0578\u0580 \u2014 \u057f\u0565\u0584\u057d\u057f\u056b\u0581 \u0565\u0580\u0563',link:'suno.com'},
-  {name:'Canva AI',cat:['design'],price:'trial',desc:'AI \u0564\u056b\u0566\u0561\u0575\u0576 \u0563\u0578\u0580\u056e\u056b\u0584\u0576\u0565\u0580 \u0562\u0580\u0565\u0576\u0564\u056b \u0570\u0561\u0574\u0561\u0580',link:'canva.com'},
-  {name:'Gamma',cat:['design'],price:'trial',desc:'AI \u057a\u0580\u0565\u0566\u0565\u0576\u057f\u0561\u0581\u056b\u0561\u0576\u0565\u0580 \u0587 \u057e\u0565\u0562 \u0567\u057b\u0565\u0580',link:'gamma.app'},
-  {name:'CapCut',cat:['editing'],price:'free',desc:'AI video editing \u2014 \u057d\u0578\u0582\u0562\u057f\u056b\u057f\u0580\u0576\u0565\u0580, \u0567\u0586\u0565\u056f\u057f\u0576\u0565\u0580, \u057f\u0580\u0561\u0576\u0566\u056b\u0577\u0576\u0576\u0565\u0580',link:'capcut.com'},
-  {name:'Notion AI',cat:['editing'],price:'paid',desc:'AI \u0563\u0580\u0561\u057e\u0578\u0580 \u0587 \u057a\u056c\u0561\u0576\u0561\u057e\u0578\u0580\u0578\u0572 \u0563\u0578\u0580\u056e\u056b\u0584',link:'notion.so'}
-];
-var activeFilter='all';
 
-/* ── BANK CATEGORIES ── */
-var bankCats=['Text','Image','Video','Business','Social Media'];
+/* ══════════════════════════════════════════════
+   STATE
+   ══════════════════════════════════════════════ */
+var role=null;
+var activeTab='current';
 
-/* ── LOGIN ── */
-window.tryLogin=function(){
-  var pass=document.getElementById('passInput').value.trim();
-  if(pass===PASS_TEACHER){role='teacher';LS('role','teacher');enterPortal();}
-  else if(pass===PASS_STUDENT){role='student';LS('role','student');enterPortal();}
-  else{document.getElementById('loginErr').style.display='block';}
-};
-function enterPortal(){
-  document.getElementById('loginGate').style.display='none';
-  document.getElementById('portal').style.display='block';
-  if(role==='teacher'){
-    document.body.classList.add('teacher-active');
-    document.getElementById('roleBadge').textContent='Teacher';
-    document.getElementById('roleBadge').className='role-badge teacher';
-  }else{
-    document.body.classList.remove('teacher-active');
-    document.getElementById('roleBadge').textContent='Student';
-    document.getElementById('roleBadge').className='role-badge student';
-  }
-  renderAll();
+function getActiveCourse(){return LS('activeCourse')||1}
+function getActiveSession(){return LS('activeSession')||1}
+function setActiveCourse(id){LS('activeCourse',id)}
+function setActiveSession(n){LS('activeSession',n)}
+
+function getCourse(id){for(var i=0;i<courses.length;i++){if(courses[i].id===id)return courses[i]}return courses[0]}
+function getSession(course,n){for(var i=0;i<course.sessions.length;i++){if(course.sessions[i].n===n)return course.sessions[i]}return course.sessions[0]}
+
+/* ══════════════════════════════════════════════
+   LOGIN / LOGOUT
+   ══════════════════════════════════════════════ */
+function doLogin(){
+  var p=document.getElementById('loginPass').value.trim();
+  if(p===PASS_TEACHER){role='teacher';LS('role','teacher')}
+  else if(p===PASS_STUDENT){role='student';LS('role','student')}
+  else{document.getElementById('loginErr').style.display='block';return}
+  showPortal();
 }
-window.logout=function(){
-  LS('role',null);role='';
+function doLogout(){
+  LS('role',null);role=null;
   document.getElementById('portal').style.display='none';
   document.getElementById('loginGate').style.display='flex';
-  document.getElementById('passInput').value='';
+  document.getElementById('loginPass').value='';
   document.getElementById('loginErr').style.display='none';
-  document.body.classList.remove('teacher-active');
-};
-var savedRole=LS('role');
-if(savedRole==='teacher'||savedRole==='student'){role=savedRole;enterPortal();}
-
-function renderAll(){
-  renderLessons();renderPromptLibrary();renderTools();renderProgress();
-  if(role==='teacher'){renderUnlocks();renderHwProgress();renderPlanner();renderStudents();renderBank();}
 }
+document.getElementById('loginPass').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
 
-/* ── 1: LEARNING PATHS ── */
-function getUnlocked(){return LS('unlocked')||[1,2];}
-function getUnlockDates(){return LS('unlock_dates')||{};}
-function getHwPercent(){return LS('hw_percent')||{};}
-
-function renderLessons(){
-  var unlocked=getUnlocked();var dates=getUnlockDates();var hwP=getHwPercent();
-  var c=document.getElementById('lessonList');c.innerHTML='';
-
-  /* Path 1 progress */
-  var p1Done=0;var p1Total=0;
-  var p2Done=0;var p2Total=0;
-  lessons.forEach(function(l){
-    if(l.path===1){p1Total++;if(unlocked.indexOf(l.n)!==-1)p1Done++;}
-    else{p2Total++;if(unlocked.indexOf(l.n)!==-1)p2Done++;}
-  });
-  var path1Complete=(p1Done>=p1Total);
-
-  /* Path 1 header */
-  var ph1=document.createElement('div');
-  ph1.className='path-header path-1';
-  ph1.innerHTML='<div class="path-num">&#128970; Path 1 \u2014 Foundation</div>'+
-    '<h3>AI &#1330;&#1400;&#1388;&#1400;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</h3>'+
-    '<div class="path-desc">\u054a\u0580\u0561\u056f\u057f\u056b\u056f \u0587 hands-on \u0564\u0561\u057d\u0565\u0580 \u2014 \u057d\u056f\u057d\u056b\u0580 AI-\u056b\u0581 \u0585\u0563\u057f\u057e\u0565\u056c \u0561\u0574\u0565\u0576 \u0585\u0580\u056b\u0581</div>'+
-    '<div class="path-progress-bar"><div class="bar-wrap"><div class="bar-fill" style="width:'+Math.round(p1Done/p1Total*100)+'%"></div></div><div class="bar-label">'+p1Done+'/'+p1Total+'</div></div>';
-  c.appendChild(ph1);
-
-  /* Path 1 lessons */
-  lessons.forEach(function(l){
-    if(l.path!==1)return;
-    c.appendChild(buildLessonItem(l,unlocked,dates,hwP,false));
-  });
-
-  /* Path 2 header */
-  var ph2=document.createElement('div');
-  ph2.className='path-header path-2'+(path1Complete?'':' path-locked');
-  ph2.style.marginTop='36px';
-  ph2.innerHTML='<div class="path-num">&#128156; Path 2 \u2014 Creative AI</div>'+
-    '<h3>Creative AI</h3>'+
-    '<div class="path-desc">AI-\u0568 \u0578\u0580\u057a\u0565\u057d \u057d\u057f\u0565\u0572\u056e\u0561\u0563\u0578\u0580\u056e\u0561\u056f\u0561\u0576 \u0570\u0561\u0574\u0561\u056f\u0561\u0580\u0563 \u0578\u0579 \u0569\u0565 tool-\u0576\u0565\u0580\u056b \u0570\u0561\u057e\u0561\u0584\u0561\u056e\u0578\u0582</div>'+
-    '<div class="path-progress-bar"><div class="bar-wrap"><div class="bar-fill" style="width:'+Math.round(p2Done/p2Total*100)+'%"></div></div><div class="bar-label">'+p2Done+'/'+p2Total+'</div></div>';
-  c.appendChild(ph2);
-
-  /* Path 2 lessons */
-  lessons.forEach(function(l){
-    if(l.path!==2)return;
-    c.appendChild(buildLessonItem(l,unlocked,dates,hwP,true));
-  });
-}
-
-function buildLessonItem(l,unlocked,dates,hwP,isCreative){
-  var isLocked=unlocked.indexOf(l.n)===-1;
-  var d=document.createElement('div');
-  d.className='lesson-item'+(isLocked?' lesson-locked':' unlocked')+(isCreative?' creative-path':'');
-  var pct=hwP['s'+l.n]||0;
-
-  if(isLocked){
-    var dateStr=dates['s'+l.n]||'';
-    d.innerHTML='<div class="lesson-header"><div class="lesson-num-badge">'+l.n+'</div><div class="lesson-header-text"><div class="lesson-header-title">'+esc(l.title)+'</div><div class="lesson-lock-msg">\u{1F512} '+(dateStr?'\u0532\u0561\u0581\u057e\u0578\u0582\u0574 \u0567 '+esc(dateStr):esc(l.teaser))+'</div></div></div>';
-  }else{
-    var creativeClass=isCreative?' creative-active':'';
-    var creativeBorder=isCreative?' creative-border':'';
-    d.innerHTML='<div class="lesson-header" onclick="toggleLesson('+l.n+',this,'+isCreative+')"><div class="lesson-num-badge">'+l.n+'</div><div class="lesson-header-text"><div class="lesson-header-title">'+esc(l.title)+'</div><div class="lesson-header-sub">\u{1F3AF} '+esc(l.goal).substring(0,55)+'...</div></div><span class="lesson-chevron">\u25BC</span></div>'+
-      '<div class="lesson-body'+creativeBorder+'" id="lbody'+l.n+'">'+
-      '<div class="lesson-block"><div class="lesson-label">\u{1F3AF} \u053b\u0576\u0579 \u056f\u056f\u0561\u0580\u0578\u0572\u0561\u0576\u0561\u057d \u0561\u0576\u0565\u056c \u057d\u0580\u0561\u0576\u056b\u0581 \u0570\u0565\u057f\u0578</div><div class="lesson-goal">'+esc(l.goal)+'</div></div>'+
-      '<div class="lesson-block"><div class="lesson-label">\u{1F4A1} \u0555\u057d\u056f\u0565 \u056f\u0561\u0576\u0578\u0576</div><div class="golden-rule">'+esc(l.rule)+'</div></div>'+
-      '<div class="lesson-block"><div class="lesson-label">\u{1F91D} \u053b\u0576\u0579 \u056f\u0561\u0576\u0565\u0576\u0584 \u0574\u056b\u0561\u057d\u056b\u0576</div><ul class="lesson-bullets">'+l.bullets.map(function(b){return '<li>'+esc(b)+'</li>';}).join('')+'</ul></div>'+
-      '<div class="lesson-block"><div class="lesson-label">\u{1F4DD} \u054f\u0576\u0561\u0575\u056b\u0576</div><div class="lesson-hw"><strong>&#1329;&#1404;&#1377;&#1403;&#1377;&#1380;&#1408;&#1377;&#1398;&#1412;&#1373;</strong> '+esc(l.hw)+'</div></div>'+
-      '<div class="lesson-block"><div class="lesson-label">Homework \u056f\u0561\u057f\u0561\u0580\u0574\u0561\u0576 %</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:'+pct+'%"></div></div><div class="progress-bar-label">'+pct+'% \u0578\u0582\u057d\u0561\u0576\u0578\u0572\u0576\u0565\u0580\u056b\u0581</div></div>'+
-      '</div>';
+/* ══════════════════════════════════════════════
+   SHOW PORTAL
+   ══════════════════════════════════════════════ */
+function showPortal(){
+  document.getElementById('loginGate').style.display='none';
+  document.getElementById('portal').style.display='block';
+  var b=document.getElementById('roleBadge');
+  if(role==='teacher'){b.textContent='Teacher';b.className='role-badge teacher'}
+  else{b.textContent='Student';b.className='role-badge student'}
+  if(role==='teacher'){
+    var els=document.querySelectorAll('.teacher-only');
+    for(var i=0;i<els.length;i++)els[i].style.display='block';
   }
-  return d;
+  buildNav();
+  buildBottomNav();
+  switchTab('current');
 }
 
-window.toggleLesson=function(n,el,isCreative){
-  var body=document.getElementById('lbody'+n);
-  var isOpen=body.classList.contains('open');
-  document.querySelectorAll('.lesson-body').forEach(function(b){b.classList.remove('open');});
-  document.querySelectorAll('.lesson-header').forEach(function(h){h.classList.remove('active');h.classList.remove('creative-active');});
-  if(!isOpen){
-    body.classList.add('open');
-    el.classList.add('active');
-    if(isCreative)el.classList.add('creative-active');
+/* ══════════════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════════════ */
+var studentTabs=[
+  {id:'current',label:'\u{1F4D6} Current',icon:'\u{1F4D6}',name:'Current'},
+  {id:'prompts',label:'\u{1F4DA} Prompts',icon:'\u{1F4DA}',name:'Prompts'},
+  {id:'tools',label:'\u{1F6E0}\uFE0F Tools',icon:'\u{1F6E0}\uFE0F',name:'Tools'},
+  {id:'homework',label:'\u2705 Homework',icon:'\u2705',name:'Homework'}
+];
+var teacherTabs=[
+  {id:'teach',label:'\u{1F393} Teach',icon:'\u{1F393}',name:'Teach'}
+];
+
+function buildNav(){
+  var nl=document.getElementById('navLinks');
+  var tabs=studentTabs.slice();
+  if(role==='teacher')tabs=tabs.concat(teacherTabs);
+  var h='';
+  for(var i=0;i<tabs.length;i++){
+    h+='<a data-tab="'+tabs[i].id+'" onclick="switchTab(\''+tabs[i].id+'\')">'+esc(tabs[i].label)+'</a>';
   }
-};
+  nl.innerHTML=h;
+}
 
-/* ── 2: PROMPT BUILDER ── */
-window.buildPrompt=function(){
-  var r=document.getElementById('bRole').value;
-  var task=document.getElementById('bTask').value.trim();
-  var ctx=document.getElementById('bContext').value.trim();
-  var fmt=document.getElementById('bFormat').value;
-  if(!task){document.getElementById('bTask').focus();return;}
-  var p=r+'.\n\n'+task+(ctx?'\n\nContext: '+ctx:'')+'\n\nFormat: '+fmt+'.';
-  document.getElementById('promptText').textContent=p;
-  document.getElementById('promptOutput').classList.add('visible');
-  document.getElementById('promptOutput').scrollIntoView({behavior:'smooth',block:'center'});
-};
-window.copyBuiltPrompt=function(){
-  var t=document.getElementById('promptText').textContent;
-  navigator.clipboard.writeText(t).then(function(){
-    var btn=document.querySelector('#promptOutput .btn');
-    btn.textContent='\u2713 Copied!';setTimeout(function(){btn.textContent='\u{1F4CB} Copy';},1500);
-  });
-};
-window.clearBuilder=function(){
-  document.getElementById('bTask').value='';
-  document.getElementById('bContext').value='';
-  document.getElementById('promptOutput').classList.remove('visible');
-};
+function buildBottomNav(){
+  var bn=document.getElementById('bottomNavInner');
+  var tabs=studentTabs.slice();
+  if(role==='teacher')tabs=tabs.concat(teacherTabs);
+  var h='';
+  for(var i=0;i<tabs.length;i++){
+    h+='<a data-tab="'+tabs[i].id+'" onclick="switchTab(\''+tabs[i].id+'\')">'
+      +'<span class="bnav-icon">'+tabs[i].icon+'</span>'
+      +esc(tabs[i].name)+'</a>';
+  }
+  bn.innerHTML=h;
+}
 
-/* ── 3: PROMPT LIBRARY ── */
-function renderPromptLibrary(){
-  /* get shared bank items */
-  var bank=LS('bank')||{};
-  var sharedItems=[];
-  bankCats.forEach(function(cat){
-    var items=bank[cat]||[];
-    items.forEach(function(item){
-      if(item.shared){
-        sharedItems.push({cat:cat,prompt:item.text,tool:'Shared',level:'Shared'});
-      }
+function switchTab(tab){
+  activeTab=tab;
+  /* hide all sections */
+  var secs=document.querySelectorAll('.section');
+  for(var i=0;i<secs.length;i++)secs[i].classList.remove('visible');
+  /* show relevant section */
+  var secMap={current:'secCurrent',prompts:'secPrompts',tools:'secTools',homework:'secHomework',teach:'secTeach'};
+  var sec=document.getElementById(secMap[tab]);
+  if(sec)sec.classList.add('visible');
+  /* active nav links */
+  var links=document.querySelectorAll('[data-tab]');
+  for(var i=0;i<links.length;i++){
+    if(links[i].getAttribute('data-tab')===tab)links[i].classList.add('active');
+    else links[i].classList.remove('active');
+  }
+  /* render content */
+  if(tab==='current')renderCurrentSession();
+  if(tab==='homework')renderHomework();
+  if(tab==='prompts')renderPrompts();
+  if(tab==='tools')renderToolGuide();
+  if(tab==='teach')renderTeach();
+  /* scroll top */
+  window.scrollTo(0,0);
+}
+
+/* ══════════════════════════════════════════════
+   RENDER: Current Session
+   ══════════════════════════════════════════════ */
+function renderCurrentSession(){
+  var cid=getActiveCourse();
+  var sn=getActiveSession();
+  var course=getCourse(cid);
+  var session=getSession(course,sn);
+  var col=course.color;
+
+  /* Course header */
+  var hdr='<div class="course-header" style="background:linear-gradient(135deg,'+col+'22,'+col+'08);border:1.5px solid '+col+'40">'
+    +'<span class="course-icon">'+course.icon+'</span>'
+    +'<div class="course-label" style="color:'+col+'">'+esc(course.titleEn)+' &mdash; Course '+course.id+'/4</div>'
+    +'<h2>'+esc(course.title)+'</h2>'
+    +'<div class="course-sub">'+esc(course.subtitle)+'</div>'
+    +'<div class="course-progress"><div class="bar-wrap"><div class="bar-fill" style="width:'+Math.round(sn/course.sessions.length*100)+'%;background:'+col+'"></div></div>'
+    +'<span class="bar-label">Session '+sn+'/'+course.sessions.length+'</span></div>'
+    +'</div>';
+  document.getElementById('courseHeaderWrap').innerHTML=hdr;
+
+  /* Session content */
+  var tools=session.tools.split(',');
+  var tbadges='<div class="tool-badges">';
+  for(var i=0;i<tools.length;i++){
+    tbadges+='<span class="tool-badge">'+esc(tools[i].trim())+'</span>';
+  }
+  tbadges+='</div>';
+
+  var kp='<ul class="key-points">';
+  for(var i=0;i<session.keyPoints.length;i++){
+    kp+='<li style="--dot-color:'+col+'"><span style="position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:'+col+'"></span>'+esc(session.keyPoints[i])+'</li>';
+  }
+  kp+='</ul>';
+
+  var sc='<div class="session-card" style="border-color:'+col+'30">'
+    +'<div class="session-num" style="color:'+col+'">Session '+session.n+' &mdash; '+esc(session.titleEn)+'</div>'
+    +'<h3>'+esc(session.title)+'</h3>'
+    +'<p class="session-desc">'+esc(session.desc)+'</p>'
+    +tbadges
+    +'<div class="session-theory" style="background:'+col+'15;border-left:3px solid '+col+'">'+esc(session.theory)+'</div>'
+    +kp
+    +'</div>';
+
+  /* Homework inline */
+  var hwKey='hw_'+cid+'_'+sn;
+  var hwDone=LS(hwKey)||false;
+  sc+='<div class="hw-card">'
+    +'<h4>\u{1F4DD} '+'\u054f\u0576\u0561\u0575\u056b\u0576 \u0561\u0577\u056d\u0561\u057f\u0561\u0576\u0584'+'</h4>'
+    +'<p>'+esc(session.hw)+'</p>'
+    +'<label class="hw-check'+(hwDone?' done':'')+'">'
+    +'<input type="checkbox" '+(hwDone?'checked':'')+' onchange="toggleHW('+cid+','+sn+',this)">'
+    +(hwDone?'\u2705 '+'\u053f\u0561\u057f\u0561\u0580\u057e\u0561\u056e \u0567':''+'\u0546\u0577\u0565\u0581 \u0578\u0580\u057a\u0565\u057d \u056f\u0561\u057f\u0561\u0580\u057e\u0561\u056e')
+    +'</label></div>';
+
+  document.getElementById('sessionContentWrap').innerHTML=sc;
+}
+
+function toggleHW(cid,sn,el){
+  var hwKey='hw_'+cid+'_'+sn;
+  LS(hwKey,el.checked);
+  renderCurrentSession();
+  if(activeTab==='homework')renderHomework();
+}
+
+/* ══════════════════════════════════════════════
+   RENDER: Homework (all sessions of active course)
+   ══════════════════════════════════════════════ */
+function renderHomework(){
+  var cid=getActiveCourse();
+  var course=getCourse(cid);
+  var h='<div style="margin-bottom:16px;font-size:.88rem;font-weight:600;color:'+course.color+'">'+course.icon+' '+esc(course.title)+'</div>';
+  for(var i=0;i<course.sessions.length;i++){
+    var s=course.sessions[i];
+    var hwKey='hw_'+cid+'_'+s.n;
+    var done=LS(hwKey)||false;
+    h+='<div class="hw-card" style="border-color:'+(done?'var(--success)':'var(--gold)')+';opacity:'+(done?'.7':'1')+'">'
+      +'<h4 style="color:'+(done?'var(--success)':'var(--gold)')+'">Session '+s.n+': '+esc(s.titleEn)+'</h4>'
+      +'<p>'+esc(s.hw)+'</p>'
+      +'<label class="hw-check'+(done?' done':'')+'">'
+      +'<input type="checkbox" '+(done?'checked':'')+' onchange="toggleHW('+cid+','+s.n+',this)">'
+      +(done?'\u2705 '+'\u053f\u0561\u057f\u0561\u0580\u057e\u0561\u056e \u0567':'\u0546\u0577\u0565\u0581 \u0578\u0580\u057a\u0565\u057d \u056f\u0561\u057f\u0561\u0580\u057e\u0561\u056e')
+      +'</label></div>';
+  }
+  document.getElementById('homeworkWrap').innerHTML=h;
+}
+
+/* ══════════════════════════════════════════════
+   RENDER: Prompt Library
+   ══════════════════════════════════════════════ */
+var promptFilter='All';
+
+function renderPrompts(){
+  /* Filters */
+  var cats=['All','Text','Image','Video','Business','Social Media'];
+  var fh='';
+  for(var i=0;i<cats.length;i++){
+    fh+='<button class="'+(promptFilter===cats[i]?'active':'')+'" onclick="setPromptFilter(\''+cats[i]+'\')">'+esc(cats[i])+'</button>';
+  }
+  document.getElementById('promptFilters').innerHTML=fh;
+
+  /* Merge teacher shared prompts */
+  var allPrompts=prompts.slice();
+  var cb=LS('contentBank')||[];
+  for(var i=0;i<cb.length;i++){
+    if(cb[i].shared){
+      allPrompts.push({cat:cb[i].cat,text:cb[i].text,tool:cb[i].tool,level:'intermediate'});
+    }
+  }
+
+  /* Filter */
+  var filtered=allPrompts;
+  if(promptFilter!=='All'){
+    filtered=[];
+    for(var i=0;i<allPrompts.length;i++){
+      if(allPrompts[i].cat===promptFilter)filtered.push(allPrompts[i]);
+    }
+  }
+
+  /* Render */
+  var h='';
+  for(var i=0;i<filtered.length;i++){
+    var p=filtered[i];
+    h+='<div class="prompt-card">'
+      +'<div class="prompt-text">'+esc(p.text)+'</div>'
+      +'<div class="prompt-meta">'
+      +'<span class="tool-tag">'+esc(p.tool)+'</span>'
+      +'<span class="level-tag '+p.level+'">'+esc(p.level.charAt(0).toUpperCase()+p.level.slice(1))+'</span>'
+      +'<button class="copy-btn" onclick="copyPrompt(this,'+i+')">Copy</button>'
+      +'</div></div>';
+  }
+  if(!filtered.length)h='<p style="color:var(--text-dim);font-size:.84rem">\u054f\u057e\u0575\u0561\u056c \u056f\u0561\u057f\u0565\u0563\u0578\u0580\u056b\u0561\u0575\u0578\u0582\u0574 prompt-\u0576\u0565\u0580 \u0579\u056f\u0561\u0576\u0589</p>';
+  document.getElementById('promptList').innerHTML=h;
+}
+
+function setPromptFilter(cat){
+  promptFilter=cat;
+  renderPrompts();
+}
+
+function copyPrompt(btn,idx){
+  var allP=prompts.slice();
+  var cb=LS('contentBank')||[];
+  for(var i=0;i<cb.length;i++){if(cb[i].shared)allP.push({cat:cb[i].cat,text:cb[i].text,tool:cb[i].tool,level:'intermediate'})}
+  var filtered=allP;
+  if(promptFilter!=='All'){filtered=[];for(var i=0;i<allP.length;i++){if(allP[i].cat===promptFilter)filtered.push(allP[i])}}
+  if(filtered[idx]){
+    navigator.clipboard.writeText(filtered[idx].text).then(function(){
+      btn.textContent='Copied!';btn.classList.add('copied');
+      setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied')},1500);
     });
-  });
-  var allPrompts=promptLibrary.concat(sharedItems);
-
-  /* filters */
-  var fr=document.getElementById('plFilterRow');fr.innerHTML='';
-  plCats.forEach(function(cat){
-    fr.innerHTML+='<button class="pl-filter-btn'+(cat===activePLCat?' active':'')+'" onclick="setPLFilter(\''+cat.replace(/'/g,"\\'")+'\',this)">'+esc(cat)+'</button>';
-  });
-
-  /* cards */
-  var g=document.getElementById('plGrid');g.innerHTML='';
-  allPrompts.forEach(function(p,i){
-    if(activePLCat!=='All'&&p.cat!==activePLCat)return;
-    var levelClass='pl-tag-beginner';
-    if(p.level==='Intermediate')levelClass='pl-tag-intermediate';
-    if(p.level==='Advanced')levelClass='pl-tag-advanced';
-    if(p.level==='Shared')levelClass='pl-tag-intermediate';
-
-    var d=document.createElement('div');d.className='pl-card';
-    d.innerHTML='<div class="pl-card-top"><div class="pl-card-tags"><span class="pl-tag pl-tag-tool">'+esc(p.tool)+'</span><span class="pl-tag '+levelClass+'">'+esc(p.level)+'</span><span class="pl-tag pl-tag-tool">'+esc(p.cat)+'</span></div><button class="btn btn-sm btn-outline pl-card-copy" onclick="copyPL(this,'+i+')">Copy</button></div>'+
-      '<div class="pl-card-text">'+esc(p.prompt)+'</div>';
-    g.appendChild(d);
-  });
-  if(!g.children.length){
-    g.innerHTML='<p style="color:var(--text-dim);font-size:.84rem;text-align:center;padding:24px 0">\u0531\u0575\u057d \u056f\u0561\u057f\u0565\u0563\u0578\u0580\u056b\u0561\u0575\u0578\u0582\u0574 prompt-\u0576\u0565\u0580 \u0579\u056f\u0561\u0576</p>';
   }
 }
-window.setPLFilter=function(cat,btn){
-  activePLCat=cat;
-  document.querySelectorAll('.pl-filter-btn').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');
-  renderPromptLibrary();
-};
-window.copyPL=function(btn,i){
-  var bank=LS('bank')||{};
-  var sharedItems=[];
-  bankCats.forEach(function(cat){
-    var items=bank[cat]||[];
-    items.forEach(function(item){
-      if(item.shared)sharedItems.push({cat:cat,prompt:item.text,tool:'Shared',level:'Shared'});
-    });
-  });
-  var allPrompts=promptLibrary.concat(sharedItems);
-  if(allPrompts[i]){
-    navigator.clipboard.writeText(allPrompts[i].prompt).then(function(){
-      btn.textContent='\u2713 Copied!';setTimeout(function(){btn.textContent='Copy';},1500);
-    });
+
+/* ══════════════════════════════════════════════
+   RENDER: Tool Guide
+   ══════════════════════════════════════════════ */
+function renderToolGuide(){
+  var h='';
+  for(var c=0;c<toolGuide.length;c++){
+    var cat=toolGuide[c];
+    h+='<div class="tool-cat"><h4>'+esc(cat.cat)+'</h4><div class="tool-list">';
+    for(var t=0;t<cat.tools.length;t++){
+      var tl=cat.tools[t];
+      var pclass=tl.pricing==='free'?'free':(tl.pricing==='paid'?'paid':'freemium');
+      var plabel=tl.pricing==='free'?'Free':(tl.pricing==='paid'?'Paid':'Free+Paid');
+      h+='<div class="tool-item">'
+        +'<span class="tool-icon">'+tl.icon+'</span>'
+        +'<div class="tool-info">'
+        +'<div class="tool-name">'+esc(tl.name)+'</div>'
+        +'<div class="tool-desc">'+esc(tl.desc)+'</div>'
+        +'<span class="pricing-badge '+pclass+'">'+plabel+'</span>'
+        +'</div></div>';
+    }
+    h+='</div></div>';
   }
-};
-
-/* ── 4: TOOLS ── */
-function renderTools(){
-  var fr=document.getElementById('filterRow');
-  fr.innerHTML='<button class="filter-btn active" onclick="setFilter(\'all\',this)">\u{1F30D} \u0532\u0578\u056c\u0578\u0580\u0568</button>';
-  toolFilterCats.forEach(function(f){
-    fr.innerHTML+='<button class="filter-btn" onclick="setFilter(\''+f.id+'\',this)">'+f.label+'</button>';
-  });
-  renderToolCards();
-}
-function renderToolCards(){
-  var g=document.getElementById('toolsGrid');g.innerHTML='';
-  toolsData.forEach(function(t){
-    if(activeFilter!=='all'&&t.cat.indexOf(activeFilter)===-1)return;
-    var badge=t.price==='free'?'<span class="tool-badge badge-free">Free</span>':
-              t.price==='paid'?'<span class="tool-badge badge-paid">Paid</span>':
-              '<span class="tool-badge badge-trial">Free Trial</span>';
-    var d=document.createElement('div');d.className='card tool-card';
-    d.innerHTML='<div class="tool-card-header"><span class="tool-card-name">'+esc(t.name)+'</span>'+badge+'</div>'+
-      '<div class="tool-card-desc">'+esc(t.desc)+'</div>'+
-      '<a href="https://'+escA(t.link)+'" target="_blank" rel="noopener" class="tool-card-link">Open tool \u2192</a>';
-    g.appendChild(d);
-  });
-}
-window.setFilter=function(f,btn){
-  activeFilter=f;
-  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');
-  renderToolCards();
-};
-
-/* ── 5: PROGRESS ── */
-function getHwDone(){return LS('hw_done')||{};}
-function getDiary(){return LS('diary')||[];}
-function getStreak(){return LS('streak')||0;}
-
-function renderProgress(){
-  var unlocked=getUnlocked();
-  var p1Done=0;var p1Total=0;var p2Done=0;var p2Total=0;
-  lessons.forEach(function(l){
-    if(l.path===1){p1Total++;if(unlocked.indexOf(l.n)!==-1)p1Done++;}
-    else{p2Total++;if(unlocked.indexOf(l.n)!==-1)p2Done++;}
-  });
-  var streak=getStreak();
-  var c=document.getElementById('progressStats');
-  c.innerHTML='<div class="progress-stat"><div class="progress-stat-num">'+p1Done+'/'+p1Total+'</div><div class="progress-stat-label">Path 1 \u2014 Foundation</div><div class="progress-stat-bar"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:'+Math.round(p1Done/p1Total*100)+'%"></div></div></div></div>'+
-    '<div class="progress-stat"><div class="progress-stat-num creative">'+p2Done+'/'+p2Total+'</div><div class="progress-stat-label">Path 2 \u2014 Creative AI</div><div class="progress-stat-bar"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:'+Math.round(p2Done/p2Total*100)+'%;background:var(--creative)"></div></div></div></div>'+
-    '<div class="progress-stat"><div class="progress-stat-num">'+streak+'</div><div class="progress-stat-label">\u0555\u0580 streak \u{1F525}</div></div>'+
-    '<div class="progress-stat"><div class="progress-stat-num">'+(p1Done+p2Done)+'/'+(p1Total+p2Total)+'</div><div class="progress-stat-label">\u0538\u0576\u0564\u0570\u0561\u0576\u0578\u0582\u0580</div><div class="progress-stat-bar"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:'+Math.round((p1Done+p2Done)/(p1Total+p2Total)*100)+'%"></div></div></div></div>';
-  renderDiary();
+  document.getElementById('toolGuideWrap').innerHTML=h;
 }
 
-window.addDiary=function(){
-  var input=document.getElementById('diaryInput');
-  var text=input.value.trim();if(!text)return;
-  var diary=getDiary();
-  var now=new Date();
-  var dateStr=now.getDate()+'.'+(now.getMonth()+1);
-  diary.unshift({text:text,date:dateStr});
-  if(diary.length>50)diary=diary.slice(0,50);
-  LS('diary',diary);
+/* ══════════════════════════════════════════════
+   RENDER: Teacher Panel
+   ══════════════════════════════════════════════ */
+function renderTeach(){
+  if(role!=='teacher')return;
+  renderControls();
+  renderRoadmap();
+  renderTracker();
+  renderContentBank();
+}
 
-  var today=now.toDateString();
-  var lastDay=LS('last_diary_day');
-  if(lastDay!==today){
-    var yesterday=new Date(now);yesterday.setDate(yesterday.getDate()-1);
-    if(lastDay===yesterday.toDateString()){LS('streak',(getStreak()||0)+1);}
-    else{LS('streak',1);}
-    LS('last_diary_day',today);
+/* ── Controls ── */
+function renderControls(){
+  var sc=document.getElementById('selCourse');
+  var ss=document.getElementById('selSession');
+  var cid=getActiveCourse();
+  var sn=getActiveSession();
+
+  var h='';
+  for(var i=0;i<courses.length;i++){
+    h+='<option value="'+courses[i].id+'"'+(courses[i].id===cid?' selected':'')+'>'+courses[i].icon+' '+esc(courses[i].titleEn)+'</option>';
   }
-  input.value='';renderProgress();
-};
+  sc.innerHTML=h;
 
-function renderDiary(){
-  var c=document.getElementById('diaryLog');var diary=getDiary();
-  if(!diary.length){c.innerHTML='<div class="diary-empty">\u0534\u0565\u057c \u0563\u0580\u0561\u057c\u0578\u0582\u0574\u0576\u0565\u0580 \u0579\u056f\u0561\u0576\u0589 \u054d\u056f\u057d\u056b\u0580 \u0563\u0580\u0565\u056c\u0589 \u{1F4AA}</div>';return;}
-  c.innerHTML=diary.map(function(e){return '<div class="diary-entry"><div class="diary-date">'+esc(e.date)+'</div><div class="diary-text">'+esc(e.text)+'</div></div>';}).join('');
+  var course=getCourse(cid);
+  var sh='';
+  for(var i=0;i<course.sessions.length;i++){
+    var s=course.sessions[i];
+    sh+='<option value="'+s.n+'"'+(s.n===sn?' selected':'')+'>Session '+s.n+': '+esc(s.titleEn)+'</option>';
+  }
+  ss.innerHTML=sh;
 }
 
-document.getElementById('diaryInput').addEventListener('keydown',function(e){if(e.key==='Enter')addDiary();});
-
-/* ── TEACHER: UNLOCKS ── */
-function renderUnlocks(){
-  var c=document.getElementById('unlockList');c.innerHTML='';
-  var unlocked=getUnlocked();var dates=getUnlockDates();
-  lessons.forEach(function(l){
-    var isOn=unlocked.indexOf(l.n)!==-1;
-    var dateVal=dates['s'+l.n]||'';
-    var pathLabel=l.path===1?'P1':'P2';
-    var d=document.createElement('div');d.className='unlock-row';
-    d.innerHTML='<span class="unlock-label">'+pathLabel+' \u2014 Lesson '+l.n+' \u2014 '+esc(l.title)+'</span>'+
-      '<div class="unlock-date"><input type="text" placeholder="\u0531\u0574\u057d\u0561\u0569\u056b\u057e..." value="'+escA(dateVal)+'" data-sn="'+l.n+'" onchange="saveUnlockDate(this)"></div>'+
-      '<button class="toggle'+(isOn?' on':'')+'" data-sn="'+l.n+'"></button>';
-    d.querySelector('.toggle').addEventListener('click',function(){
-      var n=parseInt(this.getAttribute('data-sn'));
-      var u=getUnlocked();var idx=u.indexOf(n);
-      if(idx===-1)u.push(n);else u.splice(idx,1);
-      LS('unlocked',u);this.classList.toggle('on');renderLessons();renderProgress();
-    });
-    c.appendChild(d);
-  });
+function onCourseChange(){
+  var v=parseInt(document.getElementById('selCourse').value);
+  setActiveCourse(v);
+  setActiveSession(1);
+  renderControls();
 }
-window.saveUnlockDate=function(el){
-  var n=el.getAttribute('data-sn');var dates=getUnlockDates();
-  dates['s'+n]=el.value;LS('unlock_dates',dates);renderLessons();
-};
 
-/* ── TEACHER: HW PROGRESS ── */
-function renderHwProgress(){
-  var c=document.getElementById('hwProgressList');c.innerHTML='';
-  var hwP=getHwPercent();
-  lessons.forEach(function(l){
-    var pct=hwP['s'+l.n]||0;
-    var d=document.createElement('div');d.className='hw-progress-row';
-    d.innerHTML='<span class="hw-progress-label">Lesson '+l.n+' \u2014 '+esc(l.title)+'</span>'+
-      '<input type="number" class="hw-progress-input" min="0" max="100" value="'+pct+'" data-sn="'+l.n+'" onchange="saveHwPct(this)">'+
-      '<span style="font-size:.78rem;color:var(--text-dim)">%</span>';
-    c.appendChild(d);
-  });
+function onSessionChange(){
+  var v=parseInt(document.getElementById('selSession').value);
+  setActiveSession(v);
 }
-window.saveHwPct=function(el){
-  var n=el.getAttribute('data-sn');var hwP=getHwPercent();
-  hwP['s'+n]=Math.max(0,Math.min(100,parseInt(el.value)||0));
-  LS('hw_percent',hwP);renderLessons();
-};
 
-/* ── TEACHER: PLANNER ── */
-function renderPlanner(){
-  var c=document.getElementById('plannerList');c.innerHTML='';
-  lessons.forEach(function(l){
-    var saved=LS('plan_'+l.n)||{talk:'',show:'',timing:'',tool:''};
-    var d=document.createElement('div');d.className='card planner-card';
-    d.innerHTML='<h4>Lesson '+l.n+' \u2014 '+esc(l.title)+'</h4>'+
-      mkF(l.n,'talk','\u053b\u0576\u0579 \u0561\u057d\u0565\u056c (Talking Points)',saved.talk)+
-      mkF(l.n,'show','\u053b\u0576\u0579 \u0581\u0578\u0582\u0575\u0581 \u057f\u0561\u056c (Demos)',saved.show)+
-      mkF(l.n,'timing','\u053a\u0561\u0574\u0561\u0576\u0561\u056f (Minutes)',saved.timing,'50px')+
-      mkF(l.n,'tool','\u053b\u0576\u0579 \u0563\u0578\u0580\u056e\u056b\u0584 \u0562\u0561\u0581\u0565\u056c',saved.tool,'50px');
-    d.querySelectorAll('textarea').forEach(function(ta){
-      ta.addEventListener('input',function(){
-        var n=this.getAttribute('data-p');var f=this.getAttribute('data-f');
-        var sv=LS('plan_'+n)||{talk:'',show:'',timing:'',tool:''};
-        sv[f]=this.value;LS('plan_'+n,sv);
-      });
-    });
-    c.appendChild(d);
-  });
+/* ── Roadmap ── */
+function renderRoadmap(){
+  var h='';
+  for(var c=0;c<courses.length;c++){
+    var co=courses[c];
+    h+='<div class="roadmap-course" id="rc_'+co.id+'" style="border-color:'+co.color+'30;background:var(--card)">'
+      +'<div class="roadmap-course-header" onclick="toggleRoadmap('+co.id+')" style="border-left:4px solid '+co.color+'">'
+      +'<span class="rc-icon">'+co.icon+'</span>'
+      +'<div class="rc-info"><div class="rc-title" style="color:'+co.color+'">'+esc(co.title)+'</div>'
+      +'<div class="rc-sub">'+esc(co.subtitle)+' &mdash; '+co.sessions.length+' sessions</div></div>'
+      +'<span class="rc-arrow">\u25BC</span>'
+      +'</div>'
+      +'<div class="roadmap-sessions">';
+    for(var s=0;s<co.sessions.length;s++){
+      var se=co.sessions[s];
+      h+='<div class="roadmap-session">'
+        +'<h5 style="color:'+co.color+'">Session '+se.n+': '+esc(se.title)+'</h5>'
+        +'<p>'+esc(se.desc)+'</p>'
+        +'<p style="font-size:.76rem;margin-bottom:4px"><strong>'+'\u054f\u0565\u057d\u0578\u0582\u0569\u0575\u0578\u0582\u0576'+':</strong> '+esc(se.theory)+'</p>'
+        +'<div class="rs-tools">\u{1F6E0}\uFE0F '+esc(se.tools)+'</div>'
+        +'<div class="rs-hw">\u{1F4DD} '+esc(se.hw)+'</div>'
+        +'</div>';
+    }
+    h+='</div></div>';
+  }
+  document.getElementById('roadmapWrap').innerHTML=h;
 }
-function mkF(n,f,l,v,mh){return '<div class="planner-field"><label>'+l+'</label><textarea data-p="'+n+'" data-f="'+f+'"'+(mh?' style="min-height:'+mh+'"':'')+'>'+esc(v)+'</textarea></div>';}
 
-/* ── TEACHER: STUDENTS ── */
-function getStudents(){return LS('students')||[];}
-function renderStudents(){
-  var c=document.getElementById('studentList');c.innerHTML='';
-  var students=getStudents();
-  if(!students.length){c.innerHTML='<p style="color:var(--text-dim);font-size:.84rem;padding:12px 0">\u0534\u0565\u057c \u0578\u0582\u057d\u0561\u0576\u0578\u0572\u0576\u0565\u0580 \u0579\u056f\u0561\u0576\u0589</p>';return;}
-  students.forEach(function(st,si){
-    var d=document.createElement('div');d.className='student-row';
-    d.innerHTML='<span class="student-name">'+esc(st.name)+'</span>'+
-      '<div class="student-hw-checks">'+lessons.map(function(l){
-        var done=st.hw&&st.hw['s'+l.n];
-        return '<button class="'+(done?'done':'')+'" data-si="'+si+'" data-sn="'+l.n+'" title="L'+l.n+'">'+l.n+'</button>';
-      }).join('')+'</div>'+
-      '<button class="btn btn-sm btn-ghost" data-rm="'+si+'" style="margin-left:6px;padding:4px 8px;font-size:.7rem;color:var(--danger);border-color:var(--danger)">\u2715</button>';
-    d.querySelectorAll('.student-hw-checks button').forEach(function(b){
-      b.addEventListener('click',function(){
-        var si2=parseInt(this.getAttribute('data-si'));
-        var sn=parseInt(this.getAttribute('data-sn'));
-        var sts=getStudents();if(!sts[si2].hw)sts[si2].hw={};
-        sts[si2].hw['s'+sn]=!sts[si2].hw['s'+sn];
-        LS('students',sts);this.classList.toggle('done');
-      });
-    });
-    d.querySelector('[data-rm]').addEventListener('click',function(){
-      var i2=parseInt(this.getAttribute('data-rm'));
-      var sts=getStudents();sts.splice(i2,1);LS('students',sts);renderStudents();
-    });
-    c.appendChild(d);
-  });
+function toggleRoadmap(id){
+  var el=document.getElementById('rc_'+id);
+  if(el)el.classList.toggle('open');
 }
-window.addStudent=function(){
+
+/* ── Student Tracker ── */
+function getStudents(){return LS('students')||[]}
+function saveStudents(s){LS('students',s)}
+
+function addStudent(){
   var inp=document.getElementById('newStudentName');
-  var nm=inp.value.trim();if(!nm)return;
-  var sts=getStudents();sts.push({name:nm,hw:{}});LS('students',sts);inp.value='';renderStudents();
-};
-
-/* ── TEACHER: CONTENT BANK ── */
-var activeBankCat='Text';
-function getBank(){return LS('bank')||{Text:[],Image:[],Video:[],Business:[],'Social Media':[]};}
-function renderBank(){
-  var tabs=document.getElementById('bankTabs');tabs.innerHTML='';
-  bankCats.forEach(function(cat){
-    tabs.innerHTML+='<button class="bank-tab'+(cat===activeBankCat?' active':'')+'" onclick="setBankCat(\''+cat.replace(/'/g,"\\'")+'\',this)">'+esc(cat)+'</button>';
-  });
-  document.getElementById('bankCatLabel').textContent=activeBankCat;
-  renderBankItems();
+  var name=inp.value.trim();
+  if(!name)return;
+  var students=getStudents();
+  students.push({name:name,hw:{}});
+  saveStudents(students);
+  inp.value='';
+  renderTracker();
 }
-function renderBankItems(){
-  var c=document.getElementById('bankContent');c.innerHTML='';
-  var bank=getBank();var items=bank[activeBankCat]||[];
-  if(!items.length){c.innerHTML='<p style="color:var(--text-dim);font-size:.84rem;padding:12px 0">\u0534\u0565\u057c prompt-\u0576\u0565\u0580 \u0579\u056f\u0561\u0576\u0589 \u0531\u057e\u0565\u056c\u0561\u0581\u0580\u056b\u0580 \u057d\u057f\u0578\u0580\u0587\u0589</p>';return;}
-  items.forEach(function(item,i){
-    var d=document.createElement('div');d.className='bank-item';
-    d.innerHTML='<div class="bank-item-header"><button class="share-toggle'+(item.shared?' shared':'')+'" onclick="toggleShare(\''+escA(activeBankCat)+'\','+i+',this)">'+(item.shared?'\u2713 Shared':'Private')+'</button>'+
-      '<button class="btn btn-sm btn-ghost" onclick="removeBankItem(\''+escA(activeBankCat)+'\','+i+')" style="padding:4px 8px;font-size:.7rem;color:var(--danger);border-color:var(--danger)">\u2715</button></div>'+
-      '<div class="bank-item-text">'+esc(item.text)+'</div>';
-    c.appendChild(d);
-  });
-}
-window.setBankCat=function(cat,btn){
-  activeBankCat=cat;
-  document.querySelectorAll('.bank-tab').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');
-  document.getElementById('bankCatLabel').textContent=cat;
-  renderBankItems();
-};
-window.addBankItem=function(){
-  var ta=document.getElementById('bankNewText');
-  var text=ta.value.trim();if(!text)return;
-  var bank=getBank();if(!bank[activeBankCat])bank[activeBankCat]=[];
-  bank[activeBankCat].push({text:text,shared:false});
-  LS('bank',bank);ta.value='';renderBankItems();
-};
-window.toggleShare=function(cat,i,btn){
-  var bank=getBank();bank[cat][i].shared=!bank[cat][i].shared;
-  LS('bank',bank);
-  btn.className='share-toggle'+(bank[cat][i].shared?' shared':'');
-  btn.textContent=bank[cat][i].shared?'\u2713 Shared':'Private';
-  renderPromptLibrary();
-};
-window.removeBankItem=function(cat,i){
-  var bank=getBank();bank[cat].splice(i,1);LS('bank',bank);renderBankItems();renderPromptLibrary();
-};
 
-/* ── TEACHER: CERTIFICATE ── */
-window.generateCert=function(){
-  var nm=document.getElementById('certName').value.trim();if(!nm)return;
-  document.getElementById('certStudentName').textContent=nm;
-  var now=new Date();
+function removeStudent(idx){
+  var students=getStudents();
+  students.splice(idx,1);
+  saveStudents(students);
+  renderTracker();
+}
+
+function toggleStudentHW(sIdx,key,el){
+  var students=getStudents();
+  if(!students[sIdx])return;
+  students[sIdx].hw[key]=el.checked;
+  saveStudents(students);
+}
+
+function renderTracker(){
+  var students=getStudents();
+
+  /* Build header */
+  var th='<tr><th>#</th><th>'+'\u0531\u0576\u0578\u0582\u0576'+'</th>';
+  for(var c=0;c<courses.length;c++){
+    for(var s=0;s<courses[c].sessions.length;s++){
+      th+='<th style="color:'+courses[c].color+'">C'+courses[c].id+'S'+courses[c].sessions[s].n+'</th>';
+    }
+  }
+  th+='<th></th></tr>';
+  document.getElementById('trackerHead').innerHTML=th;
+
+  /* Build body */
+  var tb='';
+  for(var i=0;i<students.length;i++){
+    var st=students[i];
+    tb+='<tr><td>'+(i+1)+'</td><td>'+esc(st.name)+'</td>';
+    for(var c=0;c<courses.length;c++){
+      for(var s=0;s<courses[c].sessions.length;s++){
+        var key='c'+courses[c].id+'s'+courses[c].sessions[s].n;
+        var checked=st.hw&&st.hw[key]?'checked':'';
+        tb+='<td><input type="checkbox" '+checked+' onchange="toggleStudentHW('+i+',\''+key+'\',this)"></td>';
+      }
+    }
+    tb+='<td><button class="del-student" onclick="removeStudent('+i+')">\u2715</button></td></tr>';
+  }
+  if(!students.length){
+    var cols=2;
+    for(var c=0;c<courses.length;c++)cols+=courses[c].sessions.length;
+    tb='<tr><td colspan="'+(cols+1)+'" style="text-align:center;color:var(--text-dim);padding:20px">\u054d\u0578\u057e\u0578\u0580\u0578\u0572\u0576\u0565\u0580 \u0579\u056f\u0561\u0576</td></tr>';
+  }
+  document.getElementById('trackerBody').innerHTML=tb;
+}
+
+/* ── Content Bank ── */
+function getContentBank(){return LS('contentBank')||[]}
+function saveContentBank(cb){LS('contentBank',cb)}
+
+function addCBItem(){
+  var text=document.getElementById('cbText').value.trim();
+  if(!text)return;
+  var cat=document.getElementById('cbCat').value;
+  var tool=document.getElementById('cbTool').value;
+  var cb=getContentBank();
+  cb.push({text:text,cat:cat,tool:tool,shared:false});
+  saveContentBank(cb);
+  document.getElementById('cbText').value='';
+  renderContentBank();
+}
+
+function toggleCBShare(idx,el){
+  var cb=getContentBank();
+  if(cb[idx])cb[idx].shared=el.checked;
+  saveContentBank(cb);
+}
+
+function removeCBItem(idx){
+  var cb=getContentBank();
+  cb.splice(idx,1);
+  saveContentBank(cb);
+  renderContentBank();
+}
+
+function renderContentBank(){
+  var cb=getContentBank();
+  var h='';
+  for(var i=0;i<cb.length;i++){
+    var item=cb[i];
+    h+='<div class="cb-item">'
+      +'<div class="cb-text">'+esc(item.text)+'</div>'
+      +'<div class="cb-actions">'
+      +'<span class="tool-tag" style="padding:3px 10px;border-radius:6px;font-size:.68rem;font-weight:600;background:rgba(196,149,106,.1);color:var(--gold)">'+esc(item.tool)+'</span>'
+      +'<span style="font-size:.68rem;color:var(--text-dim)">'+esc(item.cat)+'</span>'
+      +'<label class="share-toggle"><input type="checkbox" '+(item.shared?'checked':'')+' onchange="toggleCBShare('+i+',this)"> Share</label>'
+      +'<button class="del-student" onclick="removeCBItem('+i+')">\u2715</button>'
+      +'</div></div>';
+  }
+  if(!cb.length)h='<p style="color:var(--text-dim);font-size:.82rem">'+'\u0534\u0565\u057c \u0564\u0561\u057f\u0561\u0580\u056f \u0567\u0589 \u0531\u057e\u0565\u056c\u0561\u0581\u0580\u0565\u0584 prompt-\u0576\u0565\u0580 \u057e\u0565\u0580\u0587\u056b \u0586\u0578\u0580\u0574\u0578\u057e\u0589'+'</p>';
+  document.getElementById('cbList').innerHTML=h;
+}
+
+/* ── Certificate ── */
+function genCert(){
+  var name=document.getElementById('certName').value.trim();
+  if(!name)return;
+  document.getElementById('certNameOut').textContent=name;
+  var d=new Date();
   var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  document.getElementById('certDate').textContent=months[now.getMonth()]+' '+now.getDate()+', '+now.getFullYear();
+  document.getElementById('certDate').textContent=months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
   document.getElementById('certPreview').style.display='block';
-  document.getElementById('certPreview').scrollIntoView({behavior:'smooth',block:'center'});
-};
+}
 
-/* ── NAV ── */
-window.scrollNav=function(el){
-  document.querySelectorAll('.nav-links a,.mobile-nav a').forEach(function(a){a.classList.remove('active');});
-  document.querySelectorAll('a[href="'+el.getAttribute('href')+'"]').forEach(function(a){a.classList.add('active');});
-};
-
-document.getElementById('passInput').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin();});
-
+/* ══════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════ */
+(function(){
+  var saved=LS('role');
+  if(saved==='teacher'||saved==='student'){
+    role=saved;
+    showPortal();
+  }
 })();
 </script>
 </body>
