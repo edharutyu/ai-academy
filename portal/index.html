@@ -1130,7 +1130,7 @@ quiz:[
 {q:'Most powerful combination for controlling color mood?',opts:['Adding "beautiful vibrant colors"','Named lighting + specific film stock reference','Resolution keywords like "8K"','Color words like "warm"'],correct:1,explain:'Lighting sets physical quality, film stock adds complete color science. Together = unmistakable, coherent aesthetic. Vague words work at much lower precision.'},
 {q:'Why is "Vogue aesthetic" better than "professional quality"?',opts:['Same thing','More training data','Encodes complete visual style: art direction, lighting, composition, quality in 3 words','Faster generation'],correct:2,explain:'"Vogue" carries decades of visual culture. AI learned the entire system. "Professional quality" is subjective and vague. References are shorthand for complete visual languages.'}
 ],
-hw:'Create 5 image prompts for portraits, each with a different style and lighting approach.'},
+hw:{scenario:'Create 5 portrait prompts, each with a completely different feel using what you learned about genres, lighting, and film stocks.',steps:['Write 5 prompts using the 5-layer system: genre + subject + lighting + camera + reference','Each prompt must use a DIFFERENT lighting type (check the cheat sheets)','Generate all 5 in Google Flow or Midjourney','Pick your best 2 and explain WHY they work','Screenshot all 5 with prompts visible'],example:'Example: "Editorial fashion portrait, Armenian woman, Rembrandt lighting, Canon 5D 85mm f/1.4, Kodak Portra 400, Vogue aesthetic"'}},
 
 {n:2,titleEn:'Face Consistency & Character',tools:'Kling AI, Flux, Midjourney',
 learn:[
@@ -1158,7 +1158,7 @@ quiz:[
 {q:'Most effective way to maintain character consistency?',opts:['Same background every time','Fixed "character bible" copied to every prompt','Just hair and eye color','Same lighting'],correct:1,explain:'A character bible gives AI the most consistent starting point. Copy-pasting verbatim prevents drift. Adding reference images jumps from ~60% to 90%+.'},
 {q:'Best consistency anchors?',opts:['General style like "casual"','Specific accessories: "gold hoop earrings", "sharp cheekbones"','Colors like "always red"','Moods like "confident"'],correct:1,explain:'Specific physical features and accessories are concrete and uniquely rendered. Abstract descriptions like "elegant" are inconsistent.'}
 ],
-hw:'Create a consistent character across 3 different scenes. Same character bible, 3 situations.'},
+hw:{scenario:'Create ONE character and generate them in 3 completely different scenes while keeping them recognizable.',steps:['Write a character bible: age, hair, face shape, clothing, 2 signature accessories','Generate a front-facing reference portrait','Use the SAME character bible for 3 different scenes (office, street, cafe)','Compare: does the character look the same across all 3?','If not, add more specific anchors to your bible and retry'],example:'Character: Armenian man, 28, short dark hair, trimmed beard, always wears black leather jacket + silver ring. Scene 1: coffee shop, warm light. Scene 2: walking in rain. Scene 3: office meeting.'}},
 
 {n:3,titleEn:'Product & Commercial Photography',tools:'Google Flow, Flux, Adobe Firefly',
 learn:[
@@ -1190,7 +1190,7 @@ quiz:[
 {q:'Most premium surface/background for luxury products?',opts:['Bright white','Dark marble + rim lighting','Natural outdoor','Colorful gradient'],correct:1,explain:'Dark marble + rim lighting = luxury visual code used by Chanel, Dior, Rolex. Now usable in AI prompts.'},
 {q:'Why add a "dynamic element" to product prompts?',opts:['Better quality','Creates visual storytelling \u2014 product feels alive','Required for it to work','Faster generation'],correct:1,explain:'Static = lifeless. Motion (splash, pour, float) implies action, suggests story, creates focal point. Far more engaging for advertising.'}
 ],
-hw:'Create 3 product shots: each with different product, surface, and lighting approach.'},
+hw:{scenario:'Shoot 3 AI product photos for a real or fictional Armenian product. Each must use a different surface + lighting combo.',steps:['Pick a product (juice, wine, jewelry, cosmetics \u2014 anything)','Shot 1: Dark marble surface + rim lighting (luxury feel)','Shot 2: White clean surface + soft studio light (e-commerce)','Shot 3: Lifestyle scene with props (natural, Instagram-worthy)','Add negative prompt to each: "no blur, no watermark, no cluttered background"'],example:'Product: Armenian pomegranate wine bottle. Shot 1: "bottle on dark marble, dramatic rim lighting, premium advertising." Shot 2: "bottle on white surface, clean studio, e-commerce." Shot 3: "bottle on rustic table with cheese and grapes, golden hour, lifestyle."'}},
 
 {n:4,titleEn:'The Expensive Look',tools:'Midjourney, Flux, Google Flow',
 learn:[
@@ -1224,7 +1224,8 @@ quiz:[
 {q:'What does "anamorphic lens" do in an image prompt?',opts:['Wider image','Oval bokeh, horizontal flares, theatrical depth of Hollywood','More sharpness','Vintage degraded look'],correct:1,explain:'Anamorphic = distinctive oval bokeh, horizontal streaks, and characteristic depth. Deeply associated with high-budget cinema.'},
 {q:'Why is "teal and orange" so common in cinema?',opts:['A filter','Contrast between cool environments and warm skin tones \u2014 universally flattering','Old film stock look','Kodak emulation'],correct:1,explain:'Skin tones (orange/warm) vs environments (teal/cool) = natural color separation that makes subjects pop \u2014 dramatic and cinematic.'}
 ],
-hw:'Create 3 "expensive-looking" images: a film still, a fashion shot, a commercial.'}
+hw:{scenario:'Create 3 images that look like they cost $5,000 to produce. Use cinematic techniques, named references, and anamorphic/film stock combos.',steps:['Image 1: Cinematic film still \u2014 use anamorphic lens + named cinematographer reference','Image 2: High fashion editorial \u2014 use publication reference (Vogue, Dazed) + named lighting','Image 3: Luxury commercial \u2014 product on premium surface, Dior/Chanel style','Each must include: film stock name + specific camera specs + lighting type','Compare to real magazine/commercial shots \u2014 how close did you get?'],example:'Cinematic: "Film still, Armenian woman in silk dress, anamorphic lens oval bokeh, Kodak Vision3 5219, Roger Deakins cinematography, moody atmosphere"'}
+
 ]},
 
 {id:3,title:'Creative AI \u2014 Video',titleEn:'Creative AI Video',subtitle:'Animation and video production',persona:'Video Makers',avatar:'\u{1F3AC}',outcomes:['Create smooth cinematic AI videos','Control camera movements professionally','Build talking head & lip sync content'],skills:['Kling AI','Runway','ElevenLabs','CapCut'],icon:'\u{1F3AC}',color:'#E05A5A',sessions:[
@@ -1243,7 +1244,7 @@ learn:[
 {step:2,title:'Write motion prompt',desc:'Subject motion + camera motion + atmosphere. "Slight head turn, wind in hair, slow push in, dust particles floating."',tip:'<strong>Camera moves:</strong> push in, pull out, pan, tilt, orbit.'}
 ],quiz:[
 {q:'Which method gives most visual control?',opts:['Text to Video','Image to Video','Start + End Frame','Multi-shot'],correct:1,explain:'Image-to-video lets you create a perfect image first, then animate. Source image anchors visual quality.'}
-],hw:'Create 3 AI videos: text-to-video, image-to-video, start/end frame.'},
+],hw:{scenario:'Create 3 AI videos using 3 different generation methods to understand which gives you the most control.',steps:['Video 1: Text-to-video in Kling AI \u2014 describe a 5-second scene','Video 2: Generate an image first, then use image-to-video for more control','Video 3: Create start frame + end frame, let AI generate the motion between','Compare all 3: which method gave the best result? Why?','Screenshot your prompts + download your best video'],example:'Text-to-video: "Slow pan across Yerevan rooftop at sunset, golden hour, cinematic, 5 seconds"'}},
 {n:2,titleEn:'Motion Control (Kling 3.0)',tools:'Kling AI 3.0',
 learn:[
 {type:'text',content:'Kling 3.0 offers <strong>6-axis motion control</strong> matching professional cinematography: pan, tilt, roll, truck, pedestal, dolly/zoom.'},
@@ -1252,7 +1253,7 @@ learn:[
 {step:1,title:'Learn 3 moves',desc:'Master: "slow push in" (intimate), "pull out reveal" (epic), "slow orbit" (exploratory).',tip:'Be specific: "slow cinematic push in toward subject" beats vague "zoom in."'}
 ],quiz:[
 {q:'Most intimate and dramatic camera move?',opts:['Pan left','Slow dolly push in toward subject','Pull out zoom','Tilt up'],correct:1,explain:'Dolly push in shrinks distance between viewer and subject. Used by Spielberg and Kubrick for revelation and tension.'}
-],hw:'Test Kling 3.0 motion control: create 1 shot with professional camera movement.'},
+],hw:{scenario:'Master camera movement by creating the SAME scene with 3 different professional camera moves.',steps:['Pick a scene (person walking, product reveal, landscape)','Shot 1: Slow dolly forward (moving closer)','Shot 2: Pan left-to-right (horizontal sweep)','Shot 3: Pedestal up (rising vertically) or crane shot','Use Kling 3.0 motion controls for each','Compare: which camera move creates the most emotion?'],example:'Scene: "Armenian woman standing at balcony in old Yerevan." Move 1: slow dolly in. Move 2: pan across the building facade. Move 3: crane up revealing the city.'}},
 {n:3,titleEn:'Lip Sync & Talking Heads',tools:'Kling, ElevenLabs, HeyGen',
 learn:[
 {type:'text',content:'Create <strong>talking head videos</strong> with AI: voice cloning (ElevenLabs), lip sync (Kling/HeyGen), editing (CapCut). 3 tools, complete workflow.'},
@@ -1262,7 +1263,7 @@ learn:[
 {step:2,title:'Clone voice (ElevenLabs)',desc:'Free tier: 100+ voices. Paid: upload 30s clean audio for custom clone.',tip:'Record in quiet room, normal pace, minimum 30s.'}
 ],quiz:[
 {q:'Best starting image for lip sync?',opts:['Any face angle','Front-facing, neutral, clear lighting','Profile shot','Emotional expression'],correct:1,explain:'Lip sync AI needs clear face in neutral state. Front-facing = all facial muscles visible. Neutral = reset state for expression application.'}
-],hw:'Create 1 talking head video: Script + voice + lip sync.'},
+],hw:{scenario:'Create a talking head video: write a script, clone a voice, and sync lips to create a professional-looking AI presenter.',steps:['Write a 30-second script (about yourself, your brand, or any topic)','Record 30 seconds of your voice reading anything (for voice clone)','Upload to ElevenLabs \u2014 create your voice clone','Generate the talking head in Kling or HeyGen','Download and review \u2014 does it look natural?'],example:'Script: "Hi, I\'m [name]. I teach people how to use AI for creative work. In this course, you\'ll learn to create images, videos, and build brands \u2014 all with AI."'}},
 {n:4,titleEn:'Cinematic Editing',tools:'CapCut, DaVinci Resolve',
 learn:[
 {type:'text',content:'AI shots need <strong>professional editing</strong> to become cohesive. The key techniques: <strong>beat-sync cuts, color consistency, and sound design</strong>. CapCut does all three with AI assistance.'},
@@ -1272,7 +1273,7 @@ learn:[
 {step:2,title:'Assemble with beat sync',desc:'Import clips + Suno track. Use CapCut "Auto Beat Sync" for instant professional pacing.',tip:'Suno prompt: "[genre], [mood], [tempo], instrumental, [duration] seconds."'}
 ],quiz:[
 {q:'Most effective editing technique?',opts:['Many transitions','Cutting on musical beat','Highest resolution','Text overlays'],correct:1,explain:'Beat-sync editing \u2014 our brains expect cuts with sound. When visual and audio align, the edit feels intentional and professional.'}
-],hw:'Create montage of 5+ AI shots with music, transitions, color grade.'}
+],hw:{scenario:'Edit a complete 30-60 second video: combine 5+ AI-generated clips with music, transitions, captions, and color grading.',steps:['Generate 5-7 AI video clips (mix of text-to-video and image-to-video)','Import all clips into CapCut','Add music that matches the mood (use Suno or CapCut library)','Apply consistent color grade (same LUT across all clips)','Add auto-captions and beat-sync transitions','Export and share your finished video'],example:'Theme: "A Day in Yerevan" \u2014 morning coffee, walking streets, sunset rooftop, night lights. Each scene = 1 AI clip. Music: ambient lo-fi from Suno.'}
 ]},
 
 {id:4,title:'AI Production',titleEn:'AI Production',subtitle:'Professional AI content',persona:'Content Producers',avatar:'\u26A1',outcomes:['Produce complete AI video ads','Build full brand identity systems','Create and publish music videos'],skills:['Ad Production','Brand Systems','Suno','Portfolio'],icon:'\u26A1',color:'#5AAD6A',sessions:[
@@ -1285,7 +1286,7 @@ learn:[
 {step:2,title:'Storyboard each shot',desc:'For each script section, write one image prompt. 4-8 prompts = visual storyboard.',tip:'Number shots. Keep same visual language across all.'}
 ],quiz:[
 {q:'Correct production order for AI commercial?',opts:['Images \u2192 Script \u2192 Music','Script \u2192 Storyboard \u2192 Images \u2192 Video \u2192 Edit','Everything simultaneously','Music \u2192 Images \u2192 Script'],correct:1,explain:'Script first = professional workflow. Every visual decision should serve the narrative.'}
-],hw:'Create 1 complete product ad: Script \u2192 Images \u2192 Video \u2192 Edit.'},
+],hw:{scenario:'Create a complete 15-30 second product advertisement from scratch using the full AI pipeline.',steps:['Pick a real product (your own, a local brand, or invent one)','Write the ad script: Hook (0-3s) \u2192 Problem (3-7s) \u2192 Solution (7-15s) \u2192 CTA (15-20s)','Generate product images in Google Flow','Create video clips from images using Kling AI','Edit in CapCut: add music, captions, transitions','Export as vertical (9:16 for Instagram/TikTok)'],example:'Product: Armenian honey. Hook: close-up of honey dripping. Problem: "Tired of fake honey?" Solution: bees + mountains + jar. CTA: "Order now \u2014 link in bio."'}},
 {n:2,titleEn:'Brand & Design Systems',tools:'Midjourney, Canva AI, ChatGPT',
 learn:[
 {type:'text',content:'Build <strong>complete brand identity</strong> with AI: strategy (ChatGPT), logo concepts (Midjourney), applications (Canva). Consistency beats creativity.'},
@@ -1295,7 +1296,7 @@ learn:[
 {step:2,title:'Logo in Midjourney',desc:'"Minimal logo for [brand], [style from brief], vector, clean background, multiple variations."',tip:'Add "lettermark" or "wordmark" or "icon + text" to specify type.'}
 ],quiz:[
 {q:'What before generating any brand visuals?',opts:['Generate logos','Choose favorite colors','Define strategy with ChatGPT: values, audience, personality','Start with templates'],correct:2,explain:'Visual design expresses strategy \u2014 not the starting point. Without strategy, visual choices are arbitrary.'}
-],hw:'Develop brand identity: Logo concept, colors, typography, 3 brand images.'},
+],hw:{scenario:'Build a complete brand identity system for a real or fictional brand using AI tools.',steps:['Define the brand: name, archetype, personality, target audience (use ChatGPT)','Generate 3 logo concepts in Midjourney (flat, geometric, scalable)','Pick 2 brand colors + 1 accent color (use hex codes)','Create 3 brand images showing the visual style (product, lifestyle, portrait)','Assemble everything into a Canva brand kit'],example:'Brand: "Ararat Coffee" \u2014 Premium Armenian coffee. Archetype: The Explorer. Colors: deep brown #3C2415 + cream #F5F0E8 + gold #C4956A.'}},
 {n:3,titleEn:'Music Videos',tools:'Suno, Kling AI, CapCut',
 learn:[
 {type:'text',content:'Create a <strong>complete music video</strong>: Suno for music, Kling for visuals, CapCut for assembly. Music-first workflow is essential.'},
@@ -1305,7 +1306,7 @@ learn:[
 {step:2,title:'Storyboard to music',desc:'Listen, write timestamps: "0-5s: establishing, 5-10s: close up, chorus at 15s: wide reveal."',tip:'Chorus = most energy = most impactful visual.'}
 ],quiz:[
 {q:'AI music video creation order?',opts:['Visuals first','Both simultaneously','Music \u2192 Listen \u2192 Storyboard \u2192 Generate visuals \u2192 Edit','Edit first'],correct:2,explain:'Music is structural backbone. Without knowing rhythm and energy, visuals won\'t match. Music-first = cohesion.'}
-],hw:'Create 30-second music video: Suno + Kling + CapCut.'},
+],hw:{scenario:'Create a 30-60 second music video using the music-first workflow: generate song first, then build visuals to match.',steps:['Create a song in Suno: pick genre + mood + topic (30-60 seconds)','Storyboard: sketch 4-6 scenes that match the music beats','Generate images for each scene using Google Flow or Midjourney','Convert images to video clips using Kling AI','Edit in CapCut: sync cuts to music beats, add color grade','Export and share your music video'],example:'Song: "Yerevan Nights" in lo-fi hip-hop style from Suno. Scenes: street lights, cafe interior, rooftop view, walking, neon signs. All synced to the beat drops.'}},
 {n:4,titleEn:'Final Project \u2014 Portfolio',tools:'Full AI Stack',
 learn:[
 {type:'text',content:'Build your <strong>portfolio</strong>: 5 best pieces with process documentation. This opens doors that CVs cannot.'},
@@ -1316,7 +1317,7 @@ learn:[
 {step:3,title:'Publish and share',desc:'Notion page or Behance. Share with 5 people. Ask for feedback. Iterate.',tip:'Best portfolio: one you\'re slightly embarrassed to share \u2014 that means it\'s real.'}
 ],quiz:[
 {q:'What makes a portfolio piece stronger than a good image?',opts:['Higher resolution','More effects','Process documentation: brief, tools, prompt, learning','More pieces'],correct:2,explain:'Portfolio = evidence of thinking, not just taste. Process documentation transforms images into proof of professional capability.'}
-],hw:'Build portfolio with 5 best AI projects. Share link.'}
+],hw:{scenario:'Curate your best work into a professional portfolio that you can share with clients or employers.',steps:['Select your 5 best AI projects from Courses 1-4','For each, write: what you made + tools used + your creative process','Create a Notion page or Google Drive folder with all 5','Add a 1-paragraph bio: who you are, what you do, how AI fits','Share the link \u2014 this is your professional proof of skill'],example:'Portfolio: 1) Bakery social media campaign (ChatGPT + Google Flow). 2) Product photography series (Midjourney). 3) Music video (Suno + Kling + CapCut). 4) Brand identity (Midjourney + Canva). 5) Product ad (full pipeline).'}
 ]},
 
 {id:5,title:'Design & Branding',titleEn:'Design & Branding with AI',subtitle:'Build brands and design systems with AI',persona:'Designers & Founders',avatar:'\u{1F3AF}',outcomes:['Build complete brand strategy with AI','Design logos and visual identity systems','Create client-ready deliverable packages'],skills:['Brand Strategy','Logo Design','Canva AI','Gamma'],icon:'\u{1F3AF}',color:'#4DB8A0',sessions:[
@@ -1339,7 +1340,7 @@ learn:[
 ],quiz:[
 {q:'What should you create before any logo or visual design?',opts:['Color palette','Brand strategy: archetype, voice, positioning','Logo sketches','Social media templates'],correct:1,explain:'Visuals express strategy \u2014 they can\'t exist meaningfully without it. Strategy is the brief that makes every visual decision defensible.'},
 {q:'What are "anti-adjectives" in brand development?',opts:['Negative reviews','Competitor descriptions','What your brand is explicitly NOT \u2014 defines the boundaries of voice','Old words to retire'],correct:2,explain:'"Bold but NOT aggressive. Warm but NOT casual." Boundaries prevent drift and keep the brand consistent across all touchpoints and creators.'}
-],hw:'Create complete brand strategy for a real or fictional brand: archetype, 3 hex colors, voice adjectives, 3 anti-adjectives, 5 key messages.'},
+],hw:{scenario:'Build a complete brand strategy document for a real or fictional Armenian brand using AI as your strategist.',steps:['Use ChatGPT: define brand archetype (The Creator, The Explorer, etc.)','Define visual personality: 3 adjectives + 3 anti-adjectives','Choose 3 hex colors with reasoning (use Perplexity for color psychology)','Write brand voice: 5 key messages + tone examples','Compile everything into a 1-page brand strategy brief'],example:'Brand: Armenian streetwear "HAYQ". Archetype: The Rebel. Visual: Bold, Raw, Urban. NOT: Cute, Corporate, Traditional. Colors: #1A1A1A (authority) + #E05A5A (energy) + #F5F0E8 (contrast).'}},
 
 {n:2,titleEn:'Logo & Visual Identity',tools:'Midjourney, Canva AI, Adobe Firefly',
 learn:[
@@ -1364,7 +1365,7 @@ segments:[
 ],quiz:[
 {q:'Why should logos avoid gradients?',opts:['They look dated','Can\'t reproduce in single-color: embroidery, stamps, screen printing require flat art','AI can\'t make them well','Too expensive'],correct:1,explain:'Real-world applications require single-color reproduction: rubber stamps, embroidery, engraving, laser cutting. Gradient logos break in all of these. Flat = universally reproducible.'},
 {q:'What does "negative space" mean in logo design?',opts:['Using dark backgrounds','The empty/white space is part of the design \u2014 creates a hidden image or dual meaning','Removing detail','Smaller logo'],correct:1,explain:'Negative space logos use empty areas as active design elements (FedEx arrow). Signals craft, intelligence, and sophistication. Commands premium client perception.'}
-],hw:'Create logo for a brand: 3 Midjourney concepts, select best, build simple brand kit in Canva (2 colors + logo).'},
+],hw:{scenario:'Design a logo and visual identity system. Generate concepts in AI, refine the best one, and build a brand kit.',steps:['Generate 5+ logo concepts in Midjourney (specify: flat, geometric, scalable, no text)','Pick the top 2 and explain what works about each','Use negative prompting: "no realistic, no 3D, no complex detail, no gradients"','Build a brand kit in Canva: logo + 2 primary colors + 1 accent','Create 3 mockups: business card, social media avatar, letterhead'],example:'Prompt: "Minimalist logo, Armenian pomegranate symbol, flat vector, geometric, gold on dark, scalable, professional, no text, no realistic"'}},
 
 {n:3,titleEn:'Content Calendar System',tools:'ChatGPT, Canva AI, Google Flow',
 learn:[
@@ -1385,7 +1386,7 @@ learn:[
 ],quiz:[
 {q:'Recommended content pillar ratio for educational brands?',opts:['50/25/25','100% education','Education 40%, Behind-Scenes 30%, Proof 30%','Equal thirds'],correct:2,explain:'Education builds reach and trust. Behind-scenes builds loyalty. Proof drives conversion. The 40/30/30 ratio balances all three growth drivers sustainably.'},
 {q:'Why batch create content weekly instead of daily?',opts:['Algorithm preference','Saves time via focus, eliminates daily decision fatigue, maintains consistent quality','Required by scheduling tools','Better engagement'],correct:1,explain:'Context-switching is the enemy of creativity. Batching builds momentum and voice consistency. Daily scrambling creates irregular quality. One focused session beats seven anxious ones.'}
-],hw:'Create 30-day content calendar for a real or personal brand. Generate and publish 7 actual posts.'},
+],hw:{scenario:'Build a 30-day content calendar and actually create + publish the first week of content.',steps:['Define your 3 content pillars (Education 40%, Behind-Scenes 30%, Proof 30%)','Use ChatGPT to generate 30 post ideas across the 3 pillars','Create weekly templates in Canva AI (consistent visual style)','Generate images for the first 7 posts using Google Flow','Publish at least 3 posts this week on Instagram or LinkedIn'],example:'Brand: Personal AI educator. Pillar 1 (Education): "3 prompts that changed my workflow." Pillar 2 (BTS): "How I made this image with AI." Pillar 3 (Proof): "Client result: before/after."'}},
 
 {n:4,titleEn:'Client Deliverable Package',tools:'ChatGPT, Gamma, Canva AI',
 learn:[
@@ -1401,7 +1402,7 @@ learn:[
 ],quiz:[
 {q:'Why offer 3 pricing tiers instead of one price?',opts:['More options always better','Middle option anchors both extremes \u2014 60-70% choose it, raising average sale','Required for proposals','Shows flexibility'],correct:1,explain:'Single option = take it or leave it. Three tiers = comparison within your offering. Middle tier is designed to be chosen: it makes expensive seem too much and cheap seem incomplete.'},
 {q:'Minimum components of a professional brand guide?',opts:['Just logo files','Logo usage, colors (hex), typography, dos/don\'ts, usage examples','Color palette only','Mission statement'],correct:1,explain:'A brand guide is a usage manual. Logo without usage rules = inconsistent application. Colors without hex codes = drift. The guide protects the brand and justifies premium pricing.'}
-],hw:'Create 1 client deliverable: brand guide (Gamma) or project proposal (ChatGPT + Canva). Make it look like an agency produced it.'}
+],hw:{scenario:'Create a professional client deliverable that looks like it came from a real design agency. Choose: brand guide OR project proposal.',steps:['Option A: Brand guide in Gamma \u2014 logo usage, colors, typography, do/don\'t examples','Option B: Project proposal in ChatGPT + Canva \u2014 scope, timeline, 3-tier pricing, visuals','Include at least 5 pages/sections','Add mockups showing the brand in real-world contexts','Export as PDF and share the link'],example:'Brand guide for "Ararat Coffee": Cover page, Brand story, Logo usage (do/don\'t), Color palette with hex codes, Typography, Social media templates, Photography style guide.'}
 ]},
 
 {id:6,title:'AI Business',titleEn:'AI Business & Monetization',subtitle:'Turn AI skills into income streams',persona:'Entrepreneurs',avatar:'\u{1F4BC}',outcomes:['Package & price your AI services','Get your first paying clients','Build systems that scale without you'],skills:['Service Design','Pricing','Client Acquisition','SOPs'],icon:'\u{1F4B0}',color:'#D4A017',sessions:[
@@ -1425,7 +1426,7 @@ learn:[
 ],quiz:[
 {q:'Best strategy for getting your first AI services client?',opts:['Run paid ads','Cold email 1000 businesses','Warm network \u2014 offer one project to someone who already trusts you','Build a website first'],correct:2,explain:'Trust is the main barrier for new service providers. Your network already trusts you. One real project creates social proof that sells to everyone else. Warm network first, always.'},
 {q:'How should you price AI services?',opts:['Hourly at minimum wage','As cheap as possible to win','Value-based: charge % of the value you deliver to the client','Copy a competitor exactly'],correct:2,explain:'AI lets you deliver high value fast. Hour-based pricing penalizes your efficiency. Value pricing: "This package drives X result worth $Y \u2014 our fee is 10-20% of that value."'}
-],hw:'Write your complete service menu: 1 service, 3 tiers, full deliverables list with prices. Publish as a Notion page.'},
+],hw:{scenario:'Write your AI services menu: what you offer, who it\'s for, and what\'s included at each price level.',steps:['Pick 1 AI service you can offer (content creation, brand design, video, etc.)','Define your target client: who, what industry, what problem you solve','Create 3 tiers: Basic, Standard, Premium \u2014 with clear deliverables for each','Set prices using value-based pricing (not hourly)','Publish as a Notion page or Google Doc and share the link'],example:'Service: AI Brand Identity Package. Basic ($200): logo + 2 colors. Standard ($500): logo + brand kit + 5 social templates. Premium ($1000): full brand guide + 30-day content calendar + 10 posts created.'}},
 
 {n:2,titleEn:'Pricing & Packaging',tools:'ChatGPT',
 learn:[
@@ -1441,7 +1442,7 @@ learn:[
 ],quiz:[
 {q:'What makes the middle pricing tier the most chosen?',opts:['It is cheapest','Anchoring: high price makes middle reasonable; low makes middle complete','It has most features','Random'],correct:1,explain:'Anchoring: Scale tier makes Growth seem reasonable. Starter makes Growth seem complete. It\'s not manipulation \u2014 it helps clients make confident decisions.'},
 {q:'When should you raise your prices?',opts:['Never','When you feel ready','When 80%+ booked or turning away work','Every year automatically'],correct:2,explain:'When demand exceeds capacity, price should rise. Being fully booked while undercharging = maximum hours for below-market income. Raise price, serve fewer clients better.'}
-],hw:'Build 3-tier pricing for your service. Write 1-page scope agreement. Price test it with someone you trust.'},
+],hw:{scenario:'Build your pricing system and write a scope agreement that protects you and sets clear expectations.',steps:['Calculate your price floor: hours \u00D7 minimum rate = your minimum','Build 3-tier pricing with the anchoring technique (Basic/Standard/Premium)','Write a 1-page scope agreement: what\'s included, what\'s NOT, timeline, revisions','Share pricing with 1 real person and ask: "Would you pay this?"','Adjust based on their honest feedback'],example:'Price floor: 10 hours \u00D7 $20/hr = $200 minimum. Tiers: Basic $200, Standard $450 (anchor), Premium $800. Scope: "2 revisions included. Additional revisions $50 each."'}},
 
 {n:3,titleEn:'Client Acquisition',tools:'ChatGPT, Canva AI',
 learn:[
@@ -1457,7 +1458,7 @@ learn:[
 ],quiz:[
 {q:'What converts best for initial client acquisition?',opts:['Cold email to 1000 businesses','Paid social ads','Personalized outreach to warm network and specific targets','Posting portfolio publicly'],correct:2,explain:'Trust and specificity drive conversion. Generic cold outreach gets <2% response. Targeted warm outreach gets 20-40%. One real connection beats 1000 mass emails every time.'},
 {q:'When should you ask for a referral?',opts:['Before starting','During a difficult moment','At project end, when client is happiest','Never \u2014 feels awkward'],correct:2,explain:'Best time: peak of satisfaction. When client just praised results, they\'re happy to connect you with someone similar. "Do you know one other business that could use this?" is the simplest ask.'}
-],hw:'Identify 10 local business targets. Write personalized outreach for 3. Send at least 1 this week.'},
+],hw:{scenario:'Find real potential clients, write personalized outreach messages, and send at least one this week.',steps:['List 10 local businesses that could use your AI service (Instagram, Google Maps)','Research 3 of them: what they post, what\'s missing, what you could improve','Write personalized outreach for each using the 4-step formula','Use ChatGPT to refine your messages (tone: helpful, not salesy)','Send at least 1 message this week \u2014 LinkedIn DM or email'],example:'Target: "Sweet Moments" bakery in Yerevan. Research: their Instagram has blurry phone photos. Outreach: "Hi! I noticed your honey cake looks amazing but the photos don\'t do it justice. I create professional product photography using AI \u2014 here\'s an example. Want me to do 3 shots for free as a test?"'}},
 
 {n:4,titleEn:'Scale & Systems',tools:'ChatGPT, Notion AI',
 learn:[
@@ -1473,7 +1474,7 @@ learn:[
 ],quiz:[
 {q:'What is a "productized service"?',opts:['Software product','Physical product photography','Standardized service: same scope, process, price \u2014 delivered without custom proposals each time','Automated AI product'],correct:2,explain:'Productized service removes proposal friction. Same package, same price, same delivery process. Scales without proportional time increase. Example: "Social Media Package \u2014 $499/month, 20 posts."'},
 {q:'When should you create a Standard Operating Procedure?',opts:['Only for complex tasks','When you hire employees','When you do something twice \u2014 by the third time it should be documented','After building a full team'],correct:2,explain:'SOPs capture knowledge while it\'s fresh. Every repeated process documented = every hour saved multiplied across every future iteration. Start documenting early.'}
-],hw:'Create 3 foundation documents: 90-day business plan + 1 SOP for your main service + client onboarding checklist. These are the foundation of a real AI business.'}
+],hw:{scenario:'Create the 3 foundation documents every AI freelancer needs. These are your business operating system.',steps:['90-Day Plan: Month 1 (build portfolio + first client), Month 2 (refine + raise prices), Month 3 (systemize + scale)','SOP for your main service: step-by-step from client brief to final delivery','Client onboarding checklist: welcome email, brief template, timeline, payment terms','Use ChatGPT to draft all 3, then personalize with your real details','Publish in Notion \u2014 this is your business command center'],example:'SOP for Brand Identity: 1) Receive brief 2) Brand strategy session (30 min) 3) Generate 5 logo concepts 4) Client picks 2 5) Refine chosen concept 6) Build brand kit 7) Deliver PDF guide. Total: 3 days.'}
 ]}
 ];
 
