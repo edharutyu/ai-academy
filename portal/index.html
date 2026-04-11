@@ -339,7 +339,7 @@ input,textarea,select{font-family:inherit}
 .bgrid{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px}
 .bcard{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:12px 16px;min-width:180px;transition:all .3s}
 .bcard.earned{border-color:rgba(240,163,64,.3);background:var(--gold-dim);animation:borderGlow 3s ease-in-out infinite}
-.bcard.lkb{opacity:.3;filter:grayscale(.95)}
+.bcard.lkb{opacity:.5;filter:grayscale(.8)}
 .bic{font-size:1.5rem}
 .bnm{font-size:.78rem;font-weight:700}
 .bds{font-size:.66rem;color:var(--text-dim)}
@@ -412,7 +412,7 @@ input,textarea,select{font-family:inherit}
 /* BOTTOM NAV */
 .bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(12,11,20,.95);backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);border-top:1px solid rgba(167,139,250,.1);padding:6px 0 env(safe-area-inset-bottom,6px)}
 .bni{display:flex;justify-content:space-around;max-width:600px;margin:0 auto}
-.bni a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 12px;font-size:.625rem;font-weight:600;color:var(--text-mid);text-decoration:none;transition:all .2s;cursor:pointer;border-radius:8px}
+.bni a{display:flex;flex-direction:column;align-items:center;gap:1px;padding:8px 4px;font-size:.58rem;font-weight:600;color:var(--text-mid);text-decoration:none;transition:all .2s;cursor:pointer;border-radius:6px;min-width:0;flex:1}
 .bni a .bnico{font-size:1.25rem}
 .bni a.active{color:var(--gold)}
 
@@ -1607,7 +1607,7 @@ function gU(){var u=LS('unlocks')||{};var changed=false;C.forEach(function(c){va
 function isU(ci,n){if(_r==='teacher')return true;return n<=(gU()[ci]||1)}
 function isHW(ci,n){return!!LS('hw_'+ci+'_'+n)}
 function gA(){return{c:LS('activeCourse')||1,s:LS('activeSession')||1}}
-function selSess(ci,n){if(!isU(ci,n)){toast('\u{1F512} Complete previous sessions first','err');return}LS('activeCourse',ci);LS('activeSession',n);window.scrollTo(0,0);rLearn()}
+function selSess(ci,n){if(!isU(ci,n)){toast('\u{1F512} Complete previous sessions first','err');return}LS('activeCourse',ci);LS('activeSession',n);rLearn();setTimeout(function(){var el=document.querySelector('.breadcrumb');if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},50)}
 
 /* LEARNING PATH */
 function rCourseGrid(){
@@ -1659,7 +1659,7 @@ var total=c.sessions.length;
 var pct=Math.round(done/total*100);
 var isAct=c.id===a.c;
 var status=pct===100?'done':done>0?'progress':'';
-var isFirst=i===0&&!isAct&&done===0;
+var isFirst=done===0&&i===0;
 h+='<div class="cc'+(isAct?' cc-act':'')+(isFirst?' cc-first':'')+' ent ent'+Math.min(i,5)+'" style="--cc:'+c.color+'" onclick="selCourse('+c.id+')">';
 h+='<div class="cc-shine"></div>';
 h+='<div class="cc-bar"></div>';
@@ -1679,8 +1679,12 @@ return h;
 }
 function selCourse(ci){
 var co=C.find(function(c){return c.id===ci});if(!co)return;
-var u=gU(),mx=u[ci]||1;
-LS('activeCourse',ci);LS('activeSession',mx);window.scrollTo(0,0);rLearn();
+var u=gU();
+/* Find first incomplete session, or session 1 */
+var firstIncomplete=1;
+co.sessions.forEach(function(s){if(isHW(ci,s.n)&&s.n<co.sessions.length)firstIncomplete=s.n+1});
+if(firstIncomplete>co.sessions.length)firstIncomplete=co.sessions.length;
+LS('activeCourse',ci);LS('activeSession',firstIncomplete);rLearn();setTimeout(function(){var el=document.querySelector('.breadcrumb');if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},50);
 }
 /* keep rPath as alias */
 function rPath(){return rCourseGrid()}
@@ -1697,7 +1701,7 @@ var h='';
 
 /* ── Breadcrumb ── */
 h+='<div class="breadcrumb ent ent0">';
-h+='<span onclick="rLearn()">All Courses</span><span class="bc-sep">/</span>';
+h+='<span onclick="LS(\'activeCourse\',null);LS(\'activeSession\',null);window.scrollTo(0,0);rLearn()">All Courses</span><span class="bc-sep">/</span>';
 h+='<span onclick="selCourse('+co.id+')">'+co.icon+' '+E(co.titleEn)+'</span><span class="bc-sep">/</span>';
 h+='<span class="bc-current">Session '+se.n+': '+E(se.titleEn)+'</span></div>';
 
@@ -1901,7 +1905,7 @@ if(ch===co){spawnConfetti(bl,8,'var(--success)');spawnXP(bl,'+1')}
 /* Check if all quizzes in this section are answered */
 var sec=bl.closest('.pblk');if(sec){
 var qs=sec.querySelectorAll('.qblk');var ans=0,cor=0;
-qs.forEach(function(q){var opts=q.querySelectorAll('.qo[disabled]');if(opts.length>0)ans++;if(q.querySelector('.qo.correct'))cor++});
+qs.forEach(function(q){var opts=q.querySelectorAll('.qo[disabled]');if(opts.length>0){ans++;if(!q.querySelector('.qo.wrong'))cor++}});
 if(ans===qs.length&&!sec.querySelector('.quiz-done')){
 var d=document.createElement('div');d.className='quiz-done';
 d.innerHTML='<div class="quiz-done-icon">'+(cor===qs.length?'\u{1F389}':'\u{1F4AA}')+'</div><div><div class="quiz-done-text">Quiz Complete! '+cor+'/'+qs.length+' correct</div><div class="quiz-done-sub">'+(cor===qs.length?'Perfect score!':'Keep practicing — you\'re getting better!')+'</div></div>';
@@ -2296,7 +2300,7 @@ function sU(ci,n){var u=gU();u[ci]=n;LS('unlocks',u);rUM();toast('Unlocked up to
 function rRM(){
 var h='';C.forEach(function(c,ci){
 h+='<div class="rmc" id="rm_'+ci+'"><div class="rmch" onclick="tRM(\'rm_'+ci+'\')" style="border-left:3px solid '+c.color+'"><span style="font-size:1.3rem">'+c.icon+'</span><div class="rci"><div class="rcit">'+E(c.titleEn)+'</div><div class="rcis">'+c.sessions.length+' sessions</div></div><span class="rca">\u25BC</span></div>';
-h+='<div class="rmcs">';c.sessions.forEach(function(s){h+='<div class="rmcss"><h5>'+s.n+'. '+E(s.titleEn)+'</h5><p>Tools: '+E(s.tools)+'</p><div class="rhw">\u{1F4CC} '+E(s.hw)+'</div></div>'});
+h+='<div class="rmcs">';c.sessions.forEach(function(s){var hwt=typeof s.hw==='object'?s.hw.scenario||'Structured assignment':s.hw;h+='<div class="rmcss"><h5>'+s.n+'. '+E(s.titleEn)+'</h5><p>Tools: '+E(s.tools)+'</p><div class="rhw">\u{1F4CC} '+E(hwt)+'</div></div>'});
 h+='</div></div>'});var w=$('rmWrap');if(w)w.innerHTML=h;
 }
 function tRM(id){var el=$(id);if(el)el.classList.toggle('open')}
