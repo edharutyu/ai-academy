@@ -707,6 +707,35 @@ input,textarea,select{font-family:inherit}
 .cheat-item-tag.dramatic{background:rgba(167,139,250,.12);color:var(--purple)}
 .cheat-item-tag.neutral{background:rgba(255,255,255,.08);color:var(--text-mid)}
 
+/* ═══ PROMPT LAB ═══ */
+.plab{margin-bottom:32px}
+.plab-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.plab-title{font-size:1.3rem;font-weight:800;font-family:'Syne',sans-serif}
+.plab-sub{font-size:.82rem;color:var(--text-dim);margin-bottom:20px}
+.plab-cats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.plab-cat{padding:8px 16px;border-radius:10px;font-size:.75rem;font-weight:700;border:1px solid var(--card-border);background:transparent;color:var(--text-dim);cursor:pointer;transition:all .2s;font-family:inherit;min-height:40px}
+.plab-cat.active{background:linear-gradient(135deg,rgba(251,191,36,.12),rgba(167,139,250,.08));border-color:var(--gold);color:var(--gold)}
+.plab-cat:hover:not(.active){background:rgba(255,255,255,.04);color:var(--text)}
+.plab-section{margin-bottom:24px}
+.plab-section-title{font-size:.9rem;font-weight:700;margin-bottom:4px;color:var(--text)}
+.plab-section-desc{font-size:.78rem;color:var(--text-dim);margin-bottom:14px;line-height:1.4}
+.plab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.plab-card{background:linear-gradient(145deg,rgba(20,18,35,.92) 0%,rgba(30,25,50,.7) 100%);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;cursor:pointer;transition:all .25s;position:relative}
+.plab-card:hover{border-color:rgba(251,191,36,.25);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.plab-card:active{transform:translateY(0)}
+.plab-card-var{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.plab-card-var span:first-child{color:var(--gold)}
+.plab-card-copy{font-size:.65rem;color:var(--text-dim);opacity:0;transition:opacity .2s}
+.plab-card:hover .plab-card-copy{opacity:1}
+.plab-card-prompt{font-family:'Courier New',monospace;font-size:.78rem;line-height:1.5;color:#D0CBE5;white-space:pre-wrap}
+.plab-card-prompt .plab-hl{color:var(--gold);font-weight:700;background:rgba(251,191,36,.08);padding:1px 4px;border-radius:3px}
+.plab-card.copied{border-color:var(--success)!important}
+.plab-card.copied .plab-card-copy{opacity:1;color:var(--success)}
+.plab-base{padding:14px 16px;background:rgba(255,255,255,.025);border:1px dashed rgba(255,255,255,.1);border-radius:12px;margin-bottom:16px}
+.plab-base-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--purple);margin-bottom:6px}
+.plab-base-text{font-family:'Courier New',monospace;font-size:.82rem;line-height:1.5;color:var(--text-mid)}
+.plab-tip{font-size:.78rem;color:var(--gold);padding:10px 14px;background:rgba(251,191,36,.06);border-radius:10px;border-left:3px solid var(--gold);margin-top:16px}
+
 /* ═══ SECTION FADE TRANSITION ═══ */
 .section.visible{animation:secIn .22s ease forwards}
 
@@ -805,6 +834,7 @@ input,textarea,select{font-family:inherit}
       <div class="gfilters" id="gfilt"></div><div class="ggrid" id="ggrd"></div>
     </div>
     <div class="section" id="secTools"><div class="sec-hdr"><div class="sec-hdr-title">🔧 Tool Guide</div><div class="sec-hdr-sub">Every AI tool you need — with pricing and when to use each</div></div><div id="toolWrap"></div></div>
+    <div class="section" id="secLab"><div class="sec-hdr"><div class="sec-hdr-title">🧪 Prompt Lab</div><div class="sec-hdr-sub">Copy any prompt → paste into Google ImageFX → see the difference instantly</div></div><div id="labWrap"></div></div>
     <div class="section" id="secLibrary"><div id="libWrap"></div></div>
     <div class="section" id="secProgress"><div class="sec-hdr"><div class="sec-hdr-title">📊 My Progress</div><div class="sec-hdr-sub">Your learning journey — sessions completed, badges earned</div></div><div id="progWrap"></div></div>
     <div class="section teacher-only" id="secTeach">
@@ -1523,7 +1553,7 @@ dots.forEach(function(d,i){d.classList.toggle('active',i===cur)});
 },{passive:true})}
 
 /* NAV */
-var TABS=[{id:'secLearn',l:'Learn',ic:'\u{1F4D6}'},{id:'secGallery',l:'Gallery',ic:'\u{1F5BC}'},{id:'secTools',l:'Tools',ic:'\u{1F527}'},{id:'secLibrary',l:'Library',ic:'\u{1F4DA}'},{id:'secProgress',l:'Progress',ic:'\u{1F4CA}'},{id:'secTeach',l:'Teach',ic:'\u{1F393}',t:1}];
+var TABS=[{id:'secLearn',l:'Learn',ic:'\u{1F4D6}'},{id:'secGallery',l:'Gallery',ic:'\u{1F5BC}'},{id:'secTools',l:'Tools',ic:'\u{1F527}'},{id:'secLab',l:'Lab',ic:'\u{1F9EA}'},{id:'secLibrary',l:'Library',ic:'\u{1F4DA}'},{id:'secProgress',l:'Progress',ic:'\u{1F4CA}'},{id:'secTeach',l:'Teach',ic:'\u{1F393}',t:1}];
 function bNav(){
 var rb=$('roleBadge');rb.textContent=_r==='teacher'?'Teacher':'Student';rb.className='role-badge '+(_r==='teacher'?'teacher':'student');
 if(_r==='teacher')document.querySelectorAll('.teacher-only').forEach(function(el){el.style.display='block'});
@@ -1538,7 +1568,7 @@ document.querySelectorAll('.section').forEach(function(s){s.classList.remove('vi
 var t=$(id);if(!t)return;
 t.classList.add('visible');
 document.querySelectorAll('#navLinks a, #bnI a').forEach(function(a){a.classList.toggle('active',a.dataset.tab===id)});
-if(id==='secLearn')rLearn();if(id==='secGallery')rGal();if(id==='secProgress')rProg();if(id==='secLibrary')rLib();
+if(id==='secLearn')rLearn();if(id==='secGallery')rGal();if(id==='secProgress')rProg();if(id==='secLibrary')rLib();if(id==='secLab')rLab();
 }
 
 /* HELPERS */
@@ -1911,6 +1941,92 @@ c.tools.forEach(function(t){var lv=TOOL_LEVELS[t.nm]||'';
 h+='<div class="titem" style="position:relative">'+(lv?'<span class="tool-level '+lv+'">'+(lv==='beginner'?'Start Here':'Pro')+'</span>':'');
 h+='<div class="ti-ic">'+t.ic+'</div><div class="ti-inf"><div class="ti-nm">'+E(t.nm)+'</div><div class="ti-ds">'+E(t.ds)+'</div><div style="display:flex;align-items:center;gap:6px;margin-top:4px"><span class="pbadge '+t.pr+'">'+t.pr+'</span>'+(t.url?'<a href="'+E(t.url)+'" target="_blank" rel="noopener" style="font-size:.7rem;color:var(--gold);font-weight:700;opacity:.7;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.7">Open \u2192</a>':'')+'</div></div></div>'});
 h+='</div></div>'});$('toolWrap').innerHTML=h;
+}
+
+/* PROMPT LAB */
+var _labCat='lighting';
+var LAB_BASE='Street portrait of a young Armenian woman in old Yerevan, [VARIABLE], shallow depth of field, 85mm f/1.4, film photography';
+var LAB={
+lighting:{title:'Lighting Variations',desc:'Same subject, same camera — ONLY the lighting changes. This is the #1 variable in image quality.',base:'Street portrait of a young Armenian woman in old Yerevan, [LIGHTING], shallow depth of field, 85mm f/1.4, film photography',
+items:[
+{label:'Golden Hour',prompt:'Street portrait of a young Armenian woman in old Yerevan, sunset golden hour lighting, shallow depth of field, 85mm f/1.4, film photography',hl:'sunset golden hour lighting'},
+{label:'Rembrandt',prompt:'Street portrait of a young Armenian woman in old Yerevan, Rembrandt lighting with strong shadows, shallow depth of field, 85mm f/1.4, film photography',hl:'Rembrandt lighting with strong shadows'},
+{label:'Neon Night',prompt:'Street portrait of a young Armenian woman in old Yerevan, neon night lighting with colorful reflections, shallow depth of field, 85mm f/1.4, film photography',hl:'neon night lighting with colorful reflections'},
+{label:'Soft Window',prompt:'Street portrait of a young Armenian woman in old Yerevan, soft window light from the side, shallow depth of field, 85mm f/1.4, film photography',hl:'soft window light from the side'},
+{label:'Harsh Midday',prompt:'Street portrait of a young Armenian woman in old Yerevan, harsh midday sun with strong overhead shadows, shallow depth of field, 85mm f/1.4, film photography',hl:'harsh midday sun with strong overhead shadows'},
+{label:'Backlit / Rim',prompt:'Street portrait of a young Armenian woman in old Yerevan, backlit rim lighting with glowing edges, shallow depth of field, 85mm f/1.4, film photography',hl:'backlit rim lighting with glowing edges'}
+]},
+camera:{title:'Camera & Lens Variations',desc:'Same subject, same lighting — ONLY the camera/lens changes. Watch how framing and depth shift dramatically.',base:'Street portrait of a young Armenian woman in old Yerevan, golden hour, [CAMERA], film photography',
+items:[
+{label:'85mm f/1.4 (Portrait)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, Canon 85mm f/1.4 lens, creamy bokeh, film photography',hl:'Canon 85mm f/1.4 lens, creamy bokeh'},
+{label:'35mm f/2 (Street)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 35mm f/2 wide angle, environmental context visible, film photography',hl:'35mm f/2 wide angle, environmental context visible'},
+{label:'50mm f/1.8 (Natural)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 50mm f/1.8 natural perspective, film photography',hl:'50mm f/1.8 natural perspective'},
+{label:'24mm Ultra-wide',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 24mm ultra-wide lens, dramatic perspective distortion, film photography',hl:'24mm ultra-wide lens, dramatic perspective distortion'},
+{label:'135mm f/2 (Compressed)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 135mm f/2 telephoto compression, extreme background blur, film photography',hl:'135mm f/2 telephoto compression, extreme background blur'},
+{label:'Anamorphic Cine',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, anamorphic lens, oval bokeh, horizontal lens flares, cinematic, film photography',hl:'anamorphic lens, oval bokeh, horizontal lens flares, cinematic'}
+]},
+filmstock:{title:'Film Stock Variations',desc:'Same subject, same lighting, same camera — ONLY the film stock changes. Each stock has a unique color science.',base:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 85mm f/1.4, [FILM STOCK]',
+items:[
+{label:'Kodak Portra 400',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 85mm f/1.4, Kodak Portra 400 film, warm skin tones, lifted shadows',hl:'Kodak Portra 400 film, warm skin tones, lifted shadows'},
+{label:'Fuji Velvia 50',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 85mm f/1.4, Fuji Velvia 50 film, hyper-saturated vivid colors',hl:'Fuji Velvia 50 film, hyper-saturated vivid colors'},
+{label:'Ilford HP5 (B&W)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 85mm f/1.4, Ilford HP5 black and white film, heavy grain',hl:'Ilford HP5 black and white film, heavy grain'},
+{label:'Cinestill 800T',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 85mm f/1.4, Cinestill 800T tungsten film, halation glow, cyan shadows',hl:'Cinestill 800T tungsten film, halation glow, cyan shadows'},
+{label:'Kodak Ektar 100',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 85mm f/1.4, Kodak Ektar 100, ultra-sharp, vivid saturated colors',hl:'Kodak Ektar 100, ultra-sharp, vivid saturated colors'},
+{label:'Lomography',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 85mm f/1.4, Lomography cross-processed, vivid color shifts, vignette',hl:'Lomography cross-processed, vivid color shifts, vignette'}
+]},
+style:{title:'Style & Reference Variations',desc:'Same subject — but changing the overall aesthetic/publication reference. Each word encodes a complete visual language.',base:'[STYLE] portrait of a young Armenian woman in old Yerevan, golden hour, 85mm f/1.4',
+items:[
+{label:'Vogue Editorial',prompt:'Vogue editorial fashion portrait of a young Armenian woman in old Yerevan, golden hour, 85mm f/1.4, high fashion, intentional composition',hl:'Vogue editorial fashion'},
+{label:'National Geographic',prompt:'National Geographic documentary portrait of a young Armenian woman in old Yerevan, golden hour, 85mm f/1.4, authentic, cultural, unposed',hl:'National Geographic documentary'},
+{label:'Cinematic Film Still',prompt:'Cinematic film still, young Armenian woman in old Yerevan, golden hour, anamorphic lens, color graded, movie quality, dramatic',hl:'Cinematic film still'},
+{label:'Street Documentary',prompt:'Street documentary photography, young Armenian woman in old Yerevan, golden hour, 35mm, candid, raw, Henri Cartier-Bresson style',hl:'Street documentary photography'},
+{label:'Fine Art',prompt:'Fine art portrait, young Armenian woman in old Yerevan, golden hour, painterly quality, ethereal, gallery-worthy, soft focus edges',hl:'Fine art portrait'},
+{label:'Minimalist Modern',prompt:'Minimalist modern portrait, young Armenian woman, clean background, soft studio lighting, negative space, magazine quality',hl:'Minimalist modern portrait'}
+]},
+product:{title:'Product Photography Variations',desc:'Same product, different setups. Learn how surface + lighting + dynamic element changes the entire feel.',base:'[PRODUCT SETUP], professional product photography, advertising quality',
+items:[
+{label:'Dark Marble + Rim',prompt:'Armenian pomegranate juice bottle on dark marble surface, rim lighting from behind, water droplets, dramatic shadows, advertising quality',hl:'dark marble surface, rim lighting from behind, water droplets'},
+{label:'White Clean',prompt:'Armenian pomegranate juice bottle on pure white background, soft even studio lighting, clean shadows, e-commerce product photo',hl:'pure white background, soft even studio lighting, clean shadows'},
+{label:'Lifestyle Scene',prompt:'Armenian pomegranate juice bottle on rustic wooden table, morning kitchen scene, natural window light, fresh pomegranates beside it, lifestyle photography',hl:'rustic wooden table, morning kitchen scene, natural window light'},
+{label:'Floating / Dynamic',prompt:'Armenian pomegranate juice bottle floating mid-air, juice splash around it, dramatic spotlight, dark background, dynamic advertising shot',hl:'floating mid-air, juice splash around it, dramatic spotlight'},
+{label:'Nature Setting',prompt:'Armenian pomegranate juice bottle placed on mossy rock by a mountain stream, Ararat in background, golden hour, epic landscape product placement',hl:'mossy rock by a mountain stream, Ararat in background'},
+{label:'Luxury / Premium',prompt:'Armenian pomegranate juice bottle on black acrylic surface, soft gradient background, reflection beneath, minimalist luxury, Dior-style product photography',hl:'black acrylic surface, soft gradient background, reflection beneath, minimalist luxury'}
+]}
+};
+
+function rLab(){
+var h='';
+h+='<div class="plab-cats">';
+Object.keys(LAB).forEach(function(k){
+h+='<button class="plab-cat'+(k===_labCat?' active':'')+'" onclick="swLab(\''+k+'\')">'+LAB[k].title.replace(' Variations','')+'</button>';
+});
+h+='</div>';
+var cat=LAB[_labCat];
+h+='<div class="plab-section">';
+h+='<div class="plab-section-title">'+E(cat.title)+'</div>';
+h+='<div class="plab-section-desc">'+E(cat.desc)+'</div>';
+h+='<div class="plab-base"><div class="plab-base-label">\u{1F9EC} Base prompt (everything stays the same except the highlighted part)</div>';
+h+='<div class="plab-base-text">'+E(cat.base)+'</div></div>';
+h+='<div class="plab-grid">';
+cat.items.forEach(function(it,i){
+var pid='lab_'+_labCat+'_'+i;
+var parts=it.prompt.split(it.hl);
+var displayed=parts.length>1?E(parts[0])+'<span class="plab-hl">'+E(it.hl)+'</span>'+E(parts[1]):E(it.prompt);
+h+='<div class="plab-card" id="'+pid+'" onclick="cpyLab(\''+pid+'\',\''+E(it.prompt).replace(/'/g,"\\'")+'\')">';
+h+='<div class="plab-card-var"><span>'+E(it.label)+'</span><span class="plab-card-copy">\u{1F4CB} Click to copy</span></div>';
+h+='<div class="plab-card-prompt">'+displayed+'</div></div>';
+});
+h+='</div>';
+h+='<div class="plab-tip">\u{1F4A1} <strong>How to use:</strong> Click any card to copy the prompt \u2192 Open <a href="https://labs.google.com" target="_blank" rel="noopener" style="color:var(--gold)">Google ImageFX</a> \u2192 Paste \u2192 Generate \u2192 Compare results side by side!</div>';
+h+='</div>';
+$('labWrap').innerHTML=h;
+}
+function swLab(cat){_labCat=cat;rLab()}
+function cpyLab(id,txt){
+navigator.clipboard.writeText(txt).then(function(){
+var el=$(id);if(el){el.classList.add('copied');setTimeout(function(){el.classList.remove('copied')},1500)}
+toast('\u{1F4CB} Prompt copied! Paste into Google ImageFX','ok',2500);
+}).catch(function(){toast('Select and copy manually','err',2000)})
 }
 
 /* LIBRARY */
