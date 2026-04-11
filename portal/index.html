@@ -561,7 +561,9 @@ input,textarea,select{font-family:inherit}
 .sess-item.sl-active{background:linear-gradient(135deg,rgba(251,191,36,.08) 0%,rgba(255,255,255,.03) 100%);border-color:var(--cc,var(--gold));box-shadow:0 0 0 1px rgba(251,191,36,.15)}
 .sess-item.sl-done{opacity:.7}
 .sess-item.sl-done:hover{opacity:.9}
-.sess-item.sl-locked{opacity:.35;cursor:default;pointer-events:none}
+.sess-item.sl-locked{opacity:.45;cursor:default;pointer-events:none;background:rgba(255,255,255,.01)}
+.sess-item.sl-locked .sess-title{color:var(--text-dim)}
+.sess-item.sl-locked .sess-lock{color:var(--text-dim);font-size:var(--text-sm)}
 .sess-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;flex-shrink:0;border:2px solid transparent}
 .sl-active .sess-num{background:var(--cc,var(--gold));color:#1a1714;border-color:var(--cc,var(--gold))}
 .sl-open .sess-num{background:transparent;border-color:var(--cc,var(--gold));color:var(--cc,var(--gold))}
@@ -1111,7 +1113,23 @@ segments:[
 ]},
 {type:'key-points',points:['Start with GENRE OPENER: "editorial fashion", "cinematic still", "street documentary"','Use NAMED LIGHTING: Rembrandt, Butterfly, Split, Clamshell','Name FILM STOCKS: Kodak Portra, Fuji Velvia, Ilford HP5','Camera combos: Canon 5D 85mm (warm), Leica M10 50mm (journalistic)','PUBLICATION REFERENCE as quality benchmark: Vogue, NatGeo, Monocle']},
 {type:'text',content:'<strong>Negative Prompting</strong> \u2014 tell AI what to <em>exclude</em>. As important as your positive description. Add this to every portrait or product shot: <em>"no blur, no watermark, no extra hands, no text overlay, no distorted face, no artifacts."</em> Prevents the most common failure modes before they happen.'},
-{type:'key-points',points:['Negative prompts prevent artifacts before generation \u2014 saves regeneration cycles','Portrait: no blur, no extra fingers, no distorted face, no watermark','Product: no cluttered background, no harsh shadows on product, no reflections','Cinematic: no oversaturation, no noise, no amateur look','Always write your negative prompt alongside positive \u2014 treat it as part of the formula']}
+{type:'key-points',points:['Negative prompts prevent artifacts before generation \u2014 saves regeneration cycles','Portrait: no blur, no extra fingers, no distorted face, no watermark','Product: no cluttered background, no harsh shadows on product, no reflections','Cinematic: no oversaturation, no noise, no amateur look','Always write your negative prompt alongside positive \u2014 treat it as part of the formula']},
+{type:'cheat-sheet',icon:'\u{1F3AD}',title:'Genre Openers',items:[
+{name:'Editorial Fashion',desc:'Magazine-quality, intentional composition'},
+{name:'Street Documentary',desc:'Candid, authentic, raw reality'},
+{name:'Cinematic Still',desc:'Movie frame, dramatic lighting, narrative'},
+{name:'Fine Art Portrait',desc:'Gallery-worthy, conceptual, artistic'},
+{name:'Commercial Product',desc:'Clean, sellable, advertising-ready'},
+{name:'Lifestyle',desc:'Natural, relatable, aspirational daily life'}
+]},
+{type:'cheat-sheet',icon:'\u{1F4F0}',title:'Publication References',items:[
+{name:'Vogue',desc:'High fashion, luxury, art-directed'},
+{name:'National Geographic',desc:'Documentary, authentic, epic scale'},
+{name:'Monocle',desc:'Minimal, clean, sophisticated'},
+{name:'Dazed',desc:'Experimental, edgy, avant-garde'},
+{name:'Kinfolk',desc:'Soft, intimate, lifestyle'},
+{name:'Wired',desc:'Tech, futuristic, digital culture'}
+]}
 ],
 gallery:[
 {prompt:'Editorial fashion portrait, Armenian woman, Rembrandt lighting, Canon 5D 85mm f/1.4, Kodak Portra 400, Vogue aesthetic',tool:'Midjourney',gradient:'linear-gradient(135deg,#1a0533,#6B21A8 55%,#9B7ED8)',descResult:'Magazine-quality portrait with Kodak Portra warmth. Traditional details in high fashion composition. Could be mistaken for a real editorial.'},
@@ -2066,12 +2084,12 @@ items:[
 ]},
 camera:{title:'Camera & Lens Variations',desc:'Same subject, same lighting — ONLY the camera/lens changes. Watch how framing and depth shift dramatically.',base:'Street portrait of a young Armenian woman in old Yerevan, golden hour, [CAMERA], film photography',
 items:[
-{label:'85mm f/1.4 (Portrait)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, Canon 85mm f/1.4 lens, creamy bokeh, film photography',hl:'Canon 85mm f/1.4 lens, creamy bokeh'},
-{label:'35mm f/2 (Street)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 35mm f/2 wide angle, environmental context visible, film photography',hl:'35mm f/2 wide angle, environmental context visible'},
-{label:'50mm f/1.8 (Natural)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 50mm f/1.8 natural perspective, film photography',hl:'50mm f/1.8 natural perspective'},
-{label:'24mm Ultra-wide',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 24mm ultra-wide lens, dramatic perspective distortion, film photography',hl:'24mm ultra-wide lens, dramatic perspective distortion'},
-{label:'135mm f/2 (Compressed)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 135mm f/2 telephoto compression, extreme background blur, film photography',hl:'135mm f/2 telephoto compression, extreme background blur'},
-{label:'Anamorphic Cine',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, anamorphic lens, oval bokeh, horizontal lens flares, cinematic, film photography',hl:'anamorphic lens, oval bokeh, horizontal lens flares, cinematic'}
+{label:'85mm f/1.4 (Portrait)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, Canon 85mm f/1.4 lens, creamy bokeh, film photography',hl:'Canon 85mm f/1.4 lens, creamy bokeh',use:'Portraits, headshots, beauty. The classic portrait lens.',level:'beginner'},
+{label:'35mm f/2 (Street)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 35mm f/2 wide angle, environmental context visible, film photography',hl:'35mm f/2 wide angle, environmental context visible',use:'Street photography, travel, environmental portraits. Shows context.',level:'beginner'},
+{label:'50mm f/1.8 (Natural)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 50mm f/1.8 natural perspective, film photography',hl:'50mm f/1.8 natural perspective',use:'All-rounder. Closest to how your eye sees. Versatile.',level:'beginner'},
+{label:'24mm Ultra-wide',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 24mm ultra-wide lens, dramatic perspective distortion, film photography',hl:'24mm ultra-wide lens, dramatic perspective distortion',use:'Architecture, landscapes, dramatic perspective. Exaggerates depth.',level:'advanced'},
+{label:'135mm f/2 (Compressed)',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 135mm f/2 telephoto compression, extreme background blur, film photography',hl:'135mm f/2 telephoto compression, extreme background blur',use:'Fashion editorials, paparazzi style. Flattens and isolates subject.',level:'advanced'},
+{label:'Anamorphic Cine',prompt:'Street portrait of a young Armenian woman in old Yerevan, golden hour, anamorphic lens, oval bokeh, horizontal lens flares, cinematic, film photography',hl:'anamorphic lens, oval bokeh, horizontal lens flares, cinematic',use:'Cinematic look, music videos, film stills. Hollywood signature.',level:'advanced'}
 ]},
 filmstock:{title:'Film Stock Variations',desc:'Same subject, same lighting, same camera — ONLY the film stock changes. Each stock has a unique color science.',base:'Street portrait of a young Armenian woman in old Yerevan, golden hour, 85mm f/1.4, [FILM STOCK]',
 items:[
