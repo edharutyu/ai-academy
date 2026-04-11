@@ -750,6 +750,11 @@ input,textarea,select{font-family:inherit}
 .plab-card-prompt .plab-hl{color:var(--gold);font-weight:700;background:rgba(251,191,36,.08);padding:1px 4px;border-radius:3px}
 .plab-card.copied{border-color:var(--success)!important}
 .plab-card.copied .plab-card-copy{opacity:1;color:var(--success)}
+.plab-card-use{font-size:.7rem;color:var(--text-dim);margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.05);line-height:1.4}
+.plab-card-use strong{color:var(--gold);font-weight:700}
+.plab-card-level{font-size:.55rem;font-weight:800;padding:2px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;margin-left:6px}
+.plab-card-level.beginner{background:rgba(52,211,153,.1);color:var(--success)}
+.plab-card-level.advanced{background:rgba(167,139,250,.1);color:var(--purple)}
 .plab-base{padding:14px 16px;background:rgba(255,255,255,.025);border:1px dashed rgba(255,255,255,.1);border-radius:12px;margin-bottom:16px}
 .plab-base-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--purple);margin-bottom:6px}
 .plab-base-text{font-family:'Courier New',monospace;font-size:.82rem;line-height:1.5;color:var(--text-mid)}
@@ -1984,12 +1989,14 @@ var LAB_BASE='Street portrait of a young Armenian woman in old Yerevan, [VARIABL
 var LAB={
 lighting:{title:'Lighting Variations',desc:'Same subject, same camera — ONLY the lighting changes. This is the #1 variable in image quality.',base:'Street portrait of a young Armenian woman in old Yerevan, [LIGHTING], shallow depth of field, 85mm f/1.4, film photography',
 items:[
-{label:'Golden Hour',prompt:'Street portrait of a young Armenian woman in old Yerevan, sunset golden hour lighting, shallow depth of field, 85mm f/1.4, film photography',hl:'sunset golden hour lighting'},
-{label:'Rembrandt',prompt:'Street portrait of a young Armenian woman in old Yerevan, Rembrandt lighting with strong shadows, shallow depth of field, 85mm f/1.4, film photography',hl:'Rembrandt lighting with strong shadows'},
-{label:'Neon Night',prompt:'Street portrait of a young Armenian woman in old Yerevan, neon night lighting with colorful reflections, shallow depth of field, 85mm f/1.4, film photography',hl:'neon night lighting with colorful reflections'},
-{label:'Soft Window',prompt:'Street portrait of a young Armenian woman in old Yerevan, soft window light from the side, shallow depth of field, 85mm f/1.4, film photography',hl:'soft window light from the side'},
-{label:'Harsh Midday',prompt:'Street portrait of a young Armenian woman in old Yerevan, harsh midday sun with strong overhead shadows, shallow depth of field, 85mm f/1.4, film photography',hl:'harsh midday sun with strong overhead shadows'},
-{label:'Backlit / Rim',prompt:'Street portrait of a young Armenian woman in old Yerevan, backlit rim lighting with glowing edges, shallow depth of field, 85mm f/1.4, film photography',hl:'backlit rim lighting with glowing edges'}
+{label:'Golden Hour',prompt:'Street portrait of a young Armenian woman in old Yerevan, sunset golden hour lighting, shallow depth of field, 85mm f/1.4, film photography',hl:'sunset golden hour lighting',use:'Portraits, lifestyle, romance. The safest beautiful light.',level:'beginner'},
+{label:'Rembrandt',prompt:'Street portrait of a young Armenian woman in old Yerevan, Rembrandt lighting with strong shadows, shallow depth of field, 85mm f/1.4, film photography',hl:'Rembrandt lighting with strong shadows',use:'Drama, character portraits, editorial. Named after the painter.',level:'beginner'},
+{label:'Neon Night',prompt:'Street portrait of a young Armenian woman in old Yerevan, neon night lighting with colorful reflections, shallow depth of field, 85mm f/1.4, film photography',hl:'neon night lighting with colorful reflections',use:'Urban vibes, nightlife, cyberpunk, music artists, club promos.',level:'beginner'},
+{label:'Soft Window',prompt:'Street portrait of a young Armenian woman in old Yerevan, soft window light from the side, shallow depth of field, 85mm f/1.4, film photography',hl:'soft window light from the side',use:'Indoor portraits, beauty, product shots. Calm and flattering.',level:'beginner'},
+{label:'Harsh Midday',prompt:'Street portrait of a young Armenian woman in old Yerevan, harsh midday sun with strong overhead shadows, shallow depth of field, 85mm f/1.4, film photography',hl:'harsh midday sun with strong overhead shadows',use:'Fashion editorial, high contrast, summer campaigns.',level:'advanced'},
+{label:'Backlit / Rim',prompt:'Street portrait of a young Armenian woman in old Yerevan, backlit rim lighting with glowing edges, shallow depth of field, 85mm f/1.4, film photography',hl:'backlit rim lighting with glowing edges',use:'Dreamy feel, silhouettes, artistic portraits, music videos.',level:'beginner'},
+{label:'Volumetric Fog',prompt:'Street portrait of a young Armenian woman in old Yerevan, volumetric light rays through atmospheric fog and haze, shallow depth of field, 85mm f/1.4, film photography',hl:'volumetric light rays through atmospheric fog and haze',use:'Cinematic scenes, mystery, ethereal mood, music video stills.',level:'advanced'},
+{label:'Color Gels',prompt:'Street portrait of a young Armenian woman in old Yerevan, split color gel lighting pink from left blue from right, shallow depth of field, 85mm f/1.4, film photography',hl:'split color gel lighting pink from left blue from right',use:'Creative portraits, album covers, social media standout content.',level:'advanced'}
 ]},
 camera:{title:'Camera & Lens Variations',desc:'Same subject, same lighting — ONLY the camera/lens changes. Watch how framing and depth shift dramatically.',base:'Street portrait of a young Armenian woman in old Yerevan, golden hour, [CAMERA], film photography',
 items:[
@@ -2126,6 +2133,42 @@ items:[
 {label:'Step-by-Step Infographic',prompt:'Infographic style image showing 4 steps of AI image creation process, numbered circles connected by arrows, clean white background, colorful icons for each step, modern flat design, educational diagram',hl:'4 steps of AI process, numbered circles, arrows, flat design, educational diagram'},
 {label:'Comparison Grid',prompt:'Side by side comparison grid of 4 different AI art styles applied to same portrait, labeled sections, clean white borders between, studio quality, educational reference sheet, print-ready layout',hl:'comparison grid, 4 different AI styles, labeled sections, reference sheet'},
 {label:'Portfolio Showcase',prompt:'Portfolio showcase image, grid of 6 stunning AI-generated photos on dark background, glowing golden frame around each, text area at top for headline, premium quality results collage, marketing visual',hl:'Portfolio grid, 6 AI-generated photos, golden frames, results collage'}
+]},
+negative:{title:'Negative Prompting & Clean Output',desc:'The PRO technique \u2014 tell AI what to REMOVE. This is how professionals get clean, artifact-free results every time.',base:'[subject], high quality, professional photography, negative prompt: [WHAT TO REMOVE]',
+items:[
+{label:'No Blur / Sharp',prompt:'Portrait of a young woman, professional photography, sharp focus, high detail, negative prompt: blurry, out of focus, soft image, low detail, motion blur',hl:'negative prompt: blurry, out of focus, soft image, low detail',use:'Every portrait and product shot. Always add this.',level:'beginner'},
+{label:'No Bad Anatomy',prompt:'Full body portrait of a man standing, realistic proportions, negative prompt: extra limbs, distorted hands, bad anatomy, deformed body, extra fingers, merged limbs',hl:'negative prompt: extra limbs, distorted hands, bad anatomy, deformed body',use:'Any image with people. Prevents the most common AI failure.',level:'beginner'},
+{label:'No Watermark/Text',prompt:'Product photography of a perfume bottle on marble, studio lighting, negative prompt: watermark, text overlay, logo, branding, letters, numbers, signature',hl:'negative prompt: watermark, text overlay, logo, branding, letters',use:'Product shots, commercial work. Clients hate random text.',level:'beginner'},
+{label:'No Noise/Grain',prompt:'Night portrait with cinematic lighting, clean image, negative prompt: grainy, noisy, pixelated, low resolution, jpeg artifacts, compression',hl:'negative prompt: grainy, noisy, pixelated, low resolution',use:'Night/low-light scenes where AI tends to add unwanted grain.',level:'advanced'},
+{label:'No Overexposure',prompt:'Fashion portrait in bright studio, balanced exposure, negative prompt: overexposed, blown highlights, washed out colors, too bright, flat lighting',hl:'negative prompt: overexposed, blown highlights, washed out colors',use:'Studio shots, bright scenes. Keeps detail in highlights.',level:'advanced'},
+{label:'Clean Background',prompt:'Product on table, clean minimal scene, negative prompt: cluttered background, messy, chaotic composition, distracting elements, busy scene',hl:'negative prompt: cluttered background, messy, chaotic composition',use:'Product shots, headshots. Keeps focus on your subject.',level:'beginner'}
+]},
+adcomposition:{title:'Advertising Composition',desc:'Learn how real ads are composed \u2014 where to place the product, where to leave space for text, how to create visual hierarchy.',base:'[product], advertising photography, [COMPOSITION TECHNIQUE]',
+items:[
+{label:'Hero Center',prompt:'Luxury perfume bottle centered in frame, dark background, dramatic spotlight from above, reflection on surface, premium advertising, product is the star',hl:'centered in frame, dramatic spotlight, product is the star',use:'Hero product shots. When the product IS the message.',level:'beginner'},
+{label:'Rule of Thirds',prompt:'Coffee cup placed on left third of frame, negative space on right side for text, warm cafe background blurred, clean advertising layout, editorial',hl:'left third of frame, negative space on right side for text',use:'Any ad that needs text space. The most used composition in advertising.',level:'beginner'},
+{label:'Text Space Above',prompt:'Sneakers on bottom of frame, large empty sky/gradient space above for headline text, dramatic low angle, Nike campaign style, advertising layout',hl:'large empty sky/gradient space above for headline text',use:'Social media ads, banners. Leave room for your copy.',level:'beginner'},
+{label:'Lifestyle Context',prompt:'Person drinking from branded water bottle in gym setting, natural action, environmental product placement, authentic lifestyle advertising',hl:'Person drinking, gym setting, natural action, environmental placement',use:'Showing product in use. More relatable than studio shots.',level:'advanced'},
+{label:'Macro Detail',prompt:'Extreme macro close-up of watch face details, gears visible, metallic reflections, premium texture showcase, luxury brand advertising',hl:'Extreme macro close-up, gears visible, metallic reflections, texture',use:'Luxury products. Show craftsmanship and quality up close.',level:'advanced'},
+{label:'Dynamic Action',prompt:'Energy drink can with liquid splash explosion around it, droplets frozen in air, dynamic diagonal composition, high-speed photography, Red Bull style',hl:'liquid splash explosion, droplets frozen, dynamic diagonal, high-speed',use:'Energy, sports, food brands. Creates excitement and movement.',level:'advanced'}
+]},
+consistency:{title:'Character Consistency',desc:'The HARDEST AI skill \u2014 keeping the same character across multiple images. Essential for ads, social media series, and storytelling.',base:'Same character: young Armenian man, short dark hair, light beard, wearing black jacket. [VARIATION]',
+items:[
+{label:'Front Portrait',prompt:'Same character: young Armenian man, short dark hair, light beard, black jacket. Front-facing portrait, eye contact with camera, neutral studio background, even lighting',hl:'Front-facing portrait, eye contact with camera',use:'Base reference image. Generate this FIRST, use as reference for others.',level:'beginner'},
+{label:'Side Profile',prompt:'Same character: young Armenian man, short dark hair, light beard, black jacket. Side profile view, dramatic cinematic lighting from behind, dark background',hl:'Side profile view, dramatic cinematic lighting',use:'Dramatic content, storytelling sequences, character depth.',level:'advanced'},
+{label:'Different Location',prompt:'Same character: young Armenian man, short dark hair, light beard, black jacket. Standing in modern glass office, looking out window, natural daylight',hl:'modern glass office, looking out window, natural daylight',use:'Showing character in different environments for ad campaigns.',level:'advanced'},
+{label:'Different Emotion',prompt:'Same character: young Armenian man, short dark hair, light beard, black jacket. Laughing genuinely, warm natural light, candid moment, lifestyle feel',hl:'Laughing genuinely, candid moment, lifestyle feel',use:'Social media content, brand personality, relatable moments.',level:'advanced'},
+{label:'Action / Walking',prompt:'Same character: young Armenian man, short dark hair, light beard, black jacket. Walking confidently through Yerevan street, motion blur background, street photography',hl:'Walking confidently, motion blur background, street photography',use:'Dynamic content, campaign sequences, brand storytelling.',level:'advanced'},
+{label:'Close-up Detail',prompt:'Same character: young Armenian man, short dark hair, light beard, black jacket. Extreme close-up of face, detailed skin texture, shallow depth of field, studio lighting',hl:'Extreme close-up of face, detailed skin texture',use:'Beauty, skincare, emotional content. Shows authenticity.',level:'beginner'}
+]},
+editing:{title:'Image Editing Mindset',desc:'Real workflow = edit, don\'t regenerate. Learn the THINKING behind AI image editing \u2014 what to change, what to keep.',base:'[base scene], [EDIT INSTRUCTION]',
+items:[
+{label:'Swap Background',prompt:'Portrait of a young woman, professional photo, replace background with luxury hotel lobby interior, warm ambient lighting, seamless composite, realistic shadows',hl:'replace background with luxury hotel lobby interior',use:'Client headshots on branded backgrounds. The #1 edit request.',level:'beginner'},
+{label:'Change Time of Day',prompt:'Street scene in Yerevan, same composition, change from daytime to dramatic sunset with orange sky and long shadows, golden hour transformation',hl:'change from daytime to dramatic sunset with orange sky',use:'Real estate, travel content. Same location, different mood.',level:'advanced'},
+{label:'Add Element',prompt:'Breakfast table scene, top-down view, add a steaming cup of coffee in the empty space on the right side, realistic steam and shadows',hl:'add a steaming cup of coffee in the empty space',use:'Product placement, filling empty scenes, improving composition.',level:'beginner'},
+{label:'Change Season',prompt:'Armenian village landscape, transform from summer green to autumn golden orange leaves, warm October light, harvest season atmosphere',hl:'transform from summer green to autumn golden orange leaves',use:'Seasonal campaigns, showing same location across seasons.',level:'advanced'},
+{label:'Style Transfer',prompt:'Modern photo of Yerevan cityscape, apply oil painting style like Armenian artist Martiros Saryan, vibrant colors, impressionist brushstrokes, fine art quality',hl:'apply oil painting style like Martiros Saryan, vibrant colors, impressionist',use:'Art prints, cultural content, creative portfolio pieces.',level:'advanced'},
+{label:'Upscale + Detail',prompt:'Product photo of jewelry, enhance with ultra-sharp detail, add realistic metal reflections, improve gemstone sparkle, 4K quality, commercial retouching level',hl:'ultra-sharp detail, realistic metal reflections, gemstone sparkle',use:'Turning quick AI drafts into polished client-ready images.',level:'advanced'}
 ]}
 };
 
@@ -2148,8 +2191,10 @@ var pid='lab_'+_labCat+'_'+i;
 var parts=it.prompt.split(it.hl);
 var displayed=parts.length>1?E(parts[0])+'<span class="plab-hl">'+E(it.hl)+'</span>'+E(parts[1]):E(it.prompt);
 h+='<div class="plab-card" id="'+pid+'" onclick="cpyLab(\''+pid+'\',\''+E(it.prompt).replace(/'/g,"\\'")+'\')">';
-h+='<div class="plab-card-var"><span>'+E(it.label)+'</span><span class="plab-card-copy">\u{1F4CB} Click to copy</span></div>';
-h+='<div class="plab-card-prompt">'+displayed+'</div></div>';
+h+='<div class="plab-card-var"><span>'+E(it.label)+(it.level?'<span class="plab-card-level '+it.level+'">'+it.level+'</span>':'')+'</span><span class="plab-card-copy">\u{1F4CB} Click to copy</span></div>';
+h+='<div class="plab-card-prompt">'+displayed+'</div>';
+if(it.use)h+='<div class="plab-card-use"><strong>When to use:</strong> '+E(it.use)+'</div>';
+h+='</div>';
 });
 h+='</div>';
 h+='<div class="plab-tip">\u{1F4A1} <strong>How to use:</strong> Click any card to copy the prompt \u2192 Open <a href="https://labs.google.com" target="_blank" rel="noopener" style="color:var(--gold)">Google ImageFX</a> \u2192 Paste \u2192 Generate \u2192 Compare results side by side!</div>';
