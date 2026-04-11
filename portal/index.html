@@ -442,8 +442,9 @@ input,textarea,select{font-family:inherit}
   .bnav{display:block}
   .container{padding:16px 14px 140px}
   .stitle{font-size:1.1rem}
-  .welcome-hero{flex-direction:row;padding:16px 18px;gap:14px}
-  .wh-title{font-size:1.05rem!important}
+  .welcome-hero{flex-direction:row;padding:var(--sp-3) var(--sp-4);gap:var(--sp-3)}
+  .wh-title{font-size:var(--text-lg)!important}
+  .wh-greeting{font-size:var(--text-xs)!important}
   .wh-ring{width:52px;height:52px}
   .wh-pct{font-size:.8rem!important}
   .journey-strip{padding:8px 10px}
@@ -676,12 +677,12 @@ input,textarea,select{font-family:inherit}
 .vtip-desc{font-size:.82rem;color:#C8C2E0;line-height:1.5}
 
 /* ═══ VISUAL-COMPARE (Before/After) ═══ */
-.vcomp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px}
+.vcomp{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4);margin-bottom:var(--sp-4)}
 @media(max-width:600px){.vcomp{grid-template-columns:1fr}}
-.vcomp-side{border-radius:14px;padding:18px;position:relative;overflow:hidden}
-.vcomp-side.bad{background:linear-gradient(145deg,rgba(239,68,68,.06) 0%,rgba(20,18,35,.92) 100%);border:1px solid rgba(239,68,68,.18)}
-.vcomp-side.good{background:linear-gradient(145deg,rgba(52,211,153,.06) 0%,rgba(20,18,35,.92) 100%);border:1px solid rgba(52,211,153,.18)}
-.vcomp-label{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.vcomp-side{border-radius:var(--r-lg);padding:var(--sp-5);position:relative;overflow:hidden}
+.vcomp-side.bad{background:linear-gradient(145deg,rgba(248,113,113,.08) 0%,rgba(10,10,18,.95) 100%);border:1px solid rgba(248,113,113,.2)}
+.vcomp-side.good{background:linear-gradient(145deg,rgba(52,211,153,.08) 0%,rgba(10,10,18,.95) 100%);border:1px solid rgba(52,211,153,.2)}
+.vcomp-label{font-size:var(--text-base);font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:var(--sp-3);display:flex;align-items:center;gap:var(--sp-2);padding-bottom:var(--sp-2);border-bottom:1px solid rgba(255,255,255,.05)}
 .vcomp-side.bad .vcomp-label{color:var(--danger)}
 .vcomp-side.good .vcomp-label{color:var(--success)}
 .vcomp-prompt{font-family:'Courier New',monospace;font-size:.82rem;line-height:1.5;color:var(--text-mid);padding:10px 12px;background:rgba(0,0,0,.2);border-radius:8px;margin-bottom:10px}
@@ -712,7 +713,7 @@ input,textarea,select{font-family:inherit}
 .pg-input:focus{border-color:var(--purple)}
 .pg-output{flex:1;padding:12px;background:rgba(0,0,0,.15);border-radius:10px;font-size:.85rem;line-height:1.6;color:#D4D0E8;min-height:100px;white-space:pre-wrap}
 .pg-output.waiting{color:var(--text-dim);font-style:italic}
-.pg-btn{display:inline-flex;align-items:center;gap:6px;padding:12px 24px;border-radius:10px;border:none;background:linear-gradient(135deg,#FBBF24,#F59E0B);color:#09080F;font-weight:700;font-size:.85rem;cursor:pointer;transition:all .25s;margin-top:10px;align-self:flex-start;box-shadow:0 4px 16px rgba(251,191,36,.25)}
+.pg-btn{display:inline-flex;align-items:center;gap:var(--sp-2);padding:var(--sp-3) var(--sp-6);border-radius:var(--r-md);border:none;background:var(--gold);color:#0a0a12;font-weight:700;font-size:var(--text-base);cursor:pointer;transition:all var(--dur-fast) var(--ease);margin-top:var(--sp-3);align-self:flex-start;box-shadow:var(--shadow-md)}
 .pg-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(251,191,36,.4);background:linear-gradient(135deg,#F5B052,#FBBF24)}
 
 /* ═══ STRUCTURED HOMEWORK ═══ */
@@ -782,7 +783,7 @@ input,textarea,select{font-family:inherit}
 .kpl li{font-size:var(--text-base)!important;color:var(--text-mid)!important}
 .plbl{padding:var(--sp-3) var(--sp-5)!important;font-size:var(--text-sm)!important;letter-spacing:1.5px!important}
 .qq{font-size:var(--text-base)!important;line-height:1.5!important}
-.phase-desc{font-size:var(--text-sm)!important;color:var(--text-dim)!important}
+.phase-desc{font-size:var(--text-base)!important;color:var(--text-mid)!important;padding:var(--sp-3) var(--sp-4)!important;background:rgba(255,255,255,.02)!important;border-radius:var(--r-sm)!important;border-left:3px solid currentColor!important;margin-bottom:var(--sp-4)!important}
 .sec-hdr-title{font-size:var(--text-2xl)!important}
 .sec-hdr-sub{font-size:var(--text-sm)!important;color:var(--text-dim)!important}
 .cc-ttl{font-size:var(--text-lg)!important}
@@ -1685,7 +1686,7 @@ h+='</div>';
 }
 h+='</div>';
 /* Journey strip — show course path */
-h+='<div style="font-size:var(--text-sm);color:var(--text-dim);margin-bottom:var(--sp-2);padding:0 var(--sp-1)" class="ent ent1">Your path: 6 courses, 24 sessions. Start left, move right \u2192</div>';
+h+='<div style="font-size:var(--text-xs);color:var(--text-mid);margin-bottom:var(--sp-2);padding:var(--sp-2) var(--sp-3);background:rgba(255,255,255,.03);border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.05);display:inline-block" class="ent ent1">\u{1F4CD} 6 courses \u00B7 24 sessions \u00B7 Start from left \u2192</div>';
 h+='<div class="journey-strip ent ent1">';
 C.forEach(function(c,i){
 var cd=c.sessions.filter(function(s){return isHW(c.id,s.n)}).length;
@@ -1829,7 +1830,13 @@ h+='<div class="hwb" style="border-color:'+co.color+'"><div class="hwt" style="c
 if(typeof se.hw==='object'){
 h+='<div class="hw-structured">';
 if(se.hw.scenario)h+='<div class="hw-scenario">'+E(se.hw.scenario)+'</div>';
-if(se.hw.steps){h+='<div class="hw-steps">';se.hw.steps.forEach(function(s,i){h+='<div class="hw-step"><div class="hw-step-num">'+(i+1)+'</div><div class="hw-step-text">'+E(s)+'</div></div>'});h+='</div>'}
+if(se.hw.steps){h+='<div class="hw-steps">';se.hw.steps.forEach(function(s,i){
+var st=E(s);
+/* Auto-link tool names in homework steps */
+Object.keys(TOOL_URLS).forEach(function(tn){
+var re=new RegExp('\\b'+tn.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','g');
+st=st.replace(re,'<a href="'+TOOL_URLS[tn]+'" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;text-underline-offset:2px">'+tn+' \u2197</a>')});
+h+='<div class="hw-step"><div class="hw-step-num">'+(i+1)+'</div><div class="hw-step-text">'+st+'</div></div>'});h+='</div>'}
 if(se.hw.example)h+='<div class="hw-example">'+E(se.hw.example)+'</div>';
 h+='</div>';
 } else {h+='<div class="hwx">'+E(se.hw)+'</div>';}
