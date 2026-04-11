@@ -1579,7 +1579,7 @@ if(id==='secLearn')rLearn();if(id==='secGallery')rGal();if(id==='secProgress')rP
 }
 
 /* HELPERS */
-function gU(){var u=LS('unlocks')||{};C.forEach(function(c){var def=DEFAULT_UNLOCKS[c.id]||1;if(u[c.id]==null||u[c.id]<def)u[c.id]=def});return u}
+function gU(){var u=LS('unlocks')||{};var changed=false;C.forEach(function(c){var def=DEFAULT_UNLOCKS[c.id]||1;if(u[c.id]==null||u[c.id]<def){u[c.id]=def;changed=true}});if(changed)LS('unlocks',u);return u}
 function isU(ci,n){if(_r==='teacher')return true;return n<=(gU()[ci]||1)}
 function isHW(ci,n){return!!LS('hw_'+ci+'_'+n)}
 function gA(){return{c:LS('activeCourse')||1,s:LS('activeSession')||1}}
