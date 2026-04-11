@@ -1648,6 +1648,7 @@ document.querySelectorAll('.section').forEach(function(s){s.classList.remove('vi
 var t=$(id);if(!t)return;
 t.classList.add('visible');
 document.querySelectorAll('#navLinks a, #bnI a').forEach(function(a){a.classList.toggle('active',a.dataset.tab===id)});
+window.scrollTo({top:0,behavior:'smooth'});
 if(id==='secLearn')rLearn();if(id==='secGallery')rGal();if(id==='secProgress')rProg();if(id==='secLibrary')rLib();if(id==='secLab')rLab();
 }
 
@@ -1684,6 +1685,7 @@ h+='</div>';
 }
 h+='</div>';
 /* Journey strip — show course path */
+h+='<div style="font-size:var(--text-sm);color:var(--text-dim);margin-bottom:var(--sp-2);padding:0 var(--sp-1)" class="ent ent1">Your path: 6 courses, 24 sessions. Start left, move right \u2192</div>';
 h+='<div class="journey-strip ent ent1">';
 C.forEach(function(c,i){
 var cd=c.sessions.filter(function(s){return isHW(c.id,s.n)}).length;
@@ -1795,6 +1797,7 @@ if(se.gallery&&se.gallery.length)phases.push({id:'see',icon:'\u{1F440}',label:'S
 if(se.recipe&&se.recipe.length)phases.push({id:'try',icon:'\u{1F6E0}',label:'Try'});
 if(se.quiz&&se.quiz.length)phases.push({id:'quiz',icon:'\u{1F9E0}',label:'Quiz'});
 phases.push({id:'create',icon:'\u{1F3A8}',label:'Mission'});
+h+='<div style="font-size:var(--text-xs);color:var(--text-dim);margin-bottom:var(--sp-1)" class="ent ent2">Scroll through each section below \u2014 they\'re in order \u2193</div>';
 h+='<div class="phase-roadmap ent ent2">';
 phases.forEach(function(p,i){
 if(i>0)h+='<div class="phase-line"></div>';
@@ -1804,7 +1807,7 @@ h+='</div>';
 
 var delays=['ent3','ent4','ent5','ent5','ent5','ent5'];var di=0;
 if(se.learn&&se.learn.length){
-h+='<div class="pblk pblk-anim '+delays[di++]+'"><div class="plbl learn"><div class="pdot"></div>\u{1F4D6} LEARN</div><div class="phase-desc">Understand the key concepts</div>';
+h+='<div class="pblk pblk-anim '+delays[di++]+'"><div class="plbl learn"><div class="pdot"></div>\u{1F4D6} LEARN</div><div class="phase-desc">The core ideas you need before touching any AI tool</div>';
 se.learn.forEach(function(b,bi){h+=rBlock(b,a.c+'_'+a.s+'_'+bi,co.color)});h+='</div>';
 }
 if(se.gallery&&se.gallery.length){
@@ -1820,7 +1823,8 @@ h+='<div class="pblk pblk-anim '+delays[di++]+'"><div class="plbl quiz"><div cla
 se.quiz.forEach(function(q,qi){h+=bQ(q,a.c+'_'+a.s+'_'+qi)});h+='</div>';
 }
 var wk=a.c+'_'+a.s,wd=isHW(a.c,a.s);
-h+='<div class="pblk pblk-anim '+delays[di++]+'"><div class="plbl create"><div class="pdot"></div>\u{1F3A8} YOUR MISSION</div><div class="phase-desc">Apply what you learned \u2014 hands-on challenge</div>';
+if(se.quiz&&se.quiz.length){h+='<div style="text-align:center;padding:var(--sp-4) 0;color:var(--text-dim);font-size:var(--text-sm)">You nailed the theory. Now prove it for real. \u{1F447}</div>';}
+h+='<div class="pblk pblk-anim '+delays[di++]+'"><div class="plbl create"><div class="pdot"></div>\u{1F3A8} YOUR MISSION</div><div class="phase-desc">Time to create something real \u2014 hands-on challenge</div>';
 h+='<div class="hwb" style="border-color:'+co.color+'"><div class="hwt" style="color:'+co.color+'">\u{1F3AF} Your Challenge</div>';
 if(typeof se.hw==='object'){
 h+='<div class="hw-structured">';
@@ -1831,7 +1835,7 @@ h+='</div>';
 } else {h+='<div class="hwx">'+E(se.hw)+'</div>';}
 h+='<label class="hwc'+(wd?' dn':'')+'" id="hwl_'+wk+'"><input type="checkbox" '+(wd?'checked':'')+' onchange="shw(this,\''+wk+'\')">';
 h+='<span class="hwcl">'+(wd?'\u2713 Mission Complete!':'Mark as complete')+'</span></label>';
-h+='<div style="text-align:center;margin-top:14px;padding:14px;border:1px dashed rgba(251,191,36,.2);border-radius:12px;background:rgba(251,191,36,.03)"><div style="font-size:.82rem;color:#A49BC9;line-height:1.5">\u{1F4F8} Screenshot your best result and send to your teacher, then mark complete above</div></div>';
+h+='<div style="text-align:center;margin-top:14px;padding:14px;border:1px dashed rgba(245,166,35,.2);border-radius:var(--r-md);background:rgba(245,166,35,.03)"><div style="font-size:var(--text-sm);color:var(--text-mid);line-height:1.5">\u{1F4F8} Screenshot your best result \u2192 Send on Telegram to your teacher \u2192 Mark complete above \u2713</div></div>';
 h+='</div></div>';
 /* Lab recommendation for visual courses */
 var labMap={1:{3:'lighting',4:null},2:{1:'style',2:'camera',3:'product',4:'style'},3:{1:'style',4:null},4:{1:'product',2:'branding',3:null,4:null},5:{1:'branding',2:'branding',3:'social',4:'branding'}};
@@ -2028,11 +2032,12 @@ function sgf(v){_gf=v;rGal()}
 
 /* TOOLS */
 var TOOL_LEVELS={ChatGPT:'beginner',Claude:'beginner',Gemini:'beginner',Perplexity:'beginner','Google Flow':'beginner','Canva AI':'beginner',CapCut:'beginner',Gamma:'beginner','Pika Labs':'beginner','Remove.bg':'beginner',Midjourney:'pro',Flux:'pro','Adobe Firefly':'pro','Kling AI':'pro',Runway:'pro',Higgsfield:'pro','Luma Dream Machine':'pro',Suno:'beginner',ElevenLabs:'pro',Udio:'pro','Notion AI':'pro'};
+var TOOL_URLS={ChatGPT:'https://chat.openai.com',Claude:'https://claude.ai',Gemini:'https://gemini.google.com',Perplexity:'https://perplexity.ai','Notion AI':'https://notion.so','Google Flow':'https://labs.google.com/fx/tools/image-fx',Midjourney:'https://midjourney.com',Flux:'https://flux1.ai','Canva AI':'https://canva.com','Adobe Firefly':'https://firefly.adobe.com','Kling AI':'https://klingai.com',Runway:'https://runwayml.com',Higgsfield:'https://higgsfield.ai','Luma Dream Machine':'https://lumalabs.ai','Pika Labs':'https://pika.art',Suno:'https://suno.com',ElevenLabs:'https://elevenlabs.io',Udio:'https://udio.com',CapCut:'https://capcut.com',Gamma:'https://gamma.app','Remove.bg':'https://remove.bg'};
 function rTools(){
 var h='';TG.forEach(function(c){h+='<div class="tcat"><div class="tcattl">'+E(c.cat)+'</div><div class="tlist">';
-c.tools.forEach(function(t){var lv=TOOL_LEVELS[t.nm]||'';
+c.tools.forEach(function(t){var lv=TOOL_LEVELS[t.nm]||'';var url=TOOL_URLS[t.nm]||'';
 h+='<div class="titem" style="position:relative">'+(lv?'<span class="tool-level '+lv+'">'+(lv==='beginner'?'Start Here':'Pro')+'</span>':'');
-h+='<div class="ti-ic">'+t.ic+'</div><div class="ti-inf"><div class="ti-nm">'+E(t.nm)+'</div><div class="ti-ds">'+E(t.ds)+'</div><div style="display:flex;align-items:center;gap:6px;margin-top:4px"><span class="pbadge '+t.pr+'">'+t.pr+'</span>'+(t.url?'<a href="'+E(t.url)+'" target="_blank" rel="noopener" style="font-size:.7rem;color:var(--gold);font-weight:700;opacity:.7;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.7">Open \u2192</a>':'')+'</div></div></div>'});
+h+='<div class="ti-ic">'+t.ic+'</div><div class="ti-inf"><div class="ti-nm">'+E(t.nm)+'</div><div class="ti-ds">'+E(t.ds)+'</div><div style="display:flex;align-items:center;gap:var(--sp-2);margin-top:var(--sp-1)"><span class="pbadge '+t.pr+'">'+t.pr+'</span>'+(url?'<a href="'+url+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-size:var(--text-xs);color:var(--gold);font-weight:700">Open \u2192</a>':'')+'</div></div></div>'});
 h+='</div></div>'});$('toolWrap').innerHTML=h;
 }
 
@@ -2273,10 +2278,11 @@ h+='<div class="lib-cat"><div class="lib-cat-hd">'+cat.icon+' '+E(cat.cat)+'</di
 cat.prompts.forEach(function(p,i){
 var uid='lp_'+cat.cat.replace(/\s+/g,'_')+'_'+i;
 var preview=p.text.length>80?p.text.substring(0,80)+'...':p.text;
-h+='<div class="lib-item" id="li_'+uid+'">';
-h+='<div class="lib-item-top"><div class="lib-item-title">'+E(p.title)+'</div><div style="display:flex;gap:6px;align-items:center"><span class="tbadge">'+E(p.tool)+'</span><button class="btn-xs btn-outline" onclick="event.stopPropagation();cpyPrompt(\''+uid+'\')" style="font-size:.7rem">\u{1F4CB} Copy</button></div></div>';
-h+='<div class="lib-item-text" id="'+uid+'" style="cursor:pointer" onclick="toggleLibItem(\''+uid+'\')">'+E(preview)+'</div>';
-h+='<div class="lib-full" id="full_'+uid+'" style="display:none"><div style="font-family:\'Courier New\',monospace;font-size:.82rem;line-height:1.5;color:var(--text);padding:12px;background:rgba(0,0,0,.2);border-radius:8px;margin-top:8px;white-space:pre-wrap">'+E(p.text)+'</div></div>';
+h+='<div class="lib-item" id="li_'+uid+'" onclick="toggleLibItem(\''+uid+'\')" style="cursor:pointer">';
+h+='<div class="lib-item-top"><div class="lib-item-title">'+E(p.title)+'</div><div style="display:flex;gap:6px;align-items:center"><span class="tbadge">'+E(p.tool)+'</span><button class="btn-xs btn-outline" onclick="event.stopPropagation();cpyPrompt(\''+uid+'\')" style="font-size:var(--text-xs)">\u{1F4CB} Copy</button></div></div>';
+h+='<div class="lib-item-text" id="'+uid+'">'+E(preview)+'</div>';
+h+='<div class="lib-full" id="full_'+uid+'" style="display:none"><div style="font-family:\'Courier New\',monospace;font-size:var(--text-sm);line-height:1.5;color:var(--text);padding:var(--sp-3);background:rgba(0,0,0,.2);border-radius:var(--r-sm);margin-top:var(--sp-2);white-space:pre-wrap">'+E(p.text)+'</div></div>';
+h+='<div class="lib-expand-hint" style="font-size:var(--text-xs);color:var(--text-dim);margin-top:var(--sp-2)">\u{1F449} Click to read full prompt</div>';
 h+='</div>';
 });
 h+='</div></div>';
