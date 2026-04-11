@@ -541,6 +541,25 @@ input,textarea,select{font-family:inherit}
 .snode-line{flex:1;height:2px;min-width:8px;background:rgba(245,237,228,.07);border-radius:1px}
 .snode-line.sn-ldone{background:var(--cc,var(--gold));opacity:.4}
 
+/* ═══ SESSION LIST ═══ */
+.sess-list{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.sess-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:all .2s}
+.sess-item:hover{background:rgba(255,255,255,.05);transform:translateX(4px)}
+.sess-item.sl-active{background:linear-gradient(135deg,rgba(251,191,36,.08) 0%,rgba(255,255,255,.03) 100%);border-color:var(--cc,var(--gold));box-shadow:0 0 0 1px rgba(251,191,36,.15)}
+.sess-item.sl-done{opacity:.7}
+.sess-item.sl-done:hover{opacity:.9}
+.sess-item.sl-locked{opacity:.35;cursor:default;pointer-events:none}
+.sess-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;flex-shrink:0;border:2px solid transparent}
+.sl-active .sess-num{background:var(--cc,var(--gold));color:#1a1714;border-color:var(--cc,var(--gold))}
+.sl-open .sess-num{background:transparent;border-color:var(--cc,var(--gold));color:var(--cc,var(--gold))}
+.sl-done .sess-num{background:var(--cc,var(--gold));color:#1a1714}
+.sl-locked .sess-num{border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.2)}
+.sess-info{flex:1;min-width:0}
+.sess-title{font-size:.88rem;font-weight:700;color:var(--text)}
+.sess-tools{font-size:.72rem;color:var(--text-dim);margin-top:2px}
+.sess-lock{font-size:.75rem;flex-shrink:0}
+.sess-badge{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;padding:3px 8px;border-radius:6px;background:rgba(251,191,36,.12);color:var(--gold);flex-shrink:0}
+
 /* ═══ UPGRADED COURSE HEADER ═══ */
 .chdr2{border-radius:18px;padding:28px 24px 20px;margin-bottom:22px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.08);min-height:120px}
 .chdr2-bg{position:absolute;inset:0;background:linear-gradient(135deg,color-mix(in srgb,var(--cc) 20%,#0F0E18 80%),color-mix(in srgb,var(--cc) 6%,#0F0E18 94%));z-index:0}
@@ -1583,7 +1602,7 @@ function gU(){var u=LS('unlocks')||{};var changed=false;C.forEach(function(c){va
 function isU(ci,n){if(_r==='teacher')return true;return n<=(gU()[ci]||1)}
 function isHW(ci,n){return!!LS('hw_'+ci+'_'+n)}
 function gA(){return{c:LS('activeCourse')||1,s:LS('activeSession')||1}}
-function selSess(ci,n){if(!isU(ci,n)){toast('\u{1F512} Complete previous sessions first','err');return}LS('activeCourse',ci);LS('activeSession',n);rLearn()}
+function selSess(ci,n){if(!isU(ci,n)){toast('\u{1F512} Complete previous sessions first','err');return}LS('activeCourse',ci);LS('activeSession',n);window.scrollTo(0,0);rLearn()}
 
 /* LEARNING PATH */
 function rCourseGrid(){
@@ -1656,7 +1675,7 @@ return h;
 function selCourse(ci){
 var co=C.find(function(c){return c.id===ci});if(!co)return;
 var u=gU(),mx=u[ci]||1;
-LS('activeCourse',ci);LS('activeSession',mx);rLearn();
+LS('activeCourse',ci);LS('activeSession',mx);window.scrollTo(0,0);rLearn();
 }
 /* keep rPath as alias */
 function rPath(){return rCourseGrid()}
@@ -1690,15 +1709,18 @@ h+='<div class="chdr2-prog"><div class="chdr2-prog-bar"><div class="chdr2-prog-f
 h+='<div class="chdr2-prog-lbl">'+dn+' / '+co.sessions.length+'</div></div>';
 h+='</div>';
 
-/* ── Session node strip ── */
-h+='<div class="snode-row ent ent1" style="--cc:'+co.color+'">';
+/* ── Session list (clear with titles) ── */
+h+='<div class="sess-list ent ent1" style="--cc:'+co.color+'">';
 co.sessions.forEach(function(s,i){
 var mx=u[co.id]||1,hw=isHW(co.id,s.n),ic=(s.n===a.s),op=s.n<=mx;
-var st=!op?'sn-lk':(hw?'sn-done':(ic?'sn-cur':'sn-open'));
-if(i>0)h+='<div class="snode-line'+(hw?' sn-ldone':'')+'"></div>';
-h+='<div class="snode '+st+'" title="'+E(s.titleEn)+'"'+(op?' onclick="selSess('+co.id+','+s.n+')"':'')+' style="--cc:'+co.color+'">';
-h+='<span class="sn-n">'+s.n+'</span>';
-if(!op)h+='<span style="font-size:.5rem;position:absolute;bottom:-1px;right:-1px">\u{1F512}</span>';
+var st=!op?'sl-locked':(hw?'sl-done':(ic?'sl-active':'sl-open'));
+h+='<div class="sess-item '+st+'"'+(op?' onclick="selSess('+co.id+','+s.n+')"':'')+' style="--cc:'+co.color+'">';
+h+='<div class="sess-num">'+(hw?'\u2713':s.n)+'</div>';
+h+='<div class="sess-info"><div class="sess-title">'+E(s.titleEn)+'</div>';
+if(s.tools)h+='<div class="sess-tools">'+E(s.tools)+'</div>';
+h+='</div>';
+if(!op)h+='<div class="sess-lock">\u{1F512}</div>';
+if(ic)h+='<div class="sess-badge">Current</div>';
 h+='</div>';
 });h+='</div>';
 
@@ -1753,6 +1775,12 @@ h+='<label class="hwc'+(wd?' dn':'')+'" id="hwl_'+wk+'"><input type="checkbox" '
 h+='<span class="hwcl">'+(wd?'\u2713 Mission Complete!':'Mark as complete')+'</span></label>';
 h+='<div style="text-align:center;margin-top:14px;padding:14px;border:1px dashed rgba(251,191,36,.2);border-radius:12px;background:rgba(251,191,36,.03)"><div style="font-size:.82rem;color:#A49BC9;line-height:1.5">\u{1F4F8} Screenshot your best result and send to your teacher, then mark complete above</div></div>';
 h+='</div></div>';
+/* Lab recommendation for visual courses */
+var labMap={1:{3:'lighting',4:null},2:{1:'style',2:'camera',3:'product',4:'style'},3:{1:'style',4:null},4:{1:'product',2:'branding',3:null,4:null},5:{1:'branding',2:'branding',3:'social',4:'branding'}};
+var labCat=labMap[a.c]&&labMap[a.c][a.s];
+if(labCat){
+h+='<div style="margin-top:18px;text-align:center"><button class="btn btn-outline" onclick="sw(\'secLab\');setTimeout(function(){swLab(\''+labCat+'\')},100)" style="font-size:.82rem">\u{1F9EA} Practice in Prompt Lab: '+LAB[labCat].title+' \u2192</button></div>';
+}
 /* Next session teaser */
 var si=co.sessions.indexOf(se),nxSe=null,nxCo=null;
 if(si<co.sessions.length-1){nxSe=co.sessions[si+1];nxCo=co}
