@@ -90,14 +90,14 @@ input,textarea,select{font-family:inherit}
 .nav-links a:hover .nav-hint{opacity:.9}
 .nav-links a.active .nav-hint{opacity:1;color:var(--gold)}
 .nav-links a:hover{color:var(--text);background:rgba(255,255,255,.05);text-decoration:none}
-.nav-links a.active{color:var(--gold);background:rgba(245,158,11,.08);text-decoration:none}
-.nav-links a.active::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:2px;background:var(--gold);border-radius:2px}
+.nav-links a.active{color:var(--gold);background:rgba(245,158,11,.12);text-decoration:none;font-weight:700}
+.nav-links a.active::after{content:'';position:absolute;bottom:0;left:12%;right:12%;height:3px;background:var(--gold);border-radius:2px;box-shadow:0 0 8px rgba(245,158,11,.4)}
 .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .role-badge{font-size:.6875rem;font-weight:700;padding:4px 10px;border-radius:8px;text-transform:uppercase;letter-spacing:.8px}
 .role-badge.student{background:var(--gold-dim);color:var(--gold)}
 .role-badge.teacher{background:rgba(79,206,124,.15);color:var(--success)}
-.logout-btn{background:none;border:none;color:var(--text-dim);font-size:.76rem;cursor:pointer;padding:4px 8px;border-radius:6px;transition:all .2s}
-.logout-btn:hover{color:var(--danger);background:rgba(240,82,82,.1)}
+.logout-btn{background:none;border:1px solid rgba(48,54,61,.7);color:var(--text-dim);font-size:.72rem;cursor:pointer;padding:5px 10px;border-radius:8px;transition:all .2s;display:inline-flex;align-items:center;gap:4px;font-family:inherit;font-weight:600;letter-spacing:.2px}
+.logout-btn:hover{color:var(--danger);background:rgba(240,82,82,.08);border-color:rgba(240,82,82,.3)}
 .teacher-only{display:none}
 
 /* LAYOUT */
@@ -484,7 +484,11 @@ input,textarea,select{font-family:inherit}
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  .portal-nav .nav-links{display:none}
+  /* Keep top nav visible but compact — shows all tabs via scroll */
+  .portal-nav .nav-links{display:flex;font-size:.65rem}
+  .nav-links a{padding:5px 8px;font-size:.65rem}
+  .nav-links a .nav-hint{display:none}
+  /* Bottom nav shows the 4 primary tabs for quick access */
   .bnav{display:block}
   .container{padding:16px 14px 140px}
   .stitle{font-size:1.1rem}
@@ -1048,7 +1052,7 @@ input,textarea,select{font-family:inherit}
     <div class="nav-links" id="navLinks"></div>
     <div class="nav-right">
       <span class="role-badge" id="roleBadge"></span>
-      <button class="logout-btn" onclick="doLogout()" title="Log out">&#10005; Log out</button>
+      <button class="logout-btn" onclick="doLogout()" title="Log out">Log out →</button>
     </div>
   </div></nav>
   <div class="container" id="mainContent">
@@ -1813,13 +1817,25 @@ dots.forEach(function(d,i){d.classList.toggle('active',i===cur)});
 },{passive:true})}
 
 /* NAV */
-var TABS=[{id:'secLearn',l:'Learn',ic:'\u{1F4D6}',h:'courses'},{id:'secGallery',l:'Gallery',ic:'\u{1F5BC}',h:'prompt results'},{id:'secTools',l:'Tools',ic:'\u{1F527}',h:'apps'},{id:'secLab',l:'Lab',ic:'\u{1F9EA}',h:'prompt practice'},{id:'secLibrary',l:'Library',ic:'\u{1F4DA}',h:'prompts'},{id:'secProgress',l:'Progress',ic:'\u{1F4CA}',h:'stats'},{id:'secTeach',l:'Teach',ic:'\u{1F393}',t:1}];
+/* mob:true = show in bottom nav; false = desktop only */
+var TABS=[
+  {id:'secLearn',   l:'Learn',    ic:'\u{1F4D6}',h:'courses',       mob:true},
+  {id:'secGallery', l:'Gallery',  ic:'\u{1F5BC}',h:'prompt results', mob:true},
+  {id:'secTools',   l:'Tools',    ic:'\u{1F527}',h:'apps',           mob:false},
+  {id:'secLab',     l:'Lab',      ic:'\u{1F9EA}',h:'practice',       mob:true},
+  {id:'secLibrary', l:'Library',  ic:'\u{1F4DA}',h:'prompts',        mob:false},
+  {id:'secProgress',l:'Progress', ic:'\u{1F4CA}',h:'stats',          mob:true},
+  {id:'secTeach',   l:'Teach',    ic:'\u{1F393}',                     mob:true, t:1}
+];
 function bNav(){
 var rb=$('roleBadge');rb.textContent=_r==='teacher'?'Teacher':'Student';rb.className='role-badge '+(_r==='teacher'?'teacher':'student');
 if(_r==='teacher')document.querySelectorAll('.teacher-only').forEach(function(el){el.style.display='block'});
 var nl=$('navLinks'),bn=$('bnI');nl.innerHTML='';bn.innerHTML='';
 TABS.forEach(function(t){if(t.t&&_r!=='teacher')return;
+/* Desktop top nav — all tabs */
 var a=document.createElement('a');a.innerHTML=t.l+(t.h?'<span class="nav-hint">'+t.h+'</span>':'');a.dataset.tab=t.id;a.onclick=function(){sw(t.id)};nl.appendChild(a);
+/* Mobile bottom nav — only mob:true tabs */
+if(!t.mob)return;
 var b=document.createElement('a');b.innerHTML='<span class="bnico">'+t.ic+'</span>'+t.l;b.dataset.tab=t.id;b.onclick=function(){sw(t.id)};bn.appendChild(b);
 });
 }
