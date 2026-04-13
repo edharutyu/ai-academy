@@ -10,10 +10,10 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   /* Colors — 8-color system */
-  --bg:#0D1117;--bg2:#161B22;--bg3:#21262D;
+  --bg:#13151A;--bg2:#1C2030;--bg3:#252A3A;
   --gold:#F59E0B;--gold-dim:rgba(245,158,11,.12);--gold-glow:rgba(245,158,11,.4);
-  --text:#E6EDF3;--text-dim:#6B7280;--text-mid:#B1BAC4;--text-muted:#8B949E;
-  --card:#161B22;--card-border:rgba(48,54,61,.8);
+  --text:#ECEEF2;--text-dim:#6B7280;--text-mid:#9BA3AF;--text-muted:#8B949E;
+  --card:#1C2030;--card-border:rgba(48,54,61,.8);
   --danger:#F85149;--success:#3FB950;--radius:12px;
   --purple:#3B82F6;--red:#F85149;--green:#3FB950;--blue:#3B82F6;
   --accent2:#3B82F6;--accent3:#58A6FF;
@@ -44,18 +44,11 @@ body::after{content:'';position:fixed;bottom:0;left:0;width:400px;height:400px;b
 @keyframes pulse-dot{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.7;transform:scale(1.4)}}
 @keyframes dash-flow{to{stroke-dashoffset:-24}}
 
-/* CSS "neural" decoration — fixed top-right corner */
-.css-deco{position:fixed;top:70px;right:0;width:320px;height:320px;pointer-events:none;z-index:0;opacity:.35}
-.css-deco svg{width:100%;height:100%}
-
-/* Floating shapes behind sections */
-.css-shape{position:absolute;pointer-events:none;border-radius:50%;z-index:0}
-.shape-a{width:180px;height:180px;border:1px solid rgba(245,158,11,.06);border-radius:50%;top:-40px;right:-40px;animation:floatA 12s ease-in-out infinite}
-.shape-b{width:100px;height:100px;border:1px solid rgba(59,130,246,.07);border-radius:12px;bottom:-30px;left:-20px;animation:floatC 9s ease-in-out infinite}
-.shape-c{width:60px;height:60px;background:rgba(245,158,11,.03);border:1px solid rgba(245,158,11,.08);border-radius:50%;top:30%;right:5%;animation:floatB 7s ease-in-out infinite}
+/* CSS "neural" decoration — removed */
+/* Floating shapes — removed */
 
 /* Section decoration dots */
-.sec-dots{position:absolute;top:16px;right:20px;display:flex;gap:5px;z-index:1}
+.sec-dots{position:absolute;top:16px;right:20px;display:none;gap:5px;z-index:1}
 .sec-dot{width:6px;height:6px;border-radius:50%;background:var(--sec-color1,var(--gold));opacity:.35}
 .sec-dot:nth-child(2){opacity:.2}
 .sec-dot:nth-child(3){opacity:.1}
@@ -94,15 +87,15 @@ input,textarea,select{font-family:inherit}
 
 /* NAV */
 #portal{display:none;position:relative;z-index:1}
-#portal::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
 .portal-nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.96);backdrop-filter:blur(28px) saturate(1.3);-webkit-backdrop-filter:blur(28px) saturate(1.3);border-bottom:1px solid rgba(48,54,61,.6)}
 .portal-nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 28px;gap:12px}
 .portal-nav .logo{font-weight:800;font-size:1rem;white-space:nowrap;font-family:'Syne',sans-serif;letter-spacing:-.3px;background:linear-gradient(135deg,#58A6FF 0%,#F59E0B 50%,#FCD34D 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .nav-links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1}
 .nav-links::-webkit-scrollbar{display:none}
 .nav-links a{padding:10px 16px;border-radius:10px;font-size:.75rem;font-weight:600;color:var(--text-muted);white-space:nowrap;transition:all .2s;cursor:pointer;border:none;background:none;display:inline-flex;flex-direction:column;align-items:center;gap:1px;letter-spacing:.2px;position:relative}
-.nav-links a .nav-hint{font-size:.5rem;color:var(--text-dim);opacity:0;transition:opacity .2s;font-weight:400;letter-spacing:0}
-.nav-links a:hover .nav-hint,.nav-links a.active .nav-hint{opacity:.7}
+.nav-links a .nav-hint{font-size:.52rem;color:var(--text-dim);opacity:.55;font-weight:500;letter-spacing:.2px}
+.nav-links a:hover .nav-hint{opacity:.9}
+.nav-links a.active .nav-hint{opacity:1;color:var(--gold)}
 .nav-links a:hover{color:var(--text);background:rgba(255,255,255,.05);text-decoration:none}
 .nav-links a.active{color:var(--gold);background:rgba(245,158,11,.08);text-decoration:none}
 .nav-links a.active::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:2px;background:var(--gold);border-radius:2px}
@@ -121,7 +114,7 @@ input,textarea,select{font-family:inherit}
 
 /* LEARNING PATH */
 .path-strip{background:linear-gradient(145deg,rgba(22,27,34,.9) 0%,rgba(22,27,34,.7) 100%);border:1px solid rgba(48,54,61,.5);border-radius:var(--radius);padding:18px 20px;margin-bottom:24px;backdrop-filter:blur(8px)}
-.path-strip-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:14px}
+.path-strip-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:14px}
 .path-row{display:flex;align-items:center;gap:0;margin-bottom:8px}
 .path-row:last-child{margin-bottom:0}
 .path-lbl{flex-shrink:0;width:72px;font-size:.6875rem;font-weight:700;color:var(--text-dim);text-align:right;padding-right:10px;line-height:1.3}
@@ -143,7 +136,7 @@ input,textarea,select{font-family:inherit}
 /* COURSE HEADER */
 .chdr{border-radius:var(--radius);padding:22px;margin-bottom:20px;position:relative;overflow:hidden}
 .chdr-icon{font-size:2rem;margin-bottom:6px;display:block}
-.chdr-label{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:.7;margin-bottom:4px}
+.chdr-label{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:.7;margin-bottom:4px}
 .chdr h2{font-size:1.3rem;font-weight:800;margin-bottom:2px}
 .chdr-sub{font-size:.82rem;opacity:.7;margin-bottom:14px}
 .cprog{display:flex;align-items:center;gap:10px}
@@ -208,7 +201,7 @@ input,textarea,select{font-family:inherit}
 .mcg{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
 .mc{background:linear-gradient(145deg,rgba(22,27,34,.9) 0%,rgba(25,22,42,.7) 100%);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;transition:all .3s;position:relative;overflow:hidden}
 .mc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--purple));opacity:.4;transition:opacity .3s}
-.mc:hover{border-color:rgba(48,54,61,.9);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.mc:hover{border-color:rgba(48,54,61,.9);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.4);cursor:pointer}
 .mc:hover::before{opacity:.8}
 .mc-ic{font-size:1.7rem;margin-bottom:8px}
 .mc-nm{font-size:.86rem;font-weight:700;margin-bottom:6px}
@@ -538,8 +531,8 @@ input,textarea,select{font-family:inherit}
 /* ═══ COURSE GRID ═══ */
 .cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:16px;margin-bottom:32px}
 .cc{background:var(--bg2);border:1px solid var(--card-border);border-radius:var(--r-lg);padding:0 0 var(--sp-4);cursor:pointer;transition:transform var(--dur-norm) var(--ease),box-shadow var(--dur-norm) var(--ease),border-color var(--dur-norm) var(--ease);position:relative;overflow:hidden}
-.cc:hover:not(.cc-act){transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.5);border-color:rgba(48,54,61,1)}
-.cc.cc-act{border:1px solid rgba(245,158,11,.35);background:var(--bg2);transform:translateY(-2px);opacity:1;box-shadow:0 16px 40px rgba(0,0,0,.5);border-top:3px solid var(--gold)}
+.cc:hover:not(.cc-act){transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.5);border-color:rgba(88,166,255,.25);cursor:pointer}
+.cc.cc-act{border:1px solid rgba(245,158,11,.35);background:var(--bg2);transform:translateY(-2px);opacity:1;box-shadow:0 16px 40px rgba(0,0,0,.5);border-top:4px solid var(--gold)}
 @keyframes activeCardGlow{0%,100%{box-shadow:0 24px 56px rgba(0,0,0,.6),0 0 48px rgba(251,191,36,.08)}50%{box-shadow:0 24px 56px rgba(0,0,0,.6),0 0 64px rgba(251,191,36,.15)}}
 @keyframes borderSpin{to{--border-angle:360deg}}
 @property --border-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
@@ -548,7 +541,7 @@ input,textarea,select{font-family:inherit}
 @keyframes pulseGlow{0%,100%{opacity:.9}50%{opacity:1;box-shadow:0 0 12px rgba(88,166,255,.25)}}
 .cc-shine{position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(ellipse at 100% 0%,var(--cc) 0%,transparent 70%);opacity:.04;pointer-events:none;border-radius:inherit;transition:opacity .3s ease}
 .cc:hover .cc-shine{opacity:.08}
-.cc-bar{height:4px;background:var(--cc);transition:all .3s ease;margin-bottom:20px;border-radius:20px 20px 0 0;position:relative;overflow:hidden}
+.cc-bar{height:3px;background:var(--cc);opacity:.6;transition:all .3s ease;margin-bottom:20px;border-radius:20px 20px 0 0;position:relative;overflow:hidden}
 .cc-bar::before{display:none}
 .cc-bar::after{display:none}
 .cc:hover .cc-bar,.cc.cc-act .cc-bar{height:5px}
@@ -686,7 +679,7 @@ input,textarea,select{font-family:inherit}
 .grad-text{background:linear-gradient(135deg,#F59E0B 0%,#FCD34D 50%,#D97706 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
 /* ═══ SECTION HEADERS ═══ */
-.sec-hdr{margin-bottom:28px;padding:22px 28px 20px;border-radius:var(--r-lg);position:relative;overflow:hidden;background:var(--bg2);border:1px solid rgba(48,54,61,.7);border-left:3px solid var(--sec-color1,var(--gold))}
+.sec-hdr{margin-bottom:24px;padding:0 0 16px;border-radius:0;position:relative;overflow:hidden;background:transparent;border:none;border-bottom:1px solid rgba(48,54,61,.5)}
 .sec-hdr::before{display:none}
 .sec-hdr::after{display:none}
 
@@ -1027,44 +1020,6 @@ input,textarea,select{font-family:inherit}
     <div style="font-size:.75rem;color:#A49BC9;margin-top:12px">Check your Telegram or email from your teacher</div>
   </div>
 </div>
-<!-- CSS Neural Decoration -->
-<div class="css-deco" aria-hidden="true">
-<svg viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Connecting lines -->
-  <line x1="240" y1="40" x2="180" y2="100" stroke="rgba(245,158,11,.12)" stroke-width="1" stroke-dasharray="4 6">
-    <animate attributeName="stroke-dashoffset" values="0;-10" dur="3s" repeatCount="indefinite"/>
-  </line>
-  <line x1="180" y1="100" x2="260" y2="160" stroke="rgba(59,130,246,.1)" stroke-width="1" stroke-dasharray="4 6">
-    <animate attributeName="stroke-dashoffset" values="0;-10" dur="4s" repeatCount="indefinite"/>
-  </line>
-  <line x1="260" y1="160" x2="200" y2="220" stroke="rgba(245,158,11,.08)" stroke-width="1" stroke-dasharray="4 6">
-    <animate attributeName="stroke-dashoffset" values="0;-10" dur="3.5s" repeatCount="indefinite"/>
-  </line>
-  <line x1="180" y1="100" x2="140" y2="170" stroke="rgba(59,130,246,.08)" stroke-width="1" stroke-dasharray="3 7"/>
-  <line x1="140" y1="170" x2="200" y2="220" stroke="rgba(245,158,11,.07)" stroke-width="1" stroke-dasharray="3 7"/>
-  <line x1="260" y1="160" x2="300" y2="240" stroke="rgba(255,255,255,.05)" stroke-width="1" stroke-dasharray="3 7"/>
-  <!-- Nodes -->
-  <circle cx="240" cy="40" r="4" fill="rgba(245,158,11,.4)">
-    <animate attributeName="opacity" values=".4;.8;.4" dur="2s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="240" cy="40" r="8" fill="none" stroke="rgba(245,158,11,.15)" stroke-width="1"/>
-  <circle cx="180" cy="100" r="5" fill="rgba(59,130,246,.35)">
-    <animate attributeName="opacity" values=".35;.7;.35" dur="2.5s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="180" cy="100" r="10" fill="none" stroke="rgba(59,130,246,.1)" stroke-width="1"/>
-  <circle cx="260" cy="160" r="4" fill="rgba(245,158,11,.3)">
-    <animate attributeName="opacity" values=".3;.65;.3" dur="3s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="140" cy="170" r="3" fill="rgba(255,255,255,.2)"/>
-  <circle cx="200" cy="220" r="4" fill="rgba(59,130,246,.25)">
-    <animate attributeName="opacity" values=".25;.55;.25" dur="2.8s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="300" cy="240" r="3" fill="rgba(245,158,11,.2)"/>
-  <!-- Small decorative ring -->
-  <circle cx="290" cy="80" r="20" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
-  <circle cx="290" cy="80" r="30" fill="none" stroke="rgba(255,255,255,.02)" stroke-width="1"/>
-</svg>
-</div>
 
 <div id="portal">
   <nav class="portal-nav"><div class="portal-nav-inner">
@@ -1072,7 +1027,7 @@ input,textarea,select{font-family:inherit}
     <div class="nav-links" id="navLinks"></div>
     <div class="nav-right">
       <span class="role-badge" id="roleBadge"></span>
-      <button class="logout-btn" onclick="doLogout()">&#10005;</button>
+      <button class="logout-btn" onclick="doLogout()" title="Log out">&#10005; Log out</button>
     </div>
   </div></nav>
   <div class="container" id="mainContent">
@@ -1837,7 +1792,7 @@ dots.forEach(function(d,i){d.classList.toggle('active',i===cur)});
 },{passive:true})}
 
 /* NAV */
-var TABS=[{id:'secLearn',l:'Learn',ic:'\u{1F4D6}',h:'courses'},{id:'secGallery',l:'Gallery',ic:'\u{1F5BC}',h:'examples'},{id:'secTools',l:'Tools',ic:'\u{1F527}',h:'apps'},{id:'secLab',l:'Lab',ic:'\u{1F9EA}',h:'practice'},{id:'secLibrary',l:'Library',ic:'\u{1F4DA}',h:'prompts'},{id:'secProgress',l:'Progress',ic:'\u{1F4CA}',h:'stats'},{id:'secTeach',l:'Teach',ic:'\u{1F393}',t:1}];
+var TABS=[{id:'secLearn',l:'Learn',ic:'\u{1F4D6}',h:'courses'},{id:'secGallery',l:'Gallery',ic:'\u{1F5BC}',h:'prompt results'},{id:'secTools',l:'Tools',ic:'\u{1F527}',h:'apps'},{id:'secLab',l:'Lab',ic:'\u{1F9EA}',h:'prompt practice'},{id:'secLibrary',l:'Library',ic:'\u{1F4DA}',h:'prompts'},{id:'secProgress',l:'Progress',ic:'\u{1F4CA}',h:'stats'},{id:'secTeach',l:'Teach',ic:'\u{1F393}',t:1}];
 function bNav(){
 var rb=$('roleBadge');rb.textContent=_r==='teacher'?'Teacher':'Student';rb.className='role-badge '+(_r==='teacher'?'teacher':'student');
 if(_r==='teacher')document.querySelectorAll('.teacher-only').forEach(function(el){el.style.display='block'});
@@ -2583,8 +2538,9 @@ C.forEach(function(c){c.sessions.forEach(function(s){ts++;if(isHW(c.id,s.n))ds++
 var pp=ts?Math.round(ds/ts*100):0;
 if(ds===0){
 h+='<div class="prog-empty"><span class="prog-empty-icon">\u{1F680}</span>';
-h+='<div class="prog-empty-title">Your journey starts now!</div>';
-h+='<div class="prog-empty-desc">Complete your first session to see your progress here.<br>Each session has 5 phases: Learn \u2192 See \u2192 Try \u2192 Quiz \u2192 Mission</div>';
+h+='<div class="prog-empty-title">0 of '+ts+' sessions complete</div>';
+h+='<div class="prog-empty-desc">Your journey starts with one click</div>';
+h+='<div style="max-width:320px;margin:0 auto 18px;background:rgba(245,237,228,.06);border-radius:8px;height:8px;overflow:hidden"><div style="height:100%;width:0%;background:var(--gold);border-radius:8px"></div></div>';
 h+='<button class="btn" onclick="sw(\'secLearn\')">Start Learning \u2192</button></div>';
 }
 h+='<div class="psr"><div class="ps"><div class="psn">'+ds+'</div><div class="psl">Sessions Complete</div></div><div class="ps"><div class="psn">'+ts+'</div><div class="psl">Total Sessions</div></div><div class="ps"><div class="psn">'+pp+'%</div><div class="psl">Overall Progress</div></div><div class="ps"><div class="psn">'+C.length+'</div><div class="psl">Courses Available</div></div></div>';
@@ -2605,7 +2561,10 @@ var badges=[
 {ic:'\u{1F511}',nm:'Prompt Master',ds:'Complete Course 1',ch:function(){return C[0].sessions.every(function(s){return isHW(1,s.n)})}},
 {ic:'\u{1F48E}',nm:'Creative Pro',ds:'Courses 1 & 2 done',ch:function(){return C[0].sessions.every(function(s){return isHW(1,s.n)})&&C[1].sessions.every(function(s){return isHW(2,s.n)})}}
 ];
-h+='<div class="slbl">Achievements</div><div class="bgrid">';
+var anyEarned=badges.some(function(b){return b.ch()});
+h+='<div class="slbl">Achievements</div>';
+if(!anyEarned&&ds===0){h+='<div style="font-size:.82rem;color:var(--text-dim);padding:12px 0 18px;line-height:1.5">Complete your first session to earn your first badge \u{1F3C5}</div>';}
+h+='<div class="bgrid">';
 badges.forEach(function(b){var e=b.ch();h+='<div class="bcard '+(e?'earned':'lkb')+'"><div class="bic">'+b.ic+'</div><div><div class="bnm">'+E(b.nm)+'</div><div class="bds">'+E(b.ds)+'</div></div></div>'});
 h+='</div>';
 h+='<div class="slbl">Homework</div>';
