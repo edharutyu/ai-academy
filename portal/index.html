@@ -170,6 +170,15 @@ input,textarea,select{font-family:inherit}
 .pblk.phase-active{display:block}
 .pblk:first-child{border-top:none;padding-top:0}
 
+/* Phase prev/next navigation */
+.phase-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:32px;padding-top:20px;border-top:1px solid rgba(48,54,61,.4)}
+.phase-nav-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;border:1px solid rgba(48,54,61,.7);background:var(--bg2);color:var(--text-mid);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.phase-nav-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
+.phase-nav-btn.primary{background:var(--gold);color:#0D1117;border-color:var(--gold)}
+.phase-nav-btn.primary:hover{background:#ffb940;box-shadow:0 4px 16px rgba(245,158,11,.25)}
+.phase-nav-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
+.phase-nav-spacer{flex:1}
+
 /* PHASE LABELS */
 .plbl{display:flex;align-items:center;gap:10px;padding:10px 20px;border-radius:12px;font-size:.75rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;position:relative}
 .plbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,currentColor,transparent);opacity:.15;margin-left:8px}
@@ -215,7 +224,7 @@ input,textarea,select{font-family:inherit}
 
 /* METHOD COMPARE */
 .mcg{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-.mc{background:linear-gradient(145deg,rgba(22,27,34,.9) 0%,rgba(25,22,42,.7) 100%);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;transition:all .3s;position:relative;overflow:hidden}
+.mc{background:linear-gradient(145deg,rgba(22,27,34,.9) 0%,rgba(28,33,48,.7) 100%);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;transition:all .3s;position:relative;overflow:hidden}
 .mc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--purple));opacity:.4;transition:opacity .3s}
 .mc:hover{border-color:rgba(48,54,61,.9);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.4);cursor:pointer}
 .mc:hover::before{opacity:.8}
@@ -249,7 +258,7 @@ input,textarea,select{font-family:inherit}
 
 /* RECIPE STEPS */
 .rsteps{display:flex;flex-direction:column;gap:9px}
-.rstep{background:linear-gradient(145deg,rgba(22,27,34,.9) 0%,rgba(25,22,42,.75) 100%);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;transition:all .2s}
+.rstep{background:linear-gradient(145deg,rgba(22,27,34,.9) 0%,rgba(28,33,48,.75) 100%);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;transition:all .2s}
 .rstep:hover{border-color:rgba(52,211,153,.15);box-shadow:0 4px 16px rgba(0,0,0,.2)}
 .rstep.open{border-color:rgba(52,211,153,.2);background:linear-gradient(145deg,rgba(22,27,34,.97) 0%,rgba(52,211,153,.03) 100%)}
 .rsh{display:flex;align-items:center;gap:14px;padding:15px 20px;cursor:pointer;transition:background .2s;user-select:none}
@@ -362,7 +371,7 @@ input,textarea,select{font-family:inherit}
 .lib-cat{margin-bottom:32px}
 .lib-cat-hd{font-size:1rem;font-weight:800;color:var(--gold);margin-bottom:14px;padding:10px 16px;background:rgba(251,191,36,.06);border-radius:var(--r-md);border-left:3px solid var(--gold);font-family:'Syne',sans-serif}
 .lib-prompts{display:grid;gap:10px}
-.lib-item{background:linear-gradient(145deg,rgba(22,27,34,.9),rgba(30,25,50,.6));border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.lib-item{background:var(--bg2);border:1px solid rgba(48,54,61,.6);border-radius:12px;padding:16px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
 .lib-item::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold);opacity:0;transition:opacity .2s}
 .lib-item:hover{border-color:rgba(251,191,36,.2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
 .lib-item:hover::before{opacity:1}
@@ -389,10 +398,11 @@ input,textarea,select{font-family:inherit}
 .pcrb{background:rgba(245,237,228,.06);border-radius:8px;height:5px;overflow:hidden;margin-bottom:10px}
 .pcrf{height:100%;border-radius:8px;transition:width .6s ease}
 .pcsess{display:flex;flex-wrap:wrap;gap:5px}
-.pcs{padding:3px 10px;border-radius:7px;font-size:.66rem;font-weight:600;border:1px solid var(--card-border);color:var(--text-dim)}
-.pcs.done{background:rgba(90,173,106,.1);border-color:rgba(90,173,106,.25);color:var(--success)}
+.pcs{padding:4px 10px;border-radius:7px;font-size:.66rem;font-weight:600;border:1px solid var(--card-border);color:var(--text-dim);transition:all .2s;white-space:nowrap}
+.pcs.done{background:rgba(63,185,80,.1);border-color:rgba(63,185,80,.25);color:var(--success)}
 .pcs.active{background:var(--gold-dim);border-color:var(--gold);color:var(--gold)}
-.pcs.locked{opacity:.35}
+.pcs.locked{opacity:.3;filter:grayscale(.6)}
+.pcs:not(.locked):not(.done):hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
 .bgrid{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px}
 .bcard{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:12px 16px;min-width:180px;transition:all .3s}
 .bcard.earned{border-color:rgba(240,163,64,.3);background:var(--gold-dim);animation:borderGlow 3s ease-in-out infinite}
@@ -863,7 +873,7 @@ input,textarea,select{font-family:inherit}
 .plab-section-title{font-size:.9rem;font-weight:700;margin-bottom:4px;color:var(--text)}
 .plab-section-desc{font-size:.78rem;color:var(--text-dim);margin-bottom:14px;line-height:1.4}
 .plab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-.plab-card{background:linear-gradient(145deg,rgba(22,27,34,.95) 0%,rgba(30,25,50,.7) 100%);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;cursor:pointer;transition:all .25s;position:relative}
+.plab-card{background:linear-gradient(145deg,rgba(22,27,34,.95) 0%,rgba(28,33,48,.7) 100%);border:1px solid rgba(48,54,61,.6);border-radius:14px;padding:16px;cursor:pointer;transition:all .25s;position:relative}
 .plab-card:hover{border-color:rgba(251,191,36,.25);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
 .plab-card:active{transform:translateY(0)}
 .plab-card-var{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
@@ -2049,6 +2059,22 @@ if(nxSe){
   h+='<span class="next-sess-arr">\u2192</span></div>';
 }
 $('learnWrap').innerHTML=h;
+// Inject phase nav buttons into each pblk
+(function(){
+  var allPhases=['learn','see','try','quiz','hw'];
+  var existingPhases=allPhases.filter(function(p){return document.querySelector('.pblk[data-phase="'+p+'"]')});
+  var labels={learn:'📖 Learn',see:'👀 See',try:'🛠 Try',quiz:'🧠 Quiz',hw:'🎯 Homework'};
+  existingPhases.forEach(function(phaseId,idx){
+    var block=document.querySelector('.pblk[data-phase="'+phaseId+'"]');
+    if(!block)return;
+    var prevId=existingPhases[idx-1],nextId=existingPhases[idx+1];
+    var nav=document.createElement('div');nav.className='phase-nav';
+    var prevBtn='<button class="phase-nav-btn" data-pnav="prev" data-phase="'+(prevId||'')+'" onclick="pNavClick(this)"'+(prevId?'':' style="display:none"')+'> ← '+(prevId?labels[prevId]:'')+'</button>';
+    var nextBtn=nextId?'<button class="phase-nav-btn primary" data-pnav="next" data-phase="'+nextId+'" onclick="pNavClick(this)">'+labels[nextId]+' →</button>':'<div></div>';
+    nav.innerHTML=prevBtn+'<div class="phase-nav-spacer"></div>'+nextBtn;
+    block.appendChild(nav);
+  });
+})();
 }
 function shw(el,k){var p=k.split('_'),ci=parseInt(p[0]),sn=parseInt(p[1]);
 LS('hw_'+ci+'_'+sn,el.checked);
@@ -2091,9 +2117,9 @@ function rPhaseStepper(ci,si,activePhase){
 }
 
 function switchPhase(phaseId){
+  var allPhases=['learn','see','try','quiz','hw'];
   // Update stepper UI
-  var phases=['learn','see','try','quiz','hw'];
-  phases.forEach(function(p){
+  allPhases.forEach(function(p){
     var btn=document.getElementById('ps_'+p);
     if(btn){btn.classList.toggle('active',p===phaseId);}
   });
@@ -2107,6 +2133,7 @@ function switchPhase(phaseId){
   var stepper=document.getElementById('phaseStepper');
   if(stepper)stepper.scrollIntoView({behavior:'smooth',block:'start'});
 }
+function pNavClick(btn){switchPhase(btn.dataset.phase)}
 
 /* BLOCK RENDERER */
 var CC={subject:'#F0A340',role:'#F0A340',context:'#5BBDF0',lighting:'#5BBDF0',task:'#9B7ED8',style:'#9B7ED8',format:'#4FCE7C',technical:'#4FCE7C',mood:'#F05252'};
@@ -2271,7 +2298,7 @@ var TOOL_URLS={ChatGPT:'https://chat.openai.com',Claude:'https://claude.ai',Gemi
 function rTools(){
 var h='';TG.forEach(function(c){h+='<div class="tcat"><div class="tcattl">'+E(c.cat)+'</div><div class="tlist">';
 c.tools.forEach(function(t){var lv=TOOL_LEVELS[t.nm]||'';var url=TOOL_URLS[t.nm]||'';
-h+='<div class="titem" style="position:relative">'+(lv?'<span class="tool-level '+lv+'">'+(lv==='beginner'?'Start Here':'Pro')+'</span>':'');
+h+='<div class="titem" style="position:relative">'+(lv==='pro'?'<span class="tool-level pro">Pro</span>':'');
 h+='<div class="ti-ic">'+t.ic+'</div><div class="ti-inf"><div class="ti-nm">'+E(t.nm)+'</div><div class="ti-ds">'+E(t.ds)+'</div><div style="display:flex;align-items:center;gap:var(--sp-2);margin-top:var(--sp-1)"><span class="pbadge '+t.pr+'">'+t.pr+'</span>'+(url?'<a href="'+url+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-size:var(--text-xs);color:var(--gold);font-weight:700">Open \u2192</a>':'')+'</div></div></div>'});
 h+='</div></div>'});$('toolWrap').innerHTML=h;
 }
@@ -2571,7 +2598,7 @@ h+='<div class="lib-item" id="li_'+uid+'" onclick="toggleLibItem(\''+uid+'\')" s
 h+='<div class="lib-item-top"><div class="lib-item-title">'+E(p.title)+'</div><div style="display:flex;gap:6px;align-items:center"><span class="tbadge">'+E(p.tool)+'</span><button class="btn-xs btn-outline" onclick="event.stopPropagation();cpyPrompt(\''+uid+'\')" style="font-size:var(--text-xs)">\u{1F4CB} Copy</button></div></div>';
 h+='<div class="lib-item-text" id="'+uid+'">'+E(preview)+'</div>';
 h+='<div class="lib-full" id="full_'+uid+'" style="display:none"><div style="font-family:\'Courier New\',monospace;font-size:var(--text-sm);line-height:1.5;color:var(--text);padding:var(--sp-3);background:rgba(0,0,0,.2);border-radius:var(--r-sm);margin-top:var(--sp-2);white-space:pre-wrap">'+E(p.text)+'</div></div>';
-h+='<div class="lib-expand-hint" style="font-size:var(--text-xs);color:var(--text-dim);margin-top:var(--sp-2)">\u{1F449} Click to read full prompt</div>';
+h+='<div class="lib-expand-hint" id="hint_'+uid+'" style="font-size:var(--text-xs);color:var(--text-dim);margin-top:var(--sp-2)">▾ expand</div>';
 h+='</div>';
 });
 h+='</div></div>';
@@ -2584,7 +2611,7 @@ h+='</div>';
 $('libWrap').innerHTML=h;
 }
 function swLib(tab){_libTab=tab;rLib()}
-function toggleLibItem(uid){var full=$('full_'+uid);if(full)full.style.display=full.style.display==='none'?'block':'none'}
+function toggleLibItem(uid){var full=$('full_'+uid);if(!full)return;var isOpen=full.style.display!=='none';full.style.display=isOpen?'none':'block';var hint=$('hint_'+uid);if(hint)hint.textContent=isOpen?'▾ expand':'▴ collapse'}
 function cpyPrompt(id){var full=$('full_'+id);var el=full?full.querySelector('div'):$(id);if(!el)return;var txt=el.textContent;navigator.clipboard.writeText(txt).then(function(){toast('\u{1F4CB} Copied!','ok',1800)}).catch(function(){toast('Select and copy manually','err',2000)})}
 
 /* PROGRESS */
@@ -2606,7 +2633,9 @@ C.forEach(function(c){var d=c.sessions.filter(function(s){return isHW(c.id,s.n)}
 h+='<div class="pcr"><div class="pcrt"><div class="pcrn">'+c.icon+' '+E(c.titleEn)+'</div><div class="pcrp">'+d+'/'+c.sessions.length+'</div></div>';
 h+='<div class="pcrb"><div class="pcrf" style="width:'+cp+'%;background:'+c.color+'"></div></div>';
 h+='<div class="pcsess">';c.sessions.forEach(function(s){var dv=isHW(c.id,s.n),ic=(c.id===a.c&&s.n===a.s),op=s.n<=(u[c.id]||1);
-h+='<div class="pcs '+(!op?'locked':(dv?'done':(ic?'active':'')))+'">S'+s.n+'</div>'});
+var st=!op?'locked':(dv?'done':(ic?'active':''));
+var ttl=!op?'🔒 Locked':(dv?'✓ Done':(ic?'▶ Current':'Open'));
+h+='<div class="pcs '+st+'" title="Session '+s.n+': '+E(s.titleEn)+' — '+ttl+'"'+(op&&!dv?' onclick="sw(\'secLearn\');selSess('+c.id+','+s.n+')" style="cursor:pointer"':'')+'>'+(!op?'🔒':dv?'✓':'')+'S'+s.n+'</div>'});
 h+='</div></div>'});h+='</div>';
 var badges=[
 {ic:'\u{1F3AF}',nm:'First Step',ds:'Complete Session 1',ch:function(){return isHW(1,1)||isHW(2,1)||isHW(3,1)||isHW(4,1)}},
