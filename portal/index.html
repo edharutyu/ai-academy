@@ -1018,15 +1018,14 @@ input,textarea,select{font-family:inherit}
 .phase-line{flex-shrink:0;width:16px;height:1px;background:rgba(26,21,16,.1)}
 
 /* ═══ COURSE JOURNEY STRIP ═══ */
-.journey-strip{display:flex;align-items:center;gap:0;margin-bottom:18px;padding:10px 14px;background:rgba(26,21,16,.02);border-radius:12px;border:1px solid rgba(26,21,16,.05);overflow-x:auto;scrollbar-width:none}
+.journey-strip{display:flex;align-items:center;gap:4px;margin-bottom:24px;padding:5px;background:#f0ece6;border-radius:16px;overflow-x:auto;scrollbar-width:none}
 .journey-strip::-webkit-scrollbar{display:none}
-.journey-node{flex-shrink:0;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;font-size:.72rem;font-weight:600;color:var(--text-dim);cursor:pointer;transition:all .2s;white-space:nowrap}
-.journey-node:hover{background:rgba(26,21,16,.04);color:var(--text)}
-.journey-node.jn-active{background:rgba(224,122,58,.1);color:var(--gold);font-weight:700}
+.journey-node{flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:11px;font-size:.75rem;font-weight:600;color:var(--text-mid);cursor:pointer;transition:all .18s;white-space:nowrap;border:none;background:transparent}
+.journey-node:hover{background:#fff;color:var(--text);box-shadow:0 1px 4px rgba(26,21,16,.10)}
+.journey-node.jn-active{background:#fff;color:var(--gold);font-weight:700;box-shadow:0 2px 8px rgba(26,21,16,.10)}
 .journey-node.jn-done{color:var(--success)}
 .journey-node.jn-locked{opacity:.35;cursor:default}
-.journey-line{flex-shrink:0;width:20px;height:1px;background:rgba(26,21,16,.08)}
-.journey-line.jl-done{background:var(--success);opacity:.4}
+.journey-line{display:none}
 
 /* ═══ FLOATING BACK BUTTON ═══ */
 .fab-back{position:fixed;bottom:90px;right:20px;z-index:150;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--gold));color:#fff;border:none;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 16px rgba(91,127,166,.25);transition:all .25s;display:none;align-items:center;justify-content:center}
@@ -1906,8 +1905,7 @@ h+='<div class="hero-stat"><span class="hero-stat-n">5+</span><span class="hero-
 h+='</div>';
 h+='</div>';
 h+='</div>';
-/* Journey strip — show course path */
-h+='<div style="font-size:var(--text-xs);color:var(--text-mid);margin-bottom:var(--sp-2);padding:var(--sp-2) var(--sp-3);background:rgba(255,255,255,.03);border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.05);display:inline-block" class="ent ent1">\u{1F4CD} 6 courses \u00B7 24 sessions \u00B7 Start from left \u2192</div>';
+/* Journey strip — course filter nav */
 h+='<div class="journey-strip ent ent1">';
 C.forEach(function(c,i){
 var cd=c.sessions.filter(function(s){return isHW(c.id,s.n)}).length;
