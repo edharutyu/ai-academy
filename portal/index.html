@@ -1845,7 +1845,7 @@ if(id==='secLearn')rLearn();if(id==='secGallery')rGal();if(id==='secProgress')rP
 function gU(){var u=LS('unlocks')||{};var changed=false;C.forEach(function(c){var def=DEFAULT_UNLOCKS[c.id]||1;if(u[c.id]==null||u[c.id]<def){u[c.id]=def;changed=true}});if(changed)LS('unlocks',u);return u}
 function isU(ci,n){if(_r==='teacher')return true;return n<=(gU()[ci]||1)}
 function isHW(ci,n){return!!LS('hw_'+ci+'_'+n)}
-function gA(){return{c:LS('activeCourse')||1,s:LS('activeSession')||1}}
+function gA(){return{c:LS('activeCourse'),s:LS('activeSession')}}
 function selSess(ci,n){if(!isU(ci,n)){toast('\u{1F512} Complete previous sessions first','err');return}LS('activeCourse',ci);LS('activeSession',n);rLearn();setTimeout(function(){var el=document.querySelector('.breadcrumb');if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},50)}
 
 /* LEARNING PATH */
@@ -1940,8 +1940,8 @@ if(a.c&&a.s){
   $('pathWrap').style.display='';
   $('pathWrap').innerHTML=rCourseGrid();
 }
-if(!co)return;
-var se=co.sessions.find(function(s){return s.n===a.s});if(!se)return;
+if(!co){$('learnWrap').innerHTML='';return;}
+var se=co.sessions.find(function(s){return s.n===a.s});if(!se){$('learnWrap').innerHTML='';return;}
 if(!isU(a.c,a.s)){$('learnWrap').innerHTML='<div style="text-align:center;padding:48px;color:var(--text-dim);animation:fadeIn .4s ease"><div style="font-size:2.5rem;margin-bottom:12px">\u{1F512}</div><div>This session is locked.<br>Complete the previous session to unlock.</div></div>';return}
 var dn=co.sessions.filter(function(s){return isHW(co.id,s.n)}).length,pct=Math.round(dn/co.sessions.length*100);
 var u=gU();
