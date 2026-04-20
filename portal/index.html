@@ -121,6 +121,8 @@ input,textarea,select{font-family:inherit}
 /* NAV */
 #portal{display:none;position:relative;z-index:1}
 .portal-nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,.97);backdrop-filter:blur(28px) saturate(1.3);-webkit-backdrop-filter:blur(28px) saturate(1.3);border-bottom:1px solid rgba(26,21,16,.10)}
+.scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:999;background:transparent;pointer-events:none}
+.scroll-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--trust,#5b7fa6));transition:width .08s linear;box-shadow:0 0 8px rgba(212,112,47,.35)}
 .portal-nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 28px;gap:12px}
 .portal-nav .logo{font-weight:700;font-size:1rem;white-space:nowrap;font-family:'Syne',sans-serif;letter-spacing:-.3px;background:linear-gradient(135deg,#3d6b96 0%,#d4702f 50%,#FCD34D 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .nav-links{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;flex:1;-webkit-overflow-scrolling:touch}
@@ -1188,6 +1190,7 @@ input,textarea,select{font-family:inherit}
 </div>
 
 <a href="#portalMain" class="skip-link">Skip to main content</a>
+<div class="scroll-progress" id="scrollProg" aria-hidden="true"><div class="scroll-progress-bar" id="scrollProgBar"></div></div>
 <div id="portal">
   <nav class="portal-nav"><div class="portal-nav-inner">
     <span class="logo">AI Academy</span>
@@ -1212,7 +1215,17 @@ input,textarea,select{font-family:inherit}
     <div class="section teacher-only" id="secTeach">
       <div class="sec-hdr"><div class="sec-dots"><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div></div><div class="sec-hdr-title">🎓 Teacher Panel</div><div class="sec-hdr-sub">Course controls, session unlocks, student tracker</div></div>
       <div class="tps"><h4 style="color:var(--success)">⚙ Active Session</h4><div class="crow"><div><label>Course</label><select id="selC" onchange="onCC()"></select></div><div><label>Session</label><select id="selS" onchange="onSC()"></select></div></div></div>
-      <div class="tps"><h4 style="color:var(--gold)">🔓 Unlock Sessions</h4><p style="font-size:.76rem;color:var(--text-dim);margin-bottom:14px">Control which sessions students can access.</p><div id="uGrid" class="ugrid"></div></div>
+      <div class="tps"><h4 style="color:var(--gold)">🔓 Unlock Sessions</h4>
+        <p style="font-size:.76rem;color:var(--text-dim);margin-bottom:10px">Click an S-button to set the highest unlocked session for that course. Changes are <strong>local preview</strong> until you publish.</p>
+        <div id="uGrid" class="ugrid"></div>
+        <div style="margin-top:14px;padding:14px;background:rgba(212,112,47,.08);border:1px dashed rgba(212,112,47,.4);border-radius:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+            <div style="flex:1;min-width:180px"><div style="font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:2px">📢 Publish to all students</div><div style="font-size:.72rem;color:var(--text-dim)">Copy JSON → paste into <code style="font-size:.68rem">portal/unlocks.json</code> → commit &amp; push. Students auto-sync on next load.</div></div>
+            <button class="btn btn-sm" onclick="publishUnlocks()" style="background:var(--gold);color:#fff;white-space:nowrap">Publish →</button>
+          </div>
+          <div id="pubStatus" style="font-size:.7rem;color:var(--text-dim);margin-top:8px"></div>
+        </div>
+      </div>
       <div style="margin-bottom:24px"><div class="slbl">🗺 Full Roadmap</div><div id="rmWrap"></div></div>
       <div class="tps" style="margin-bottom:24px"><h4 style="color:var(--text-dim)">👥 Student Tracker</h4><div class="tadd"><input type="text" id="newSN" placeholder="Name"><button class="btn btn-sm" onclick="addSt()">+</button></div><div style="overflow-x:auto"><table class="ttable"><thead id="tHead"></thead><tbody id="tBody"></tbody></table></div></div>
       <div class="tps" style="margin-bottom:24px"><h4 style="color:var(--text-dim)">📋 Content Bank</h4><div class="cbf"><textarea id="cbTx" placeholder="Prompt text..."></textarea><input type="text" id="cbUrl" placeholder="Image URL (optional)"><div class="cbr"><select id="cbCat"><option value="Text">Text</option><option value="Image">Image</option><option value="Video">Video</option><option value="Business">Business</option></select><select id="cbTl"><option>ChatGPT</option><option>Claude</option><option>Gemini</option><option>Google Flow</option><option>Flux</option><option>Kling</option><option>Canva AI</option><option>Other</option></select><button class="btn btn-sm" onclick="addCB()">Add</button></div></div><div id="cbList"></div></div>
@@ -1227,12 +1240,13 @@ input,textarea,select{font-family:inherit}
 <script>
 var PASS_S='academy2026',PASS_T='TEACHER_PASS',_r='';
 /* ═══ UNLOCK CONFIG ═══
-   Set how many sessions each course has unlocked for students.
-   Format: {courseId: maxUnlockedSession}
-   Example: {1:4, 2:2, 3:1} = Course 1 all 4 open, Course 2 up to S2, Course 3 only S1
-   Change these numbers and push to GitHub to update for all students.
+   Unlocks are published via portal/unlocks.json (fetched on every page load).
+   Teacher edits unlocks in the Teach panel → clicks "Publish to Students" →
+   copy JSON → paste into portal/unlocks.json → commit & push.
+   DEFAULT_UNLOCKS is the fallback if unlocks.json fetch fails.
 */
-var DEFAULT_UNLOCKS={1:4, 2:5, 3:4, 4:5, 5:4, 6:4};
+var DEFAULT_UNLOCKS={1:4, 2:5, 3:6, 4:5, 5:4, 6:4};
+var REMOTE_UNLOCKS_VERSION=null;
 function LS(k,v){var K='aap_'+k;if(v===undefined){try{return JSON.parse(localStorage.getItem(K))}catch(e){return null}}localStorage.setItem(K,JSON.stringify(v))}
 function E(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML}
 function toast(m,t,d){var el=$('toast');el.textContent=m;el.className='toast '+(t||'');el.classList.add('show');setTimeout(function(){el.classList.remove('show')},d||2200)}
@@ -2429,7 +2443,13 @@ var GL=[
 /* AUTH */
 function doLogin(){var p=$('loginPass').value.trim();if(p===PASS_S){_r='student';go()}else if(p===PASS_T){_r='teacher';go()}else{var e=$('loginErr');e.style.display='block';setTimeout(function(){e.style.display='none'},2000)}}
 function doLogout(){_r='';$('loginGate').style.display='flex';$('portal').style.display='none';$('loginPass').value=''}
-function go(){$('loginGate').style.display='none';$('portal').style.display='block';LS('role',_r);bNav();rTools();rTeach();sw('secLearn');initScrollWatcher();setTimeout(function(){_applyHash();},60)}
+function go(){$('loginGate').style.display='none';$('portal').style.display='block';LS('role',_r);
+/* Fetch latest published unlocks first, THEN render — so students see current state */
+loadRemoteUnlocks(function(changed){
+  bNav();rTools();rTeach();sw('secLearn');initScrollWatcher();initScrollProgress();
+  setTimeout(function(){_applyHash();},60);
+  if(changed&&_r==='student')toast('\u{1F513} Sessions updated','ok',1800);
+});}
 function scrollBackToCourses(){window.scrollTo({top:0,behavior:'smooth'})}
 function initScrollWatcher(){
 window.addEventListener('scroll',function(){
@@ -2441,6 +2461,20 @@ if(!phases.length||!dots.length)return;
 var cur=-1;phases.forEach(function(p,i){if(p.getBoundingClientRect().top<200)cur=i});
 dots.forEach(function(d,i){d.classList.toggle('active',i===cur)});
 },{passive:true})}
+/* Scroll progress — reassures students how far through a session they are. */
+function initScrollProgress(){
+  var bar=$('scrollProgBar');if(!bar)return;
+  function upd(){
+    var h=document.documentElement;
+    var scrolled=h.scrollTop||document.body.scrollTop;
+    var max=(h.scrollHeight-h.clientHeight)||1;
+    var pct=Math.min(100,Math.max(0,scrolled/max*100));
+    bar.style.width=pct+'%';
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+  upd();
+}
 
 /* NAV */
 /* mob:true = show in bottom nav; false = desktop only */
@@ -2496,6 +2530,20 @@ try{if(!opts||!opts.silent){if(id==='secLearn'){/* keep course/session hash if s
 
 /* HELPERS */
 function gU(){var u=LS('unlocks')||{};var changed=false;C.forEach(function(c){var def=DEFAULT_UNLOCKS[c.id]||1;if(u[c.id]==null||u[c.id]<def){u[c.id]=def;changed=true}});if(changed)LS('unlocks',u);return u}
+/* Fetch published unlocks.json and merge — source of truth wins, local can only go higher via teacher actions. */
+function loadRemoteUnlocks(cb){
+  try{
+    var url='unlocks.json?v='+Date.now();
+    fetch(url,{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+      if(!j||!j.unlocks){if(cb)cb();return}
+      REMOTE_UNLOCKS_VERSION=j.version||null;
+      var u=LS('unlocks')||{};var changed=false;
+      Object.keys(j.unlocks).forEach(function(k){var n=parseInt(k),v=parseInt(j.unlocks[k]);if(!isNaN(n)&&!isNaN(v)&&u[n]!==v){u[n]=v;changed=true}});
+      if(changed){LS('unlocks',u);}
+      if(cb)cb(changed);
+    }).catch(function(){if(cb)cb()});
+  }catch(e){if(cb)cb()}
+}
 function isU(ci,n){if(_r==='teacher')return true;return n<=(gU()[ci]||1)}
 function isHW(ci,n){return!!LS('hw_'+ci+'_'+n)}
 function gA(){return{c:LS('activeCourse'),s:LS('activeSession')}}
@@ -3410,7 +3458,27 @@ h+='<div class="ucard"><div class="ucard-t">'+c.icon+' '+E(c.titleEn)+'</div><di
 c.sessions.forEach(function(s){h+='<button class="ubtn'+((u[c.id]||1)>=s.n?' au':'')+'" onclick="sU('+c.id+','+s.n+')">S'+s.n+'</button>'});
 h+='</div></div>'});var g=$('uGrid');if(g)g.innerHTML=h;
 }
-function sU(ci,n){var u=gU();u[ci]=n;LS('unlocks',u);rUM();toast('Unlocked up to S'+n,'ok')}
+function sU(ci,n){var u=gU();u[ci]=n;LS('unlocks',u);rUM();toast('Local preview: C'+ci+' → S'+n+' (not published yet)','ok',2400);var ps=$('pubStatus');if(ps)ps.innerHTML='<span style="color:var(--gold);font-weight:600">\u26A0 Local changes — click Publish to sync students</span>'}
+/* Publish unlocks — generates the JSON blob for portal/unlocks.json */
+function publishUnlocks(){
+  var u=gU();
+  var today=new Date().toISOString().slice(0,10);
+  var json={version:today,notes:'Update this file and push to GitHub to unlock sessions for all students.',unlocks:{}};
+  C.forEach(function(c){json.unlocks[c.id]=u[c.id]||1});
+  var txt=JSON.stringify(json,null,2);
+  var ov=document.createElement('div');ov.className='lab-modal-overlay';ov.onclick=function(e){if(e.target===ov)ov.remove()};
+  var h='<div class="lab-modal" style="max-width:600px;background:#fff;border-radius:16px;padding:24px;position:relative">';
+  h+='<button onclick="this.closest(\'.lab-modal-overlay\').remove()" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;border:none;background:rgba(26,21,16,.08);cursor:pointer;font-size:1.1rem" aria-label="Close">\u00D7</button>';
+  h+='<h3 style="margin:0 0 6px;font-family:\'Syne\',sans-serif">\u{1F4E2} Publish Unlocks to Students</h3>';
+  h+='<p style="font-size:.82rem;color:var(--text-dim);margin:0 0 16px">Follow these 3 steps:</p>';
+  h+='<ol style="font-size:.82rem;line-height:1.7;padding-left:20px;margin:0 0 16px"><li>Click <strong>Copy JSON</strong> below</li><li>Open <code style="font-size:.76rem;background:rgba(26,21,16,.06);padding:2px 6px;border-radius:4px">portal/unlocks.json</code> in your editor</li><li>Paste (replace everything), save, commit &amp; push to GitHub</li></ol>';
+  h+='<div style="background:#1c1814;color:#f0ebe4;padding:14px;border-radius:10px;font-family:\'Courier New\',monospace;font-size:.76rem;line-height:1.55;white-space:pre-wrap;max-height:260px;overflow:auto;margin-bottom:14px" id="pubJson">'+E(txt)+'</div>';
+  h+='<div style="display:flex;gap:10px"><button class="btn" style="background:var(--gold);color:#fff;flex:1" onclick="navigator.clipboard.writeText(document.getElementById(\'pubJson\').innerText).then(function(){var b=event.target;var o=b.textContent;b.textContent=\'\u2713 Copied\';setTimeout(function(){b.textContent=o},1500)})">\u{1F4CB} Copy JSON</button>';
+  h+='<button class="btn btn-outline" onclick="this.closest(\'.lab-modal-overlay\').remove()" style="flex:0 0 auto">Done</button></div>';
+  h+='<div style="margin-top:12px;font-size:.7rem;color:var(--text-dim);text-align:center">Students sync on their next page load. No cache clear needed.</div>';
+  h+='</div>';
+  ov.innerHTML=h;document.body.appendChild(ov);
+}
 function rRM(){
 var h='';C.forEach(function(c,ci){
 h+='<div class="rmc" id="rm_'+ci+'"><div class="rmch" onclick="tRM(\'rm_'+ci+'\')" style="border-left:3px solid '+c.color+'"><span style="font-size:1.3rem">'+c.icon+'</span><div class="rci"><div class="rcit">'+E(c.titleEn)+'</div><div class="rcis">'+c.sessions.length+' sessions</div></div><span class="rca">\u25BC</span></div>';
