@@ -503,13 +503,49 @@ input,textarea,select{font-family:inherit}
 .crow label{font-size:.76rem;font-weight:500;color:var(--text-dim);display:block;margin-bottom:4px}
 .crow select{padding:10px 14px;border-radius:10px;border:1px solid var(--card-border);background:var(--bg);color:var(--text);font-size:.82rem;outline:none;min-width:180px}
 .crow select:focus{border-color:var(--gold)}
-.ugrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.ucard{background:var(--bg2);border:1px solid var(--card-border);border-radius:11px;padding:14px}
-.ucard-t{font-size:.78rem;font-weight:700;margin-bottom:8px}
-.ubtns{display:flex;gap:4px;flex-wrap:wrap}
-.ubtn{padding:5px 10px;border-radius:6px;font-size:.68rem;font-weight:700;border:1px solid var(--card-border);background:transparent;color:var(--text-dim);cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
-.ubtn:hover{border-color:var(--gold);color:var(--gold)}
-.ubtn.au{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.ugrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.ucard{background:var(--bg2);border:1px solid var(--card-border);border-radius:12px;padding:16px;transition:border-color .2s}
+.ucard:hover{border-color:rgba(212,112,47,.25)}
+.ucard-t{font-size:.82rem;font-weight:700;margin-bottom:10px;color:var(--text)}
+.ucard-sub{font-size:.68rem;color:var(--text-dim);margin-bottom:10px;font-weight:500}
+.ubtns{display:flex;gap:5px;flex-wrap:wrap}
+.ubtn{padding:7px 12px;border-radius:7px;font-size:.7rem;font-weight:700;border:1px solid var(--card-border);background:#fff;color:var(--text-dim);cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1);font-family:'Syne',sans-serif;min-height:32px;min-width:38px}
+.ubtn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+.ubtn.au{background:var(--gold);color:#fff;border-color:var(--gold)}
+.ubtn.au:hover{background:#c06426;border-color:#c06426;transform:translateY(-1px)}
+.ubtn.max{box-shadow:0 0 0 3px rgba(212,112,47,.18);position:relative}
+.ubtn.max::after{content:'';position:absolute;top:-3px;right:-3px;width:8px;height:8px;background:var(--success);border:2px solid var(--bg2);border-radius:50%}
+.publish-card{margin-top:16px;padding:16px 18px;background:linear-gradient(135deg,rgba(212,112,47,.06) 0%,rgba(91,127,166,.04) 100%);border:1px solid rgba(212,112,47,.18);border-radius:12px}
+.publish-card.dirty{border-color:rgba(212,112,47,.5);background:linear-gradient(135deg,rgba(212,112,47,.10) 0%,rgba(212,112,47,.04) 100%)}
+.publish-row{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.publish-info{flex:1;min-width:200px}
+.publish-title{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:3px;letter-spacing:-.01em}
+.publish-hint{font-size:.72rem;color:var(--text-dim);line-height:1.5}
+.publish-btn{background:var(--gold);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-weight:700;font-size:.82rem;font-family:'Syne',sans-serif;cursor:pointer;white-space:nowrap;transition:all .2s;min-height:40px;box-shadow:0 2px 8px rgba(212,112,47,.22)}
+.publish-btn:hover{background:#c06426;transform:translateY(-1px);box-shadow:0 4px 14px rgba(212,112,47,.32)}
+.publish-btn:active{transform:translateY(0)}
+.publish-card.dirty .publish-btn{animation:pulseBtn 2s ease-in-out infinite}
+@keyframes pulseBtn{0%,100%{box-shadow:0 2px 8px rgba(212,112,47,.22)}50%{box-shadow:0 4px 18px rgba(212,112,47,.45)}}
+.publish-status{font-size:.72rem;margin-top:10px;color:var(--text-dim);font-weight:500;display:flex;align-items:center;gap:6px}
+.publish-status.live{color:var(--success)}
+.publish-status.dirty{color:var(--gold)}
+.publish-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.pub-modal{max-width:560px;background:#fff;border-radius:18px;padding:28px;position:relative;box-shadow:0 30px 70px rgba(0,0,0,.2),0 0 0 1px rgba(26,21,16,.05)}
+.pub-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:none;background:rgba(26,21,16,.06);cursor:pointer;font-size:1.15rem;color:var(--text-dim);transition:all .18s}
+.pub-close:hover{background:rgba(26,21,16,.12);color:var(--text)}
+.pub-head{display:flex;gap:14px;align-items:center;margin-bottom:18px}
+.pub-ic{width:40px;height:40px;border-radius:50%;background:var(--success);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;flex-shrink:0;box-shadow:0 4px 12px rgba(79,206,124,.28)}
+.pub-ttl{font-size:1.05rem;font-weight:700;font-family:'Syne',sans-serif;color:var(--text);letter-spacing:-.015em;margin-bottom:2px}
+.pub-sub{font-size:.78rem;color:var(--text-dim)}
+.pub-steps{font-size:.85rem;line-height:1.75;padding-left:22px;margin:0 0 16px;color:var(--text)}
+.pub-steps li{margin-bottom:3px}
+.pub-steps code{font-size:.78rem;background:rgba(26,21,16,.07);padding:2px 7px;border-radius:5px;font-family:'Courier New',monospace}
+.pub-json{background:#1c1814;color:#f0ebe4;padding:16px;border-radius:10px;font-family:'Courier New',monospace;font-size:.76rem;line-height:1.6;white-space:pre-wrap;max-height:240px;overflow:auto;margin-bottom:16px;border:1px solid rgba(26,21,16,.1)}
+.pub-actions{display:flex;gap:10px}
+.pub-copy{flex:1;background:transparent;color:var(--gold);border:1.5px solid var(--gold);padding:11px 16px;border-radius:9px;font-weight:700;font-size:.85rem;font-family:'Syne',sans-serif;cursor:pointer;transition:all .18s;min-height:42px}
+.pub-copy:hover{background:rgba(212,112,47,.08)}
+.pub-done{background:var(--gold);color:#fff;border:none;padding:11px 22px;border-radius:9px;font-weight:700;font-size:.85rem;font-family:'Syne',sans-serif;cursor:pointer;transition:all .18s;min-height:42px;box-shadow:0 2px 8px rgba(212,112,47,.25)}
+.pub-done:hover{background:#c06426;transform:translateY(-1px);box-shadow:0 4px 14px rgba(212,112,47,.35)}
 .rmc{margin-bottom:16px;border:1px solid var(--card-border);border-radius:var(--radius);overflow:hidden}
 .rmch{padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:background .2s}
 .rmch:hover{background:#f3efe8}
@@ -1215,15 +1251,18 @@ input,textarea,select{font-family:inherit}
     <div class="section teacher-only" id="secTeach">
       <div class="sec-hdr"><div class="sec-dots"><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div></div><div class="sec-hdr-title">🎓 Teacher Panel</div><div class="sec-hdr-sub">Course controls, session unlocks, student tracker</div></div>
       <div class="tps"><h4 style="color:var(--success)">⚙ Active Session</h4><div class="crow"><div><label>Course</label><select id="selC" onchange="onCC()"></select></div><div><label>Session</label><select id="selS" onchange="onSC()"></select></div></div></div>
-      <div class="tps"><h4 style="color:var(--gold)">🔓 Unlock Sessions</h4>
-        <p style="font-size:.76rem;color:var(--text-dim);margin-bottom:10px">Click an S-button to set the highest unlocked session for that course. Changes are <strong>local preview</strong> until you publish.</p>
+      <div class="tps"><h4 style="color:var(--gold)">Session Access</h4>
+        <p style="font-size:.76rem;color:var(--text-dim);margin-bottom:12px">Tap the highest session number each course should open up to. Changes preview locally — hit <strong>Publish</strong> to push to students.</p>
         <div id="uGrid" class="ugrid"></div>
-        <div style="margin-top:14px;padding:14px;background:rgba(212,112,47,.08);border:1px dashed rgba(212,112,47,.4);border-radius:10px">
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-            <div style="flex:1;min-width:180px"><div style="font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:2px">📢 Publish to all students</div><div style="font-size:.72rem;color:var(--text-dim)">Copy JSON → paste into <code style="font-size:.68rem">portal/unlocks.json</code> → commit &amp; push. Students auto-sync on next load.</div></div>
-            <button class="btn btn-sm" onclick="publishUnlocks()" style="background:var(--gold);color:#fff;white-space:nowrap">Publish →</button>
+        <div class="publish-card" id="publishCard">
+          <div class="publish-row">
+            <div class="publish-info">
+              <div class="publish-title">Publish to students</div>
+              <div class="publish-hint">Students live-update within 20 seconds of your push.</div>
+            </div>
+            <button class="publish-btn" onclick="publishUnlocks()">Publish →</button>
           </div>
-          <div id="pubStatus" style="font-size:.7rem;color:var(--text-dim);margin-top:8px"></div>
+          <div id="pubStatus" class="publish-status live"><span class="publish-dot"></span>In sync with students</div>
         </div>
       </div>
       <div style="margin-bottom:24px"><div class="slbl">🗺 Full Roadmap</div><div id="rmWrap"></div></div>
@@ -2447,6 +2486,7 @@ function go(){$('loginGate').style.display='none';$('portal').style.display='blo
 /* Fetch latest published unlocks first, THEN render — so students see current state */
 loadRemoteUnlocks(function(changed){
   bNav();rTools();rTeach();sw('secLearn');initScrollWatcher();initScrollProgress();
+  startUnlockPolling();
   setTimeout(function(){_applyHash();},60);
   if(changed&&_r==='student')toast('\u{1F513} Sessions updated','ok',1800);
 });}
@@ -2530,7 +2570,7 @@ try{if(!opts||!opts.silent){if(id==='secLearn'){/* keep course/session hash if s
 
 /* HELPERS */
 function gU(){var u=LS('unlocks')||{};var changed=false;C.forEach(function(c){var def=DEFAULT_UNLOCKS[c.id]||1;if(u[c.id]==null||u[c.id]<def){u[c.id]=def;changed=true}});if(changed)LS('unlocks',u);return u}
-/* Fetch published unlocks.json and merge — source of truth wins, local can only go higher via teacher actions. */
+/* Fetch published unlocks.json and merge — source of truth wins (up OR down). */
 function loadRemoteUnlocks(cb){
   try{
     var url='unlocks.json?v='+Date.now();
@@ -2543,6 +2583,30 @@ function loadRemoteUnlocks(cb){
       if(cb)cb(changed);
     }).catch(function(){if(cb)cb()});
   }catch(e){if(cb)cb()}
+}
+/* Live sync — poll every 20s + re-fetch on tab focus. When unlocks change, re-render
+   the active view so students see new sessions without reloading. Teacher is skipped
+   (they drive the changes; polling over their own local state would overwrite previews). */
+var _unlockPollT=null;
+function startUnlockPolling(){
+  if(_unlockPollT||_r==='teacher')return;
+  var poll=function(){
+    loadRemoteUnlocks(function(changed){
+      if(changed){reRenderActiveView();toast('\u{1F513} Sessions updated by teacher','ok',2200)}
+    });
+  };
+  _unlockPollT=setInterval(poll,20000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)poll()});
+  window.addEventListener('focus',poll);
+}
+function reRenderActiveView(){
+  var vis=document.querySelector('.section.visible');if(!vis)return;
+  var id=vis.id;
+  if(id==='secLearn')rLearn();
+  else if(id==='secProgress')rProg();
+  else if(id==='secGallery')rGal();
+  else if(id==='secLibrary')rLib();
+  else if(id==='secLab')rLab();
 }
 function isU(ci,n){if(_r==='teacher')return true;return n<=(gU()[ci]||1)}
 function isHW(ci,n){return!!LS('hw_'+ci+'_'+n)}
@@ -3454,30 +3518,47 @@ function onCC(){uSS()}
 function onSC(){LS('activeCourse',parseInt($('selC').value));LS('activeSession',parseInt($('selS').value));toast('Session updated','ok')}
 function rUM(){
 var u=gU(),h='';C.forEach(function(c){
-h+='<div class="ucard"><div class="ucard-t">'+c.icon+' '+E(c.titleEn)+'</div><div class="ubtns">';
-c.sessions.forEach(function(s){h+='<button class="ubtn'+((u[c.id]||1)>=s.n?' au':'')+'" onclick="sU('+c.id+','+s.n+')">S'+s.n+'</button>'});
+var max=u[c.id]||1;
+h+='<div class="ucard"><div class="ucard-t">'+c.icon+' '+E(c.titleEn)+'</div><div class="ucard-sub">'+max+' of '+c.sessions.length+' sessions open</div><div class="ubtns">';
+c.sessions.forEach(function(s){var cls='ubtn';if(s.n<=max)cls+=' au';if(s.n===max)cls+=' max';h+='<button class="'+cls+'" onclick="sU('+c.id+','+s.n+')" aria-label="Unlock up to session '+s.n+'">S'+s.n+'</button>'});
 h+='</div></div>'});var g=$('uGrid');if(g)g.innerHTML=h;
 }
-function sU(ci,n){var u=gU();u[ci]=n;LS('unlocks',u);rUM();toast('Local preview: C'+ci+' → S'+n+' (not published yet)','ok',2400);var ps=$('pubStatus');if(ps)ps.innerHTML='<span style="color:var(--gold);font-weight:600">\u26A0 Local changes — click Publish to sync students</span>'}
-/* Publish unlocks — generates the JSON blob for portal/unlocks.json */
+function setPubDirty(dirty){
+  var card=$('publishCard'),ps=$('pubStatus');
+  if(!card||!ps)return;
+  if(dirty){
+    card.classList.add('dirty');
+    ps.className='publish-status dirty';
+    ps.innerHTML='<span class="publish-dot"></span>Unpublished changes — click Publish';
+  }else{
+    card.classList.remove('dirty');
+    ps.className='publish-status live';
+    ps.innerHTML='<span class="publish-dot"></span>In sync with students';
+  }
+}
+function sU(ci,n){var u=gU();u[ci]=n;LS('unlocks',u);rUM();setPubDirty(true);toast('C'+ci+' preview: unlock to S'+n,'ok',1600)}
+/* Publish unlocks — copy JSON to clipboard and show paste instructions */
 function publishUnlocks(){
   var u=gU();
   var today=new Date().toISOString().slice(0,10);
   var json={version:today,notes:'Update this file and push to GitHub to unlock sessions for all students.',unlocks:{}};
   C.forEach(function(c){json.unlocks[c.id]=u[c.id]||1});
   var txt=JSON.stringify(json,null,2);
+  /* Copy immediately so teacher can paste without extra click */
+  var copyOK=false;
+  try{navigator.clipboard.writeText(txt).then(function(){copyOK=true});}catch(e){}
   var ov=document.createElement('div');ov.className='lab-modal-overlay';ov.onclick=function(e){if(e.target===ov)ov.remove()};
-  var h='<div class="lab-modal" style="max-width:600px;background:#fff;border-radius:16px;padding:24px;position:relative">';
-  h+='<button onclick="this.closest(\'.lab-modal-overlay\').remove()" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;border:none;background:rgba(26,21,16,.08);cursor:pointer;font-size:1.1rem" aria-label="Close">\u00D7</button>';
-  h+='<h3 style="margin:0 0 6px;font-family:\'Syne\',sans-serif">\u{1F4E2} Publish Unlocks to Students</h3>';
-  h+='<p style="font-size:.82rem;color:var(--text-dim);margin:0 0 16px">Follow these 3 steps:</p>';
-  h+='<ol style="font-size:.82rem;line-height:1.7;padding-left:20px;margin:0 0 16px"><li>Click <strong>Copy JSON</strong> below</li><li>Open <code style="font-size:.76rem;background:rgba(26,21,16,.06);padding:2px 6px;border-radius:4px">portal/unlocks.json</code> in your editor</li><li>Paste (replace everything), save, commit &amp; push to GitHub</li></ol>';
-  h+='<div style="background:#1c1814;color:#f0ebe4;padding:14px;border-radius:10px;font-family:\'Courier New\',monospace;font-size:.76rem;line-height:1.55;white-space:pre-wrap;max-height:260px;overflow:auto;margin-bottom:14px" id="pubJson">'+E(txt)+'</div>';
-  h+='<div style="display:flex;gap:10px"><button class="btn" style="background:var(--gold);color:#fff;flex:1" onclick="navigator.clipboard.writeText(document.getElementById(\'pubJson\').innerText).then(function(){var b=event.target;var o=b.textContent;b.textContent=\'\u2713 Copied\';setTimeout(function(){b.textContent=o},1500)})">\u{1F4CB} Copy JSON</button>';
-  h+='<button class="btn btn-outline" onclick="this.closest(\'.lab-modal-overlay\').remove()" style="flex:0 0 auto">Done</button></div>';
-  h+='<div style="margin-top:12px;font-size:.7rem;color:var(--text-dim);text-align:center">Students sync on their next page load. No cache clear needed.</div>';
+  var h='<div class="lab-modal pub-modal">';
+  h+='<button class="pub-close" onclick="this.closest(\'.lab-modal-overlay\').remove()" aria-label="Close">\u00D7</button>';
+  h+='<div class="pub-head"><span class="pub-ic">\u2714</span><div><div class="pub-ttl">JSON copied to clipboard</div><div class="pub-sub">3 steps to go live</div></div></div>';
+  h+='<ol class="pub-steps"><li><strong>Open</strong> <code>portal/unlocks.json</code> in your editor</li><li><strong>Paste</strong> (replace everything), save</li><li><strong>Commit &amp; push</strong> to GitHub — students auto-update within 20s</li></ol>';
+  h+='<div class="pub-json" id="pubJson">'+E(txt)+'</div>';
+  h+='<div class="pub-actions"><button class="pub-copy" onclick="navigator.clipboard.writeText(document.getElementById(\'pubJson\').innerText).then(function(){var b=event.target;var o=b.textContent;b.textContent=\'\u2713 Copied again\';setTimeout(function(){b.textContent=o},1400)})">Copy JSON</button>';
+  h+='<button class="pub-done" onclick="this.closest(\'.lab-modal-overlay\').remove()">Got it</button></div>';
   h+='</div>';
   ov.innerHTML=h;document.body.appendChild(ov);
+  /* Mark clean after publish click — teacher has committed to pushing */
+  setPubDirty(false);
 }
 function rRM(){
 var h='';C.forEach(function(c,ci){
