@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+
+# Editor / tooling
+.claude/
+.vscode/
+.idea/
+
+# Local drafts — curriculum scratchpads, not portal code
+CHEATSHEET_Tools_Ratios.md
+CREATIVE_AI_CURRICULUM.md
+Fresh_Viral_Concepts_SoulID.md
+HUMAN_STILL_Concept.md
+Jacket_Ad_GoogleVids_Script.md
+MASTER_BRIEF.md
+STEP_BY_STEP_ACTION.md
+Viral_Ad_Production_Guide.md
+Viral_Video_Production_System.md
+YEREVAN_2100_GoogleVids.md
+ZERO_Ad_Concept.md
+curriculum-ai-for-work.md
