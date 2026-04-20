@@ -1619,52 +1619,370 @@ hw:{brief:'Take 3 of your own photos (or photos from your phone) and transform e
 
 ]},
 
-{id:3,title:'AI Video Creation',titleEn:'AI Video Creation',subtitle:'Motion, camera control & storytelling',persona:'Video Makers',avatar:'\u{1F3AC}',outcomes:['Create cinematic AI videos from scratch','Master camera angles and motion control','Build lip sync and talking head content','Edit full video pieces with AI tools'],skills:['Kling AI 3.0','Runway','ElevenLabs','CapCut'],icon:'\u{1F3AC}',color:'#E05A5A',sessions:[
-{n:1,titleEn:'First AI Video',tools:'Kling AI, Runway, Pika',
+{id:3,title:'AI Video Creation',titleEn:'AI Video Creation',subtitle:'Motion, camera control & storytelling',persona:'Video Makers',avatar:'\u{1F3AC}',outcomes:['Create cinematic AI videos from scratch','Master camera angles and motion control','Build lip sync and talking head content','Direct consistent multi-shot stories','Produce full 30-second video ads','Edit pro pipelines end-to-end in CapCut'],skills:['Kling AI 3.0','Runway','ElevenLabs','HeyGen','Suno','CapCut'],icon:'\u{1F3AC}',color:'#E05A5A',sessions:[
+{n:1,titleEn:'First AI Video — 4 Generation Methods',tools:'Kling AI, Runway, Pika, Google Flow',
 learn:[
-{type:'callout',icon:'\u{1F3AC}',label:'Start Here',content:'4 generation methods, each with different control levels. <strong>Image-to-video is the most reliable</strong> — start there.'},
-{type:'method-compare',methods:[
-{icon:'\u270D',name:'Text to Video',desc:'Describe scene in text. Good for concepts, less control over appearance.',when:'Concepts, abstract ideas, quick prototypes'},
-{icon:'\u{1F5BC}',name:'Image to Video',desc:'Animate a generated image. Most control \u2014 image defines the frame.',when:'Portraits, product shots, consistent characters'},
-{icon:'\u2194',name:'Start + End Frame',desc:'Provide first AND last frame. AI generates the in-between motion.',when:'Transitions, controlled moves, precise story beats'},
-{icon:'\u{1F39E}',name:'Multi-Shot (Kling)',desc:'Generate connected shots maintaining character and scene consistency.',when:'Short films, ads, storytelling sequences'}
+{type:'visual-tip',tips:[
+{icon:'\u{1F3AC}',title:'4 Methods, Different Control',desc:'Text-to-video, image-to-video, start+end frame, multi-shot. Each trades control for flexibility.'},
+{icon:'\u{1F5BC}',title:'Image-to-Video Wins',desc:'90% of pro AI video starts as an image. Nail the frame first, then animate. Image quality = video quality.'},
+{icon:'\u{1F50D}',title:'Motion is Everything',desc:'A video prompt is NOT an image prompt. You must describe MOTION: subject action, camera move, atmosphere.'}
 ]},
-{type:'key-points',points:['Image-to-video gives most control \u2014 perfect frame first, then animate','Video prompts need motion: camera moves, subject actions, environmental changes','Add "smooth cinematic motion" to avoid jerky results','5 seconds standard; 10 seconds for longer (paid)','Kling AI 3.0 leads for realistic human motion']}
-],gallery:[],recipe:[
-{step:1,title:'Choose Image-to-Video',desc:'Generate a strong image first, then animate it in Kling. Image quality defines video quality.',tip:'<strong>Workflow:</strong> Google Flow image \u2192 download \u2192 Kling \u2192 motion prompt.'},
-{step:2,title:'Write motion prompt',desc:'Subject motion + camera motion + atmosphere. "Slight head turn, wind in hair, slow push in, dust particles floating."',tip:'<strong>Camera moves:</strong> push in, pull out, pan, tilt, orbit.'}
-],quiz:[
-{q:'Which method gives most visual control?',opts:['Text to Video','Image to Video','Start + End Frame','Multi-shot'],correct:1,explain:'Image-to-video lets you create a perfect image first, then animate. Source image anchors visual quality.'}
-],hw:{brief:'Create your first AI video. Try all 3 generation methods and compare which gives you the most control.',deliverables:['3 short videos (5-10 seconds each), one per generation method','The prompt/settings used for each','A comparison: which method gave the best result and why?'],steps:['Video 1: Text-to-video in Kling AI — describe a 5-second scene','Video 2: Generate an image first, then use image-to-video','Video 3: Start frame + end frame, let AI generate the motion','Compare all 3: which method gave best result? Why?'],checklist:['All 3 generation methods were tried','Motion looks smooth, not glitchy','You can explain which method works best for what','Videos are at least 5 seconds each'],pro_tip:'Image-to-video gives the most control. Generate a great still image first, THEN animate it.'}},
-{n:2,titleEn:'Motion Control (Kling 3.0)',tools:'Kling AI 3.0',
+{type:'prompt-anatomy',
+prompt:"[Reference: portrait of Armenian woman in soft window light] Slow cinematic push in toward subject, slight head turn to camera, hair gently moves in breeze, dust particles floating in backlight, smooth realistic motion, 5 seconds",
+segments:[
+{text:"[Reference: portrait of Armenian woman in soft window light]",cat:'subject',explain:'\u{1F5BC} <strong>REFERENCE IMAGE</strong> \u2014 The foundation. A high-contrast, well-lit portrait gives AI a clear subject to animate. Blurry or cluttered references produce jittery video.'},
+{text:"Slow cinematic push in toward subject",cat:'technical',explain:'\u{1F3A5} <strong>CAMERA MOTION</strong> \u2014 Always describe the camera first. "Slow cinematic push in" encodes: controlled speed + emotional intent + professional execution. Never write "zoom in" — write "dolly push in."'},
+{text:"slight head turn to camera",cat:'subject',explain:'\u{1F464} <strong>SUBJECT MOTION</strong> \u2014 What the subject DOES. Small movements work best: head turn, blink, smile, breath. Large movements (walking, running) often break.'},
+{text:"hair gently moves in breeze",cat:'context',explain:'\u{1F343} <strong>MICRO-MOTION</strong> \u2014 Tiny environmental motion (hair, fabric, leaves) makes footage feel alive. Without it, AI video feels frozen.'},
+{text:"dust particles floating in backlight",cat:'lighting',explain:'\u2728 <strong>ATMOSPHERE</strong> \u2014 Particles, light rays, mist, smoke, rain — these sell the cinematic quality more than any other single element. Add one to every shot.'},
+{text:"smooth realistic motion, 5 seconds",cat:'style',explain:'\u{1F3AF} <strong>QUALITY & DURATION ANCHORS</strong> \u2014 "Smooth realistic motion" prevents jitter. Specify duration — 5s free tier, 10s paid. Don\'t skip.'}
+]},
+{type:'key-points',points:['Image-to-video = most control. Generate a perfect still first, then animate','Video prompts need MOTION: camera move + subject action + micro-motion + atmosphere','Start with small subject motion — head turn beats "running"','Add "smooth cinematic motion" to every prompt to prevent jitter','5 seconds standard, 10 seconds on paid tier','Kling 3.0 leads for human motion. Runway Gen-4 leads for stylized. Pika for speed.']},
+{type:'cheat-sheet',icon:'\u{1F39E}',title:'4 Generation Methods',items:[
+{name:'Text-to-Video',desc:'Fast concept sketches. Low visual control. Good for abstract moods.'},
+{name:'Image-to-Video',desc:'The default pro workflow. Nail still, then animate. Highest visual control.'},
+{name:'Start + End Frame',desc:'Define first AND last frame. AI fills the middle. Best for transitions.'},
+{name:'Multi-Shot (Kling)',desc:'Generate connected shots with character persistence. Best for stories.'}
+]},
+{type:'cheat-sheet',icon:'\u{1F504}',title:'Tool Picker',items:[
+{name:'Kling AI 3.0',desc:'Best for human motion, lip sync, realistic physics. Default pick.'},
+{name:'Runway Gen-4',desc:'Best for stylized, painterly, surreal. Strong motion brush.'},
+{name:'Pika Labs',desc:'Fastest generation. Good for quick iteration and social posts.'},
+{name:'Google Flow',desc:'Veo 3 inside. Best audio-visual integration, native sound.'}
+]}
+],
+gallery:[
+{prompt:'[Portrait reference] Slow push in, slight head turn, hair moves in breeze, dust in backlight, cinematic smooth motion, 5s',tool:'Kling AI 3.0',gradient:'linear-gradient(135deg,#1a0a1a,#4d1a2e 50%,#E05A5A)',descResult:'Portrait comes alive with micro-motion. The dust particles and gentle hair movement sell the realism instantly. Head turn timed perfectly at 3s.'},
+{prompt:'[Yerevan cafe reference] Camera stays still, person takes slow sip of coffee, steam rises, soft window light flickers, 5s',tool:'Runway Gen-4',gradient:'linear-gradient(135deg,#0a0a1a,#2d1a0a 50%,#c4956a)',descResult:'Static camera + subtle subject motion = most believable AI video pattern. Rising steam is the hero detail.'},
+{prompt:'Start frame: closed wooden door. End frame: door open revealing Armenian courtyard at golden hour. Cinematic reveal, smooth motion, 5s',tool:'Kling AI 3.0',gradient:'linear-gradient(135deg,#1a1000,#7d4e1e 50%,#f0a338)',descResult:'Start+end frame generates the reveal perfectly. Controlled storytelling in a single clip. A commercial director\'s tool.'},
+{prompt:'Text-to-video: slow dolly through misty Armenian vineyard at dawn, soft golden rays piercing fog, birds flying across frame, cinematic',tool:'Pika Labs',gradient:'linear-gradient(135deg,#1a1a0a,#3d3520 50%,#e8c878)',descResult:'Text-only works well when the scene is atmospheric rather than specific. Mist and light rays gave AI room to improvise beautifully.'}
+],
+recipe:[
+{step:1,title:'Generate the still first',desc:'Open Google Flow or Nano Banana Pro. Create a high-contrast, well-composed still image. This becomes your anchor frame.',tip:'<strong>Best anchor frames:</strong> Clear subject, intentional composition, good lighting. Bad stills = bad videos.'},
+{step:2,title:'Open Kling AI and upload',desc:'Go to klingai.com, click Image-to-Video, upload your still. Set duration to 5s on free tier.',tip:'<strong>Kling credits:</strong> Free tier gives 66 credits daily. A 5s standard video = 10 credits.'},
+{step:3,title:'Write the motion prompt',desc:'Structure: camera move + subject action + micro-motion + atmosphere. Keep under 40 words. More words rarely help.',tip:'<strong>Template:</strong> "[Camera move], [subject action], [micro-motion], [atmosphere element], smooth cinematic motion."'},
+{step:4,title:'Generate 4 variations',desc:'Never keep the first. Click Generate 4 times with identical prompt. Pick the best — discard the rest.',tip:'<strong>Rule:</strong> First generation is rarely the best. 4 variations = professional insurance.'},
+{step:5,title:'Identify what broke',desc:'Study the failed ones. Did faces distort? Hands melt? Motion jitter? Note the failure pattern — adjust your next prompt.',tip:'<strong>Common failures:</strong> Hands, fast motion, long dialog. Avoid these in Session 1.'}
+],
+quiz:[
+{q:'Which method gives the most visual control?',opts:['Text-to-video','Image-to-video','Start+end frame','Multi-shot'],correct:1,explain:'Image-to-video anchors the frame to a still you control completely. Your still image = your video quality ceiling.'},
+{q:'What makes a video prompt different from an image prompt?',opts:['Longer words','Motion description — camera move + subject action + micro-motion','Quality anchors','Tool name'],correct:1,explain:'A video prompt without motion produces static-feeling clips. Always describe how things MOVE, not just what they look like.'}
+],hw:{brief:'Create your first 3 AI videos using all 3 viable generation methods. This session is about feeling the trade-offs — not about producing a masterpiece.',deliverables:['Video 1: Text-to-video (5 seconds)','Video 2: Image-to-video (5 seconds, your generated still as reference)','Video 3: Start+end frame (5 seconds, defined opening and closing frame)','The full prompt + tool used for each','One paragraph: which method you\'ll use most, and why?'],steps:['Pick a single subject idea for all 3 — a person, place, product or mood','Video 1: Open Kling or Pika. Text-to-video. Write a 2-sentence atmospheric scene','Video 2: Generate a still in Google Flow or Nano Banana Pro first. Upload it to Kling image-to-video. Add motion prompt','Video 3: Generate two stills (beginning state, ending state). Use Kling start+end frame','Compare: which felt most controllable? Which felt most magical? Which failed?','Screenshot a key frame from each'],checklist:['All 3 methods were genuinely tried (not skipped)','Motion is described in every prompt (not just static scenes)','You can explain WHICH method is best for WHICH kind of shot','At least one video feels like a real film frame'],creative_challenge:'BONUS: Take your favorite of the 3 and make a 10-second version. Push the motion — add a camera move it didn\'t have before.',pro_tip:'If all 3 look jittery, your prompts are probably too long or too ambitious. Shorter prompts with smaller motions produce cleaner results.'}},
+
+{n:2,titleEn:'Motion & Camera Mastery',tools:'Kling AI 3.0, Runway',
 learn:[
-{type:'callout',icon:'\u{1F3A5}',label:'Pro Camera Moves',content:'Kling 3.0: <strong>6-axis motion</strong> — pan, tilt, roll, truck, pedestal, dolly/zoom. Real cinematography controls.'},
-{type:'key-points',points:['Pan = rotate left/right','Tilt = rotate up/down','Dolly/Push in = move toward subject (intimate)','Pull out = reveals context (epic establishing)','Orbit = circle around subject (360\u00b0 reveal)','Combine: "slow dolly in + slight tilt up" = awe-inspiring shot']}
-],gallery:[],recipe:[
-{step:1,title:'Learn 3 moves',desc:'Master: "slow push in" (intimate), "pull out reveal" (epic), "slow orbit" (exploratory).',tip:'Be specific: "slow cinematic push in toward subject" beats vague "zoom in."'}
-],quiz:[
-{q:'Most intimate and dramatic camera move?',opts:['Pan left','Slow dolly push in toward subject','Pull out zoom','Tilt up'],correct:1,explain:'Dolly push in shrinks distance between viewer and subject. Used by Spielberg and Kubrick for revelation and tension.'}
-],hw:{brief:'Create 3 videos of the SAME scene using 3 different camera movements. See how cinematography changes the emotion.',deliverables:['3 video clips of the same scene, each with a different camera move','A note for each: what emotion does this camera move create?'],steps:['Pick a scene (person, product, landscape)','Shot 1: Slow dolly forward (moving closer — builds tension)','Shot 2: Pan left-to-right (horizontal sweep — reveals space)','Shot 3: Pedestal up or crane shot (vertical — reveals scale)','Compare: which camera move creates the most emotion?'],checklist:['3 clearly different camera movements','Same scene/subject in all 3 (only the camera changes)','Motion is smooth, not jerky','You can explain what each camera move communicates'],pro_tip:'Slow = cinematic and emotional. Fast = energy and tension. Match the speed to your story.'}},
-{n:3,titleEn:'Lip Sync & Talking Heads',tools:'Kling, ElevenLabs, HeyGen',
+{type:'visual-tip',tips:[
+{icon:'\u{1F3A5}',title:'6-Axis Cinematography',desc:'Pan, tilt, roll, truck, pedestal, dolly. These are the tools real cinematographers have used for 100 years.'},
+{icon:'\u{1F39E}',title:'Camera = Emotion',desc:'Slow push in = intimacy. Pull out = epic. Orbit = discovery. Each move carries meaning. Match the move to the story.'},
+{icon:'\u26A1',title:'Speed = Energy',desc:'Slow moves feel cinematic. Fast moves feel energetic. Always specify SPEED ("slow", "smooth", "rapid").'}
+]},
+{type:'prompt-anatomy',
+prompt:"[Armenian church still] Slow cinematic dolly push in from wide establishing to medium close up, slight tilt up to reveal dome at end, golden hour light intensifies, dust motes drift through sunbeams, smooth Roger Deakins cinematography, 10 seconds",
+segments:[
+{text:"Slow cinematic dolly push in",cat:'technical',explain:'\u{1F3A5} <strong>PRIMARY CAMERA MOVE</strong> \u2014 Dolly = camera on rails. "Push in" = moving toward subject. "Slow" = cinematic not frantic. This trio is the single most powerful film move.'},
+{text:"from wide establishing to medium close up",cat:'technical',explain:'\u{1F4D0} <strong>FRAMING JOURNEY</strong> \u2014 Define start and end framing. This forces AI to plan the move properly. Wide → medium → close defines the emotional arc.'},
+{text:"slight tilt up to reveal dome at end",cat:'technical',explain:'\u2B06\uFE0F <strong>COMPOUND MOVE</strong> \u2014 Dolly + tilt = cinematic revelation. Used by every great director to reveal scale and meaning at a key moment.'},
+{text:"golden hour light intensifies",cat:'lighting',explain:'\u{1F307} <strong>LIGHTING ARC</strong> \u2014 Light that changes OVER the clip adds time dimension. "Intensifies" = becomes more dramatic as camera arrives at subject.'},
+{text:"dust motes drift through sunbeams",cat:'context',explain:'\u2728 <strong>ATMOSPHERIC MICRO-MOTION</strong> \u2014 Dust, particles, mist, rain. Without these, AI video feels too clean. A single atmospheric detail 10x\'s the cinematic feel.'},
+{text:"smooth Roger Deakins cinematography",cat:'style',explain:'\u{1F3AC} <strong>CINEMATOGRAPHER REFERENCE</strong> \u2014 Same as images: names encode visual systems. Deakins = deep shadows, intentional blocking, precise motion. Others: Lubezki (natural flowing), Chivo (warm), Morrison (kinetic).'}
+]},
+{type:'key-points',points:[
+'Dolly push in = intimacy, revelation, tension',
+'Pull out = epic, scale, isolation',
+'Pan (horizontal rotation) = reveal sideways, follow action',
+'Tilt (vertical rotation) = reveal height, hierarchy, drama',
+'Orbit = 360° mystery, showcase, discovery',
+'Truck = lateral slide, used in car chases and reveals',
+'Compound moves (dolly + tilt) = cinema-grade direction',
+'Always specify speed: "slow", "smooth", "rapid"'
+]},
+{type:'cheat-sheet',icon:'\u{1F3A5}',title:'Camera Move Vocabulary',items:[
+{name:'Dolly push in',desc:'Intimate. Build tension. Reveal a truth.'},
+{name:'Dolly pull out',desc:'Epic. Reveal scale. Isolate the subject.'},
+{name:'Pan (horizontal)',desc:'Follow action. Reveal environment left-to-right.'},
+{name:'Tilt up / down',desc:'Hierarchy and drama. Reveal scale vertically.'},
+{name:'Orbit',desc:'Showcase product or character. 360° mystery.'},
+{name:'Crane / Jib',desc:'Reveal scale. Opening shots of establishing.'},
+{name:'Handheld',desc:'Urgent, documentary, raw, immediate.'},
+{name:'Static locked-off',desc:'Voyeuristic, observational, patient.'}
+]},
+{type:'cheat-sheet',icon:'\u{1F3AD}',title:'Emotion → Camera',items:[
+{name:'Intimacy',desc:'Slow dolly push in + shallow depth'},
+{name:'Epic scale',desc:'Slow pull out + low angle'},
+{name:'Tension',desc:'Slow push in + close framing'},
+{name:'Discovery',desc:'Slow orbit + gradual reveal'},
+{name:'Urgency',desc:'Handheld + rapid tracking'},
+{name:'Reverence',desc:'Crane up + golden light intensification'}
+]}
+],
+gallery:[
+{prompt:'[Armenian church exterior] Slow dolly push in from wide to medium, tilt up to dome reveal, golden hour intensifies, dust in sunbeams, Deakins cinematography, 10s',tool:'Kling AI 3.0',gradient:'linear-gradient(135deg,#1a0f00,#5a3515 50%,#e8a040)',descResult:'Textbook compound move. Push-in combined with tilt-up creates reverent reveal. Golden hour light arc makes time feel real.'},
+{prompt:'[Dancer mid-movement] Slow orbit 180°, subject stays centered, background blurs to streaks, dramatic teal-orange grade, anamorphic cinema, 10s',tool:'Runway Gen-4',gradient:'linear-gradient(135deg,#001a33,#003366 50%,#E05A5A)',descResult:'Orbit made the static moment feel cinematic. Subject-locked rotation showcases form. Background blur suggests motion time-stop.'},
+{prompt:'[Yerevan night street] Slow handheld tracking shot following figure walking away, rain-slicked cobbles reflect neon, slight camera sway, Blade Runner mood',tool:'Kling AI 3.0',gradient:'linear-gradient(135deg,#020212,#0a0a2e 50%,#1a4a6e)',descResult:'Handheld + tracking = pursued-thriller energy. Neon reflections and slight sway sell the immersion.'},
+{prompt:'[Ararat mountain vista] Slow crane up from foreground wildflowers revealing epic mountain, snow capped peak in morning light, Terrence Malick style, 10s',tool:'Runway Gen-4',gradient:'linear-gradient(135deg,#0a1a1a,#2d4050 50%,#c4e0f0)',descResult:'Crane up = scale reveal. Starting low with foreground detail makes the mountain feel monumental when it arrives.'}
+],
+recipe:[
+{step:1,title:'Pick ONE camera move to master today',desc:'Don\'t try 8 moves. Pick one — dolly push in is the best first — and do 10 variations.',tip:'<strong>Mastery method:</strong> Same scene, same move, 10 variations. You learn what breaks and what works.'},
+{step:2,title:'Write speed + direction + target',desc:'"Slow push in toward subject" beats "zoom in." Always: speed adjective + move verb + target noun.',tip:'<strong>Speed words:</strong> slow, smooth, gentle, rapid, aggressive, gradual, cinematic.'},
+{step:3,title:'Define start and end framing',desc:'"From wide establishing to medium close up" forces AI to plan. Without it, AI guesses the arc.',tip:'<strong>Frame sizes:</strong> extreme wide → wide → medium → medium close → close → extreme close.'},
+{step:4,title:'Add compound motion for impact',desc:'Single moves are fine. Compound moves (dolly + tilt) are cinematic. "Push in with slight tilt up."',tip:'<strong>Best compounds:</strong> Dolly+tilt (reverence), Orbit+tilt (revelation), Crane+push (epic).'},
+{step:5,title:'Name a cinematographer',desc:'Closing anchor: "Deakins cinematography" or "Malick style" or "Lubezki natural lighting." Signals motion philosophy.',tip:'<strong>Study first:</strong> Google "[cinematographer] camera moves" to know what their signature feels like.'}
+],
+quiz:[
+{q:'Most intimate and dramatic camera move?',opts:['Pan left','Slow dolly push in','Pull out zoom','Tilt up'],correct:1,explain:'Dolly push in shrinks the distance between viewer and subject. Used by Spielberg, Kubrick, Villeneuve for revelation and tension.'},
+{q:'Why "compound moves" (dolly+tilt) feel more cinematic?',opts:['More tokens','Two axes of motion = more information per second, richer direction','Faster','Uses more credits'],correct:1,explain:'Single-axis moves feel mechanical. Compound moves feel directed. Human eyes read the combination as intentional choreography.'}
+],hw:{brief:'Shoot the same scene 4 times with 4 completely different camera moves. The exercise is to feel how camera choice rewrites the meaning of identical content.',deliverables:['4 video clips (5s each) — same subject, same scene, 4 different camera moves','One-line emotional note per clip: what does this camera move make the viewer feel?','Your favorite of the 4 + explanation of why it works'],steps:['Pick ONE subject: a person, place, or product. Generate or find a strong still image','Shot 1: Slow dolly push in (intimate, revelation)','Shot 2: Slow pull out (epic, scale)','Shot 3: Slow orbit around subject (mystery, showcase)','Shot 4: Static locked-off with subject/environment motion only (observational)','After generating: watch all 4 back-to-back. Same subject — different story'],checklist:['4 genuinely different camera moves (not variations of the same)','Same subject/still used across all 4 shots','Each prompt named the move explicitly ("dolly push in", not "zoom")','Motion is smooth — not jittery, not frozen','You can name what each shot makes the viewer feel'],creative_challenge:'BONUS: Pick your favorite shot and extend to 10 seconds with a compound move. Dolly AND tilt. Push AND slight pan. See what breaks — and what becomes cinema.',pro_tip:'Slow = cinematic. Fast = energy. Handheld = urgency. Static = observation. Your camera move is a storytelling decision — not a technical one.'}},
+
+{n:3,titleEn:'Lip Sync & Talking Heads',tools:'ElevenLabs, HeyGen, Kling AI 3.0, CapCut',
 learn:[
-{type:'callout',icon:'\u{1F5E3}',label:'3-Tool Workflow',content:'Voice cloning (ElevenLabs) → Lip sync (Kling/HeyGen) → Edit (CapCut). <strong>3 tools = complete talking head video.</strong>'},
-{type:'key-points',points:['Voice cloning: 30 seconds of audio \u2192 realistic voice copy','Lip sync needs: clear face, front-facing, neutral expression start','Best for: educational content, product demos, social media','Always disclose AI use \u2014 ethical practice','HeyGen = talking heads; Kling = character animation']}
-],gallery:[],recipe:[
-{step:1,title:'Generate presenter image',desc:'Front-facing, neutral expression, clear lighting. This becomes the lip sync base.',tip:'Best: slight smile, eyes open, professional lighting.'},
-{step:2,title:'Clone voice (ElevenLabs)',desc:'Free tier: 100+ voices. Paid: upload 30s clean audio for custom clone.',tip:'Record in quiet room, normal pace, minimum 30s.'}
-],quiz:[
-{q:'Best starting image for lip sync?',opts:['Any face angle','Front-facing, neutral, clear lighting','Profile shot','Emotional expression'],correct:1,explain:'Lip sync AI needs clear face in neutral state. Front-facing = all facial muscles visible. Neutral = reset state for expression application.'}
-],hw:{brief:'Create a 15-30 second talking head video: write a script, generate voice with ElevenLabs, sync lips with AI.',deliverables:['Your script (what the character says — 2-3 sentences)','Audio from ElevenLabs','Final video with lip-synced speech'],steps:['Write a short script (15-20 seconds when spoken)','Generate the voice in ElevenLabs — choose a matching voice','Generate or find a front-facing portrait image','Use Kling or HeyGen to sync audio to the face','Review: does it look natural?'],checklist:['Speech sounds natural, not robotic','Lip movement matches the words','Source image is front-facing with visible mouth','Audio is clean, no background noise'],pro_tip:'Front-facing portraits with slightly open mouth give BEST lip sync results. Side angles are much harder.'}},
-{n:4,titleEn:'Cinematic Editing',tools:'CapCut, DaVinci Resolve',
+{type:'visual-tip',tips:[
+{icon:'\u{1F5E3}',title:'3-Tool Pipeline',desc:'ElevenLabs (voice) → HeyGen or Kling (lip sync) → CapCut (edit + captions). End-to-end talking head in under 1 hour.'},
+{icon:'\u{1F464}',title:'Front-Facing Always',desc:'Every lip sync tool needs front-facing, neutral expression, mouth-visible. Side angles fail 90% of the time.'},
+{icon:'\u2696\uFE0F',title:'Ethics Matter',desc:'Always disclose AI voice and AI avatar use. Never clone a real person\'s voice without written permission.'}
+]},
+{type:'prompt-anatomy',
+prompt:"ElevenLabs voice: 'Rachel' preset, warm confident female, medium pace. Script: 'In 30 seconds I will show you the fastest way to launch your first AI product. No tools, no code, just one document and one hour.' Stability: 50. Clarity: 75. Export MP3.",
+segments:[
+{text:"ElevenLabs voice: 'Rachel' preset",cat:'subject',explain:'\u{1F5E3} <strong>VOICE SELECTION</strong> \u2014 Start with ElevenLabs presets before cloning. Rachel (warm confident female), Adam (deep male), Bella (young warm), Antoni (authoritative male). Free tier gives 10k chars/month.'},
+{text:"warm confident female, medium pace",cat:'mood',explain:'\u{1F3AD} <strong>DELIVERY DIRECTION</strong> \u2014 Even with preset voices, choose pace and energy. Medium pace reads natural. Slow pace for emotional. Fast for tutorials.'},
+{text:"Script: 'In 30 seconds I will show you...'",cat:'context',explain:'\u{1F4DD} <strong>SCRIPT LENGTH</strong> \u2014 130 words = 60 seconds. 65 words = 30 seconds. 30 words = 15 seconds. Write for your target duration, not inspiration.'},
+{text:"Stability: 50. Clarity: 75",cat:'technical',explain:'\u{1F39B}\uFE0F <strong>VOICE SETTINGS</strong> \u2014 Stability = how consistent. High stability (80) = robotic. Low (30) = dramatic swings. 50 is the professional sweet spot. Clarity at 75 = crisp without being cold.'},
+{text:"Export MP3",cat:'technical',explain:'\u{1F4BE} <strong>EXPORT FORMAT</strong> \u2014 MP3 for social/Kling/HeyGen. WAV for professional editing. Always download — never rely on cloud playback for production.'}
+]},
+{type:'key-points',points:[
+'Voice cloning: 1 minute of clean audio = realistic custom voice',
+'Lip sync needs: front-facing, mouth visible, neutral expression start',
+'HeyGen = dedicated avatars + lip sync (fastest for social content)',
+'Kling lip sync = use your own generated characters + voices',
+'CapCut free: auto-captions, auto-subtitle translation, AI voice',
+'Always disclose AI voice use — it is ethical practice AND rebuilds trust',
+'Script length rule: 130 words \u2248 60 seconds at natural pace'
+]},
+{type:'cheat-sheet',icon:'\u{1F5E3}',title:'ElevenLabs Voice Settings',items:[
+{name:'Stability 30',desc:'Dramatic, emotional, podcast-style delivery'},
+{name:'Stability 50',desc:'The professional default. Natural and consistent.'},
+{name:'Stability 80',desc:'Very consistent but starts to feel robotic'},
+{name:'Clarity 60',desc:'Soft, conversational, intimate'},
+{name:'Clarity 75',desc:'Crisp, professional, advertising-ready'},
+{name:'Style exaggeration',desc:'Emotional emphasis — use carefully, can sound over-acted'}
+]},
+{type:'cheat-sheet',icon:'\u{1F3AD}',title:'Lip Sync Tool Picker',items:[
+{name:'HeyGen',desc:'Ready-made avatars + voice. Fastest social content.'},
+{name:'Kling Lip Sync',desc:'Use your own characters + Eleven voices. Most creative control.'},
+{name:'D-ID',desc:'Animate static photos with speech. Great for historical figures.'},
+{name:'Runway Act-One',desc:'Capture your own expressions, map onto AI character.'},
+{name:'Sync.so',desc:'Post-production lip sync on existing videos. Good for dubbing.'}
+]},
+{type:'callout',icon:'\u26A1',label:'Script length formula',content:'<strong>130 words = 60 seconds.</strong> 65 words = 30s. 30 words = 15s. Write your script to hit your target duration — then read aloud with a timer to confirm.'}
+],
+gallery:[
+{prompt:'ElevenLabs Rachel voice, 30s script, Armenian woman portrait, Kling lip sync, soft studio light, corporate educator delivering',tool:'Kling AI 3.0',gradient:'linear-gradient(135deg,#1a1a2e,#3d3560 50%,#c4956a)',descResult:'Portrait + Eleven voice + Kling sync = credible talking head in under 30 minutes. Mouth shapes match phonemes accurately.'},
+{prompt:'HeyGen avatar: professional Armenian female presenter, navy blazer, 60s scripted product demo, auto-captions on',tool:'HeyGen',gradient:'linear-gradient(135deg,#0a1a3e,#1a3060 50%,#5a80c0)',descResult:'HeyGen removes the technical friction — upload script, pick avatar, export. Ideal for high-volume social content.'},
+{prompt:'[Historical Armenian figure photo] + Eleven custom clone voice speaking poem, D-ID animation, slight head nod, eye blinks',tool:'D-ID',gradient:'linear-gradient(135deg,#2d1510,#5a3520 50%,#a85a2e)',descResult:'D-ID brings static portraits to life. Ethical use: educational content, archival storytelling, heritage projects.'},
+{prompt:'Runway Act-One: record own face performance, map onto stylized Armenian animated character, expressive storytelling mode',tool:'Runway Act-One',gradient:'linear-gradient(135deg,#1a0a1a,#4d2a4d 50%,#c060c0)',descResult:'Act-One lets YOU be the performer — AI character inherits your expressions. The most creative control over emotional delivery.'}
+],
+recipe:[
+{step:1,title:'Write the script first (130 words = 60s)',desc:'Read aloud to check timing. Cut until it fits. Short beats long every time.',tip:'<strong>Structure:</strong> Hook (3s) → Promise (5s) → Content (45s) → CTA (7s).'},
+{step:2,title:'Generate voice in ElevenLabs',desc:'Free tier: 10 presets. Pick Rachel, Adam, or Bella. Stability 50, Clarity 75. Export MP3.',tip:'<strong>If script is in Armenian:</strong> Use the multilingual models or try the "Armenian female" community voice.'},
+{step:3,title:'Generate or pick presenter image',desc:'Front-facing, neutral expression, mouth slightly open, clear lighting. Chest-up framing.',tip:'<strong>Bad references:</strong> Profile shots, laughing mouth, heavy shadows on face. All reduce lip sync accuracy.'},
+{step:4,title:'Combine in Kling or HeyGen',desc:'Kling: upload image + upload MP3 → Lip Sync. HeyGen: pick avatar → paste script → Generate.',tip:'<strong>Speed difference:</strong> HeyGen = 5 minutes. Kling = 15 minutes. Use Kling when image control matters more than speed.'},
+{step:5,title:'Export + caption in CapCut',desc:'Drop into CapCut → Auto Captions → style captions. Captions lift watch time 40% on social.',tip:'<strong>Caption rule:</strong> 2-4 words per line. Large font. Bottom center. Always.'}
+],
+quiz:[
+{q:'Best starting image for lip sync?',opts:['Any face angle','Front-facing, neutral expression, mouth visible','Profile shot with smile','Emotional open-mouth expression'],correct:1,explain:'Lip sync AI needs a neutral starting state. Front-facing exposes all facial muscles. Neutral = reset state so AI can apply motion cleanly.'},
+{q:'How long is a 30-second script?',opts:['~30 words','~65 words','~130 words','~200 words'],correct:1,explain:'Natural speech averages 130 words per minute. Half a minute = 65 words. Read aloud with a timer to verify your script.'}
+],hw:{brief:'Produce a complete 30-second talking-head video: script → voice → lip sync → captions → export. Treat it as your first AI-delivered social post.',deliverables:['Your 30-second script (~65 words)','ElevenLabs MP3 file','Final 30-second video with lip-synced speech','Exported with auto-captions in CapCut'],steps:['Pick your topic: a tip from your industry, a story, a product pitch, or an Armenian cultural note','Write the 65-word script. Read aloud with a timer — must hit 30 seconds','Generate voice in ElevenLabs with Rachel or Adam preset, stability 50','Generate or pick a front-facing presenter image — clear lighting, neutral expression','Upload image + MP3 to Kling Lip Sync OR use HeyGen avatar with your script','Import the output to CapCut → Auto Captions → style captions bottom center'],checklist:['Script reads naturally when spoken aloud','Voice sounds human, not robotic (stability not too high)','Lip movement syncs with word timing (no visible delay)','Source image face is front-facing and clearly lit','Auto-captions are readable — large font, high contrast','Final duration is within 28–32 seconds'],creative_challenge:'BONUS: Make 2 versions — the SAME script with 2 DIFFERENT presenter voices (one male, one female, or one warm, one authoritative). Watch both back-to-back. Which voice sells it better? Why?',pro_tip:'Captions are not optional — 85% of social video is watched muted. Auto-generate in CapCut, then manually review every word. One wrong caption kills credibility.'}},
+
+{n:4,titleEn:'Multi-Shot Storytelling & Character Consistency',tools:'Kling AI 3.0 Multi-Shot, Runway References',
 learn:[
-{type:'callout',icon:'\u{1F3B5}',label:'The Editing Formula',content:'Beat-sync cuts + color consistency + sound design. <strong>CapCut does all three with AI.</strong>'},
-{type:'key-points',points:['Cut on the beat \u2014 sync cuts to music for instant professional feel','Color consistency: one LUT across all clips','Sound design matters as much as visuals','CapCut AI: auto-captions, beat sync, sound matching \u2014 all free','Start with 3-5 shots maximum']}
-],gallery:[],recipe:[
-{step:1,title:'Generate 5 connected shots',desc:'Plan: establishing \u2192 close up \u2192 detail \u2192 lifestyle \u2192 closing wide.',tip:'Pre-plan 5 shot descriptions before generating.'},
-{step:2,title:'Assemble with beat sync',desc:'Import clips + Suno track. Use CapCut "Auto Beat Sync" for instant professional pacing.',tip:'Suno prompt: "[genre], [mood], [tempo], instrumental, [duration] seconds."'}
-],quiz:[
-{q:'Most effective editing technique?',opts:['Many transitions','Cutting on musical beat','Highest resolution','Text overlays'],correct:1,explain:'Beat-sync editing \u2014 our brains expect cuts with sound. When visual and audio align, the edit feels intentional and professional.'}
-],hw:{brief:'Edit 3+ AI clips into a cohesive 30-second video with music, transitions, and consistent color. Think: mini commercial.',deliverables:['A 30-second edited video with music','At least 3 AI-generated clips combined','Beat-synced cuts and consistent color grading'],steps:['Gather 3-5 AI video clips (from previous sessions or new)','Import into CapCut','Add music and cut to the beat','Apply consistent color grading across all clips','Add a simple text overlay (brand name or title)','Export in high quality'],checklist:['Cuts sync with the music beats','Color tone is consistent across clips','Video has a beginning, middle, and end','Text is readable and well-positioned'],pro_tip:'Color consistency separates amateur from pro. Apply the SAME filter to every clip.'}}
+{type:'visual-tip',tips:[
+{icon:'\u{1F3AC}',title:'From Clip to Story',desc:'A single 5s clip is a moment. 5 connected clips with one character = a story. Multi-shot changes everything.'},
+{icon:'\u{1F464}',title:'Character Bible + Reference Locks',desc:'Same character description + same reference image across every shot = consistency. Drift = amateur.'},
+{icon:'\u{1F4CA}',title:'3-Act Structure Still Applies',desc:'Setup (shots 1-2) → tension (shots 3-4) → resolution (shot 5). Even a 30-second AI film uses classic structure.'}
+]},
+{type:'prompt-anatomy',
+prompt:"[Character Bible: Armenian woman entrepreneur, sharp cheekbones, wavy dark hair, gold hoop earrings, cream silk blouse]. Shot 3 of 5: Character walks through Yerevan morning market, slow tracking shot beside her, dust motes in sunlight, warm natural grade, 5s. Maintain: face, hair, signature earrings. Vary: setting, light, atmosphere.",
+segments:[
+{text:"[Character Bible: Armenian woman entrepreneur...gold hoop earrings, cream silk blouse]",cat:'subject',explain:'\u{1F4D6} <strong>CHARACTER BIBLE</strong> \u2014 Copy-paste this EXACT string into every shot prompt. The identical wording is what locks the character. Change nothing between shots.'},
+{text:"Shot 3 of 5",cat:'context',explain:'\u{1F4C7} <strong>SHOT POSITION</strong> \u2014 Declaring position in the sequence signals to AI (and to yourself) that this is part of a story. Use "Shot X of Y" religiously.'},
+{text:"Character walks through Yerevan morning market",cat:'context',explain:'\u{1F306} <strong>SCENE ACTION</strong> \u2014 What the character DOES in this shot. Keep action simple — walking, pausing, gesturing. Complex actions break character consistency.'},
+{text:"slow tracking shot beside her",cat:'technical',explain:'\u{1F3A5} <strong>CAMERA FOR THE SEQUENCE</strong> \u2014 Tracking shots (camera moves with subject) are your main multi-shot tool. They let the character move through space without cutting.'},
+{text:"Maintain: face, hair, signature earrings",cat:'context',explain:'\u{1F512} <strong>CONSISTENCY LOCKS</strong> \u2014 Explicit "Maintain:" list tells AI what must survive. Always lock face, hair, and one signature accessory (jewelry, clothing piece, color).'},
+{text:"Vary: setting, light, atmosphere",cat:'style',explain:'\u{1F504} <strong>VARIATION LICENSE</strong> \u2014 Explicit "Vary:" list tells AI where it has freedom. Without this, AI guesses and often breaks the wrong thing.'}
+]},
+{type:'key-points',points:[
+'Character Bible = exact wording, copy-pasted into every shot',
+'Always upload the same REFERENCE IMAGE across all 5 shots (Kling allows this)',
+'Lock: face, hair, signature accessory. Vary: setting, light, angle, action',
+'Use "Shot X of Y" in every prompt to signal sequence intent',
+'Tracking shots are the default — camera moves with subject, not against',
+'3-act structure works: shots 1-2 setup, 3-4 tension, 5 resolution',
+'Kling 3.0 Multi-Shot mode keeps character consistency automatically — use it',
+'If drift happens, regenerate with stronger lock language ("IDENTICAL face from reference")'
+]},
+{type:'cheat-sheet',icon:'\u{1F4D6}',title:'Character Bible Template',items:[
+{name:'Demographics',desc:'"Armenian woman, late 20s, entrepreneur"'},
+{name:'Face features',desc:'"Sharp cheekbones, deep brown eyes, warm skin"'},
+{name:'Hair (exact)',desc:'"Shoulder-length wavy dark brown hair, side-parted"'},
+{name:'Signature accessory',desc:'"Gold hoop earrings" — the anchor item'},
+{name:'Signature clothing',desc:'"Cream silk blouse" — the recurring piece'},
+{name:'Style descriptor',desc:'"Minimalist elegance, confident posture"'}
+]},
+{type:'cheat-sheet',icon:'\u{1F3AC}',title:'5-Shot Story Arc',items:[
+{name:'Shot 1 — Establishing',desc:'Wide. Set the world. Character small in the frame.'},
+{name:'Shot 2 — Introduction',desc:'Medium. Meet the character. Close enough to read expression.'},
+{name:'Shot 3 — Rising Action',desc:'Tracking. Character does something. Movement and purpose.'},
+{name:'Shot 4 — Moment',desc:'Close-up. The key detail — eyes, hands, object. Emotional beat.'},
+{name:'Shot 5 — Resolution',desc:'Wide or pull-out. Character in the world. Satisfied, transformed, arrived.'}
+]}
+],
+gallery:[
+{prompt:'[Character Bible] Shot 1 of 5: Wide establishing, character stands at Yerevan balcony sunrise, slow pull back reveal, golden light, 5s',tool:'Kling AI 3.0',gradient:'linear-gradient(135deg,#1a0a00,#5a3010 50%,#e8a040)',descResult:'Establishing shot. Character small, world large. Sets the scale — she lives here, this is her morning.'},
+{prompt:'[Character Bible] Shot 2 of 5: Medium, character sips coffee on balcony, slight smile, steam rises, warm window light, 5s',tool:'Kling AI 3.0',gradient:'linear-gradient(135deg,#2d1a0a,#7d4e1e 50%,#c4956a)',descResult:'Introduction. Same character, closer. Reading expression is possible now. Steam and slight smile = intimacy.'},
+{prompt:'[Character Bible] Shot 3 of 5: Tracking beside character walking through morning market, dust in sunlight, dynamic forward motion, 5s',tool:'Kling AI 3.0',gradient:'linear-gradient(135deg,#1a1500,#5a4e1a 50%,#e8c058)',descResult:'Rising action. Character moves through space. Tracking camera creates agency — she is doing, not being.'},
+{prompt:'[Character Bible] Shot 4 of 5: Extreme close up on hands examining handmade silver ring at artisan stall, slow push in, 5s',tool:'Kling AI 3.0',gradient:'linear-gradient(135deg,#1a1a1a,#3d3d3d 50%,#c4c4c4)',descResult:'Moment. Cutting to hands and object instead of face = emotional specificity. A purchase, a decision, a pause.'},
+{prompt:'[Character Bible] Shot 5 of 5: Pull out from character smiling in Yerevan square, golden hour wide, satisfied mood, 10s',tool:'Kling AI 3.0',gradient:'linear-gradient(135deg,#2a1000,#8d5020 50%,#f0b060)',descResult:'Resolution. Return to wide. Character in her world, transformed by the arc. 10 seconds for emotional landing.'}
+],
+recipe:[
+{step:1,title:'Write your Character Bible once',desc:'3-4 sentence character description. Include face, hair (exact), signature accessory, signature clothing. Lock this language — never change it.',tip:'<strong>The anchor rule:</strong> One signature accessory (earrings, necklace, watch) carries more weight than face features.'},
+{step:2,title:'Generate your reference still',desc:'Front-facing portrait, clean background, strong lighting. This is the anchor image you\'ll reference in every shot.',tip:'<strong>Save it:</strong> Download the PNG. Keep the prompt. This file is your character file across the whole course.'},
+{step:3,title:'Plan 5 shots in a 3-act structure',desc:'Shots 1-2 setup the world and character. Shots 3-4 escalate with movement and detail. Shot 5 resolves.',tip:'<strong>Plan on paper first:</strong> One sentence per shot. Framing + action + purpose. Do this BEFORE generating.'},
+{step:4,title:'Generate all 5 shots with identical Character Bible',desc:'Copy-paste the Character Bible verbatim into all 5 prompts. Vary only the action, framing, camera, location.',tip:'<strong>Kling 3.0 Multi-Shot mode:</strong> Use it. It auto-maintains character consistency across the 5 shots.'},
+{step:5,title:'Review — what drifted?',desc:'Watch all 5 back-to-back. Does face stay? Hair? Earrings? If something drifted, identify which shot broke and regenerate with stronger lock language.',tip:'<strong>The 4-of-5 rule:</strong> If 4 of 5 shots are consistent and 1 drifts — regenerate the broken one only.'}
+],
+quiz:[
+{q:'What anchors character consistency best across multiple shots?',opts:['Eye color description','A distinctive signature accessory (earrings, watch)','Hair color','General style'],correct:1,explain:'Specific, distinctive accessories are rendered more consistently than face features. Gold hoop earrings, a specific watch, a red scarf — these survive across shots.'},
+{q:'Why use "Shot X of Y" in every prompt?',opts:['Required syntax','Signals sequence intent to AI AND to yourself — enforces story thinking','Tracks credits','Speeds generation'],correct:1,explain:'"Shot 3 of 5" makes you think about position in story. It also cues AI that this is part of a sequence, activating consistency tendencies.'}
+],hw:{brief:'Direct your first 5-shot AI film. One character, one story, 5 connected shots. Think of it as a 25-second short you would submit to a festival.',deliverables:['Your Character Bible (written, saved, reusable for future sessions)','1 reference portrait still of the character','5 video clips (5s each) with identical character across all','A one-paragraph story logline: who is this character, and what happens in these 25 seconds?','Short analysis: what stayed consistent? What drifted? How would you fix the drift?'],steps:['Write your Character Bible — demographics, face, hair, signature accessory, clothing','Generate the reference portrait in Nano Banana Pro or Google Flow','Plan your 5 shots on paper: establishing → introduction → action → moment → resolution','Shot 1 (wide establishing): copy Character Bible + wide shot prompt + location','Shot 2 (medium introduction): copy Character Bible + medium framing + soft moment','Shot 3 (tracking action): copy Character Bible + tracking shot + forward motion','Shot 4 (close-up detail): copy Character Bible + close-up + hands/object/key detail','Shot 5 (resolution): copy Character Bible + wide pull-out + transformation moment','Review all 5 back-to-back. Identify any character drift.'],checklist:['Character Bible is word-for-word identical across all 5 prompts','Signature accessory is visible and consistent in at least 4 of 5 shots','Shots follow the 5-shot arc (establishing → introduction → action → moment → resolution)','Camera moves vary intentionally across the 5 shots (not all pushes, not all static)','Each shot has a clear purpose in the story','Face/hair recognizable as same character across all 5'],creative_challenge:'BONUS: Write the OPENING LINE of the film. If this was a short film on Vimeo, what sentence would appear on the title card? One line — make it carry the whole story.',pro_tip:'The Character Bible you write today becomes your signature for the rest of the course. Save it. Future sessions (ads, music videos, brand work) will use this same character. Consistency across the course = portfolio.'}},
+
+{n:5,titleEn:'AI Video Ads — 30-Second Commercials',tools:'Kling AI 3.0, ElevenLabs, Suno, CapCut',
+learn:[
+{type:'visual-tip',tips:[
+{icon:'\u{1F4B0}',title:'A Real Ad Costs $10k+',desc:'A production-quality 30s ad with agency, crew, location, talent: $10k–$50k. AI version: under $50 and 3 hours.'},
+{icon:'\u{1F9F1}',title:'Ad Structure Never Changes',desc:'Hook (0-3s) → Problem (3-8s) → Product (8-18s) → Proof (18-25s) → CTA (25-30s). Decades of advertising science.'},
+{icon:'\u{1F3AD}',title:'Emotion Sells, Not Features',desc:'Lifestyle > specs. Transformation > price. Show who they become, not what the product does.'}
+]},
+{type:'prompt-anatomy',
+prompt:"30s ad brief. Product: Armenian artisan honey brand 'Apirakh'. Audience: Yerevan millennials who buy premium groceries. Hook (0-3s): dawn apiary, golden light, beekeeper silhouette. Problem (3-8s): generic supermarket honey on shelf, flat light, tired hands. Product (8-18s): hero shot of honey jar on dark oak, liquid drip frozen, rim lighting. Proof (18-25s): Yerevan family breakfast, honey on warm bread, laughter. CTA (25-30s): product + tagline 'Taste the real hills.' Visual style: warm cinematic, teal-orange grade, anamorphic lens. Music: acoustic folk, 95 BPM, hopeful.",
+segments:[
+{text:"30s ad brief. Product: Armenian artisan honey brand 'Apirakh'",cat:'context',explain:'\u{1F4DC} <strong>BRIEF FIRST</strong> \u2014 Always start with product + audience. This frames every shot decision. "Artisan" = premium language. "Apirakh" = memorable brand name.'},
+{text:"Hook (0-3s): dawn apiary, golden light, beekeeper silhouette",cat:'mood',explain:'\u{1F3A3} <strong>HOOK SHOT</strong> \u2014 First 3 seconds win or lose the ad. Atmosphere + mystery + beauty. Silhouette invites curiosity — they lean in.'},
+{text:"Problem (3-8s): generic supermarket honey...flat light, tired hands",cat:'context',explain:'\u2696\uFE0F <strong>PROBLEM SHOT</strong> \u2014 The mundane alternative. Cold, flat, generic. Must contrast sharply with the hero. Flat light vs golden = instant visual tension.'},
+{text:"Product (8-18s): hero shot...dark oak, liquid drip frozen, rim lighting",cat:'subject',explain:'\u{1F36F} <strong>HERO SHOT</strong> \u2014 The product as star. Use your Session 3 (Image) formula: dark surface + dynamic element + rim lighting. 10 seconds is LONG — plan micro-motion (drip, rotate, reveal).'},
+{text:"Proof (18-25s): Yerevan family breakfast...laughter",cat:'mood',explain:'\u{1F3E0} <strong>PROOF SHOT</strong> \u2014 Real people with real transformation. Family + bread + laughter = authenticity. This converts viewers into believers.'},
+{text:"CTA (25-30s): product + tagline 'Taste the real hills.'",cat:'style',explain:'\u{1F4E2} <strong>CLOSING CTA</strong> \u2014 Product back on screen + short memorable line + brand mark. 5 seconds. Short tagline. Nothing else.'},
+{text:"Music: acoustic folk, 95 BPM, hopeful",cat:'style',explain:'\u{1F3B5} <strong>SOUND DIRECTION</strong> \u2014 Brief the music like a shot. Genre + BPM + emotional direction. Use this in Suno: "acoustic folk, 95 BPM, hopeful, Armenian duduk accents, instrumental, 30 seconds."'}
+]},
+{type:'key-points',points:[
+'The 5-beat ad: Hook (0-3) / Problem (3-8) / Product (8-18) / Proof (18-25) / CTA (25-30)',
+'Hook must work with sound OFF — 85% of social watches muted',
+'Problem shot must visually CONTRAST the product shot (flat vs lit, cold vs warm)',
+'Product shot is where you apply all of Session 3 image craftsmanship',
+'Proof shot should feature real-looking people, not idealized models',
+'Music BPM is emotional pacing. 90-100 = hopeful. 120+ = energetic. 70-85 = intimate',
+'Final CTA: max 5 seconds, one tagline, brand mark — nothing else'
+]},
+{type:'cheat-sheet',icon:'\u{1F9F1}',title:'5-Beat Ad Structure',items:[
+{name:'Hook (0-3s)',desc:'Beautiful + mysterious. Makes them stop scrolling.'},
+{name:'Problem (3-8s)',desc:'The mundane alternative. Flat, cold, generic.'},
+{name:'Product (8-18s)',desc:'Hero shot. 10 seconds of craft. Rim lighting. Motion.'},
+{name:'Proof (18-25s)',desc:'Real people, real moment. Transformation visible.'},
+{name:'CTA (25-30s)',desc:'Product + tagline + brand. 5 seconds. Nothing else.'}
+]},
+{type:'cheat-sheet',icon:'\u{1F3B5}',title:'Suno Music Briefs',items:[
+{name:'Intimate / luxury',desc:'"Ambient piano, 70 BPM, spacious, hopeful, instrumental, 30s"'},
+{name:'Energetic / youth',desc:'"Indie pop, 128 BPM, punchy drums, uplifting, 30s"'},
+{name:'Cinematic / epic',desc:'"Cinematic strings, 110 BPM, building crescendo, orchestral, 30s"'},
+{name:'Armenian heritage',desc:'"Armenian duduk + acoustic guitar, 95 BPM, melancholy hopeful, 30s"'},
+{name:'Modern premium',desc:'"Minimal electronic, 100 BPM, clean pluck synths, confident, 30s"'}
+]}
+],
+gallery:[
+{prompt:'Hook (0-3s): Apirakh dawn apiary, golden light, beekeeper silhouette, slow push in, warm cinematic, anamorphic, Armenian duduk layer',tool:'Kling AI 3.0',gradient:'linear-gradient(135deg,#1a0a00,#6d3a10 50%,#f0a030)',descResult:'Opening 3 seconds set the entire tone. Silhouette against sunrise invites curiosity. Slow push in = cinematic authority.'},
+{prompt:'Product hero (8-18s): Apirakh honey jar on dark oak, honey drip frozen in motion, rim lighting, dust particles, 10s',tool:'Kling AI 3.0',gradient:'linear-gradient(135deg,#0a0a00,#3d2510 50%,#c4a020)',descResult:'The 10-second hero shot. Frozen drip is the moment everything builds toward. Rim lighting separates jar from black.'},
+{prompt:'Proof (18-25s): Yerevan family breakfast, hands spread honey on warm bread, laughter, morning window light, candid documentary',tool:'Runway Gen-4',gradient:'linear-gradient(135deg,#2d1a0a,#7d4e1e 50%,#e8c060)',descResult:'Proof shot converts. Real-looking family + hands + bread = authentic transformation. Window light keeps it candid, not staged.'},
+{prompt:'Suno music: Armenian duduk + acoustic guitar, 95 BPM, melancholy hopeful, instrumental, builds gently to lifted chorus, 30 seconds',tool:'Suno',gradient:'linear-gradient(135deg,#1a1a2e,#3d3560 50%,#c4956a)',descResult:'Suno delivers on surgical music briefs. Duduk layer + acoustic base = cultural specificity + universal appeal. 95 BPM = hopeful tempo.'}
+],
+recipe:[
+{step:1,title:'Write the brief on one page',desc:'Product name, audience, tone, tagline. Do this BEFORE any generation. The brief is the hardest part — and the most valuable.',tip:'<strong>Brief template:</strong> Product is [X]. For [audience]. Feels like [tone]. The one-line promise: [tagline].'},
+{step:2,title:'Storyboard the 5 beats in sentences',desc:'One sentence per beat. Hook sentence. Problem sentence. Product sentence. Proof sentence. CTA sentence. 5 total.',tip:'<strong>Why sentences:</strong> If you can\'t write the beat in one sentence, the shot is muddled. Rewrite the sentence first.'},
+{step:3,title:'Generate each beat as an image first',desc:'Apply Session 3 formulas to each shot. Hero shot gets full luxury formula. Proof shot gets lifestyle formula.',tip:'<strong>Image first, video second:</strong> 5 strong stills + animation = 5 strong shots. Weak stills = weak shots.'},
+{step:4,title:'Brief Suno with the same ad brief',desc:'Genre + BPM + emotional arc + duration. Suno will generate 2 versions — pick the better one. 30 seconds exactly.',tip:'<strong>Suno pro tip:</strong> Specify "instrumental" explicitly, otherwise Suno adds vocals. Specify "30 seconds" exactly.'},
+{step:5,title:'Assemble in CapCut with beat sync',desc:'Drag all 5 clips in order. Drag Suno track. Enable Auto Beat Sync. Add tagline text overlay on CTA beat. Export 1080p.',tip:'<strong>Beat sync rule:</strong> Cut ON the downbeat, not between. The cut and the drum hit should be the same frame.'}
+],
+quiz:[
+{q:'First 3 seconds of an ad must work WITHOUT sound because...',opts:['Sound quality is bad','85% of social video is watched muted — visual hook alone must work','Platforms compress audio','Makes the file smaller'],correct:1,explain:'85% of social video is watched with sound off. Your hook must stop the scroll with visuals alone. Captions are secondary; visuals come first.'},
+{q:'Which beat should be your strongest image craft?',opts:['Hook','Product hero shot','Proof shot','CTA'],correct:1,explain:'The 10-second product hero shot is where you apply all of Session 3\'s image craft: luxury surface, rim lighting, dynamic element, quality anchors. The ad rises or falls here.'}
+],hw:{brief:'Invent an Armenian product brand and direct its full 30-second ad. You are the creative director. Brief, beats, generations, music, edit — end to end.',deliverables:['One-page brand brief: product name, audience, tone, tagline','Storyboard: 5 beats, one sentence each','5 generated video clips (one per beat)','Suno music track (30 seconds, briefed to match brand tone)','Final assembled 30-second video in CapCut with music and text overlay on CTA','A 2-paragraph creative director note: what you tried, what worked, what you\'d do differently'],steps:['Invent your brand: artisan honey? pomegranate skincare? modern Armenian coffee? luxury candles?','Write the one-page brief: product, audience, tone, tagline','Storyboard 5 beats: Hook / Problem / Product / Proof / CTA — one sentence each','Generate 5 video clips (Kling image-to-video with strong stills first)','Brief Suno: genre + BPM + emotion + 30s instrumental','Assemble in CapCut: drag clips in beat order, drag music, enable Auto Beat Sync','Add tagline text overlay on final 5 seconds','Export 1080p, 30 seconds exactly'],checklist:['Brief is written on ONE page and reads cleanly to someone outside the class','5 beats are visible and distinct — each serves its structural purpose','Product hero shot is the most polished image in the ad','Proof shot features real-looking humans, not idealized perfection','Music tempo matches emotional intent (slow = intimate, fast = energetic)','Beat sync cuts land on music downbeats','Tagline on CTA is short (max 6 words), memorable, product-specific','Final export is exactly 30 seconds'],creative_challenge:'BONUS: Upload the finished ad to your own Instagram story (private or public). The real test is whether someone scrolling would stop. Ask ONE honest friend: "Did this stop your scroll?" Note their answer.',pro_tip:'A $50k agency ad is sold on the BRIEF. Spend 2 hours on the brief. 30 minutes on each beat. The brief is the creative work. Everything after is execution.'}},
+
+{n:6,titleEn:'Full Production Pipeline — Editing, Color, Sound, Export',tools:'CapCut, DaVinci Resolve, ElevenLabs, Suno',
+learn:[
+{type:'visual-tip',tips:[
+{icon:'\u{1F3AC}',title:'Edit = 40% of Final Quality',desc:'Great clips + bad edit = mediocre video. Mediocre clips + great edit = surprisingly good video. The edit is where amateur becomes pro.'},
+{icon:'\u{1F3A8}',title:'Color Grade Ties Everything',desc:'Apply the SAME LUT across all clips. Warm teal-orange unifies scattered AI generations into one coherent film.'},
+{icon:'\u{1F50A}',title:'Sound is 50% of Video',desc:'Bad audio on good video = stop watching. Good audio on mediocre video = keep watching. Invest equal time in sound design.'}
+]},
+{type:'prompt-anatomy',
+prompt:"CapCut project: 30s brand film. Timeline: 5 AI clips stacked. Music: Suno instrumental, 30s. Track 1: establishing (5s) → introduction (5s) → action (6s) → close-up (4s) → resolution (10s). Apply 'Cinematic Warm' LUT across all. Add ambient SFX layer. Beat sync cuts to music downbeats. Auto Captions on dialog. Export 1080p H.264, 25fps.",
+segments:[
+{text:"CapCut project: 30s brand film",cat:'context',explain:'\u{1F3AC} <strong>PROJECT DEFINITION</strong> \u2014 Name and purpose up front. 30-second format is the social sweet spot. Brand film = more cinematic than ad, more intentional than vlog.'},
+{text:"Timeline: 5 AI clips stacked",cat:'technical',explain:'\u{1F4CA} <strong>CLIP ORGANIZATION</strong> \u2014 Always put clips on one master track in order. Adjustments (LUT, captions) go on tracks above. Music goes below. This hierarchy keeps edits clean.'},
+{text:"establishing (5s) → introduction (5s) → action (6s) → close-up (4s) → resolution (10s)",cat:'context',explain:'\u23F1\uFE0F <strong>DURATION PACING</strong> \u2014 Not all beats get equal time. Resolution often deserves more breathing room. Closing on a long shot (10s) lets emotion land.'},
+{text:"Apply 'Cinematic Warm' LUT across all",cat:'style',explain:'\u{1F3A8} <strong>GRADE UNIFICATION</strong> \u2014 The single most powerful edit move. One LUT across every clip = instant cohesion. Without it, AI-generated clips feel scattered.'},
+{text:"Add ambient SFX layer",cat:'style',explain:'\u{1F50A} <strong>SOUND DESIGN LAYERS</strong> \u2014 Music is only half. Add: footsteps, wind, cafe chatter, ambient room tone. Free: Epidemic Sound, Freesound.org, CapCut sound library.'},
+{text:"Beat sync cuts to music downbeats",cat:'technical',explain:'\u{1F941} <strong>BEAT SYNC</strong> \u2014 Cut ON the downbeat, not between. CapCut auto-detects beats. Manual tuning takes 10 minutes and separates pros from amateurs.'},
+{text:"Export 1080p H.264, 25fps",cat:'technical',explain:'\u{1F4BE} <strong>EXPORT SETTINGS</strong> \u2014 1080p minimum (4K drains phones on playback). H.264 for universal compatibility. 25fps = European standard, 30fps = US social, 24fps = cinematic.'}
+]},
+{type:'key-points',points:[
+'The edit = 40% of final quality. Invest the time',
+'One LUT across all clips = instant cohesion',
+'Audio is 50% of video — bad audio kills good footage',
+'Beat-sync cuts to music downbeats, not between beats',
+'Captions are not optional — 85% of social is watched muted',
+'CapCut free tier: beat sync, auto captions, AI color, 1080p export, LUTs — enough for pro work',
+'Export 1080p H.264 for social, 4K H.265 for archival, never ProRes for social',
+'Always export a vertical 9:16 version for Reels/TikTok alongside horizontal 16:9'
+]},
+{type:'cheat-sheet',icon:'\u{1F3A8}',title:'LUT Options by Mood',items:[
+{name:'Cinematic Warm',desc:'Teal shadows + warm highlights. Hollywood default.'},
+{name:'Kodak Portra Film',desc:'Lifted blacks, warm skin, slight pink. Editorial.'},
+{name:'Bleach Bypass',desc:'Desaturated, contrasty. Documentary, industrial.'},
+{name:'Golden Hour',desc:'Warm push across everything. Nostalgic, hopeful.'},
+{name:'Cool Blue Night',desc:'Cyan-blue shadows. Noir, thriller, mystery.'},
+{name:'Faded Matte',desc:'Lifted blacks, desaturated. Arthouse, indie.'}
+]},
+{type:'cheat-sheet',icon:'\u{1F3AD}',title:'Sound Design Layers',items:[
+{name:'Music',desc:'Suno-generated, briefed to match tone. Track 2.'},
+{name:'Ambient / room tone',desc:'Background texture — wind, room, cafe, street. Track 3.'},
+{name:'Foley',desc:'Specific sounds — footsteps, pours, cloth rustles. Track 4.'},
+{name:'Voice (if present)',desc:'ElevenLabs narration or dialog. Track 1 (priority).'},
+{name:'Whoosh / transitions',desc:'Between cuts for energy. Use sparingly. Track 5.'}
+]},
+{type:'cheat-sheet',icon:'\u{1F4BE}',title:'Export Settings by Platform',items:[
+{name:'Instagram Reels',desc:'1080×1920, H.264, 30fps, max 90s'},
+{name:'TikTok',desc:'1080×1920, H.264, 30fps, max 3min'},
+{name:'YouTube Shorts',desc:'1080×1920, H.264, 30fps, max 60s'},
+{name:'LinkedIn',desc:'1920×1080 or 1080×1080, H.264, 30fps'},
+{name:'Archival master',desc:'3840×2160 (4K), H.265, 25fps'}
+]}
+],
+gallery:[
+{prompt:'CapCut timeline assembly: 5 AI clips, Suno music, Cinematic Warm LUT applied, beat-synced cuts, captions bottom center',tool:'CapCut',gradient:'linear-gradient(135deg,#1a0a0a,#4d2a2a 50%,#c45a5a)',descResult:'Full project view. Five scattered AI clips unified by one LUT. Beat-sync cuts hit downbeats. Captions lifted watch time 40%.'},
+{prompt:'Before/after color grade: raw AI clip (flat, mixed temps) vs after Cinematic Warm LUT (teal shadows, warm skin, unified)',tool:'CapCut Color',gradient:'linear-gradient(135deg,#1a1a1a,#3d3020 50%,#c4956a)',descResult:'The LUT transforms 5 different AI generations into one visual language. Skin tones warm, shadows teal, cohesion immediate.'},
+{prompt:'Audio stack: Suno music base + wind ambient + footstep foley + single transition whoosh between shots 2 and 3',tool:'CapCut Audio',gradient:'linear-gradient(135deg,#0a1a2e,#2a3d60 50%,#60a0c4)',descResult:'4-layer sound design. Music carries emotion. Wind grounds location. Footsteps add realism. One whoosh adds energy at the act break.'},
+{prompt:'Export: vertical 9:16 for Reels AND horizontal 16:9 for LinkedIn, both 1080p H.264, captions baked in',tool:'CapCut Export',gradient:'linear-gradient(135deg,#1a1a0a,#4d4520 50%,#c4a830)',descResult:'Two exports from one project. Platform-native aspect ratios. Captions baked in (not optional track) so they always appear.'}
+],
+recipe:[
+{step:1,title:'Build the timeline in pacing order',desc:'Drag all 5 clips in intended order. Drag Suno music underneath. Watch once end-to-end. Feel the pacing.',tip:'<strong>First pass rule:</strong> Don\'t cut yet. Just watch. Note where it drags or rushes.'},
+{step:2,title:'Apply one LUT across all clips',desc:'CapCut → Filters → Cinematic. Apply same filter to every clip. Adjust intensity to 70-80% if overpowering.',tip:'<strong>The unification rule:</strong> Same LUT on every clip, even if some don\'t need it. Consistency > per-clip perfection.'},
+{step:3,title:'Beat-sync the cuts',desc:'Enable Auto Beat Sync on the music track. Move cuts to land on downbeats. Tight cuts on fast music, loose cuts on slow music.',tip:'<strong>Manual tuning beats auto:</strong> Auto gets 80%. Your ear catches the other 20%. Spend 10 minutes tuning.'},
+{step:4,title:'Layer ambient + foley sound',desc:'Add 1 ambient layer (wind, room tone, street). Add 1-2 specific foley sounds (footstep, pour, rustle). Mix music to -12dB, effects to -18dB.',tip:'<strong>Audio mix rule:</strong> If you can hear everything clearly, it\'s balanced. If music dominates, pull it back 3dB.'},
+{step:5,title:'Export two versions',desc:'Export 1: vertical 9:16 for Reels/TikTok with captions baked in. Export 2: horizontal 16:9 for LinkedIn/YouTube. Both 1080p H.264.',tip:'<strong>Archive rule:</strong> Save your CapCut project file. Future you will want to re-export or remix. Don\'t trust the cloud.'}
+],
+quiz:[
+{q:'The single most powerful editing move to unify AI-generated clips?',opts:['Transitions','One LUT applied across all clips','Text overlays','Fade to black'],correct:1,explain:'One LUT across every clip forces visual cohesion. Without it, 5 AI-generated clips feel like 5 unrelated generations. With it, they feel like one film.'},
+{q:'Why bake captions into the export rather than using a caption track?',opts:['Smaller file','Ensures captions appear on EVERY platform even if the platform strips caption tracks','Faster export','Legal requirement'],correct:1,explain:'Caption tracks get stripped by some platforms or hidden by default. Baked-in captions are pixels — they always appear. Accessibility AND watch time both win.'}
+],hw:{brief:'Take your 5-shot story from Session 4 OR your 30-second ad from Session 5. Edit it to finished-portfolio quality. Color graded, beat synced, sound designed, captioned, exported for both vertical and horizontal platforms.',deliverables:['Final video, vertical 9:16 (1080×1920), 1080p H.264, captions baked in','Final video, horizontal 16:9 (1920×1080), 1080p H.264','Your CapCut project file saved and archived','A short breakdown: which LUT, BPM, ambient layers, and why'],steps:['Pick: Session 4 5-shot story OR Session 5 30-second ad — whichever you want in your portfolio','Open CapCut. Create new project. Import all clips in order','Drag Suno music underneath. Watch once end-to-end','Apply one LUT across ALL clips (Cinematic Warm is a safe default). Adjust intensity if needed','Enable Auto Beat Sync. Manually tune cuts to land on downbeats — spend 10 minutes','Add 1 ambient layer + 1-2 foley sounds. Mix music at -12dB, effects at -18dB','Add Auto Captions. Review every word. Position bottom center, large readable font','Export 9:16 version with captions baked in — 1080×1920, H.264, 1080p','Export 16:9 version — 1920×1080, H.264, 1080p','Save and archive the CapCut project file'],checklist:['One LUT applied consistently across ALL clips (no per-clip drift)','Cuts land on music downbeats (at least 80% of cuts)','Audio has at least 3 layers (music + ambient + foley)','Captions are readable on mobile at arms length','Final vertical export is exactly 9:16 ratio','Final horizontal export is exactly 16:9 ratio','Both exports are 1080p minimum','CapCut project file saved somewhere you can find in 6 months'],creative_challenge:'BONUS: Post the vertical version to your Instagram Reels (public or close friends). Note the watch-time graph after 24 hours. Where do viewers drop? Fix those cuts in a v2.',pro_tip:'Your CapCut project file is your master. Re-export to any size, any platform, any aspect ratio. The moment you have a finished master, you can feed every channel without re-editing.'}}
 ]},
 
 {id:4,title:'Brand & Visual Identity',titleEn:'Brand & Visual Identity',subtitle:'Strategy, identity systems & client-ready deliverables',persona:'Designers & Founders',avatar:'\u{1F3AF}',outcomes:['Build complete brand strategy using AI','Create logo & visual identity systems','Design client-ready brand packages','Deliver professional client work end-to-end'],skills:['Brand Strategy','Logo Design','Canva AI','Midjourney','Client Work'],icon:'\u{1F3AF}',color:'#4DB8A0',sessions:[
