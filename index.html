@@ -36,7 +36,7 @@
   --border-strong:rgba(240,236,230,.16);
   --text:#f0ece6;
   --text-dim:#b0a8a0;
-  --text-subtle:#7d7570;
+  --text-subtle:#a29a92;
   --accent:#e07a3a;
   --accent-hover:#eb8d52;
   --accent-glow:rgba(224,122,58,.10);
@@ -122,8 +122,7 @@
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 40px)}
 body{font-family:'Inter','Noto Serif Armenian',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:16px}
 
-/* Noise overlay for texture */
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.012;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* Noise overlay removed — cleaner base */
 
 .container{max-width:var(--container);margin:0 auto;padding:0 var(--sp-6)}
 .container-narrow{max-width:var(--container-narrow);margin:0 auto;padding:0 var(--sp-6)}
@@ -161,8 +160,8 @@ section{padding:var(--section-y) 0}
 .nav-links{display:flex;gap:28px;align-items:center;list-style:none}
 .nav-links a{color:var(--text-dim);text-decoration:none;font-size:.78rem;font-weight:500;transition:color .2s;letter-spacing:.02em;text-transform:uppercase}
 .nav-links a:hover{color:var(--text)}
-.nav-cta{background:var(--accent);color:#10131a;padding:var(--sp-2) var(--sp-5);border-radius:var(--r-md);font-size:var(--fs-xs);font-weight:700;text-decoration:none;transition:background var(--dur-base) var(--ease);letter-spacing:var(--tr-wide)}
-.nav-cta:hover{background:var(--accent-hover)}
+.nav-links a.nav-cta{background:var(--accent);color:#10131a;padding:var(--sp-2) var(--sp-5);border-radius:var(--r-md);font-size:var(--fs-xs);font-weight:700;text-decoration:none;transition:background var(--dur-base) var(--ease),color var(--dur-base) var(--ease),transform var(--dur-base) var(--ease);letter-spacing:var(--tr-wide);white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center}
+.nav-links a.nav-cta:hover{background:var(--accent-hover);color:#10131a;transform:translateY(-1px)}
 @media(max-width:640px){
   .nav-links{gap:16px}
   .nav-links a{font-size:.7rem}
@@ -179,8 +178,7 @@ section{padding:var(--section-y) 0}
 .hero{min-height:90svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:var(--sp-20) var(--sp-6) var(--sp-16);position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;pointer-events:none}
 .hero-bg .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.035}
-.hero-bg .orb1{width:600px;height:600px;background:var(--accent);top:-20%;left:-10%}
-.hero-bg .orb2{width:400px;height:400px;background:#eb8d52;bottom:-10%;right:-10%}
+.hero-bg .orb1{width:640px;height:640px;background:var(--accent);top:-15%;left:-8%}
 .hero-bg .grid-lines{position:absolute;inset:0;background-image:linear-gradient(var(--card-border) 1px,transparent 1px),linear-gradient(90deg,var(--card-border) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 70%);opacity:.4}
 .hero-content{position:relative;z-index:1;max-width:640px}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-xs);font-weight:600;color:var(--text-dim);margin-bottom:var(--sp-8);letter-spacing:var(--tr-wider);text-transform:uppercase}
@@ -189,6 +187,7 @@ section{padding:var(--section-y) 0}
 .hero-locator{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:var(--sp-6);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);font-weight:600}
 .hero-locator .loc-rule{flex:0 0 56px;height:1px;background:linear-gradient(90deg,transparent,var(--border-strong),transparent)}
 .hero-locator .loc-cohort{color:var(--secondary);font-weight:700}
+@media(max-width:480px){.hero-locator{flex-direction:column;gap:6px;font-size:.6rem}.hero-locator .loc-rule{display:none}}
 /* Passport-style margin details on hero */
 .hero-passport{position:absolute;bottom:28px;left:32px;right:32px;display:flex;justify-content:space-between;align-items:flex-end;font-family:'Inter',sans-serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-subtle);font-weight:500;pointer-events:none;z-index:1}
 .hero-passport .pp-item{display:flex;flex-direction:column;gap:4px;line-height:1.3}
@@ -218,6 +217,9 @@ section{padding:var(--section-y) 0}
 .hero .sub{font-size:var(--fs-md);color:var(--text-dim);max-width:480px;margin:0 auto var(--sp-10);line-height:var(--lh-loose)}
 .hero-cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 @media(max-width:400px){.hero-cta-row{flex-direction:column;align-items:center}.hero-cta-row .btn{width:100%;max-width:280px}}
+.hero-secondary-link{display:inline-block;margin-top:14px;font-size:.82rem;color:var(--text-dim);text-decoration:none;letter-spacing:.01em;border-bottom:1px solid rgba(176,168,160,.28);padding-bottom:2px;transition:color .2s,border-color .2s}
+.hero-secondary-link:hover{color:var(--accent);border-bottom-color:var(--accent)}
+@media(max-width:400px){.hero-secondary-link{font-size:.78rem;max-width:280px;text-align:center}}
 .hero-stats{display:flex;gap:40px;justify-content:center;margin-top:32px;flex-wrap:wrap}
 .hero-stat{text-align:center;position:relative}
 .hero-stat::after{content:'';position:absolute;right:-20px;top:50%;transform:translateY(-50%);width:1px;height:24px;background:var(--card-border)}
@@ -343,9 +345,10 @@ section{padding:var(--section-y) 0}
 /* ── Offerings ── */
 .offerings{position:relative;background:linear-gradient(180deg,var(--bg) 0%,rgba(30,34,48,.3) 50%,var(--bg) 100%)}
 /* === FIND YOUR PATH — editorial diagnostic quiz === */
-.fit{padding:var(--sp-20) var(--sp-6) var(--sp-24);position:relative;background:linear-gradient(180deg,var(--bg),rgba(30,34,48,.18),var(--bg))}
+.fit{padding:var(--sp-12) var(--sp-6) var(--sp-16);position:relative;background:linear-gradient(180deg,var(--bg),rgba(30,34,48,.18),var(--bg))}
+@media(max-width:640px){.fit{padding:var(--sp-10) var(--sp-5) var(--sp-12)}}
 .fit .container{max-width:1040px}
-.fit-intro{max-width:640px;margin:0 auto 40px;text-align:center}
+.fit-intro{max-width:640px;margin:0 auto 28px;text-align:center}
 .fit-intro h2{font-family:'Noto Serif Armenian',serif;font-size:clamp(1.6rem,4.2vw,2.4rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px}
 .fit-intro h2 em{font-style:italic;color:var(--secondary);font-weight:700}
 .fit-intro p{color:var(--text-dim);font-size:.94rem;line-height:1.7;max-width:480px;margin:0 auto}
@@ -510,8 +513,9 @@ section{padding:var(--section-y) 0}
 @keyframes modalUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 .modal-bar{width:36px;height:4px;border-radius:4px;background:rgba(245,239,230,.1);margin:0 auto 20px;display:block}
 @media(min-width:640px){.modal-bar{display:none}}
-.modal-close{position:absolute;top:16px;right:16px;background:rgba(245,239,230,.04);border:1px solid var(--card-border);color:var(--text-dim);font-size:1rem;cursor:pointer;transition:all .2s;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.modal-close:hover{background:var(--card-hover);border-color:rgba(224,122,58,.2);color:var(--accent)}
+.modal-close{position:absolute;top:14px;right:14px;background:rgba(245,239,230,.04);border:1px solid var(--card-border);color:var(--text-dim);font-size:1.1rem;cursor:pointer;transition:background .2s,border-color .2s,color .2s,transform .2s;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1}
+.modal-close:hover{background:rgba(224,122,58,.12);border-color:rgba(224,122,58,.45);color:var(--accent);transform:rotate(90deg)}
+.modal-close:active{transform:rotate(90deg) scale(.94)}
 .modal h2{font-family:'Noto Serif Armenian',serif;font-size:1.2rem;font-weight:700;margin-bottom:4px;letter-spacing:-.02em}
 .modal .modal-for{font-size:.76rem;color:var(--accent);margin-bottom:16px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .modal p{font-size:.86rem;color:var(--text-dim);line-height:1.7;margin-bottom:16px}
@@ -645,7 +649,8 @@ section{padding:var(--section-y) 0}
 /* ── Page load: no FOUC ── */
 
 /* ── Focus states for accessibility ── */
-.btn:focus-visible,.q-opt:focus-visible,.faq-q:focus-visible,.nav-links a:focus-visible,.nav-cta:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+:focus{outline:none}
+a:focus-visible,button:focus-visible,.btn:focus-visible,.q-opt:focus-visible,.faq-q:focus-visible,.nav-links a:focus-visible,.nav-links a.nav-cta:focus-visible,.modal-close:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px;box-shadow:0 0 0 4px rgba(224,122,58,.18)}
 .q-opt:focus-visible{border-color:var(--accent)}
 
 /* ── Selection color ── */
@@ -749,8 +754,7 @@ section{padding:var(--section-y) 0}
 @keyframes meshMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .hero-bg{background:linear-gradient(-45deg,#10131a,#1a1525,#10131a,#151a28);background-size:400% 400%;animation:meshMove 20s ease infinite}
 
-/* ── Mouse-follow light ── */
-.hero-light{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(224,122,58,.06),transparent 60%);pointer-events:none;transform:translate(-50%,-50%);transition:left .15s ease-out,top .15s ease-out;z-index:0}
+/* ── Mouse-follow light removed ── */
 
 /* ── 3D Card transforms ── */
 .t-card{transform-style:preserve-3d;transition:all .4s cubic-bezier(.4,0,.2,1)}
@@ -767,10 +771,7 @@ section{padding:var(--section-y) 0}
 @keyframes borderPulse{0%,100%{border-color:rgba(224,122,58,.15)}50%{border-color:rgba(224,122,58,.35)}}
 .t-card.recommended{animation:borderPulse 2s ease-in-out infinite}
 
-/* ── Cursor glow ── */
-.cursor-glow{position:fixed;width:20px;height:20px;border-radius:50%;background:rgba(224,122,58,.15);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .2s;mix-blend-mode:screen}
-.cursor-glow.expand{width:50px;height:50px;opacity:.08}
-@media(max-width:640px){.cursor-glow{display:none}}
+/* ── Cursor glow removed ── */
 
 /* ── Animated accent line under hero ── */
 @keyframes lineExpand{from{width:0;opacity:0}to{width:120px;opacity:.4}}
@@ -912,7 +913,6 @@ section.visible::after{width:200px}
 <section class="hero" id="hero">
   <div class="hero-bg">
     <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
     <div class="grid-lines"></div>
     <canvas id="particles"></canvas>
   </div>
@@ -926,8 +926,8 @@ section.visible::after{width:200px}
     <p class="sub">[EN: Six weeks, one small cohort, taught in Yerevan and online. Not a certification, not a funnel — a careful conversation about what these tools can actually do for your work.]</p>
     <div class="hero-cta-row">
       <a href="#" onclick="openSignup(null,'hero');return false" class="btn">[EN: Apply for Cohort 05 →]</a>
-      <a href="#fit" class="btn btn-ghost">[EN: Not sure? Find your path]</a>
     </div>
+    <a href="#fit" class="hero-secondary-link">[EN: Not sure which path fits? Take the 3-question quiz →]</a>
     <div class="hero-meta" aria-hidden="true">
       <span>6 Weeks</span>
       <span>Hybrid · Yerevan + Online</span>
@@ -985,7 +985,7 @@ section.visible::after{width:200px}
         <div class="t-rule" aria-hidden="true"></div>
         <div class="t-cta-row">
           <button class="btn btn-sm" onclick="openSignup('career','track-career')">Apply &rarr;</button>
-          <button class="t-more" onclick="openModal('career')">Full syllabus</button>
+          <button class="t-more" onclick="openModal('career')">See syllabus</button>
         </div>
       </div>
       <div class="t-card tilt scale-in stagger-2" id="track-creative">
@@ -1011,7 +1011,7 @@ section.visible::after{width:200px}
         <div class="t-rule" aria-hidden="true"></div>
         <div class="t-cta-row">
           <button class="btn btn-sm" onclick="openSignup('creative','track-creative')">Apply &rarr;</button>
-          <button class="t-more" onclick="openModal('creative')">Full syllabus</button>
+          <button class="t-more" onclick="openModal('creative')">See syllabus</button>
         </div>
       </div>
       <div class="t-card tilt scale-in stagger-3" id="track-teen">
@@ -1037,7 +1037,7 @@ section.visible::after{width:200px}
         <div class="t-rule" aria-hidden="true"></div>
         <div class="t-cta-row">
           <button class="btn btn-sm" onclick="openSignup('teen','track-teen')">Apply &rarr;</button>
-          <button class="t-more" onclick="openModal('teen')">Full syllabus</button>
+          <button class="t-more" onclick="openModal('teen')">See syllabus</button>
         </div>
       </div>
     </div>
@@ -1074,7 +1074,7 @@ section.visible::after{width:200px}
         </div>
         <div class="qr-ctas">
           <button type="button" class="btn" id="qzApply">Apply — track pre-filled &rarr;</button>
-          <button type="button" class="btn btn-ghost" id="qzReset">See the other two</button>
+          <button type="button" class="btn btn-ghost" id="qzReset">Start over</button>
         </div>
         <div class="qr-foot">Not sure? <a href="#modules">Read the syllabus</a> · <a href="https://wa.me/37493388443?text=Hi%20Ed%2C%20I%27d%20like%20to%20talk" target="_blank" rel="noopener">Write to us</a></div>
       </div>
@@ -1198,7 +1198,7 @@ section.visible::after{width:200px}
           <button type="button" class="taste-ex" data-ex="email">[EN: Client email]</button>
           <button type="button" class="taste-ex" data-ex="plan">[EN: Weekly plan]</button>
         </div>
-        <button type="button" id="tasteRun" class="btn taste-run">[EN: Show me the result] &rarr;</button>
+        <button type="button" id="tasteRun" class="btn taste-run">[EN: See my result] &rarr;</button>
         <div class="taste-out" id="tasteOut" aria-live="polite">
           <div class="taste-out-hint">[EN: Your AI-generated result will appear here &mdash; just like it does in ChatGPT or Claude.]</div>
         </div>
@@ -2094,11 +2094,24 @@ section.visible::after{width:200px}
     });
   });
 
-  /* ── Sticky CTA ── */
+  /* ── Sticky CTA: show only after hero leaves viewport, hide near footer ── */
   var stickyCta=document.getElementById('stickyCta');
-  window.addEventListener('scroll',function(){
-    stickyCta.classList.toggle('visible',window.scrollY>600);
-  },{passive:true});
+  var heroEl=document.getElementById('hero');
+  var footerEl=document.querySelector('footer')||document.querySelector('.footer');
+  var heroOut=false, footerIn=false;
+  function syncStickyCta(){ stickyCta.classList.toggle('visible', heroOut && !footerIn); }
+  if(heroEl){
+    new IntersectionObserver(function(entries){
+      heroOut = !entries[0].isIntersecting;
+      syncStickyCta();
+    },{threshold:0, rootMargin:'-80px 0px 0px 0px'}).observe(heroEl);
+  }
+  if(footerEl){
+    new IntersectionObserver(function(entries){
+      footerIn = entries[0].isIntersecting;
+      syncStickyCta();
+    },{threshold:0}).observe(footerEl);
+  }
 
   /* ── Scroll fade ── */
   var obs=new IntersectionObserver(function(entries){
@@ -2130,55 +2143,18 @@ section.visible::after{width:200px}
     });
   });
 
-  /* ── Parallax orbs on scroll ── */
+  /* ── Parallax orb on scroll (single, subtle) ── */
   var orb1=document.querySelector('.orb1');
-  var orb2=document.querySelector('.orb2');
-  window.addEventListener('scroll',function(){
-    var s=window.scrollY;
-    if(s<window.innerHeight&&orb1&&orb2){
-      orb1.style.transform='translateY('+s*.15+'px)';
-      orb2.style.transform='translateY('+s*-.1+'px)';
-    }
-  },{passive:true});
+  if(orb1 && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    window.addEventListener('scroll',function(){
+      var s=window.scrollY;
+      if(s<window.innerHeight){
+        orb1.style.transform='translateY('+s*.12+'px)';
+      }
+    },{passive:true});
+  }
 
-
-  /* ── Mouse-follow light in hero ── */
-  var heroSection=document.querySelector('.hero');
-  var heroLight=document.createElement('div');
-  heroLight.className='hero-light';
-  document.querySelector('.hero-bg').appendChild(heroLight);
-  heroSection.addEventListener('mousemove',function(e){
-    var rect=heroSection.getBoundingClientRect();
-    heroLight.style.left=(e.clientX-rect.left)+'px';
-    heroLight.style.top=(e.clientY-rect.top)+'px';
-  });
-
-  /* ── Custom cursor glow ── */
-  var cursorGlow=document.createElement('div');
-  cursorGlow.className='cursor-glow';
-  document.body.appendChild(cursorGlow);
-  document.addEventListener('mousemove',function(e){
-    cursorGlow.style.left=e.clientX+'px';
-    cursorGlow.style.top=e.clientY+'px';
-  });
-  document.querySelectorAll('a,.btn,.q-opt,button').forEach(function(el){
-    el.addEventListener('mouseenter',function(){cursorGlow.classList.add('expand');});
-    el.addEventListener('mouseleave',function(){cursorGlow.classList.remove('expand');});
-  });
-
-  /* ── 3D tilt on hero content ── */
-  var heroContent=document.querySelector('.hero-content');
-  heroSection.addEventListener('mousemove',function(e){
-    var rect=heroSection.getBoundingClientRect();
-    var x=(e.clientX-rect.left)/rect.width-.5;
-    var y=(e.clientY-rect.top)/rect.height-.5;
-    heroContent.style.transform='perspective(1000px) rotateY('+x*3+'deg) rotateX('+(-y*3)+'deg)';
-  });
-  heroSection.addEventListener('mouseleave',function(){
-    heroContent.style.transform='perspective(1000px) rotateY(0) rotateX(0)';
-    heroContent.style.transition='transform .5s ease-out';
-    setTimeout(function(){heroContent.style.transition='';},500);
-  });
+  /* Decorative mouse-follow layers removed for focus on content */
 
   /* ── Observe new animation classes ── */
   document.querySelectorAll('.reveal-3d').forEach(function(el){obs.observe(el);});
