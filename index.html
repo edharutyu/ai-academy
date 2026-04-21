@@ -538,6 +538,11 @@ section{padding:var(--section-y) 0}
 .ft:hover{border-color:var(--accent);color:var(--accent);background:rgba(224,122,58,.05)}
 .fs-note{font-size:.82rem;color:var(--text-dim);line-height:1.6;margin:0;max-width:62ch}
 .levels-note{margin:14px 0 0;padding:22px 28px;border:1px solid rgba(201,168,106,.22);border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(201,168,106,.05),rgba(201,168,106,.01))}
+.ln-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px}
+.ln-badge .ln-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:.45}
+.ln-badge .ln-dot:nth-child(2){opacity:.7}
+.ln-badge .ln-dot:nth-child(3){opacity:1;box-shadow:0 0 0 2px rgba(201,168,106,.22)}
+.ln-kicker{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-left:4px}
 .ln-title{font-family:'Noto Serif Armenian',serif;font-size:1.1rem;font-weight:700;margin:0 0 6px;letter-spacing:-.01em;color:var(--text)}
 .ln-title em{font-style:italic;color:var(--gold)}
 .ln-desc{font-size:.82rem;color:var(--text-dim);line-height:1.65;margin:0;max-width:62ch}
@@ -1020,7 +1025,7 @@ section.visible::after{width:200px}
       <span class="loc-cohort">Cohort 05 · April 2026</span>
     </div>
     <h1 class="serif">[EN: Learn to work with AI, <span class="hl">carefully.</span>]</h1>
-    <p class="sub">[EN: Six classes, one small cohort, taught in Yerevan and online. Not a certification, not a funnel — a careful conversation about what these tools can actually do for your work.]</p>
+    <p class="sub">[EN: Six classes, one small cohort, taught in Yerevan and online. No funnel, no upsell — a careful conversation about what these tools can actually do for your work.]</p>
     <div class="hero-cta-row">
       <a href="#" onclick="openSignup(null,'hero');return false" class="btn">[EN: Apply →]</a>
     </div>
@@ -1149,8 +1154,12 @@ section.visible::after{width:200px}
     </div>
     <!-- Levels / mindset note -->
     <div class="levels-note fade-in">
-      <h3 class="ln-title"><em>Not a certificate. A mindset.</em></h3>
-      <p class="ln-desc">[EN: You don&rsquo;t graduate &mdash; you level up. The tools keep moving; what holds is the foundation you build. Come back a year later and you&rsquo;ll find yourself asking sharper questions, not relearning the basics.]</p>
+      <div class="ln-badge" aria-hidden="true">
+        <span class="ln-dot"></span><span class="ln-dot"></span><span class="ln-dot"></span>
+        <span class="ln-kicker">Level 01 &rarr; 02 &rarr; 03&hellip;</span>
+      </div>
+      <h3 class="ln-title"><em>Each round, a level up.</em></h3>
+      <p class="ln-desc">[EN: The six classes give you the foundation &mdash; a mindset, not a toolkit that expires. After that, it compounds: the tools keep moving, and so does what you can ask of them. Come back a year later and you&rsquo;ll be asking sharper questions, not relearning the basics.]</p>
     </div>
   </div>
 </section>
@@ -1199,7 +1208,7 @@ section.visible::after{width:200px}
     <div class="approach-intro">
       <div class="sec-marker"><span class="sec-num">§ 03</span><span class="sec-rule"></span><span class="sec-name">Approach</span></div>
       <h2 class="serif">Three things we refuse to do.</h2>
-      <p>Most AI courses are selling a future. This one is about the <strong>next six classes</strong> — what the tools can actually do for your work, and what they cannot. No hype, no certificates that expire the moment a new model ships.</p>
+      <p>Most AI courses are selling a future. This one is about the <strong>next six classes</strong> — what the tools can actually do for your work, and what they cannot. No hype, no shortcuts that stop working the moment a new model ships.</p>
     </div>
     <div class="principles">
       <article class="principle fade-in">
