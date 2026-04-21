@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hy">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -7,8 +7,8 @@
 <meta name="description" content="A small school for AI in Yerevan &mdash; six classes, one cohort, online &amp; in-person. Learn to work with Claude, ChatGPT, Midjourney for your actual work.">
 <meta property="og:title" content="Ed Harutyunyan &mdash; AI Academy Yerevan">
 <meta property="og:description" content="A small school for AI in Yerevan &mdash; six classes, one cohort, online &amp; in-person. Learn to work with Claude, ChatGPT, Midjourney for your actual work.">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="hy_AM">
+<meta property="og:locale" content="hy_AM">
+<meta property="og:locale:alternate" content="en_US">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#e07a3a">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -1125,9 +1125,9 @@ section.visible::after{width:200px}
       <li><a href="#about">[EN: Instructor][HY: Իմ մասին]</a></li>
       <li><a href="#faq">[EN: FAQ][HY: Հարցեր]</a></li>
       <li class="lang-toggle" role="group" aria-label="[EN: Language][HY: Լեզու]">
-        <button type="button" data-lang="en" class="lt-opt active">EN</button>
+        <button type="button" data-lang="hy" class="lt-opt active">ՀԱՅ</button>
         <span class="lt-sep" aria-hidden="true">·</span>
-        <button type="button" data-lang="hy" class="lt-opt">ՀԱՅ</button>
+        <button type="button" data-lang="en" class="lt-opt">EN</button>
       </li>
       <li><a href="#" onclick="openSignup(null,'nav');return false" class="nav-cta">[EN: Apply →][HY: Դիմել →]</a></li>
     </ul>
@@ -1898,7 +1898,7 @@ section.visible::after{width:200px}
   }
   // Language toggle wiring
   function setLang(l){
-    if(l!=='en' && l!=='hy') l='en';
+    if(l!=='en' && l!=='hy') l='hy';
     document.documentElement.lang=l;
     try{ localStorage.setItem('lang',l); }catch(e){}
     document.querySelectorAll('.lt-opt').forEach(function(b){
@@ -1916,12 +1916,12 @@ section.visible::after{width:200px}
   document.querySelectorAll('.lt-opt').forEach(function(b){
     b.addEventListener('click',function(){setLang(b.dataset.lang);});
   });
-  // Init from storage; default = English
+  // Init from storage; default = Armenian (school is in Yerevan, Armenian-first)
   try{
     var saved=localStorage.getItem('lang');
     if(saved==='en'||saved==='hy'){ setLang(saved); }
-    else { setLang('en'); }
-  }catch(e){ setLang('en'); }
+    else { setLang('hy'); }
+  }catch(e){ setLang('hy'); }
 
   /* ── Scroll progress bar ── */
   var progressBar=document.getElementById('scrollProgress');
