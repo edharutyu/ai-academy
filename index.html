@@ -528,6 +528,24 @@ section{padding:var(--section-y) 0}
 .rec-badge{position:absolute;top:12px;right:12px;background:var(--accent);color:#10131a;font-size:.6rem;font-weight:700;padding:4px 10px;border-radius:8px;white-space:nowrap;display:none;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 2px 8px rgba(224,122,58,.3);z-index:2}
 .t-card.recommended .rec-badge{display:block}
 
+/* ── Inclusive fields strip + levels note (Paths section) ── */
+.fields-strip{margin:28px 0 0;padding:22px 28px;border:1px solid var(--border);border-radius:var(--r-lg);background:rgba(240,236,230,.02)}
+.fs-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.fs-rule{flex:0 0 24px;height:1px;background:var(--accent);opacity:.55;display:inline-block}
+.fs-label{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-subtle);font-weight:600}
+.fs-tags{display:flex;flex-wrap:wrap;gap:8px 10px;margin-bottom:14px}
+.ft{display:inline-flex;align-items:center;padding:6px 14px;border:1px solid var(--border-strong);border-radius:100px;font-size:.75rem;color:var(--text);font-weight:500;background:rgba(240,236,230,.02);letter-spacing:.01em;transition:border-color .2s,color .2s,background .2s;white-space:nowrap}
+.ft:hover{border-color:var(--accent);color:var(--accent);background:rgba(224,122,58,.05)}
+.fs-note{font-size:.82rem;color:var(--text-dim);line-height:1.6;margin:0;max-width:62ch}
+.levels-note{margin:14px 0 0;padding:22px 28px;border:1px solid rgba(201,168,106,.22);border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(201,168,106,.05),rgba(201,168,106,.01))}
+.ln-title{font-family:'Noto Serif Armenian',serif;font-size:1.1rem;font-weight:700;margin:0 0 6px;letter-spacing:-.01em;color:var(--text)}
+.ln-title em{font-style:italic;color:var(--gold)}
+.ln-desc{font-size:.82rem;color:var(--text-dim);line-height:1.65;margin:0;max-width:62ch}
+@media(max-width:640px){
+  .fields-strip,.levels-note{padding:18px 18px}
+  .fs-head{gap:10px;margin-bottom:12px}
+}
+
 /* ── Social Proof ── */
 .proof{position:relative}
 .proof-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:540px;margin:0 auto}
@@ -1038,8 +1056,8 @@ section.visible::after{width:200px}
 <section class="offerings" id="offerings">
   <div class="container">
     <div class="sec-marker"><span class="sec-num">§ 01</span><span class="sec-rule"></span><span class="sec-name">Paths</span></div>
-    <h2 class="stitle serif reveal-3d">[EN: Three paths, one conversation.]</h2>
-    <p class="ssub fade-in">[EN: Pick the starting point that matches your thinking, not your job title.]</p>
+    <h2 class="stitle serif reveal-3d">[EN: One foundation. Many fields.]</h2>
+    <p class="ssub fade-in">[EN: The six-class syllabus is the same for everyone. What changes is the field you apply it in &mdash; research, marketing, product, creative practice, or the work already on your desk.]</p>
     <div class="tracks">
       <div class="t-card tilt scale-in stagger-1" id="track-career">
         <span class="rec-badge">[EN: Recommended]</span>
@@ -1110,6 +1128,29 @@ section.visible::after{width:200px}
           <button class="t-more" onclick="openModal('teen')" aria-label="Details about AI for teens">Details</button>
         </div>
       </div>
+    </div>
+    <!-- Inclusive fields strip -->
+    <div class="fields-strip fade-in">
+      <div class="fs-head">
+        <span class="fs-rule" aria-hidden="true"></span>
+        <span class="fs-label">You&rsquo;ll fit, whatever your field</span>
+      </div>
+      <div class="fs-tags" role="list">
+        <span class="ft" role="listitem">Research</span>
+        <span class="ft" role="listitem">Marketing &middot; SMM</span>
+        <span class="ft" role="listitem">Founders</span>
+        <span class="ft" role="listitem">Product</span>
+        <span class="ft" role="listitem">Writers</span>
+        <span class="ft" role="listitem">Teachers</span>
+        <span class="ft" role="listitem">Students</span>
+        <span class="ft" role="listitem">Designers</span>
+      </div>
+      <p class="fs-note">[EN: Pick the cohort closest to your work &mdash; we shape the homework around what you bring. The foundation is universal; the examples are yours.]</p>
+    </div>
+    <!-- Levels / mindset note -->
+    <div class="levels-note fade-in">
+      <h3 class="ln-title"><em>Not a certificate. A mindset.</em></h3>
+      <p class="ln-desc">[EN: You don&rsquo;t graduate &mdash; you level up. The tools keep moving; what holds is the foundation you build. Come back a year later and you&rsquo;ll find yourself asking sharper questions, not relearning the basics.]</p>
     </div>
   </div>
 </section>
