@@ -165,22 +165,26 @@ html[lang="en"] .t-hy{display:none!important}
 html[lang="hy"] .t-en{display:none!important}
 .t-en,.t-hy{display:inline}
 /* Language toggle in nav — pill style so HY is visibly discoverable */
-.lang-toggle{display:inline-flex;align-items:center;gap:0;margin-right:4px;user-select:none;border:1px solid var(--border);border-radius:999px;padding:2px;background:rgba(240,236,230,.02)}
-.lt-opt{background:transparent;border:0;color:var(--text-dim);font-family:inherit;font-size:.72rem;font-weight:700;letter-spacing:.08em;cursor:pointer;padding:5px 10px;border-radius:999px;transition:color .2s var(--ease),background .2s var(--ease);text-transform:uppercase}
+/* Visible pill: 2px orange-tinted border + raised background so the non-active
+   language reads as a tappable switch, not a nav link. */
+.lang-toggle{display:inline-flex;align-items:center;gap:0;margin-right:4px;user-select:none;border:1.5px solid rgba(224,122,58,.32);border-radius:999px;padding:2px;background:rgba(224,122,58,.04);transition:border-color .2s var(--ease),background .2s var(--ease)}
+.lang-toggle:hover{border-color:rgba(224,122,58,.55);background:rgba(224,122,58,.07)}
+.lt-opt{background:transparent;border:0;color:var(--text-dim);font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.08em;cursor:pointer;padding:5px 11px;border-radius:999px;transition:color .2s var(--ease),background .2s var(--ease);text-transform:uppercase}
 .lt-opt:hover{color:var(--text)}
+.lt-opt:not(.active){color:var(--secondary)}
 .lt-opt.active{color:var(--bg);background:var(--accent)}
 .lt-sep{display:none}
-@media(max-width:640px){.lang-toggle{margin-right:2px}.lt-opt{padding:5px 8px;font-size:.68rem}}
+@media(max-width:640px){.lang-toggle{margin-right:2px}.lt-opt{padding:5px 9px;font-size:.72rem}}
 
 .nav-links{display:flex;gap:28px;align-items:center;list-style:none}
-.nav-links a{color:var(--text-dim);text-decoration:none;font-size:.78rem;font-weight:500;transition:color .2s;letter-spacing:.02em;text-transform:uppercase}
+.nav-links a{color:var(--text-dim);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .2s;letter-spacing:.02em;text-transform:uppercase}
 .nav-links a:hover{color:var(--text)}
 .nav-links a.nav-cta{background:var(--accent);color:#10131a;padding:var(--sp-2) var(--sp-5);border-radius:var(--r-md);font-size:var(--fs-xs);font-weight:700;text-decoration:none;transition:background var(--dur-base) var(--ease),color var(--dur-base) var(--ease),transform var(--dur-base) var(--ease);letter-spacing:var(--tr-wide);white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center}
 .nav-links a.nav-cta:hover{background:var(--accent-hover);color:#10131a;transform:translateY(-1px)}
 @media(max-width:640px){
   .nav-links{gap:16px}
-  .nav-links a{font-size:.7rem}
-  .nav-cta{display:inline-flex;padding:10px 20px;font-size:.82rem}
+  .nav-links a{font-size:.82rem}
+  .nav-cta{display:inline-flex;padding:10px 20px;font-size:.88rem}
 }
 
 
@@ -204,11 +208,11 @@ html[lang="hy"] .t-en{display:none!important}
 .hero-locator .loc-cohort{color:var(--secondary);font-weight:700}
 @media(max-width:480px){.hero-locator{flex-direction:column;gap:6px;font-size:.6rem}.hero-locator .loc-rule{display:none}}
 /* Passport-style margin details on hero */
-.hero-passport{position:absolute;bottom:28px;left:32px;right:32px;display:flex;justify-content:space-between;align-items:flex-end;font-family:'Inter',sans-serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-subtle);font-weight:500;pointer-events:none;z-index:1}
+.hero-passport{position:absolute;bottom:28px;left:32px;right:32px;display:flex;justify-content:space-between;align-items:flex-end;font-family:'Inter',sans-serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-subtle);font-weight:500;pointer-events:none;z-index:1}
 .hero-passport .pp-item{display:flex;flex-direction:column;gap:4px;line-height:1.3}
 .hero-passport .pp-label{color:var(--text-subtle);opacity:.6}
 .hero-passport .pp-val{color:var(--text-dim)}
-@media(max-width:640px){.hero-passport{bottom:16px;left:16px;right:16px;font-size:.54rem;letter-spacing:.14em}.hero-passport .pp-item:nth-child(2){text-align:right}}
+@media(max-width:640px){.hero-passport{bottom:16px;left:16px;right:16px;font-size:.62rem;letter-spacing:.14em}.hero-passport .pp-item:nth-child(2){text-align:right}}
 /* Hero meta strip — duration · format · language */
 .hero-meta{display:flex;gap:24px;justify-content:center;margin:22px auto 0;padding:14px 0 0;flex-wrap:wrap;max-width:520px;border-top:1px solid var(--border);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-subtle);font-weight:600}
 .hero-meta span{display:inline-flex;align-items:center;gap:8px}
@@ -231,8 +235,10 @@ html[lang="hy"] .t-en{display:none!important}
 .hero h1 .hl{color:var(--secondary);font-style:italic;font-weight:700}
 /* Rotating word (hero H1) — stacked via inline-grid so container auto-sizes to widest variant, no layout shift */
 .word-rotate{position:relative;display:inline-grid;grid-template-areas:"stack";vertical-align:baseline}
-.word-rotate .wr-item{grid-area:stack;opacity:0;transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1);transform:translateY(8px);pointer-events:none;white-space:nowrap}
-.word-rotate .wr-item.is-on{opacity:1;transform:translateY(0);pointer-events:auto}
+/* Two-phase crossfade: outgoing fades out in .28s, incoming fades in after a .3s delay.
+   Creates a clean ~20ms gap so both words are never simultaneously visible mid-transition. */
+.word-rotate .wr-item{grid-area:stack;opacity:0;transition:opacity .28s ease,transform .5s cubic-bezier(.2,.8,.2,1);transform:translateY(8px);pointer-events:none;white-space:nowrap}
+.word-rotate .wr-item.is-on{opacity:1;transform:translateY(0);pointer-events:auto;transition:opacity .42s ease .3s,transform .5s cubic-bezier(.2,.8,.2,1) .3s}
 @media(prefers-reduced-motion:reduce){.word-rotate .wr-item{transition:none;transform:none}.word-rotate .wr-item:not(.is-on){opacity:0}}
 .hero .sub{font-size:var(--fs-md);color:var(--text-dim);max-width:480px;margin:0 auto var(--sp-10);line-height:var(--lh-loose)}
 .hero-cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
@@ -315,7 +321,8 @@ html[lang="hy"] .t-en{display:none!important}
    numeral and card; copy + outcome chip sit in the card on the right.
    Each chapter fades + lifts in as it enters view (staggered). The final
    chapter (Class 06) gets a gold "finale" treatment. */
-.path{position:relative;text-align:center;padding:var(--sp-16) 0 var(--sp-20)}
+/* Vertical padding inherits from `section{padding:var(--section-y) 0}` for consistent 96/96 rhythm */
+.path{position:relative;text-align:center}
 .path .stitle{margin-bottom:var(--sp-3)}
 .path-intro{max-width:540px;margin:0 auto var(--sp-12);color:var(--text-dim);font-size:1rem;line-height:1.75}
 .path-intro strong{color:var(--secondary);font-weight:700}
@@ -435,8 +442,9 @@ html[lang="hy"] .t-en{display:none!important}
 /* ── Offerings ── */
 .offerings{position:relative;background:linear-gradient(180deg,var(--bg) 0%,rgba(30,34,48,.3) 50%,var(--bg) 100%)}
 /* === FIND YOUR PATH — editorial diagnostic quiz === */
-.fit{padding:var(--sp-12) var(--sp-6) var(--sp-16);position:relative;background:linear-gradient(180deg,var(--bg),rgba(30,34,48,.18),var(--bg))}
-@media(max-width:640px){.fit{padding:var(--sp-10) var(--sp-5) var(--sp-12)}}
+/* Match the 96/96 vertical rhythm of other sections; keep horizontal breathing room */
+.fit{padding:var(--section-y) var(--sp-6);position:relative;background:linear-gradient(180deg,var(--bg),rgba(30,34,48,.18),var(--bg))}
+@media(max-width:640px){.fit{padding:var(--section-y-mobile) var(--sp-5)}}
 .fit .container{max-width:1040px}
 .fit-intro{max-width:640px;margin:0 auto 28px;text-align:center}
 .fit-intro h2{font-family:'Noto Serif Armenian',serif;font-size:clamp(1.6rem,4.2vw,2.4rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px}
@@ -1163,7 +1171,7 @@ section.visible::after{width:200px}
       <span class="cs-dot" aria-hidden="true"></span>
       <div>
         <div class="cs-status">[EN: Applications open][HY: Ընդունելությունը բաց է]</div>
-        <div class="cs-title">[EN: Cohort 06 — starts <em>May 19, 2026</em>][HY: Հաջորդ խումբը — մեկնարկը՝ <em>Մայիսի 19, 2026</em>]</div>
+        <div class="cs-title">[EN: Cohort 06 — starts <em>May 19, 2026</em>][HY: Խումբ 06 — մեկնարկը՝ <em>Մայիսի 19, 2026</em>]</div>
       </div>
       <div class="cs-field">
         <span class="cs-label">[EN: Next cohort][HY: Հաջորդ խումբը]</span>
@@ -1725,24 +1733,24 @@ section.visible::after{width:200px}
       <div class="apply-cohort"><span>[EN: <b>May 19</b> start][HY: Մեկնարկը՝ <b>Մայիսի 19-ին</b>]</span><span class="dot"></span><span>[EN: Next: <b>Autumn 2026</b>][HY: Հաջորդ՝ <b>Աշուն 2026</b>]</span><span class="dot"></span><span>[EN: <b>Online</b> + Yerevan][HY: <b>Օնլայն</b> + Երևան]</span></div>
     </div>
     <form id="signupForm" onsubmit="return submitSignup(event)" class="apply-form">
-      <input type="hidden" id="sf-track" value="AI for Work" data-key="career">
-      <input type="hidden" id="sf-source" value="direct">
+      <input type="hidden" id="sf-track" name="track" value="AI for Work" data-key="career">
+      <input type="hidden" id="sf-source" name="source" value="direct">
       <div class="apply-row">
         <label for="sf-name" class="apply-lbl">[EN: Name][HY: Անուն]</label>
-        <input type="text" id="sf-name" class="apply-in" required autocomplete="name" placeholder="[EN: Ani Sargsyan][HY: Անի Սարգսյան]">
+        <input type="text" id="sf-name" name="name" class="apply-in" required autocomplete="name" placeholder="[EN: Ani Sargsyan][HY: Անի Սարգսյան]">
       </div>
       <div class="apply-row">
         <label for="sf-phone" class="apply-lbl">WhatsApp</label>
-        <input type="tel" id="sf-phone" class="apply-in" required autocomplete="tel" inputmode="tel" placeholder="+374 77 12 34 56">
+        <input type="tel" id="sf-phone" name="phone" class="apply-in" required autocomplete="tel" inputmode="tel" placeholder="+374 77 12 34 56">
       </div>
       <div class="apply-row">
         <label for="sf-email" class="apply-lbl">[EN: Email][HY: Էլ․ փոստ] <span class="opt">[EN: &mdash; optional][HY: — ոչ պարտադիր]</span></label>
-        <input type="email" id="sf-email" class="apply-in" autocomplete="email" inputmode="email" placeholder="ani@example.com">
+        <input type="email" id="sf-email" name="email" class="apply-in" autocomplete="email" inputmode="email" placeholder="ani@example.com">
       </div>
       <div class="apply-row">
         <div class="apply-lbl">[EN: Track][HY: Ուղղություն] <span class="apply-via" id="sf-via" style="display:none">[EN: &middot; suggested by quiz][HY: · առաջարկված թեստի արդյունքում]</span></div>
         <div class="apply-tiles" role="radiogroup" aria-label="[EN: Track][HY: Ուղղություն]">
-          <button type="button" class="apply-tile is-on" data-track="AI-&#1398; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;" data-key="career">
+          <button type="button" class="apply-tile is-on" data-track="AI for Work" data-key="career">
             <span class="at-num">01</span>
             <span class="at-name">[EN: AI for Work][HY: AI աշխատանքի համար]</span>
             <span class="at-desc">[EN: Email, reports, decisions.][HY: Նամակներ, հաշվետվություններ, որոշումներ։]</span>
@@ -1764,12 +1772,12 @@ section.visible::after{width:200px}
           </button>
           <button type="button" class="apply-tile" data-track="AI for teaching" data-key="teaching">
             <span class="at-num">05</span>
-            <span class="at-name">[EN: AI for teaching][HY: AI դասավանդման համար]</span>
+            <span class="at-name">[EN: AI for teaching][HY: AI դասավանդողների համար]</span>
             <span class="at-desc">[EN: Lesson plans, feedback.][HY: Դասապլաններ, հետադարձ կապ։]</span>
           </button>
-          <button type="button" class="apply-tile" data-track="AI &#1357;&#1381;&#1408;&#1400;&#1410;&#1398;&#1380; (13-17)" data-key="teen">
+          <button type="button" class="apply-tile" data-track="Teens 13-17" data-key="teen">
             <span class="at-num">06</span>
-            <span class="at-name">[EN: Teens 13&ndash;17][HY: Պատանիներ 13–17 տ․]</span>
+            <span class="at-name">[EN: Teens 13&ndash;17][HY: Դեռահասներ 13–17]</span>
             <span class="at-desc">[EN: Curiosity, supervised.][HY: Հետաքրքրություն և ուղղորդում։]</span>
           </button>
         </div>
@@ -2046,7 +2054,9 @@ section.visible::after{width:200px}
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal(e,true);});
 
   /* ── Apply modal: tile selection ── */
-  var TRACK_KEY_MAP={career:'AI-\u0576 \u0561\u0577\u056D\u0561\u057F\u0561\u0576\u0584\u0578\u0582\u0574',research:'Research AI',creative:'Creative AI',marketing:'Marketing & SMM',teaching:'AI for teaching',teen:'AI \u054D\u0565\u0580\u0578\u0582\u0576\u0564 (13-17)'};
+  /* Map a track key to the canonical English data-track string used on the tile.
+     Used by openSignup() to find the right tile when caller passes a key. */
+  var TRACK_KEY_MAP={career:'AI for Work',research:'Research AI',creative:'Creative AI',marketing:'Marketing & SMM',teaching:'AI for teaching',teen:'Teens 13-17'};
   /* Flip-card controllers (6 paths) */
   window.flipCard=function(el){var c=el&&el.closest?el.closest('.tf-card'):null;if(c)c.classList.add('is-flipped');};
   window.unflipCard=function(btn){var c=btn&&btn.closest?btn.closest('.tf-card'):null;if(c)c.classList.remove('is-flipped');};
@@ -2129,15 +2139,18 @@ section.visible::after{width:200px}
   /* Bilingual source-prefix for WhatsApp signup message.
      The `source` param tells us where the user clicked from, so Ed
      gets a tiny bit of context. Picked against current UI language. */
+  /* Openers describe WHERE the user clicked from, not which track.
+     The track itself is already captured on line 2 of the message,
+     so the track-* openers are intentionally generic to avoid repetition. */
   var SRC_PREFIX_I18N={
     en:{
       'path-quiz':'I took the quiz and landed here',
-      'track-career':'I clicked into the AI for Work track',
-      'track-research':'I clicked into the Research AI track',
-      'track-creative':'I clicked into the Creative AI track',
-      'track-marketing':'I clicked into the Marketing & SMM track',
-      'track-teaching':'I clicked into the AI for teaching track',
-      'track-teen':'I clicked into the Teens track',
+      'track-career':'I clicked through from a path card',
+      'track-research':'I clicked through from a path card',
+      'track-creative':'I clicked through from a path card',
+      'track-marketing':'I clicked through from a path card',
+      'track-teaching':'I clicked through from a path card',
+      'track-teen':'I clicked through from a path card',
       'hero':'I came from the top of the page',
       'nav':'I clicked Apply in the nav',
       'footer':'I came from the footer',
@@ -2146,12 +2159,12 @@ section.visible::after{width:200px}
     },
     hy:{
       'path-quiz':'Անցա quiz-ը և հանգեցի այստեղ',
-      'track-career':'Սեղմեցի «AI-ն աշխատանքում» ուղղությունը',
-      'track-research':'Սեղմեցի «Research AI» ուղղությունը',
-      'track-creative':'Սեղմեցի «Creative AI» ուղղությունը',
-      'track-marketing':'Սեղմեցի «Marketing & SMM» ուղղությունը',
-      'track-teaching':'Սեղմեցի «AI դասավանդողների համար» ուղղությունը',
-      'track-teen':'Սեղմեցի «Դեռահասների» ուղղությունը',
+      'track-career':'Եկա ուղղությունների քարտից',
+      'track-research':'Եկա ուղղությունների քարտից',
+      'track-creative':'Եկա ուղղությունների քարտից',
+      'track-marketing':'Եկա ուղղությունների քարտից',
+      'track-teaching':'Եկա ուղղությունների քարտից',
+      'track-teen':'Եկա ուղղությունների քարտից',
       'hero':'Եկել եմ գլխավոր էջից',
       'nav':'Սեղմեցի «Դիմել»՝ մենյուից',
       'footer':'Եկել եմ ներքևից',
@@ -2159,10 +2172,11 @@ section.visible::after{width:200px}
       'direct':'Ուղիղ եկել եմ ձևին'
     }
   };
-  /* Track display labels — mirrors data-key values on .apply-tile */
+  /* Canonical track display labels. Must match the card titles (§ 01) and the
+     apply-tile at-name spans exactly — same string everywhere per language. */
   var TRACK_LABEL_I18N={
     en:{career:'AI for Work',research:'Research AI',creative:'Creative AI',marketing:'Marketing & SMM',teaching:'AI for teaching',teen:'Teens 13–17'},
-    hy:{career:'AI-ն աշխատանքում',research:'Research AI',creative:'Creative AI',marketing:'Marketing & SMM',teaching:'AI դասավանդողների համար',teen:'Դեռահասներ 13–17'}
+    hy:{career:'AI աշխատանքի համար',research:'AI հետազոտությունների համար',creative:'Ստեղծարար AI',marketing:'Մարքեթինգ և SMM',teaching:'AI դասավանդողների համար',teen:'Դեռահասներ 13–17'}
   };
   window.submitSignup=function(e){
     e.preventDefault();
@@ -2182,7 +2196,7 @@ section.visible::after{width:200px}
     var trackLabel=(TRACK_LABEL_I18N[lang]||{})[trackKey]||trackRaw;
     var msg;
     if(lang==='hy'){
-      msg='Բարև։ Ես '+name+' եմ։ '+opener+'։\nՀետաքրքրված եմ «'+trackLabel+'» ծրագրով։\nՀեռախոս՝ '+phone+(email?'\nEmail: '+email:'');
+      msg='Բարև։ Ես '+name+' եմ։ '+opener+'։\nՀետաքրքրված եմ «'+trackLabel+'» ծրագրով։\nՀեռախոս՝ '+phone+(email?'\nԷլ․ փոստ՝ '+email:'');
     } else {
       msg='Hi Ed! I\u2019m '+name+'. '+opener+'.\nI\u2019m interested in the '+trackLabel+' track.\nPhone: '+phone+(email?'\nEmail: '+email:'');
     }
@@ -2234,14 +2248,16 @@ section.visible::after{width:200px}
       ]}
     ];
     var RESULTS={
-      career:{title:'[EN: <em>AI for your work</em> &mdash; your fit.][HY: <em>AI Ձեր աշխատանքի համար</em> — Ձեր ուղին։]',rationale:'[EN: Your answers point to knowledge-work tempo &mdash; real deliverables, measurable wins, tools you&rsquo;ll keep using after the course. Claude, ChatGPT, NotebookLM as daily partners.][HY: Ձեր պատասխանները մատնանշում են մտավոր աշխատանքի տեմպ — իրական արդյունքներ, չափելի հաջողություններ, գործիքներ, որոնք կշարունակեք օգտագործել դասընթացից հետո։ Claude, ChatGPT, NotebookLM՝ որպես ամենօրյա գործընկերներ։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'career'},
-      research:{title:'[EN: <em>Research AI</em> &mdash; your fit.][HY: <em>Հետազոտական AI</em> — Ձեր ուղին։]',rationale:'[EN: You read to think, not just to finish. We&rsquo;ll build a deep-research workflow around NotebookLM, Claude, and Perplexity that holds up beyond the course.][HY: Դուք ընթերցում եք մտածելու, ոչ թե պարզապես ավարտելու համար։ Մենք կկառուցենք խորը հետազոտության աշխատանքային հոսք՝ NotebookLM-ի, Claude-ի և Perplexity-ի շուրջ, որը կգործի նաև դասընթացից հետո։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'research'},
-      creative:{title:'[EN: <em>Creative AI</em> &mdash; your fit.][HY: <em>Ստեղծագործական AI</em> — Ձեր ուղին։]',rationale:'[EN: You&rsquo;re chasing output you can show, not just use. Image, motion, sound &mdash; with taste and craft first, prompts second. Midjourney, Nanobanana, Higgsfield.][HY: Դուք հետամուտ եք այնպիսի արդյունքի, որը կարող եք ցույց տալ, ոչ միայն օգտագործել։ Նկար, շարժում, ձայն — նախ ճաշակ և վարպետություն, հետո՝ հուշումներ (prompts)։ Midjourney, Nanobanana, Higgsfield։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'creative'},
+      career:{title:'[EN: <em>AI for your work</em> &mdash; your fit.][HY: <em>AI աշխատանքի համար</em> — Ձեր ուղին։]',rationale:'[EN: Your answers point to knowledge-work tempo &mdash; real deliverables, measurable wins, tools you&rsquo;ll keep using after the course. Claude, ChatGPT, NotebookLM as daily partners.][HY: Ձեր պատասխանները մատնանշում են մտավոր աշխատանքի տեմպ — իրական արդյունքներ, չափելի հաջողություններ, գործիքներ, որոնք կշարունակեք օգտագործել դասընթացից հետո։ Claude, ChatGPT, NotebookLM՝ որպես ամենօրյա գործընկերներ։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'career'},
+      research:{title:'[EN: <em>Research AI</em> &mdash; your fit.][HY: <em>AI հետազոտությունների համար</em> — Ձեր ուղին։]',rationale:'[EN: You read to think, not just to finish. We&rsquo;ll build a deep-research workflow around NotebookLM, Claude, and Perplexity that holds up beyond the course.][HY: Դուք ընթերցում եք մտածելու, ոչ թե պարզապես ավարտելու համար։ Մենք կկառուցենք խորը հետազոտության աշխատանքային հոսք՝ NotebookLM-ի, Claude-ի և Perplexity-ի շուրջ, որը կգործի նաև դասընթացից հետո։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'research'},
+      creative:{title:'[EN: <em>Creative AI</em> &mdash; your fit.][HY: <em>Ստեղծարար AI</em> — Ձեր ուղին։]',rationale:'[EN: You&rsquo;re chasing output you can show, not just use. Image, motion, sound &mdash; with taste and craft first, prompts second. Midjourney, Nanobanana, Higgsfield.][HY: Դուք հետամուտ եք այնպիսի արդյունքի, որը կարող եք ցույց տալ, ոչ միայն օգտագործել։ Նկար, շարժում, ձայն — նախ ճաշակ և վարպետություն, հետո՝ հուշումներ (prompts)։ Midjourney, Nanobanana, Higgsfield։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'creative'},
       marketing:{title:'[EN: <em>Marketing &amp; SMM</em> &mdash; your fit.][HY: <em>Մարքեթինգ և SMM</em> — Ձեր ուղին։]',rationale:'[EN: Posts, campaigns, short-form video &mdash; with the craft behind them, not just prompts. Built to ship on a calendar, not admire in a tab.][HY: Փոստեր, արշավներ, կարճ վիդեո — իրական վարպետությամբ, ոչ միայն հուշումներով (prompts)։ Կառուցված՝ օրացույցով հրապարակելու համար, ոչ թե tab-ում հիանալու։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'marketing'},
-      teaching:{title:'[EN: <em>AI for teaching</em> &mdash; your fit.][HY: <em>AI դասավանդման համար</em> — Ձեր ուղին։]',rationale:'[EN: Lesson prep, student materials, feedback loops &mdash; designed around your week so the tools reduce load, not add to it. Claude &amp; NotebookLM, honestly used.][HY: Դասի պատրաստում, ուսանողական նյութեր, հետադարձ կապի ցիկլեր — կառուցված Ձեր շաբաթվա շուրջ, որպեսզի գործիքները նվազեցնեն ծանրաբեռնվածությունը, ոչ ավելացնեն։ Claude և NotebookLM՝ ազնվորեն օգտագործված։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'teaching'},
+      teaching:{title:'[EN: <em>AI for teaching</em> &mdash; your fit.][HY: <em>AI դասավանդողների համար</em> — Ձեր ուղին։]',rationale:'[EN: Lesson prep, student materials, feedback loops &mdash; designed around your week so the tools reduce load, not add to it. Claude &amp; NotebookLM, honestly used.][HY: Դասի պատրաստում, ուսանողական նյութեր, հետադարձ կապի ցիկլեր — կառուցված Ձեր շաբաթվա շուրջ, որպեսզի գործիքները նվազեցնեն ծանրաբեռնվածությունը, ոչ ավելացնեն։ Claude և NotebookLM՝ ազնվորեն օգտագործված։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'teaching'},
       teen:{title:'[EN: <em>Teens 13&ndash;17</em> &mdash; your fit.][HY: <em>Դեռահասներ 13–17</em> — Ձեր ուղին։]',rationale:'[EN: Curiosity-led, supervised, project-first. We build habits of good taste now, so the tools serve you later &mdash; not the other way around.][HY: Հետաքրքրասիրությամբ ղեկավարվող, ուղեկցվող, նախագծերի վրա հիմնված։ Հիմա կառուցում ենք լավ ճաշակի սովորություններ, որպեսզի հետագայում գործիքները ծառայեն Ձեզ — ոչ հակառակը։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'teen'}
     };
-    var SHORT={career:'[EN: AI for your work][HY: AI Ձեր աշխատանքի համար]',research:'[EN: Research AI][HY: Հետազոտական AI]',creative:'[EN: Creative AI][HY: Ստեղծագործական AI]',marketing:'[EN: Marketing &amp; SMM][HY: Մարքեթինգ և SMM]',teaching:'[EN: AI for teaching][HY: AI դասավանդման համար]',teen:'[EN: Teens 13&ndash;17][HY: Դեռահասներ 13–17]'};
+    /* SHORT: used in result card as "ALSO CLOSE" alternate pills. Must match
+       the canonical track labels above — same string everywhere per language. */
+    var SHORT={career:'[EN: AI for your work][HY: AI աշխատանքի համար]',research:'[EN: Research AI][HY: AI հետազոտությունների համար]',creative:'[EN: Creative AI][HY: Ստեղծարար AI]',marketing:'[EN: Marketing &amp; SMM][HY: Մարքեթինգ և SMM]',teaching:'[EN: AI for teaching][HY: AI դասավանդողների համար]',teen:'[EN: Teens 13&ndash;17][HY: Դեռահասներ 13–17]'};
     var PRIORITY=['career','research','creative','marketing','teaching','teen'];
     // Multi-select: each question's picks is an ARRAY of track keys
     var state={i:0,picks:[[],[],[],[]]};
@@ -2720,15 +2736,27 @@ section.visible::after{width:200px}
       name:{
         prompt:"I\u2019m starting a small online shop for handmade ceramics from Yerevan. Everything I come up with sounds like a tech startup.",
         result:"Startup names happen when you reach for English tech words. A handmade shop from Yerevan should sound handmade and from Yerevan.\n\nTen directions that aren\u2019t startup-y:\n\n1. Kav & Kar \u2014 \u201Cclay\u201D and \u201Cstone\u201D in Armenian. Short, gritty.\n2. The Clay Hour \u2014 a ritual, not a brand.\n3. Yerevan Hand \u2014 confident, geographic.\n4. Soft Stone Studio \u2014 an oxymoron sticks.\n5. Araks Clay \u2014 named after the river.\n6. Small Oven \u2014 warm, modest, honest.\n7. Eight Fingers \u2014 a workshop detail, specific.\n8. Mayr Hogh \u2014 \u201Cmother earth,\u201D roots deep.\n9. Kilncraft Yerevan \u2014 function plus place.\n10. Vardananc Ceramics \u2014 named studio, not a brand.\n\nAvoid \u2011ly, \u2011ify, \u201CCo.,\u201D or anything ending in \u201CStudios.\u201D The name should feel like it belongs in a hand, not a pitch deck."
+      },
+      email:{
+        prompt:"Help me write an email declining a meeting a client invited me to. I don\u2019t want to sound dismissive.",
+        result:"The trick with declining is that most drafts try to apologise, and apology is what makes it sound dismissive. Replace it with a real reason and a next step.\n\nDraft:\n\n\u201CHi [Name],\n\nThanks for including me \u2014 I\u2019d been looking forward to it, and I want to give the topic real attention instead of half-attention on Thursday.\n\nCan we do a focused 20 minutes the week after? I\u2019ll come with [specific thing] ready to discuss. If it\u2019s truly time-sensitive, a voice note today works and I\u2019ll reply by end of day.\n\nBest,\n[You]\u201D\n\nWhy this lands: it declines once, gives a reason that flatters the topic (not yourself), and offers two real alternatives. No \u201Csorry,\u201D no \u201Cunfortunately,\u201D no calendar screenshot."
       }
     };
     function matchResult(q){
       var s=(q||'').toLowerCase();
-      if(s.indexOf('mean')>-1||s.indexOf('decode')>-1||s.indexOf('text')>-1||s.indexOf('message')>-1||s.indexOf('really')>-1||s.indexOf('whatever')>-1||s.indexOf('maybe later')>-1)return EX.decode.result;
-      if(s.indexOf('decide')>-1||s.indexOf('stuck')>-1||s.indexOf('pick')>-1||s.indexOf('choose')>-1||s.indexOf('between')>-1||s.indexOf('job')>-1||s.indexOf('dilemma')>-1)return EX.decide.result;
-      if(s.indexOf('name')>-1||s.indexOf('brand')>-1||s.indexOf('called')>-1||s.indexOf('naming')>-1||s.indexOf('title')>-1||s.indexOf('shop')>-1)return EX.name.result;
-      // default friendly response
-      return "That\u2019s exactly the kind of thing AI is useful for \u2014 a real, specific question with context.\n\nIn the full cohort, you\u2019d now get a careful, personalised response, then we\u2019d work on how to push it, test it, and make it yours.\n\nTry one of the example prompts below for a taste \u2014 each runs with a real-looking AI response, no signup needed.";
+      // Subtext / interpretation: what did someone mean
+      if(/\bmean|decode|subtext|really saying|whatever|maybe later|said to me|texted|ghost|replied?|silence|read into|interpret|passive[- ]aggressive|friend|partner|boyfriend|girlfriend|ex\b|crush|date\b/.test(s))return EX.decode.result;
+      // Decision / choice / stuck
+      if(/decide|decision|stuck|pick|choose|choice|between|dilemma|should i|torn|which (one|should)|option|quit|leave|stay|accept|reject|offer|move (to|back)/.test(s))return EX.decide.result;
+      // Naming / branding
+      if(/\bname|brand|called|naming|title(s)?|shop|business name|startup name|handle|domain|logo|come up with a name/.test(s))return EX.name.result;
+      // Professional writing: email, message, decline, reply, announcement
+      if(/\bemail|decline|reject|meeting|invite|schedule|polite|professional|say no|push back|boss|client|draft (a|an|me)|reply|respond to|announce|memo\b/.test(s))return EX.email.result;
+      // Graceful fallback \u2014 no sales pitch, no "in the full cohort." A real-shape
+      // simulated AI reply that acknowledges the ask and returns something useful.
+      var clean=q.replace(/[?!.]+$/,'').trim();
+      var hint=clean.length>84?clean.slice(0,84)+'\u2026':clean;
+      return 'A good answer to \u201C'+hint+'\u201D starts by making the question sharper. Here\u2019s the shape I\u2019d use:\n\n1. What outcome do you actually want? Not the surface ask (\u201Chelp me write\u2026,\u201D \u201Chelp me decide\u2026\u201D) \u2014 the real thing you want to be true once this is done.\n2. Who is this for, and what do they already know? One line of context changes the answer more than any clever phrasing.\n3. What would make the answer wrong? Name the constraint, the tone you don\u2019t want, the thing you\u2019ve already tried and it didn\u2019t work.\n\nAdd any one of those to your prompt and ask again \u2014 the reply jumps a full quality grade. That\u2019s the whole craft in one move.';
     }
     function typeOut(txt){
       outEl.classList.add('has-result');
@@ -2760,15 +2788,34 @@ section.visible::after{width:200px}
     });
   })();
 
-  /* ── FAQ ── */
-  document.querySelectorAll('.faq-q').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      var item=this.parentElement;
-      var wasOpen=item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
-      if(!wasOpen)item.classList.add('open');
+  /* ── FAQ ──
+     Accordion behaviour + a11y: each button gets aria-expanded and aria-controls
+     pointing at its answer panel, so screen readers announce open/closed state. */
+  (function(){
+    var items=document.querySelectorAll('.faq-item');
+    items.forEach(function(item,i){
+      var btn=item.querySelector('.faq-q');
+      var ans=item.querySelector('.faq-a');
+      if(!btn||!ans)return;
+      var id=ans.id||('faq-a-'+(i+1));
+      ans.id=id;
+      ans.setAttribute('role','region');
+      btn.setAttribute('aria-controls',id);
+      btn.setAttribute('aria-expanded','false');
+      btn.addEventListener('click',function(){
+        var wasOpen=item.classList.contains('open');
+        items.forEach(function(other){
+          other.classList.remove('open');
+          var b=other.querySelector('.faq-q');
+          if(b)b.setAttribute('aria-expanded','false');
+        });
+        if(!wasOpen){
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded','true');
+        }
+      });
     });
-  });
+  })();
 
   /* ── Sticky CTA: show only after hero leaves viewport, hide near footer,
      also hide while the quiz is the active thing in view (so the bar
