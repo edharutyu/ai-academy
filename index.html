@@ -528,6 +528,47 @@ section{padding:var(--section-y) 0}
 .rec-badge{position:absolute;top:12px;right:12px;background:var(--accent);color:#10131a;font-size:.6rem;font-weight:700;padding:4px 10px;border-radius:8px;white-space:nowrap;display:none;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 2px 8px rgba(224,122,58,.3);z-index:2}
 .t-card.recommended .rec-badge{display:block}
 
+/* ── Flip cards — 6 paths ───────────────────────────────────── */
+.tf-grid{display:grid;grid-template-columns:1fr;gap:16px;perspective:1400px}
+@media(min-width:720px){.tf-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1040px){.tf-grid{grid-template-columns:repeat(3,1fr)}}
+.tf-card{position:relative;min-height:400px}
+.tf-inner{position:relative;width:100%;min-height:400px;transition:transform .6s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}
+.tf-card.is-flipped .tf-inner{transform:rotateY(180deg)}
+.tf-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-6);display:flex;flex-direction:column;box-shadow:var(--el-1);transition:border-color .2s var(--ease),box-shadow .2s var(--ease),transform .6s cubic-bezier(.2,.8,.2,1)}
+.tf-back{transform:rotateY(180deg)}
+.tf-front{cursor:pointer;user-select:none}
+.tf-front:hover{border-color:var(--accent);box-shadow:var(--el-2)}
+.tf-front:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.tf-num{font-family:'Noto Serif Armenian',serif;font-style:italic;font-weight:400;font-size:1.5rem;line-height:1;color:var(--secondary);opacity:.7;margin-bottom:8px;letter-spacing:-.02em;display:flex;align-items:baseline;gap:10px}
+.tf-num::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border-strong),transparent);opacity:.5;margin-bottom:4px}
+.tf-aud{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-subtle);font-weight:600;margin-bottom:8px}
+.tf-title{font-family:'Noto Serif Armenian',serif;font-size:1.14rem;font-weight:700;margin:0 0 10px;line-height:1.25;letter-spacing:-.01em;color:var(--text)}
+.tf-desc{font-size:.82rem;color:var(--text-dim);line-height:1.55;margin:0 0 14px;flex:1}
+.tf-tools{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tf-tool{display:inline-flex;align-items:center;padding:4px 10px;border:1px solid var(--border-strong);border-radius:100px;font-size:.66rem;color:var(--text);background:rgba(240,236,230,.02);letter-spacing:.01em;white-space:nowrap;font-weight:500}
+.tf-flip-hint{font-size:.68rem;color:var(--text-subtle);margin-top:auto;display:inline-flex;align-items:center;gap:6px;letter-spacing:.02em;font-weight:500}
+.tf-flip-hint::before{content:'\21BB';color:var(--accent);font-size:.95rem;font-weight:700}
+.tf-back .tf-num{opacity:.35;font-size:1.05rem;margin-bottom:6px}
+.tf-back .tf-num::after{display:none}
+.tf-back .tf-title{font-size:1rem;margin-bottom:12px}
+.tf-back-outcomes{list-style:none;padding:0;margin:0 0 12px;flex:1}
+.tf-back-outcomes li{position:relative;padding:6px 0 6px 18px;font-size:.76rem;color:var(--text);line-height:1.5;border-top:1px solid var(--border)}
+.tf-back-outcomes li:first-child{border-top:none;padding-top:2px}
+.tf-back-outcomes li::before{content:'';position:absolute;left:0;top:12px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.tf-back-outcomes li:first-child::before{top:8px}
+.tf-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tf-meta span{font-size:.66rem;color:var(--text-dim);padding:3px 8px;border:1px solid var(--border);border-radius:4px;letter-spacing:.02em;background:rgba(240,236,230,.02);font-weight:500;font-variant-numeric:tabular-nums}
+.tf-cta-row{display:flex;gap:8px;align-items:stretch}
+.tf-apply{flex:1 1 auto;background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;font-size:.78rem;cursor:pointer;letter-spacing:.02em;font-family:inherit;min-height:44px;transition:background .2s,transform .1s}
+.tf-apply:hover{background:#b86730}
+.tf-apply:active{transform:scale(.98)}
+.tf-apply:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+.tf-back-btn{flex:0 0 auto;background:transparent;border:1px solid var(--border-strong);color:var(--text);padding:0 14px;border-radius:8px;font-size:.72rem;cursor:pointer;letter-spacing:.04em;font-weight:600;font-family:inherit;min-height:44px;transition:border-color .2s,color .2s,background .2s}
+.tf-back-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(224,122,58,.05)}
+.tf-back-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.tf-inner{transition:none}}
+
 /* ── Inclusive fields strip + levels note (Paths section) ── */
 .fields-strip{margin:28px 0 0;padding:22px 28px;border:1px solid var(--border);border-radius:var(--r-lg);background:rgba(240,236,230,.02)}
 .fs-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
@@ -835,6 +876,9 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.q-opt:focus-visible,.fa
 .stagger-1{transition-delay:.05s}
 .stagger-2{transition-delay:.15s}
 .stagger-3{transition-delay:.25s}
+.stagger-4{transition-delay:.35s}
+.stagger-5{transition-delay:.45s}
+.stagger-6{transition-delay:.55s}
 
 /* ── Interactive card hover lift ── */
 @media(min-width:641px){
@@ -1062,77 +1106,207 @@ section.visible::after{width:200px}
   <div class="container">
     <div class="sec-marker"><span class="sec-num">§ 01</span><span class="sec-rule"></span><span class="sec-name">Paths</span></div>
     <h2 class="stitle serif reveal-3d">[EN: One foundation. Many fields.]</h2>
-    <p class="ssub fade-in">[EN: The six-class syllabus is the same for everyone. What changes is the field you apply it in &mdash; research, marketing, product, creative practice, or the work already on your desk.]</p>
-    <div class="tracks">
-      <div class="t-card tilt scale-in stagger-1" id="track-career">
-        <span class="rec-badge">[EN: Recommended]</span>
-        <div class="t-index">01</div>
-        <div class="t-audience">For work</div>
-        <h3 class="serif">[EN: AI for your work]</h3>
-        <p class="t-desc">[EN: For people who want AI to help with the real work on their desk &mdash; email, reports, decisions &mdash; using ChatGPT, Claude, and NotebookLM.]</p>
-        <ul class="t-outcomes">
-          <li>[EN: Prompts with structure you can reuse]</li>
-          <li>[EN: Email, meetings, and reports handled faster]</li>
-          <li>[EN: A few real pieces from your own work]</li>
-        </ul>
-        <div class="t-meta">
-          <span data-label="Duration">6 classes</span>
-          <span data-label="Format">Hybrid</span>
-          <span data-label="Schedule">Weekly</span>
-          <span data-label="Start">Apr 14</span>
-        </div>
-        <div class="t-spots">4 seats remain of 6</div>
-        <div class="t-cta-row">
-          <button class="btn btn-sm" onclick="openSignup('career','track-career')">Apply &rarr;</button>
-          <button class="t-more" onclick="openModal('career')" aria-label="Details about AI for your work">Details</button>
-        </div>
-      </div>
-      <div class="t-card tilt scale-in stagger-2" id="track-creative">
-        <span class="rec-badge">[EN: Recommended]</span>
-        <div class="t-index">02</div>
-        <div class="t-audience">For creatives</div>
-        <h3 class="serif">Creative AI</h3>
-        <p class="t-desc">[EN: For designers, content creators, and anyone making visual work &mdash; images, video, and motion with Midjourney, Nanobanana, Higgsfield, and a working creative kit.]</p>
-        <ul class="t-outcomes">
-          <li>[EN: A visual style you can repeat, not one-offs]</li>
-          <li>[EN: A small body of finished work you can show]</li>
-          <li>[EN: A style guide that sounds like you]</li>
-        </ul>
-        <div class="t-meta">
-          <span data-label="Duration">6 classes</span>
-          <span data-label="Format">Hybrid</span>
-          <span data-label="Schedule">Weekly</span>
-          <span data-label="Start">Apr 14</span>
-        </div>
-        <div class="t-spots">6 seats remain of 8</div>
-        <div class="t-cta-row">
-          <button class="btn btn-sm" onclick="openSignup('creative','track-creative')">Apply &rarr;</button>
-          <button class="t-more" onclick="openModal('creative')" aria-label="Details about Creative AI">Details</button>
+    <p class="ssub fade-in">[EN: The six-class syllabus is the same for everyone. The tools, examples, and homework shape around the cohort you&rsquo;re in. Tap a card to see what you&rsquo;ll build.]</p>
+    <div class="tf-grid">
+
+      <!-- 01 AI for Work -->
+      <div class="tf-card scale-in stagger-1" id="track-career">
+        <div class="tf-inner">
+          <div class="tf-face tf-front" onclick="flipCard(this)" role="button" tabindex="0" aria-label="[EN: Flip AI for your work card]">
+            <div class="tf-num">01</div>
+            <div class="tf-aud">[EN: For office &amp; knowledge work]</div>
+            <h3 class="tf-title">[EN: AI for your work]</h3>
+            <p class="tf-desc">[EN: Email, reports, plans, decisions &mdash; the real work on your desk, handled faster with less drift.]</p>
+            <div class="tf-tools">
+              <span class="tf-tool">ChatGPT</span>
+              <span class="tf-tool">Claude</span>
+              <span class="tf-tool">NotebookLM</span>
+            </div>
+            <div class="tf-flip-hint">[EN: Tap to see what you&rsquo;ll build]</div>
+          </div>
+          <div class="tf-face tf-back">
+            <div class="tf-num">01</div>
+            <h3 class="tf-title">[EN: AI for your work]</h3>
+            <ul class="tf-back-outcomes">
+              <li>[EN: Prompts with structure you can reuse &mdash; role, context, task, format]</li>
+              <li>[EN: Email, meetings, and reports handled faster, with less drift]</li>
+              <li>[EN: A clear sense of when AI helps and when it wastes your time]</li>
+              <li>[EN: A few real pieces from your own work, done differently]</li>
+            </ul>
+            <div class="tf-meta"><span>6 classes</span><span>Hybrid</span><span>Starts Apr 14</span></div>
+            <div class="tf-cta-row">
+              <button class="tf-apply" onclick="event.stopPropagation();openSignup('career','track-career')">Apply &rarr;</button>
+              <button class="tf-back-btn" onclick="event.stopPropagation();unflipCard(this)" aria-label="[EN: Flip back]">&larr; [EN: Back]</button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="t-card tilt scale-in stagger-3" id="track-teen">
-        <span class="rec-badge">[EN: Recommended]</span>
-        <div class="t-index">03</div>
-        <div class="t-audience">For teens · 13–17</div>
-        <h3 class="serif">[EN: AI for teens (13&ndash;17)]</h3>
-        <p class="t-desc">[EN: A first serious look at AI for curious students &mdash; how it works, where it helps in study and creativity, ending with a small project of their own.]</p>
-        <ul class="t-outcomes">
-          <li>[EN: One project of their own, shown to a small jury]</li>
-          <li>[EN: Independent habits around AI, not shortcuts]</li>
-          <li>[EN: A clear sense of how AI works &mdash; and where it doesn&rsquo;t]</li>
-        </ul>
-        <div class="t-meta">
-          <span data-label="Duration">6 classes</span>
-          <span data-label="Format">Saturdays</span>
-          <span data-label="Age">13 – 17</span>
-          <span data-label="Start">Apr 18</span>
-        </div>
-        <div class="t-spots">3 seats remain of 8</div>
-        <div class="t-cta-row">
-          <button class="btn btn-sm" onclick="openSignup('teen','track-teen')">Apply &rarr;</button>
-          <button class="t-more" onclick="openModal('teen')" aria-label="Details about AI for teens">Details</button>
+
+      <!-- 02 Research AI -->
+      <div class="tf-card scale-in stagger-2" id="track-research">
+        <div class="tf-inner">
+          <div class="tf-face tf-front" onclick="flipCard(this)" role="button" tabindex="0" aria-label="[EN: Flip Research AI card]">
+            <div class="tf-num">02</div>
+            <div class="tf-aud">[EN: For researchers &amp; analysts]</div>
+            <h3 class="tf-title">[EN: Research AI]</h3>
+            <p class="tf-desc">[EN: Literature scans, source-checking, synthesis. AI as a second reader &mdash; one that holds opinions and argues back.]</p>
+            <div class="tf-tools">
+              <span class="tf-tool">NotebookLM</span>
+              <span class="tf-tool">Claude</span>
+              <span class="tf-tool">Perplexity</span>
+            </div>
+            <div class="tf-flip-hint">[EN: Tap to see what you&rsquo;ll build]</div>
+          </div>
+          <div class="tf-face tf-back">
+            <div class="tf-num">02</div>
+            <h3 class="tf-title">[EN: Research AI]</h3>
+            <ul class="tf-back-outcomes">
+              <li>[EN: A lit-review flow you actually use weekly]</li>
+              <li>[EN: Source-checking habits that hold up under scrutiny]</li>
+              <li>[EN: Reusable prompts for synthesis and summary]</li>
+              <li>[EN: One research piece, built with the new tools]</li>
+            </ul>
+            <div class="tf-meta"><span>6 classes</span><span>Hybrid</span><span>Starts Apr 14</span></div>
+            <div class="tf-cta-row">
+              <button class="tf-apply" onclick="event.stopPropagation();openSignup('research','track-research')">Apply &rarr;</button>
+              <button class="tf-back-btn" onclick="event.stopPropagation();unflipCard(this)" aria-label="[EN: Flip back]">&larr; [EN: Back]</button>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- 03 Creative AI -->
+      <div class="tf-card scale-in stagger-3" id="track-creative">
+        <div class="tf-inner">
+          <div class="tf-face tf-front" onclick="flipCard(this)" role="button" tabindex="0" aria-label="[EN: Flip Creative AI card]">
+            <div class="tf-num">03</div>
+            <div class="tf-aud">[EN: For designers &amp; creators]</div>
+            <h3 class="tf-title">Creative AI</h3>
+            <p class="tf-desc">[EN: Images, video, motion &mdash; with a working creative kit. Taste and craft first, prompts second.]</p>
+            <div class="tf-tools">
+              <span class="tf-tool">Midjourney</span>
+              <span class="tf-tool">Nanobanana</span>
+              <span class="tf-tool">Higgsfield</span>
+            </div>
+            <div class="tf-flip-hint">[EN: Tap to see what you&rsquo;ll build]</div>
+          </div>
+          <div class="tf-face tf-back">
+            <div class="tf-num">03</div>
+            <h3 class="tf-title">Creative AI</h3>
+            <ul class="tf-back-outcomes">
+              <li>[EN: A visual style you can repeat, not one-offs]</li>
+              <li>[EN: A small body of finished work you can show]</li>
+              <li>[EN: The judgment calls: when to generate, when to edit, when to start over]</li>
+              <li>[EN: A style guide that sounds like you]</li>
+            </ul>
+            <div class="tf-meta"><span>6 classes</span><span>Hybrid</span><span>Starts Apr 14</span></div>
+            <div class="tf-cta-row">
+              <button class="tf-apply" onclick="event.stopPropagation();openSignup('creative','track-creative')">Apply &rarr;</button>
+              <button class="tf-back-btn" onclick="event.stopPropagation();unflipCard(this)" aria-label="[EN: Flip back]">&larr; [EN: Back]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 Marketing & SMM -->
+      <div class="tf-card scale-in stagger-4" id="track-marketing">
+        <div class="tf-inner">
+          <div class="tf-face tf-front" onclick="flipCard(this)" role="button" tabindex="0" aria-label="[EN: Flip Marketing and SMM card]">
+            <div class="tf-num">04</div>
+            <div class="tf-aud">[EN: For marketers &amp; SMM]</div>
+            <h3 class="tf-title">[EN: Marketing &amp; SMM]</h3>
+            <p class="tf-desc">[EN: Campaigns, briefs, channel content. Speed without losing the voice your brand spent years earning.]</p>
+            <div class="tf-tools">
+              <span class="tf-tool">ChatGPT</span>
+              <span class="tf-tool">Claude</span>
+              <span class="tf-tool">Midjourney</span>
+            </div>
+            <div class="tf-flip-hint">[EN: Tap to see what you&rsquo;ll build]</div>
+          </div>
+          <div class="tf-face tf-back">
+            <div class="tf-num">04</div>
+            <h3 class="tf-title">[EN: Marketing &amp; SMM]</h3>
+            <ul class="tf-back-outcomes">
+              <li>[EN: Briefs that actually brief &mdash; structured, reusable]</li>
+              <li>[EN: Channel content at cadence, on voice]</li>
+              <li>[EN: A few campaign variants without the usual drain]</li>
+              <li>[EN: A small prompt kit your whole team can use]</li>
+            </ul>
+            <div class="tf-meta"><span>6 classes</span><span>Hybrid</span><span>Starts Apr 14</span></div>
+            <div class="tf-cta-row">
+              <button class="tf-apply" onclick="event.stopPropagation();openSignup('marketing','track-marketing')">Apply &rarr;</button>
+              <button class="tf-back-btn" onclick="event.stopPropagation();unflipCard(this)" aria-label="[EN: Flip back]">&larr; [EN: Back]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 AI for Teaching -->
+      <div class="tf-card scale-in stagger-5" id="track-teaching">
+        <div class="tf-inner">
+          <div class="tf-face tf-front" onclick="flipCard(this)" role="button" tabindex="0" aria-label="[EN: Flip AI for teaching card]">
+            <div class="tf-num">05</div>
+            <div class="tf-aud">[EN: For teachers &amp; educators]</div>
+            <h3 class="tf-title">[EN: AI for teaching]</h3>
+            <p class="tf-desc">[EN: Lesson plans, feedback, curriculum work. AI that saves grading hours without cheating the learning.]</p>
+            <div class="tf-tools">
+              <span class="tf-tool">Claude</span>
+              <span class="tf-tool">NotebookLM</span>
+              <span class="tf-tool">ChatGPT</span>
+            </div>
+            <div class="tf-flip-hint">[EN: Tap to see what you&rsquo;ll build]</div>
+          </div>
+          <div class="tf-face tf-back">
+            <div class="tf-num">05</div>
+            <h3 class="tf-title">[EN: AI for teaching]</h3>
+            <ul class="tf-back-outcomes">
+              <li>[EN: Lesson plans drafted in minutes, not evenings]</li>
+              <li>[EN: Feedback that stays pedagogical, not generic]</li>
+              <li>[EN: A clear line between AI help and student work]</li>
+              <li>[EN: A small curriculum rethink for the AI era]</li>
+            </ul>
+            <div class="tf-meta"><span>6 classes</span><span>Hybrid</span><span>Starts Apr 14</span></div>
+            <div class="tf-cta-row">
+              <button class="tf-apply" onclick="event.stopPropagation();openSignup('teaching','track-teaching')">Apply &rarr;</button>
+              <button class="tf-back-btn" onclick="event.stopPropagation();unflipCard(this)" aria-label="[EN: Flip back]">&larr; [EN: Back]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 AI for Teens -->
+      <div class="tf-card scale-in stagger-6" id="track-teen">
+        <div class="tf-inner">
+          <div class="tf-face tf-front" onclick="flipCard(this)" role="button" tabindex="0" aria-label="[EN: Flip AI for teens card]">
+            <div class="tf-num">06</div>
+            <div class="tf-aud">[EN: For curious students &middot; 13&ndash;17]</div>
+            <h3 class="tf-title">[EN: AI for teens (13&ndash;17)]</h3>
+            <p class="tf-desc">[EN: A first serious look at AI for curious students &mdash; how it works, where it helps, ending with a project of their own.]</p>
+            <div class="tf-tools">
+              <span class="tf-tool">ChatGPT</span>
+              <span class="tf-tool">Claude</span>
+              <span class="tf-tool">Midjourney</span>
+            </div>
+            <div class="tf-flip-hint">[EN: Tap to see what you&rsquo;ll build]</div>
+          </div>
+          <div class="tf-face tf-back">
+            <div class="tf-num">06</div>
+            <h3 class="tf-title">[EN: AI for teens (13&ndash;17)]</h3>
+            <ul class="tf-back-outcomes">
+              <li>[EN: A clear sense of how AI works &mdash; where it&rsquo;s honest, where it makes things up]</li>
+              <li>[EN: AI as a study and creative partner, not a shortcut around thinking]</li>
+              <li>[EN: One project of their own, shown to a small live jury]</li>
+              <li>[EN: Habits that serve them as the tools keep changing]</li>
+            </ul>
+            <div class="tf-meta"><span>6 classes</span><span>Saturdays</span><span>Starts Apr 18</span></div>
+            <div class="tf-cta-row">
+              <button class="tf-apply" onclick="event.stopPropagation();openSignup('teen','track-teen')">Apply &rarr;</button>
+              <button class="tf-back-btn" onclick="event.stopPropagation();unflipCard(this)" aria-label="[EN: Flip back]">&larr; [EN: Back]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
     <!-- Inclusive fields strip -->
     <div class="fields-strip fade-in">
@@ -1579,15 +1753,30 @@ section.visible::after{width:200px}
           <button type="button" class="apply-tile is-on" data-track="AI-&#1398; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;" data-key="career">
             <span class="at-num">01</span>
             <span class="at-name">AI for Work</span>
-            <span class="at-desc">Career tempo. Real tasks.</span>
+            <span class="at-desc">Email, reports, decisions.</span>
+          </button>
+          <button type="button" class="apply-tile" data-track="Research AI" data-key="research">
+            <span class="at-num">02</span>
+            <span class="at-name">Research AI</span>
+            <span class="at-desc">Literature, synthesis.</span>
           </button>
           <button type="button" class="apply-tile" data-track="Creative AI" data-key="creative">
-            <span class="at-num">02</span>
+            <span class="at-num">03</span>
             <span class="at-name">Creative AI</span>
-            <span class="at-desc">Image, sound, motion.</span>
+            <span class="at-desc">Image, video, motion.</span>
+          </button>
+          <button type="button" class="apply-tile" data-track="Marketing &amp; SMM" data-key="marketing">
+            <span class="at-num">04</span>
+            <span class="at-name">Marketing &amp; SMM</span>
+            <span class="at-desc">Campaigns, content.</span>
+          </button>
+          <button type="button" class="apply-tile" data-track="AI for teaching" data-key="teaching">
+            <span class="at-num">05</span>
+            <span class="at-name">AI for teaching</span>
+            <span class="at-desc">Lesson plans, feedback.</span>
           </button>
           <button type="button" class="apply-tile" data-track="AI &#1357;&#1381;&#1408;&#1400;&#1410;&#1398;&#1380; (13-17)" data-key="teen">
-            <span class="at-num">03</span>
+            <span class="at-num">06</span>
             <span class="at-name">Teens 13&ndash;17</span>
             <span class="at-desc">Curiosity, supervised.</span>
           </button>
@@ -1761,7 +1950,15 @@ section.visible::after{width:200px}
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal(e,true);});
 
   /* ── Apply modal: tile selection ── */
-  var TRACK_KEY_MAP={career:'AI-\u0576 \u0561\u0577\u056D\u0561\u057F\u0561\u0576\u0584\u0578\u0582\u0574',creative:'Creative AI',teen:'AI \u054D\u0565\u0580\u0578\u0582\u0576\u0564 (13-17)'};
+  var TRACK_KEY_MAP={career:'AI-\u0576 \u0561\u0577\u056D\u0561\u057F\u0561\u0576\u0584\u0578\u0582\u0574',research:'Research AI',creative:'Creative AI',marketing:'Marketing & SMM',teaching:'AI for teaching',teen:'AI \u054D\u0565\u0580\u0578\u0582\u0576\u0564 (13-17)'};
+  /* Flip-card controllers (6 paths) */
+  window.flipCard=function(el){var c=el&&el.closest?el.closest('.tf-card'):null;if(c)c.classList.add('is-flipped');};
+  window.unflipCard=function(btn){var c=btn&&btn.closest?btn.closest('.tf-card'):null;if(c)c.classList.remove('is-flipped');};
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Enter'&&e.key!==' ')return;
+    var t=document.activeElement;
+    if(t&&t.classList&&t.classList.contains('tf-front')){e.preventDefault();window.flipCard(t);}
+  });
   document.querySelectorAll('.apply-tile').forEach(function(tile){
     tile.addEventListener('click',function(){
       document.querySelectorAll('.apply-tile').forEach(function(t){t.classList.remove('is-on');});
