@@ -232,12 +232,15 @@ section{padding:var(--section-y) 0}
 /* ── About ── */
 .about{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--bg) 0%,rgba(26,30,40,.5) 50%,var(--bg) 100%)}
 .about::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--card-border),transparent)}
-.about-grid{display:grid;grid-template-columns:220px 1fr;gap:48px;align-items:center}
+.about-grid{display:grid;grid-template-columns:340px 1fr;gap:64px;align-items:start}
+@media(max-width:900px){.about-grid{grid-template-columns:280px 1fr;gap:44px}}
 @media(max-width:640px){.about-grid{grid-template-columns:1fr;text-align:center;gap:32px}}
-.about-photo{width:220px;height:260px;border-radius:20px;background:var(--card);border:1px solid rgba(224,122,58,.18);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;margin:0 auto;box-shadow:0 8px 40px rgba(0,0,0,.4),0 0 80px rgba(224,122,58,.08)}
-.about-photo::after{content:'';position:absolute;inset:-2px;border-radius:22px;background:linear-gradient(135deg,rgba(224,122,58,.2),transparent 40%,transparent 60%,rgba(176,132,94,.15));z-index:0}
+.about-photo{width:340px;aspect-ratio:4/5;border-radius:20px;background:var(--card);border:1px solid rgba(224,122,58,.18);display:flex;align-items:center;justify-content:center;overflow:hidden;margin:0;box-shadow:0 14px 60px rgba(0,0,0,.5),0 0 120px rgba(224,122,58,.1);position:relative}
+@media(max-width:900px){.about-photo{width:280px}}
+@media(max-width:640px){.about-photo{width:min(260px,72vw);margin:0 auto}}
+.about-photo::after{content:'';position:absolute;inset:-2px;border-radius:22px;background:linear-gradient(135deg,rgba(224,122,58,.22),transparent 40%,transparent 60%,rgba(176,132,94,.18));z-index:0;pointer-events:none}
 .about-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:20px;position:relative;z-index:1}
-.about-photo .ph{color:var(--accent);font-size:3rem;font-family:'Noto Serif Armenian',serif;font-weight:900;position:relative;z-index:1;letter-spacing:-.02em;background:linear-gradient(135deg,rgba(224,122,58,.12),rgba(224,122,58,.04));width:100%;height:100%;display:none;align-items:center;justify-content:center;border-radius:20px}
+.about-photo .ph{color:var(--accent);font-size:4.2rem;font-family:'Noto Serif Armenian',serif;font-weight:900;position:relative;z-index:1;letter-spacing:-.02em;background:linear-gradient(135deg,rgba(224,122,58,.12),rgba(224,122,58,.04));width:100%;height:100%;display:none;align-items:center;justify-content:center;border-radius:20px}
 .about-photo img.broken{display:none!important}
 .about-photo img.broken~.ph{display:flex!important}
 .about-text h2{font-family:'Noto Serif Armenian',serif;font-size:var(--fs-xl);font-weight:700;margin-bottom:var(--sp-3);letter-spacing:var(--tr-tight);line-height:var(--lh-tight)}
@@ -283,29 +286,52 @@ section{padding:var(--section-y) 0}
 .f-card h3{font-size:.92rem;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
 .f-card p{font-size:.8rem;color:var(--text-dim);line-height:1.65}
 
-/* ── Modules / Curriculum ── */
-.modules{position:relative;text-align:center}
-.mod-tabs{display:inline-flex;gap:6px;padding:6px;border-radius:14px;background:rgba(30,34,48,.6);border:1px solid var(--card-border);margin-bottom:32px;flex-wrap:wrap;justify-content:center;max-width:100%}
-.mod-tab{background:transparent;border:none;color:var(--text-dim);font-family:inherit;font-size:.84rem;font-weight:600;padding:10px 16px;border-radius:10px;cursor:pointer;transition:all .25s;letter-spacing:-.01em;white-space:nowrap}
-.mod-tab:hover{color:var(--text)}
-.mod-tab.active{background:var(--accent);color:#10131a;box-shadow:0 0 18px rgba(224,122,58,.22)}
-@media(max-width:520px){.mod-tabs{width:100%;padding:4px}.mod-tab{flex:1;font-size:.76rem;padding:9px 6px}}
-.mod-panel{display:none;animation:fadeUp .4s cubic-bezier(.4,0,.2,1)}
-.mod-panel.active{display:block}
-.mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left}
-@media(max-width:900px){.mod-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.mod-grid{grid-template-columns:1fr}}
-.mod-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px 22px;position:relative;transition:all .3s cubic-bezier(.4,0,.2,1);overflow:hidden}
-.mod-card:hover{border-color:rgba(224,122,58,.22);transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.2)}
-.mod-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--accent);transition:height .35s cubic-bezier(.4,0,.2,1)}
-.mod-card:hover::before{height:100%}
-.mod-num{font-family:'Noto Serif Armenian',serif;font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.12em;margin-bottom:10px}
-.mod-card h4{font-family:'Noto Serif Armenian',serif;font-size:1rem;font-weight:700;margin-bottom:8px;letter-spacing:-.01em;line-height:1.35}
-.mod-card p{font-size:.82rem;color:var(--text-dim);line-height:1.65;margin-bottom:12px}
-.mod-tool{display:inline-block;font-size:.68rem;padding:4px 10px;border-radius:6px;background:rgba(224,122,58,.08);border:1px solid rgba(224,122,58,.18);color:var(--secondary);font-weight:600;letter-spacing:.02em}
-.mod-card-final{background:linear-gradient(140deg,rgba(224,122,58,.08),var(--card) 60%);border-color:rgba(224,122,58,.22)}
-.mod-note{text-align:center;color:var(--text-dim);font-size:.84rem;max-width:640px;margin:28px auto 0;line-height:1.7}
+/* (Former .modules / .mod-* grid styles removed — section is now "The Path") */
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── The Path (six-week timeline) ──
+   One animated path for all tracks. A single thin line on the left,
+   six stops with node + card; each stop fades up as it enters view. */
+.path{position:relative;text-align:center;padding:var(--sp-16) 0 var(--sp-20)}
+.path .stitle{margin-bottom:var(--sp-3)}
+.path-intro{max-width:560px;margin:0 auto var(--sp-10);color:var(--text-dim);font-size:.98rem;line-height:1.7}
+.path-list{list-style:none;padding:0;margin:0 auto;max-width:720px;text-align:left;position:relative}
+.path-list::before{content:'';position:absolute;left:27px;top:14px;bottom:14px;width:1px;background:linear-gradient(180deg,rgba(224,122,58,0),rgba(224,122,58,.35) 6%,rgba(224,122,58,.35) 94%,rgba(224,122,58,0))}
+.path-stop{position:relative;padding:0 0 var(--sp-8) 72px;opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
+.path-stop.visible{opacity:1;transform:translateY(0)}
+.path-stop:last-child{padding-bottom:0}
+.path-stop:nth-child(2){transition-delay:.08s}
+.path-stop:nth-child(3){transition-delay:.14s}
+.path-stop:nth-child(4){transition-delay:.2s}
+.path-stop:nth-child(5){transition-delay:.26s}
+.path-stop:nth-child(6){transition-delay:.32s}
+.ps-node{position:absolute;left:14px;top:6px;width:28px;height:28px;border-radius:50%;background:var(--bg);border:1px solid rgba(224,122,58,.3);display:flex;align-items:center;justify-content:center;transition:border-color .5s var(--ease),box-shadow .5s var(--ease);z-index:2}
+.path-stop.visible .ps-node{border-color:var(--accent);box-shadow:0 0 0 4px rgba(224,122,58,.08),0 0 16px rgba(224,122,58,.22)}
+.ps-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);transform:scale(0);transition:transform .6s cubic-bezier(.34,1.56,.64,1) .15s}
+.path-stop.visible .ps-dot{transform:scale(1)}
+.path-stop:last-child .ps-node{border-color:var(--gold);background:radial-gradient(circle at 50% 50%,rgba(224,122,58,.18),transparent 70%),var(--bg)}
+.path-stop:last-child .ps-dot{background:var(--gold)}
+.ps-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-6) var(--sp-7);transition:border-color var(--dur-base) var(--ease),transform var(--dur-base) var(--ease),box-shadow var(--dur-base) var(--ease)}
+.ps-card:hover{border-color:rgba(224,122,58,.28);transform:translateX(2px);box-shadow:var(--el-1)}
+.ps-week{display:inline-block;font-family:'Noto Serif Armenian',serif;font-style:italic;font-size:.72rem;color:var(--secondary);letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-variant-numeric:tabular-nums}
+.ps-card h3{font-family:'Noto Serif Armenian',serif;font-size:1.2rem;font-weight:700;line-height:1.3;margin:0 0 10px;letter-spacing:-.01em;color:var(--text)}
+.ps-card p{font-size:.92rem;color:var(--text-dim);line-height:1.7;margin:0 0 14px}
+.ps-make{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;color:var(--text-subtle);padding:5px 12px 5px 10px;border-radius:100px;background:rgba(224,122,58,.05);border:1px solid rgba(224,122,58,.14);letter-spacing:.02em;font-weight:600}
+.ps-make::before{content:'\2192';color:var(--accent);font-style:italic;font-weight:700;font-family:'Noto Serif Armenian',serif}
+.path-foot{margin:var(--sp-10) auto 0;text-align:center;color:var(--text-subtle);font-size:.82rem;line-height:1.65;max-width:520px;font-style:italic;font-family:'Noto Serif Armenian',serif}
+.path-foot em{font-style:normal;color:var(--text-dim);font-family:inherit;letter-spacing:.01em}
+@media(max-width:640px){
+  .path-list::before{left:19px}
+  .path-stop{padding-left:54px;padding-bottom:var(--sp-7)}
+  .ps-node{left:6px;width:26px;height:26px}
+  .ps-card{padding:var(--sp-5) var(--sp-5)}
+  .ps-card h3{font-size:1.05rem}
+  .ps-card p{font-size:.87rem}
+  .ps-make{font-size:.68rem;padding:4px 10px 4px 9px}
+}
+@media (prefers-reduced-motion:reduce){
+  .path-stop,.path-stop .ps-dot,.path-stop .ps-node{transition:none!important}
+}
 
 /* ── Try a Taste (interactive demo) ── */
 .try-taste{position:relative;text-align:center}
@@ -341,6 +367,12 @@ section{padding:var(--section-y) 0}
 .taste-cta-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto}
 .taste-cta-row .btn{white-space:nowrap}
 .taste-cta-note{font-size:.74rem;color:var(--text-dim)}
+/* "Coming soon" platform badge — muted amber, pulsing dot */
+.platform-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 10px;border-radius:100px;background:rgba(196,154,110,.08);border:1px solid rgba(196,154,110,.22);color:var(--secondary);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:18px;align-self:flex-start}
+.platform-badge .pb-dot{width:7px;height:7px;border-radius:50%;background:var(--secondary);box-shadow:0 0 0 0 rgba(196,154,110,.6);animation:pbPulse 2.4s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes pbPulse{0%{box-shadow:0 0 0 0 rgba(196,154,110,.5)}70%{box-shadow:0 0 0 9px rgba(196,154,110,0)}100%{box-shadow:0 0 0 0 rgba(196,154,110,0)}}
+.platform-soon{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text-dim);line-height:1.4;font-style:italic}
+.platform-soon::before{content:'';width:14px;height:1px;background:var(--secondary);opacity:.5}
 
 /* ── Offerings ── */
 .offerings{position:relative;background:linear-gradient(180deg,var(--bg) 0%,rgba(30,34,48,.3) 50%,var(--bg) 100%)}
@@ -555,6 +587,15 @@ section{padding:var(--section-y) 0}
 .apply-tile.is-on .at-num{color:var(--accent)}
 .apply-tile .at-name{font-family:'Noto Serif Armenian',serif;font-size:1rem;font-weight:700;letter-spacing:-.01em;line-height:1.2}
 .apply-tile .at-desc{font-size:.76rem;color:var(--text-dim);line-height:1.4}
+/* Scoped mode: when apply modal is opened from a specific track card,
+   hide the other tiles so the user confirms the one path they picked.
+   A "Change path" link reveals them if they want to switch. */
+.apply-tiles.is-scoped{grid-template-columns:1fr}
+.apply-tiles.is-scoped .apply-tile:not(.is-on){display:none}
+.apply-tiles.is-scoped .apply-tile.is-on{cursor:default}
+.apply-change{display:none;margin-top:8px;background:none;border:none;color:var(--text-dim);font-family:inherit;font-size:.76rem;letter-spacing:.02em;cursor:pointer;padding:4px 0;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(245,239,230,.25);transition:color .2s}
+.apply-change:hover{color:var(--accent);text-decoration-color:var(--accent)}
+.apply-tiles.is-scoped ~ .apply-change{display:inline-block}
 .apply-cta{margin-top:8px;width:100%;text-align:center;font-weight:700;letter-spacing:.02em}
 .apply-foot{font-size:.74rem;color:var(--text-subtle);text-align:center;margin:6px 0 0;line-height:1.7}
 .apply-foot a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
@@ -925,7 +966,7 @@ section.visible::after{width:200px}
     <h1 class="serif">[EN: Learn to work with AI, <span class="hl">carefully.</span>]</h1>
     <p class="sub">[EN: Six weeks, one small cohort, taught in Yerevan and online. Not a certification, not a funnel — a careful conversation about what these tools can actually do for your work.]</p>
     <div class="hero-cta-row">
-      <a href="#" onclick="openSignup(null,'hero');return false" class="btn">[EN: Apply for Cohort 05 →]</a>
+      <a href="#" onclick="openSignup(null,'hero');return false" class="btn">[EN: Apply →]</a>
     </div>
     <a href="#fit" class="hero-secondary-link">[EN: Not sure which path fits? Take the 3-question quiz →]</a>
     <div class="hero-meta" aria-hidden="true">
@@ -1113,47 +1154,69 @@ section.visible::after{width:200px}
   </div>
 </section>
 
-<!-- Modules / Curriculum -->
-<section class="modules" id="modules">
-  <div class="container-wide">
-    <div class="sec-marker"><span class="sec-num">§ 04</span><span class="sec-rule"></span><span class="sec-name">Syllabus · Week by week</span></div>
-    <h2 class="stitle serif reveal-3d">[EN: What you&rsquo;ll actually do]</h2>
-    <p class="ssub fade-in">[EN: Six weeks, one topic at a time. Theory and hands-on work in the same session.]</p>
-    <div class="mod-tabs" role="tablist">
-      <button class="mod-tab active" data-track="career" role="tab">[EN: For Work]</button>
-      <button class="mod-tab" data-track="creative" role="tab">[EN: Creative]</button>
-      <button class="mod-tab" data-track="teen" role="tab">[EN: Teens 13&ndash;17]</button>
-    </div>
-    <div class="mod-panel active" data-track="career">
-      <div class="mod-grid">
-        <div class="mod-card"><div class="mod-num">01</div><h4>AI &#1392;&#1387;&#1396;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;</h4><p>&#1335;&#1398;&#1401;&#1402;&#1381;&#1405; &#1381;&#1398; &#1377;&#1399;&#1389;&#1377;&#1407;&#1400;&#1410;&#1396; LLM-&#1398;&#1381;&#1408;&#1384;, ChatGPT vs Claude, &#1378;&#1381;&#1408;&#1381;&#1412; &#1377;&#1396;&#1381;&#1398;&#1377;&#1392;&#1377;&#1408;&#1396;&#1377;&#1408; &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1384;&#1417;</p><span class="mod-tool">ChatGPT &middot; Claude</span></div>
-        <div class="mod-card"><div class="mod-num">02</div><h4>Prompt Engineering</h4><p>RCTF &#1396;&#1381;&#1385;&#1400;&#1380;, context-&#1387; &#1391;&#1377;&#1404;&#1377;&#1406;&#1377;&#1408;&#1400;&#1410;&#1396;, iteration, &#1412;&#1381;&#1382; &#1392;&#1377;&#1396;&#1377;&#1408; prompt &#1379;&#1408;&#1377;&#1380;&#1377;&#1408;&#1377;&#1398;&#1417;</p><span class="mod-tool">Prompting</span></div>
-        <div class="mod-card"><div class="mod-num">03</div><h4>&#1329;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1377;&#1397;&#1387;&#1398; &#1377;&#1406;&#1407;&#1400;&#1396;&#1377;&#1407;&#1377;&#1409;&#1387;&#1377;</h4><p>Email-&#1398;&#1381;&#1408;, &#1377;&#1396;&#1411;&#1400;&#1411;&#1400;&#1410;&#1396;&#1398;&#1381;&#1408;, meeting notes, research &#1415; &#1383;&#1400;&#1408;&#1400;&#1410;&#1377;&#1391;&#1377;&#1398; &#1377;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1377;&#1406;&#1381;&#1407;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1417;</p><span class="mod-tool">NotebookLM &middot; Perplexity</span></div>
-        <div class="mod-card"><div class="mod-num">04</div><h4>AI &#1378;&#1387;&#1382;&#1398;&#1381;&#1405;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</h4><p>&#1330;&#1387;&#1382;&#1398;&#1381;&#1405; &#1405;&#1407;&#1408;&#1377;&#1407;&#1381;&#1379;&#1387;&#1377;, &#1377;&#1398;&#1381;&#1391;&#1380;&#1400;&#1407;&#1377;&#1398;&#1381;&#1408;, &#1377;&#1398;&#1391;&#1377;&#1410;&#1378;&#1377;&#1381;&#1407;&#1381;&#1408;, CRM &#1377;&#1406;&#1407;&#1400;&#1396;&#1377;&#1407;&#1377;&#1409;&#1387;&#1377;&#1417;</p><span class="mod-tool">Gamma &middot; Notion AI</span></div>
-        <div class="mod-card"><div class="mod-num">05</div><h4>AI-&#1400;&#1406; &#1402;&#1400;&#1408;&#1407;&#1414;&#1400;&#1388;&#1387;&#1400;</h4><p>&#1354;&#1377;&#1407;&#1408;&#1377;&#1405;&#1407;&#1381;&#1388; 3 &#1387;&#1408;&#1377;&#1391;&#1377;&#1398; &#1402;&#1408;&#1400;&#1397;&#1381;&#1391;&#1407;, &#1400;&#1408;&#1400;&#1398;&#1412; &#1391;&#1391;&#1377;&#1408;&#1400;&#1394;&#1377;&#1398;&#1377;&#1398; &#1390;&#1408;&#1377;&#1387;&#1408;&#1381;&#1396; &#1391;&#1377;&#1396; LinkedIn-&#1400;&#1410;&#1396;&#1417;</p><span class="mod-tool">Portfolio</span></div>
-        <div class="mod-card mod-card-final"><div class="mod-num">06</div><h4>&#1343;&#1377;&#1408;&#1387;&#1381;&#1408;&#1377;&#1397;&#1387;&#1398; &#1391;&#1387;&#1408;&#1377;&#1404;&#1400;&#1410;&#1396;</h4><p>CV-&#1387; &#1413;&#1402;&#1407;&#1387;&#1396;&#1377;&#1409;&#1400;&#1410;&#1396;, &#1392;&#1377;&#1408;&#1409;&#1377;&#1382;&#1408;&#1400;&#1410;&#1397;&#1409;&#1387; &#1402;&#1377;&#1407;&#1408;&#1377;&#1405;&#1407;&#1400;&#1410;&#1396; AI-&#1400;&#1406;, &#1396;&#1377;&#1401;&#1407;&#1377;&#1391;&#1377;&#1398; case-study&#1417;</p><span class="mod-tool">&#1343;&#1377;&#1408;&#1387;&#1381;&#1408;&#1377;</span></div>
-      </div>
-    </div>
-    <div class="mod-panel" data-track="creative">
-      <div class="mod-grid">
-        <div class="mod-card"><div class="mod-num">01</div><h4>Visual AI &#1398;&#1381;&#1408;&#1377;&#1390;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;</h4><p>Midjourney, Flux, DALL-E, Nano Banana &#1388; &#1398;&#1391;&#1377;&#1408; &#1379;&#1381;&#1398;&#1381;&#1408;&#1377;&#1409;&#1387;&#1377;&#1397;&#1387; &#1392;&#1377;&#1405;&#1377;&#1391;&#1377;&#1409;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1398;&#1381;&#1408;&#1384;&#1417;</p><span class="mod-tool">Midjourney &middot; Flux</span></div>
-        <div class="mod-card"><div class="mod-num">02</div><h4>&#1356;&#1379;&#1387;&#1374; Prompt &#1395;&#1377;&#1398;&#1377;&#1398;&#1381;&#1408;&#1379;&#1400;&#1410;&#1392;</h4><p>&#1357;&#1407;&#1387;&#1388;, composition, &#1388;&#1400;&#1410;&#1405;, &#1407;&#1408;&#1377;&#1396;&#1377;&#1380;&#1408;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;, &#1391;&#1379;&#1408;&#1377;&#1398;&#1409;&#1406;&#1377;&#1390; &#1398;&#1391;&#1377;&#1408;&#1398;&#1381;&#1408; &#1396;&#1387; &#1411;&#1400;&#1408;&#1393;&#1387;&#1409;&#1417;</p><span class="mod-tool">Prompt craft</span></div>
-        <div class="mod-card"><div class="mod-num">03</div><h4>Video &#1415; &#1377;&#1398;&#1387;&#1396;&#1377;&#1409;&#1387;&#1377;</h4><p>Kling, Higgsfield, Runway&#8201;&mdash;&#8201;&#1391;&#1381;&#1398;&#1380;&#1377;&#1398;&#1387; &#1407;&#1381;&#1405;&#1377;&#1398;&#1397;&#1400;&#1410;&#1385;&#1381;&#1408;, motion graphics, character-&#1398;&#1381;&#1408;&#1417;</p><span class="mod-tool">Kling &middot; Runway</span></div>
-        <div class="mod-card"><div class="mod-num">04</div><h4>SMM &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407; AI-&#1400;&#1406;</h4><p>Reels, carousel, thumbnails, &#1391;&#1377;&#1396;&#1411;&#1377;&#1398;&#1387;&#1377;&#1397;&#1387;&#1398; &#1387;&#1408;&#1381;&#1398;&#1381;&#1408; &#1398;&#1391;&#1377;&#1408;&#1377;&#1382;&#1377;&#1408;&#1380; &#1412;&#1377;&#1398;&#1387; &#1408;&#1377;&#1381;&#1400;&#1410;&#1396;&#1417;</p><span class="mod-tool">Canva AI</span></div>
-        <div class="mod-card"><div class="mod-num">05</div><h4>&#1330;&#1408;&#1381;&#1398;&#1380;&#1377;&#1397;&#1387;&#1398; identity</h4><p>&#1342;&#1400;&#1408;&#1387;&#1398;&#1379;&#1377;&#1391;&#1377;&#1398; &#1398;&#1400;&#1410;&#1397;&#1398;&#1377;&#1391;&#1377;&#1398;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;, &#1391;&#1377;&#1397;&#1412;, &#1402;&#1377;&#1388;&#1381;&#1407;, &#1384;&#1398;&#1380;&#1392;&#1377;&#1398;&#1400;&#1410;&#1408; style guide AI-&#1400;&#1406;&#1417;</p><span class="mod-tool">Branding</span></div>
-        <div class="mod-card mod-card-final"><div class="mod-num">06</div><h4>&#1354;&#1400;&#1408;&#1407;&#1414;&#1400;&#1388;&#1387;&#1400; &#1415; drop</h4><p>10+ &#1406;&#1387;&#1382;&#1400;&#1410;&#1377;&#1388;&#1387; &#1391;&#1377;&#1396;&#1411;&#1377;&#1398;&#1387;&#1377;, &#1379;&#1408;&#1377;&#1414;&#1387;&#1391; reel, &#1398;&#1381;&#1408;&#1391;&#1377;&#1397;&#1377;&#1409;&#1400;&#1410;&#1396; Instagram-&#1400;&#1410;&#1396;&#1417;</p><span class="mod-tool">Showcase</span></div>
-      </div>
-    </div>
-    <div class="mod-panel" data-track="teen">
-      <div class="mod-grid">
-        <div class="mod-card"><div class="mod-num">01</div><h4>AI-&#1398; &#1400;&#1408;&#1402;&#1381;&#1405; &#1379;&#1400;&#1408;&#1390;&#1384;&#1398;&#1391;&#1381;&#1408;</h4><p>&#1335;&#1398;&#1401;&#1402;&#1381;&#1405; &#1391;&#1377;&#1387;&#1405; &#1377;&#1399;&#1389;&#1377;&#1407;&#1381;&#1388; AI-&#1387; &#1392;&#1381;&#1407;&#1373; &#1377;&#1398;&#1406;&#1407;&#1377;&#1398;&#1379;, &#1398;&#1377;&#1389;&#1377;&#1391;&#1381;&#1408;&#1412;&#1398;&#1377;&#1377;&#1391;&#1377;&#1398; &#1415; &#1413;&#1379;&#1407;&#1377;&#1391;&#1377;&#1408;&#1417;</p><span class="mod-tool">AI 101</span></div>
-        <div class="mod-card"><div class="mod-num">02</div><h4>&#1348;&#1402;&#1408;&#1400;&#1409;&#1377;&#1391;&#1377;&#1398; &#1377;&#1404;&#1377;&#1403;&#1377;&#1380;&#1408;&#1377;&#1398;&#1412;&#1398;&#1381;&#1408;</h4><p>&#1335;&#1398;&#1401;&#1402;&#1381;&#1405; &#1380;&#1408;&#1377;&#1398;&#1412;&#1400;&#1406; &#1388;&#1377;&#1406; &#1408;&#1381;&#1411;&#1381;&#1408;&#1377;&#1407; &#1411;&#1408;&#1381;&#1388;, essay &#1391;&#1377;&#1404;&#1400;&#1410;&#1409;&#1381;&#1388; &#1415; &#1399;&#1377;&#1387;&#1398;&#1381;&#1388;&#1400;&#1410; &#1391;&#1377;&#1408;&#1400;&#1394;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;&#1398;&#1381;&#1408;&#1417;</p><span class="mod-tool">Study</span></div>
-        <div class="mod-card"><div class="mod-num">03</div><h4>&#1344;&#1381;&#1407;&#1377;&#1412;&#1408;&#1412;&#1387;&#1408; &#1398;&#1377;&#1389;&#1377;&#1379;&#1390;&#1381;&#1408;</h4><p>&#1357;&#1381;&#1411;&#1377;&#1391;&#1377;&#1398; &#1391;&#1381;&#1408;&#1402;&#1377;&#1408;&#1398;&#1381;&#1408;, &#1391;&#1377;&#1408;&#1400;&#1410;&#1381;&#1412; &#1407;&#1381;&#1405;&#1377;&#1398;&#1397;&#1400;&#1410;&#1385;&#1381;&#1408;, &#1396;&#1387;&#1398;&#1387; &#1391;&#1377;&#1397;&#1412; &#1387;&#1408;&#1377;&#1391;&#1377;&#1398; &#1377;&#1408;&#1387;&#1411;&#1400;&#1406;&#1417;</p><span class="mod-tool">Creative</span></div>
-        <div class="mod-card"><div class="mod-num">04</div><h4>&#1355;&#1398;&#1398;&#1377;&#1380;&#1377;&#1407;&#1377;&#1391;&#1377;&#1398; &#1396;&#1407;&#1377;&#1390;&#1400;&#1394;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398;</h4><p>&#1347;&#1387;&#1399;&#1407; &#1392;&#1377;&#1408;&#1409;&#1381;&#1408; &#1407;&#1377;&#1388;&#1400;&#1410; AI-&#1387;&#1398;, &#1407;&#1381;&#1394;&#1381;&#1391;&#1400;&#1410;&#1385;&#1397;&#1377;&#1398; &#1405;&#1383;&#1411;&#1377;&#1391;&#1377;&#1398; &#1405;&#1381;&#1411;&#1377;&#1391;&#1377;&#1398; &#1407;&#1381;&#1405;&#1377;&#1391;&#1381;&#1407;&#1400;&#1410;&#1396;&#1417;</p><span class="mod-tool">Thinking</span></div>
-        <div class="mod-card"><div class="mod-num">05</div><h4>&#1355;&#1387;&#1398;&#1387; &#1398;&#1377;&#1389;&#1377;&#1379;&#1387;&#1390;</h4><p>&#1357;&#1381;&#1411;&#1377;&#1391;&#1377;&#1398; &#1377;&#1408;&#1407;&#1377;&#1380;&#1408;&#1377;&#1398;&#1412;&#1384;&#1373; &#1402;&#1400;&#1380;&#1412;&#1377;&#1405;&#1407;, &#1396;&#1387;&#1398;&#1387; &#1391;&#1377;&#1397;&#1412;, &#1406;&#1387;&#1380;&#1381;&#1400;&#1398;&#1381;&#1408;&#1387; &#1400;&#1410; &#1398;&#1391;&#1377;&#1408;&#1398;&#1381;&#1408;&#1387; &#1400;&#1409;&#1412;&#1400;&#1410;&#1385;&#1397;&#1377;&#1396;&#1378;&#1417;</p><span class="mod-tool">Project</span></div>
-        <div class="mod-card mod-card-final"><div class="mod-num">06</div><h4>Showcase &#1415; &#1377;&#1407;&#1381;&#1405;&#1407;&#1377;&#1407;</h4><p>&#1354;&#1408;&#1381;&#1382;&#1381;&#1398;&#1407;&#1377;&#1409;&#1387;&#1377; &#1390;&#1398;&#1400;&#1394;&#1398;&#1381;&#1408;&#1387; &#1411;&#1377;&#1391;&#1406;&#1377;&#1390; &#1397;&#1400;&#1410;&#1408;&#1377;&#1388;&#1377;&#1407;&#1400;&#1410;&#1391; &#1402;&#1408;&#1381;&#1382;&#1381;&#1398;&#1407;&#1377;&#1409;&#1387;&#1377;&#1397;&#1400;&#1410;&#1396;&#1417;</p><span class="mod-tool">Demo day</span></div>
-      </div>
-    </div>
+<!-- The Path — one six-week timeline, generic across all tracks -->
+<section class="path" id="modules">
+  <div class="container">
+    <div class="sec-marker"><span class="sec-num">&sect; 04</span><span class="sec-rule"></span><span class="sec-name">The path &middot; Six weeks</span></div>
+    <h2 class="stitle serif reveal-3d">[EN: What you&rsquo;ll actually do.]</h2>
+    <p class="path-intro fade-in">[EN: One path, six weeks, one step at a time. The shape stays the same across tracks &mdash; what changes is what <em>you</em> bring to each step. Here&rsquo;s the shape.]</p>
+    <ol class="path-list" aria-label="Six-week learning path">
+      <li class="path-stop">
+        <span class="ps-node" aria-hidden="true"><span class="ps-dot"></span></span>
+        <div class="ps-card">
+          <span class="ps-week">Week 01 &middot; Begin here</span>
+          <h3>[EN: Meet the tools, carefully.]</h3>
+          <p>[EN: One session to see what these models actually are &mdash; and, more honestly, where they quietly go wrong. You leave with a working vocabulary and a first prompt tested three ways.]</p>
+          <span class="ps-make">[EN: You make: your first real prompt]</span>
+        </div>
+      </li>
+      <li class="path-stop">
+        <span class="ps-node" aria-hidden="true"><span class="ps-dot"></span></span>
+        <div class="ps-card">
+          <span class="ps-week">Week 02 &middot; Craft</span>
+          <h3>[EN: Prompting, the careful way.]</h3>
+          <p>[EN: Role, context, task, format. A small structure that earns its place &mdash; we rewrite the bad prompts together, then keep the ones that hold up. No gimmicks, no hacks.]</p>
+          <span class="ps-make">[EN: You make: three prompts you&rsquo;ll reuse]</span>
+        </div>
+      </li>
+      <li class="path-stop">
+        <span class="ps-node" aria-hidden="true"><span class="ps-dot"></span></span>
+        <div class="ps-card">
+          <span class="ps-week">Week 03 &middot; Your work</span>
+          <h3>[EN: The thing you actually do.]</h3>
+          <p>[EN: Emails. Planning. Research. A school essay. A side project. Whatever lives on your desk &mdash; we rebuild one piece of it with AI in the loop, and see what that actually changes.]</p>
+          <span class="ps-make">[EN: You make: one task, done differently]</span>
+        </div>
+      </li>
+      <li class="path-stop">
+        <span class="ps-node" aria-hidden="true"><span class="ps-dot"></span></span>
+        <div class="ps-card">
+          <span class="ps-week">Week 04 &middot; Output</span>
+          <h3>[EN: Image, sound, or motion.]</h3>
+          <p>[EN: One week on making something. Pick a medium &mdash; an image, a short video, a generated voice, a piece of music &mdash; and produce a real output. Then we&rsquo;ll study, together, why it&rsquo;s good (or isn&rsquo;t).]</p>
+          <span class="ps-make">[EN: You make: one real output, critiqued]</span>
+        </div>
+      </li>
+      <li class="path-stop">
+        <span class="ps-node" aria-hidden="true"><span class="ps-dot"></span></span>
+        <div class="ps-card">
+          <span class="ps-week">Week 05 &middot; Judgement</span>
+          <h3>[EN: When to stop using it.]</h3>
+          <p>[EN: The other half of the skill. Which decisions is AI quietly making for you? Which ones do you need to take back? You leave with an audit of your own week &mdash; and a sharper instinct.]</p>
+          <span class="ps-make">[EN: You make: a small audit of your AI use]</span>
+        </div>
+      </li>
+      <li class="path-stop">
+        <span class="ps-node" aria-hidden="true"><span class="ps-dot"></span></span>
+        <div class="ps-card">
+          <span class="ps-week">Week 06 &middot; Show your work</span>
+          <h3>[EN: A final, real thing.]</h3>
+          <p>[EN: Something you bring in from your actual life &mdash; a job search, a portfolio piece, a school project, a side idea. You present it. We review it together. You leave with one thing you&rsquo;re proud to publish.]</p>
+          <span class="ps-make">[EN: You make: one thing worth publishing]</span>
+        </div>
+      </li>
+    </ol>
+    <p class="path-foot fade-in"><em>[EN: The path is the same for everyone. What fills it is the work you already care about.]</em></p>
   </div>
 </section>
 
@@ -1188,12 +1251,12 @@ section.visible::after{width:200px}
       <!-- Left: live prompt playground -->
       <div class="taste-card taste-play fade-in">
         <label class="taste-label" for="tasteIn">[EN: Your task]</label>
-        <textarea id="tasteIn" class="taste-in" rows="3" placeholder="[EN: e.g. Write a LinkedIn post announcing my promotion to Senior Designer at a tech startup in Yerevan]"></textarea>
+        <textarea id="tasteIn" class="taste-in" rows="3" placeholder="[EN: e.g. My friend said &lsquo;maybe later&rsquo; about our trip &mdash; what do they actually mean?]"></textarea>
         <div class="taste-examples">
-          <span class="taste-ex-label">[EN: Or try:]</span>
-          <button type="button" class="taste-ex" data-ex="linkedin">[EN: LinkedIn post]</button>
-          <button type="button" class="taste-ex" data-ex="email">[EN: Client email]</button>
-          <button type="button" class="taste-ex" data-ex="plan">[EN: Weekly plan]</button>
+          <span class="taste-ex-label">[EN: Or try a life hack:]</span>
+          <button type="button" class="taste-ex" data-ex="decode">[EN: Decode a text]</button>
+          <button type="button" class="taste-ex" data-ex="decide">[EN: I&rsquo;m stuck on a decision]</button>
+          <button type="button" class="taste-ex" data-ex="name">[EN: Name my thing]</button>
         </div>
         <button type="button" id="tasteRun" class="btn taste-run">[EN: See my result] &rarr;</button>
         <div class="taste-out" id="tasteOut" aria-live="polite">
@@ -1203,16 +1266,17 @@ section.visible::after{width:200px}
 
       <!-- Right: platform preview / what's inside -->
       <div class="taste-card taste-platform fade-in">
-        <h3 class="taste-h3 serif">[EN: The learning platform]</h3>
-        <p class="taste-p">[EN: A small interactive classroom: lessons you can type into, a prompt library, a gallery of real outputs, and homework tied to real situations.]</p>
+        <span class="platform-badge"><span class="pb-dot" aria-hidden="true"></span>[EN: Coming &middot; Phase 02]</span>
+        <h3 class="taste-h3 serif">[EN: A learning platform, built alongside you.]</h3>
+        <p class="taste-p">[EN: A small interactive classroom &mdash; lessons you work through, a prompt library, a gallery of real outputs, and homework tied to real situations. We&rsquo;re building it with Cohort 05 students and opening it up after.]</p>
         <ul class="taste-list">
           <li><span class="taste-dot"></span>[EN: Lessons you work through, not watch]</li>
           <li><span class="taste-dot"></span>[EN: A prompt library you can copy from]</li>
           <li><span class="taste-dot"></span>[EN: A gallery of real outputs to study]</li>
-          <li><span class="taste-dot"></span>[EN: Homework with real-world scenarios]</li>
+          <li><span class="taste-dot"></span>[EN: Homework tied to real-world scenarios]</li>
         </ul>
         <div class="taste-cta-row">
-          <a href="portal/index.html" target="_blank" rel="noopener" class="btn btn-ghost">[EN: Open the platform]</a>
+          <span class="platform-soon">[EN: Enrolled students get early access.]</span>
         </div>
       </div>
     </div>
@@ -1234,8 +1298,8 @@ section.visible::after{width:200px}
           <span class="aq-mark" aria-hidden="true">&ldquo;</span>
           <p>[EN: I&rsquo;m not trying to make you faster at AI. I&rsquo;m trying to make you better at thinking &mdash; and better at knowing when a tool is actually helping.]</p>
         </blockquote>
-        <p class="about-body">[EN: I&rsquo;ve taught AI locally in Yerevan and internationally &mdash; in rooms full of teenagers, designers, founders, and skeptics. Most arrived asking how to automate something. Most left asking better questions instead.]</p>
-        <p class="about-body">[EN: This school is small on purpose. One instructor, one cohort at a time, one careful conversation about what these tools can actually do for your work &mdash; and where they quietly start doing the thinking for you.]</p>
+        <p class="about-body">[EN: I&rsquo;ve taught AI here in Yerevan and abroad &mdash; to teenagers and designers, founders and skeptics. Most arrive wanting to automate something. Most leave asking better questions instead.]</p>
+        <p class="about-body">[EN: This school stays small on purpose. One instructor. One cohort at a time. One long conversation about what these tools can do for your work &mdash; and where they quietly start doing the thinking for you.]</p>
         <div class="cred-row">
           <span class="cred"><b>2024&ndash;now</b><span class="cred-role">Teaching AI</span></span>
           <span class="cred"><b>Local &amp; Abroad</b><span class="cred-role">Cohorts taught</span></span>
@@ -1292,7 +1356,7 @@ section.visible::after{width:200px}
     <h2 class="stitle serif">[EN: When you&rsquo;re <em>ready.</em>]</h2>
     <p>[EN: Start with a message. I&rsquo;ll answer the same day.]</p>
     <div class="footer-cta-row">
-      <a href="#" onclick="openSignup(null,'footer');return false" class="btn">[EN: Apply for Cohort 05 →]</a>
+      <a href="#" onclick="openSignup(null,'footer');return false" class="btn">[EN: Apply →]</a>
       <a href="https://wa.me/37493388443?text=Hi%20Ed%2C%20I%27d%20like%20to%20ask%20a%20question" target="_blank" rel="noopener" class="btn btn-ghost">[EN: Just a question? WhatsApp]</a>
     </div>
     <div class="footer-channels">
@@ -1314,7 +1378,7 @@ section.visible::after{width:200px}
 
 <!-- Sticky Mobile CTA -->
 <div class="sticky-cta" id="stickyCta">
-  <a href="#" onclick="openSignup(null,'sticky');return false" class="btn btn-sm" style="padding:11px 24px;font-size:.84rem;width:100%;text-align:center">[EN: Apply for Cohort 05 →]</a>
+  <a href="#" onclick="openSignup(null,'sticky');return false" class="btn btn-sm" style="padding:11px 24px;font-size:.84rem;width:100%;text-align:center">[EN: Apply →]</a>
 </div>
 
 <!-- Modals -->
@@ -1410,6 +1474,7 @@ section.visible::after{width:200px}
             <span class="at-desc">Curiosity, supervised.</span>
           </button>
         </div>
+        <button type="button" class="apply-change" id="applyChange">Change path &rarr;</button>
       </div>
       <button type="submit" class="btn apply-cta">Send to WhatsApp &rarr;</button>
       <p class="apply-foot">We reply from a real number in <b>Yerevan</b>. Or call <a href="tel:+37493388443">+374 93 388 443</a>.</p>
@@ -1547,14 +1612,22 @@ section.visible::after{width:200px}
     },{passive:true});
   }
 
-  /* ── Module tabs ── */
-  document.querySelectorAll('.mod-tab').forEach(function(tab){
-    tab.addEventListener('click',function(){
-      var track=tab.getAttribute('data-track');
-      document.querySelectorAll('.mod-tab').forEach(function(t){t.classList.toggle('active',t===tab);});
-      document.querySelectorAll('.mod-panel').forEach(function(p){p.classList.toggle('active',p.getAttribute('data-track')===track);});
-    });
-  });
+  /* ── Path timeline: reveal each stop as it enters the viewport.
+     Separate observer from the general .fade-in so we can stagger stops
+     via CSS transition-delay and not re-trigger when scrolling up. */
+  (function(){
+    var stops=document.querySelectorAll('.path-stop');
+    if(!stops.length)return;
+    var pathObs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          pathObs.unobserve(e.target);
+        }
+      });
+    },{threshold:0.2,rootMargin:'0px 0px -60px 0px'});
+    stops.forEach(function(s){pathObs.observe(s);});
+  })();
 
   /* ── Modals ── */
   window.openModal=function(track){
@@ -1586,6 +1659,7 @@ section.visible::after{width:200px}
     apply.classList.remove('is-sent');
     // reset tile selection based on track key or name
     var tiles=document.querySelectorAll('.apply-tile');
+    var tileContainer=modal.querySelector('.apply-tiles');
     var matched=false;
     if(track){
       tiles.forEach(function(t){
@@ -1602,6 +1676,13 @@ section.visible::after{width:200px}
       tiles.forEach(function(t,i){if(i===0)t.classList.add('is-on');else t.classList.remove('is-on');});
       if(tiles[0])document.getElementById('sf-track').value=tiles[0].getAttribute('data-track');
     }
+    /* When opened from a specific track (card / path-quiz), scope the tile
+       list to just the chosen path — avoids re-presenting the decision the
+       user just made. Generic entries (hero/footer/sticky/nav) stay full. */
+    if(tileContainer){
+      if(matched && track && source!=='direct') tileContainer.classList.add('is-scoped');
+      else tileContainer.classList.remove('is-scoped');
+    }
     document.getElementById('sf-source').value=source||'direct';
     var via=document.getElementById('sf-via');
     if(via)via.style.display=(source==='path-quiz')?'inline':'none';
@@ -1609,6 +1690,14 @@ section.visible::after{width:200px}
     document.body.style.overflow='hidden';
     setTimeout(function(){var n=document.getElementById('sf-name');if(n)n.focus();},120);
   };
+  /* "Change path" link: user wants to switch after opening from a card */
+  var applyChangeBtn=document.getElementById('applyChange');
+  if(applyChangeBtn){
+    applyChangeBtn.addEventListener('click',function(){
+      var tc=document.querySelector('#modal-signup .apply-tiles');
+      if(tc)tc.classList.remove('is-scoped');
+    });
+  }
   window.submitSignup=function(e){
     e.preventDefault();
     var name=document.getElementById('sf-name').value.trim();
@@ -1633,19 +1722,19 @@ section.visible::after{width:200px}
     var qzEl=document.getElementById('quiz');if(!qzEl)return;
     var Q=[
       {q:'What would make this feel like <em>a real win</em> in 90 days?',o:[
-        {t:'A CV, portfolio, or interview prep that lands a role',k:'career'},
-        {t:'Original images, sounds, or video I can actually publish',k:'creative'},
-        {t:'A school project or college essay that stands out',k:'teen'}
+        {t:'Work I actually want',k:'career'},
+        {t:'Things I can publish',k:'creative'},
+        {t:'A school project that stands out',k:'teen'}
       ]},
-      {q:'When you open a blank page, what&rsquo;s usually <em>on your mind</em>?',o:[
-        {t:'A deliverable I owe someone &mdash; email, plan, deck',k:'career'},
-        {t:'An aesthetic or mood I want to bring to life',k:'creative'},
-        {t:'A class, a club, a curiosity &mdash; not quite a job yet',k:'teen'}
+      {q:'When you open a blank page, what&rsquo;s <em>on your mind</em>?',o:[
+        {t:'Something I owe someone',k:'career'},
+        {t:'A mood I want to make real',k:'creative'},
+        {t:'Schoolwork or a curiosity',k:'teen'}
       ]},
-      {q:'Which tool do you most want to <em>actually use</em> by the end?',o:[
-        {t:'ChatGPT, Notion AI, Claude &mdash; knowledge work',k:'career'},
-        {t:'Midjourney, Runway, ElevenLabs &mdash; make things',k:'creative'},
-        {t:'A little of everything, with guardrails',k:'teen'}
+      {q:'Which tools do you most want to <em>actually use</em>?',o:[
+        {t:'ChatGPT, Claude, Notion AI',k:'career'},
+        {t:'Midjourney, Runway, ElevenLabs',k:'creative'},
+        {t:'A little of everything, safely',k:'teen'}
       ]}
     ];
     var RESULTS={
@@ -2031,28 +2120,30 @@ section.visible::after{width:200px}
     var outEl=document.getElementById('tasteOut');
     var runBtn=document.getElementById('tasteRun');
     if(!inEl||!outEl||!runBtn)return;
-    // Examples and simulated outputs — English placeholders, translate as needed
+    // Examples and simulated outputs — small "life hack" prompts that show
+    // AI doing something surprising, not just writing office email.
+    // Keep results tight (~120 words) so the typing animation stays snappy.
     var EX={
-      linkedin:{
-        prompt:"Write a LinkedIn post announcing my promotion to Senior Designer at a tech startup in Yerevan",
-        result:"[EN: After two years of pushing pixels, sketching wild ideas at 2am, and learning from the best team I\u2019ve ever worked with \u2014 I\u2019m officially stepping into the role of Senior Designer here in Yerevan.\n\nWhat I\u2019ve learned so far:\n\u2022 Good design is 10% ideas and 90% listening.\n\u2022 The best feedback usually stings at first.\n\u2022 Shipping something imperfect beats polishing something invisible.\n\nGrateful to the team that believed in me and to everyone who reviewed my messy Figma files without judgment. Onward \u2192]"
+      decode:{
+        prompt:"My friend just texted \u201Cyeah sure, whatever works\u201D after I asked her to pick a place for dinner. What does she actually mean?",
+        result:"\u201CWhatever works\u201D after you asked her to pick is rarely enthusiasm. It\u2019s usually one of three things \u2014 most likely first:\n\n1. She\u2019s tired and wants you to decide. Don\u2019t ask again. Pick a place and send the pin.\n2. She had a preference but felt it wasn\u2019t welcome. Try: \u201CI was hoping you\u2019d pick \u2014 what did you actually want?\u201D\n3. She\u2019s fine, just a short texter. Rare, but possible.\n\nThe move: stop asking, start deciding. If she says no to your pick, now you have real information."
       },
-      email:{
-        prompt:"Write a polite email to a client asking for feedback on the proposal I sent last week",
-        result:"[EN: Subject: Quick check-in on the proposal\n\nHi [Client],\n\nHope your week is going well. I wanted to follow up on the proposal I sent last Tuesday \u2014 no rush at all, but I\u2019d love your thoughts whenever you get a moment.\n\nIf anything feels off or unclear, happy to jump on a quick 15-minute call to adjust. Otherwise, let me know how you\u2019d like to move forward and I\u2019ll take it from there.\n\nThanks so much,\n[Your name]]"
+      decide:{
+        prompt:"I\u2019ve been stuck for 3 weeks between a better-paying job I\u2019ll dread and the one where I\u2019m underpaid but respected. Help me decide.",
+        result:"Three weeks of stuck isn\u2019t indecision \u2014 it\u2019s already an answer you haven\u2019t let yourself hear.\n\nTry this before you decide: say out loud, \u201CIf the pay was equal, which would I pick?\u201D Your first two seconds of answer is the real one.\n\nNow the real question isn\u2019t which job. It\u2019s: \u201CIs the pay gap worth who I become in the dread job for a year?\u201D\n\nWrite down the number. Multiply it by 12. Look at it. Then write who you\u2019d be by month 8 in that role. Decide on that, not the salary. You\u2019ll know."
       },
-      plan:{
-        prompt:"Make me a realistic weekly plan to learn AI tools while working full-time",
-        result:"[EN: Here\u2019s a 5-day plan that respects your full-time job (30 min/day, 2h on weekend):\n\nMon \u00b7 30 min \u2014 Watch one intro video on ChatGPT, try 3 prompts from your real work.\nTue \u00b7 30 min \u2014 Rewrite one email or message using AI, compare drafts.\nWed \u00b7 30 min \u2014 Learn the RCTF prompt formula. Apply it to a task.\nThu \u00b7 30 min \u2014 Try Claude for a longer document (report, plan, summary).\nFri \u00b7 30 min \u2014 Build your own prompt library: save 5 prompts you\u2019ll actually reuse.\nSat \u00b7 2h \u2014 Pick a real project and solve it end-to-end with AI.\n\nRule: don\u2019t read theory for more than 10 min before trying something.]"
+      name:{
+        prompt:"I\u2019m starting a small online shop for handmade ceramics from Yerevan. Everything I come up with sounds like a tech startup.",
+        result:"Startup names happen when you reach for English tech words. A handmade shop from Yerevan should sound handmade and from Yerevan.\n\nTen directions that aren\u2019t startup-y:\n\n1. Kav & Kar \u2014 \u201Cclay\u201D and \u201Cstone\u201D in Armenian. Short, gritty.\n2. The Clay Hour \u2014 a ritual, not a brand.\n3. Yerevan Hand \u2014 confident, geographic.\n4. Soft Stone Studio \u2014 an oxymoron sticks.\n5. Araks Clay \u2014 named after the river.\n6. Small Oven \u2014 warm, modest, honest.\n7. Eight Fingers \u2014 a workshop detail, specific.\n8. Mayr Hogh \u2014 \u201Cmother earth,\u201D roots deep.\n9. Kilncraft Yerevan \u2014 function plus place.\n10. Vardananc Ceramics \u2014 named studio, not a brand.\n\nAvoid \u2011ly, \u2011ify, \u201CCo.,\u201D or anything ending in \u201CStudios.\u201D The name should feel like it belongs in a hand, not a pitch deck."
       }
     };
     function matchResult(q){
       var s=(q||'').toLowerCase();
-      if(s.indexOf('linkedin')>-1||s.indexOf('post')>-1||s.indexOf('announc')>-1)return EX.linkedin.result;
-      if(s.indexOf('email')>-1||s.indexOf('feedback')>-1||s.indexOf('client')>-1)return EX.email.result;
-      if(s.indexOf('plan')>-1||s.indexOf('week')>-1||s.indexOf('learn')>-1||s.indexOf('schedule')>-1)return EX.plan.result;
+      if(s.indexOf('mean')>-1||s.indexOf('decode')>-1||s.indexOf('text')>-1||s.indexOf('message')>-1||s.indexOf('really')>-1||s.indexOf('whatever')>-1||s.indexOf('maybe later')>-1)return EX.decode.result;
+      if(s.indexOf('decide')>-1||s.indexOf('stuck')>-1||s.indexOf('pick')>-1||s.indexOf('choose')>-1||s.indexOf('between')>-1||s.indexOf('job')>-1||s.indexOf('dilemma')>-1)return EX.decide.result;
+      if(s.indexOf('name')>-1||s.indexOf('brand')>-1||s.indexOf('called')>-1||s.indexOf('naming')>-1||s.indexOf('title')>-1||s.indexOf('shop')>-1)return EX.name.result;
       // default friendly response
-      return "[EN: Great prompt! In the real program you\u2019d now see a detailed, personalised AI response here \u2014 ready to copy, tweak, and use. The full platform (click \u201CExplore the platform\u201D above) has 50+ prompts and a live sandbox where every output is real.\n\nYour task: \u201C"+q+"\u201D\n\nTry one of the example prompts below the input \u2014 you\u2019ll see an actual simulated AI output.]";
+      return "That\u2019s exactly the kind of thing AI is useful for \u2014 a real, specific question with context.\n\nIn the full cohort, you\u2019d now get a careful, personalised response, then we\u2019d work on how to push it, test it, and make it yours.\n\nTry one of the example prompts below for a taste \u2014 each runs with a real-looking AI response, no signup needed.";
     }
     function typeOut(txt){
       outEl.classList.add('has-result');
