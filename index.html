@@ -981,11 +981,10 @@ section.visible::after{width:200px}
           <span data-label="Start">Apr 14</span>
         </div>
         <div class="t-spots">4 seats remain of 6</div>
-        <div class="t-price"><span class="tp-amt">180,000 &nbsp;AMD</span><span class="tp-terms">Full · or 2 &times; 95,000</span></div>
         <div class="t-rule" aria-hidden="true"></div>
         <div class="t-cta-row">
           <button class="btn btn-sm" onclick="openSignup('career','track-career')">Apply &rarr;</button>
-          <button class="t-more" onclick="openModal('career')">See syllabus</button>
+          <button class="t-more" onclick="openModal('career')">About this path</button>
         </div>
       </div>
       <div class="t-card tilt scale-in stagger-2" id="track-creative">
@@ -1007,11 +1006,10 @@ section.visible::after{width:200px}
           <span data-label="Start">Apr 14</span>
         </div>
         <div class="t-spots">6 seats remain of 8</div>
-        <div class="t-price"><span class="tp-amt">220,000 &nbsp;AMD</span><span class="tp-terms">Full · or 2 &times; 115,000</span></div>
         <div class="t-rule" aria-hidden="true"></div>
         <div class="t-cta-row">
           <button class="btn btn-sm" onclick="openSignup('creative','track-creative')">Apply &rarr;</button>
-          <button class="t-more" onclick="openModal('creative')">See syllabus</button>
+          <button class="t-more" onclick="openModal('creative')">About this path</button>
         </div>
       </div>
       <div class="t-card tilt scale-in stagger-3" id="track-teen">
@@ -1033,11 +1031,10 @@ section.visible::after{width:200px}
           <span data-label="Start">Apr 18</span>
         </div>
         <div class="t-spots">3 seats remain of 8</div>
-        <div class="t-price"><span class="tp-amt">120,000 &nbsp;AMD</span><span class="tp-terms">Full · or 2 &times; 65,000</span></div>
         <div class="t-rule" aria-hidden="true"></div>
         <div class="t-cta-row">
           <button class="btn btn-sm" onclick="openSignup('teen','track-teen')">Apply &rarr;</button>
-          <button class="t-more" onclick="openModal('teen')">See syllabus</button>
+          <button class="t-more" onclick="openModal('teen')">About this path</button>
         </div>
       </div>
     </div>
@@ -1322,48 +1319,51 @@ section.visible::after{width:200px}
 
 <!-- Modals -->
 <div class="modal-overlay" id="modal-career" onclick="closeModal(event)">
-  <div class="modal"><span class="modal-bar"></span><button class="modal-close" onclick="closeModal(event,true)">&times;</button>
-    <h2 class="serif">AI &#1330;&#1400;&#1388;&#1400;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;</h2>
-    <div class="modal-for">&#1341;&#1400;&#1408;&#1377;&#1409;&#1406;&#1377;&#1390; &#1390;&#1408;&#1377;&#1379;&#1387;&#1408;&#1373; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1384; &#1402;&#1408;&#1400;&#1414;&#1381;&#1405;&#1387;&#1400;&#1398;&#1377;&#1388; &#1396;&#1377;&#1391;&#1377;&#1408;&#1380;&#1377;&#1391;&#1400;&#1406; &#1391;&#1387;&#1408;&#1377;&#1404;&#1381;&#1388;&#1400;&#1410; &#1392;&#1377;&#1396;&#1377;&#1408;&#1417;</div>
-    <p>&#1339;&#1374;&#1398;&#1401; &#1391;&#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1405;&#1373;</p>
+  <div class="modal"><span class="modal-bar"></span><button class="modal-close" onclick="closeModal(event,true)" aria-label="Close">&times;</button>
+    <h2 class="serif"><em>AI for your work</em></h2>
+    <div class="modal-for">For professionals · office, knowledge work, planning</div>
+    <p>For people who want AI to help with the real work already on their desk &mdash; emails, reports, plans, decisions. No generic playbook; we build around what you actually do every day.</p>
     <ul class="o-list">
-      <li>&#1359;&#1387;&#1408;&#1377;&#1402;&#1381;&#1407;&#1381;&#1388; ChatGPT-&#1387;&#1398;, Claude-&#1387;&#1398; &#1415; &#1377;&#1397;&#1388; &#1388;&#1377;&#1406;&#1377;&#1379;&#1400;&#1410;&#1397;&#1398; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1387;&#1398;</li>
-      <li>&#1331;&#1408;&#1381;&#1388; &laquo;&#1377;&#1399;&#1389;&#1377;&#1407;&#1400;&#1394;&raquo; prompt-&#1381;&#1408;&#1373; &#1409;&#1377;&#1398;&#1391;&#1377;&#1388;&#1387; &#1377;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1412;&#1387;&#1398; &#1377;&#1404;&#1377;&#1403;&#1387;&#1398; &#1387;&#1405;&#1391; &#1411;&#1400;&#1408;&#1393;&#1387;&#1409; &#1392;&#1377;&#1405;&#1398;&#1381;&#1388;&#1400;&#1410; &#1392;&#1377;&#1396;&#1377;&#1408;</li>
-      <li>&#1329;&#1406;&#1407;&#1400;&#1396;&#1377;&#1407;&#1377;&#1409;&#1398;&#1381;&#1388; &#1391;&#1408;&#1391;&#1398;&#1406;&#1400;&#1394; &#1400;&#1410; &#1393;&#1377;&#1398;&#1393;&#1408;&#1377;&#1388;&#1387; &#1377;&#1404;&#1377;&#1403;&#1377;&#1380;&#1408;&#1377;&#1398;&#1412;&#1398;&#1381;&#1408;&#1384;</li>
-      <li>&#1357;&#1407;&#1381;&#1394;&#1390;&#1381;&#1388; &#1412;&#1400; AI &#1402;&#1400;&#1408;&#1407;&#1414;&#1400;&#1388;&#1387;&#1400;&#1398;, &#1400;&#1408;&#1384; &#1391;&#1377;&#1404;&#1377;&#1398;&#1393;&#1398;&#1377;&#1409;&#1398;&#1387; &#1412;&#1381;&#1382; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1377;&#1397;&#1387;&#1398; &#1399;&#1400;&#1410;&#1391;&#1377;&#1397;&#1400;&#1410;&#1396;</li>
+      <li>Work on your own tasks &mdash; bring real things, leave with real things done</li>
+      <li>Learn when AI helps, when it wastes your time, and how to tell the difference</li>
+      <li>Write prompts that earn their place &mdash; clear, testable, reusable</li>
+      <li>Leave with a small kit of workflows and prompts you'll keep using</li>
     </ul>
-    <div class="m-meta"><span>5&ndash;6 &#1380;&#1377;&#1405;</span><span>&#1399;&#1377;&#1378;&#1377;&#1385;&#1377;&#1391;&#1377;&#1398; 2 &#1377;&#1398;&#1379;&#1377;&#1396;</span><span>Online + Offline</span><span>&#1341;&#1396;&#1378;&#1377;&#1391;&#1377;&#1397;&#1387;&#1398; &#1391;&#1377;&#1396; &#1377;&#1398;&#1392;&#1377;&#1407;&#1377;&#1391;&#1377;&#1398;</span></div>
-    <a href="#" onclick="closeModal(event,true);openSignup('career');return false" class="btn">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+    <p style="font-size:.8rem;color:var(--text-subtle);font-style:italic;margin-top:-4px">The exact week-by-week is shaped around the cohort &mdash; what you bring sets the agenda.</p>
+    <div class="m-meta"><span>6 weeks</span><span>2 evenings / week</span><span>Hybrid &middot; Yerevan + online</span><span>Starts Apr 14</span></div>
+    <a href="#" onclick="closeModal(event,true);openSignup('career');return false" class="btn">Apply &mdash; we'll tell you more &rarr;</a>
   </div>
 </div>
 <div class="modal-overlay" id="modal-creative" onclick="closeModal(event)">
-  <div class="modal"><span class="modal-bar"></span><button class="modal-close" onclick="closeModal(event,true)">&times;</button>
-    <h2 class="serif">&#1357;&#1407;&#1381;&#1394;&#1390;&#1377;&#1379;&#1400;&#1408;&#1390;&#1387;&#1371;&#1408; AI-&#1387; &#1392;&#1381;&#1407;</h2>
-    <div class="modal-for">&#1364;&#1400; &#1379;&#1377;&#1394;&#1377;&#1411;&#1377;&#1408;&#1398;&#1381;&#1408;&#1384; &#1406;&#1381;&#1408;&#1377;&#1390;&#1387;&#1371;&#1408; &#1387;&#1408;&#1377;&#1391;&#1377;&#1398;&#1400;&#1410;&#1385;&#1397;&#1377;&#1398;&#1373; &#1413;&#1379;&#1407;&#1377;&#1379;&#1400;&#1408;&#1390;&#1381;&#1388;&#1400;&#1406; &#1406;&#1387;&#1382;&#1400;&#1410;&#1377;&#1388; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1384;&#1417;</div>
-    <p>&#1339;&#1374;&#1398;&#1401; &#1391;&#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1405;&#1373;</p>
+  <div class="modal"><span class="modal-bar"></span><button class="modal-close" onclick="closeModal(event,true)" aria-label="Close">&times;</button>
+    <h2 class="serif"><em>Creative AI</em></h2>
+    <div class="modal-for">For designers, creators, SMM &middot; anyone making visual work</div>
+    <p>For people who want to make things &mdash; images, video, motion &mdash; with a professional AI toolkit and a producer's eye for quality. We focus on taste and craft, not just prompts.</p>
     <ul class="o-list">
-      <li>&#1357;&#1407;&#1381;&#1394;&#1390;&#1381;&#1388; &#1378;&#1377;&#1408;&#1393;&#1408;&#1400;&#1408;&#1377;&#1391; &#1398;&#1391;&#1377;&#1408;&#1398;&#1381;&#1408; &#1400;&#1410; &#1406;&#1387;&#1382;&#1400;&#1410;&#1377;&#1388;&#1398;&#1381;&#1408; (DALL-E, Midjourney, Canva AI)</li>
-      <li>&#1331;&#1381;&#1398;&#1381;&#1408;&#1377;&#1409;&#1398;&#1381;&#1388; &#1391;&#1387;&#1398;&#1381;&#1396;&#1377;&#1407;&#1400;&#1379;&#1408;&#1377;&#1414;&#1387;&#1391; &#1407;&#1381;&#1405;&#1377;&#1398;&#1397;&#1400;&#1410;&#1385;&#1381;&#1408; (Higgsfield, Nanobanana)</li>
-      <li>&#1348;&#1399;&#1377;&#1391;&#1381;&#1388; &#1405;&#1400;&#1409;&#1387;&#1377;&#1388;&#1377;&#1391;&#1377;&#1398; &#1396;&#1381;&#1380;&#1387;&#1377;&#1397;&#1387; &#1391;&#1400;&#1398;&#1407;&#1381;&#1398;&#1407;-&#1402;&#1388;&#1377;&#1398; &#1400;&#1410; &#1378;&#1408;&#1381;&#1398;&#1380;&#1387; &#1405;&#1407;&#1408;&#1377;&#1407;&#1381;&#1379;&#1387;&#1377;</li>
-      <li>&#1357;&#1407;&#1381;&#1394;&#1390;&#1381;&#1388; &#1379;&#1400;&#1406;&#1377;&#1382;&#1380;&#1377;&#1397;&#1387;&#1398; &#1392;&#1400;&#1388;&#1400;&#1406;&#1377;&#1391;&#1398;&#1381;&#1408; &#1415; &#1407;&#1381;&#1412;&#1405;&#1407;&#1381;&#1408; &#1406;&#1377;&#1397;&#1408;&#1391;&#1397;&#1377;&#1398;&#1398;&#1381;&#1408;&#1387; &#1384;&#1398;&#1385;&#1377;&#1409;&#1412;&#1400;&#1410;&#1396;</li>
+      <li>Work across image, video, and motion with Midjourney, Nanobanana, Higgsfield and others</li>
+      <li>Develop a visual style that feels like you &mdash; repeatable, not a template</li>
+      <li>Ship real pieces you could use or publish, not practice sketches</li>
+      <li>Learn the judgment calls: when to generate, when to edit, when to start over</li>
     </ul>
-    <div class="m-meta"><span>5&ndash;6 &#1380;&#1377;&#1405;</span><span>&#1399;&#1377;&#1378;&#1377;&#1385;&#1377;&#1391;&#1377;&#1398; 2 &#1377;&#1398;&#1379;&#1377;&#1396;</span><span>Online + Offline</span><span>&#1341;&#1396;&#1378;&#1377;&#1391;&#1377;&#1397;&#1387;&#1398; &#1391;&#1377;&#1396; &#1377;&#1398;&#1392;&#1377;&#1407;&#1377;&#1391;&#1377;&#1398;</span></div>
-    <a href="#" onclick="closeModal(event,true);openSignup('Creative');return false" class="btn">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+    <p style="font-size:.8rem;color:var(--text-subtle);font-style:italic;margin-top:-4px">The toolset and exact pieces evolve each cohort &mdash; the best tool this month isn't always next month.</p>
+    <div class="m-meta"><span>6 weeks</span><span>2 evenings / week</span><span>Hybrid &middot; Yerevan + online</span><span>Starts Apr 14</span></div>
+    <a href="#" onclick="closeModal(event,true);openSignup('creative');return false" class="btn">Apply &mdash; we'll tell you more &rarr;</a>
   </div>
 </div>
 <div class="modal-overlay" id="modal-teen" onclick="closeModal(event)">
-  <div class="modal"><span class="modal-bar"></span><button class="modal-close" onclick="closeModal(event,true)">&times;</button>
-    <h2 class="serif">AI Teenagers: &#1343;&#1381;&#1408;&#1407;&#1387;&#1371;&#1408; &#1377;&#1402;&#1377;&#1379;&#1377;&#1380;</h2>
-    <div class="modal-for">&#1342;&#1408;&#1377;&#1379;&#1387;&#1408; &#1380;&#1381;&#1404;&#1377;&#1392;&#1377;&#1405;&#1398;&#1381;&#1408;&#1387; &#1392;&#1377;&#1396;&#1377;&#1408;, &#1400;&#1408;&#1407;&#1381;&#1394; AI-&#1398; &#1380;&#1377;&#1404;&#1398;&#1400;&#1410;&#1396; &#1383; &#1400;&#1410;&#1405;&#1396;&#1377;&#1398; &#1415; &#1405;&#1407;&#1381;&#1394;&#1390;&#1377;&#1379;&#1400;&#1408;&#1390;&#1381;&#1388;&#1400;&#1410; &#1388;&#1377;&#1406;&#1377;&#1379;&#1400;&#1410;&#1397;&#1398; &#1413;&#1379;&#1398;&#1377;&#1391;&#1377;&#1398;&#1384;&#1417;</div>
-    <p>&#1339;&#1374;&#1398;&#1401; &#1391;&#1405;&#1400;&#1406;&#1400;&#1408;&#1381;&#1405;&#1373;</p>
+  <div class="modal"><span class="modal-bar"></span><button class="modal-close" onclick="closeModal(event,true)" aria-label="Close">&times;</button>
+    <h2 class="serif"><em>AI for teens (13&ndash;17)</em></h2>
+    <div class="modal-for">For curious students &middot; school, creative work, first projects</div>
+    <p>For teenagers who are already curious about AI &mdash; or about to be. The goal isn't "know every tool." It's to build good habits around a powerful thing while it's still new, so it serves them later.</p>
     <ul class="o-list">
-      <li>&#1344;&#1377;&#1405;&#1391;&#1377;&#1398;&#1377;&#1388; AI-&#1387; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1387; &#1392;&#1387;&#1396;&#1400;&#1410;&#1398;&#1412;&#1398;&#1381;&#1408;&#1384; &#1402;&#1377;&#1408;&#1382; &#1415; &#1396;&#1377;&#1407;&#1401;&#1381;&#1388;&#1387; &#1388;&#1381;&#1382;&#1406;&#1400;&#1406;</li>
-      <li>&#1343;&#1387;&#1408;&#1377;&#1404;&#1381;&#1388; AI &#1379;&#1400;&#1408;&#1390;&#1387;&#1412;&#1398;&#1381;&#1408;&#1384; &#1380;&#1402;&#1408;&#1400;&#1409;&#1377;&#1391;&#1377;&#1398; &#1377;&#1404;&#1377;&#1403;&#1377;&#1380;&#1408;&#1377;&#1398;&#1412;&#1398;&#1381;&#1408;&#1398; &#1377;&#1406;&#1381;&#1388;&#1387; &#1377;&#1408;&#1380;&#1397;&#1400;&#1410;&#1398;&#1377;&#1406;&#1381;&#1407; &#1377;&#1398;&#1381;&#1388;&#1400;&#1410; &#1392;&#1377;&#1396;&#1377;&#1408;</li>
-      <li>&#1334;&#1377;&#1408;&#1379;&#1377;&#1409;&#1398;&#1381;&#1388; &#1412;&#1398;&#1398;&#1377;&#1380;&#1377;&#1407;&#1377;&#1391;&#1377;&#1398; &#1396;&#1407;&#1377;&#1390;&#1400;&#1394;&#1400;&#1410;&#1385;&#1397;&#1400;&#1410;&#1398; (&#1395;&#1387;&#1399;&#1407; &#1392;&#1377;&#1408;&#1409;&#1381;&#1408; &#1407;&#1377;&#1388;&#1400;&#1410; &#1377;&#1408;&#1406;&#1381;&#1405;&#1407;&#1384;)</li>
-      <li>&#1357;&#1407;&#1381;&#1394;&#1390;&#1381;&#1388; &#1412;&#1400; &#1377;&#1404;&#1377;&#1403;&#1387;&#1398; AI &#1398;&#1377;&#1389;&#1377;&#1379;&#1387;&#1390;&#1384;, &#1400;&#1408;&#1400;&#1406; &#1391;&#1392;&#1402;&#1377;&#1408;&#1407;&#1377;&#1398;&#1377;&#1398; &#1385;&#1381;&#1371; &#1390;&#1398;&#1400;&#1394;&#1398;&#1381;&#1408;&#1384;, &#1385;&#1381;&#1371; &#1384;&#1398;&#1391;&#1381;&#1408;&#1398;&#1381;&#1408;&#1384;</li>
+      <li>Understand how AI actually works &mdash; where it's honest, where it makes things up</li>
+      <li>Use AI as a study and creative partner, not a shortcut around thinking</li>
+      <li>Build a project of their own &mdash; something real, not a worksheet</li>
+      <li>Present it to a small live jury at the end</li>
     </ul>
-    <div class="m-meta"><span>5&ndash;6 &#1380;&#1377;&#1405;</span><span>&#1399;&#1377;&#1378;&#1377;&#1385;&#1377;&#1391;&#1377;&#1398; 2 &#1377;&#1398;&#1379;&#1377;&#1396;</span><span>Online + Offline</span><span>&#1341;&#1396;&#1378;&#1377;&#1391;&#1377;&#1397;&#1387;&#1398;</span></div>
-    <a href="#" onclick="closeModal(event,true);openSignup('13-17');return false" class="btn">&#1331;&#1408;&#1377;&#1398;&#1409;&#1406;&#1381;&#1388;</a>
+    <p style="font-size:.8rem;color:var(--text-subtle);font-style:italic;margin-top:-4px">The project is theirs to choose &mdash; we shape the path around what each student wants to make.</p>
+    <div class="m-meta"><span>6 weeks</span><span>Saturdays</span><span>Hybrid &middot; Yerevan + online</span><span>Starts Apr 18</span></div>
+    <a href="#" onclick="closeModal(event,true);openSignup('teen');return false" class="btn">Apply &mdash; we'll tell you more &rarr;</a>
   </div>
 </div>
 
