@@ -147,7 +147,7 @@ section{padding:var(--section-y) 0}
 /* Editorial section marker — § NN · RULE · NAME
    Numeric §NN is the visual anchor; the .sec-name label lives below its weight. */
 .sec-marker{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-subtle);font-weight:700;font-variant-numeric:tabular-nums}
-.sec-marker .sec-num{color:var(--secondary);font-family:'Noto Serif Armenian',serif;font-style:italic;font-weight:500;font-size:.98rem;letter-spacing:.02em;text-transform:none;opacity:1}
+.sec-marker .sec-num{color:var(--secondary);font-family:'Noto Serif Armenian',serif;font-style:italic;font-weight:500;font-size:.98rem;letter-spacing:.02em;text-transform:none;opacity:1;white-space:nowrap}
 .sec-marker .sec-rule{flex:0 0 40px;height:1px;background:var(--border-strong)}
 .sec-marker .sec-name{color:var(--text-dim);font-size:.62rem}
 @media(max-width:640px){.sec-marker{font-size:.72rem;gap:10px}.sec-marker .sec-num{font-size:1rem}.sec-marker .sec-name{font-size:.68rem;color:var(--text-dim)}}
@@ -214,18 +214,14 @@ html[lang="hy"] .t-en{display:none!important}
 @media(max-width:480px){.hero-passport{display:none}}
 /* hero-meta removed — info resurfaces in the apply modal cohort line. */
 /* Cohort status bar — right under hero CTA */
-.cohort-strip{position:relative;margin:40px auto 0;max-width:720px;padding:16px 28px;border:1px solid var(--border-strong);border-radius:12px;background:linear-gradient(180deg,rgba(240,236,230,.02),rgba(240,236,230,.005));display:grid;grid-template-columns:auto 1fr auto auto;gap:20px;align-items:center;text-align:left;font-family:'Inter',sans-serif}
+.cohort-strip{position:relative;margin:40px auto 0;max-width:720px;padding:16px 28px;border:1px solid var(--border-strong);border-radius:12px;background:linear-gradient(180deg,rgba(240,236,230,.02),rgba(240,236,230,.005));display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;text-align:left;font-family:'Inter',sans-serif}
 .cohort-strip .cs-dot{width:8px;height:8px;border-radius:50%;background:#6fcf6a;box-shadow:0 0 0 3px rgba(111,207,106,.18);animation:csPulse 2.4s ease-in-out infinite}
 @keyframes csPulse{0%,100%{box-shadow:0 0 0 3px rgba(111,207,106,.18)}50%{box-shadow:0 0 0 6px rgba(111,207,106,.08)}}
 .cohort-strip .cs-status{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:#6fcf6a;font-weight:700;margin-bottom:2px}
 .cohort-strip .cs-title{font-family:'Noto Serif Armenian',serif;font-size:.92rem;color:var(--text);font-weight:600;letter-spacing:-.01em}
 .cohort-strip .cs-title em{font-style:italic;color:var(--secondary);font-weight:600}
-.cohort-strip .cs-field{display:flex;flex-direction:column;gap:2px;text-align:right;border-left:1px solid var(--border);padding-left:20px}
-.cohort-strip .cs-field .cs-label{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-subtle);font-weight:600}
-.cohort-strip .cs-field .cs-val{font-size:.82rem;color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
-.cohort-strip .cs-field .cs-val em{font-style:italic;color:var(--secondary);font-weight:700}
-@media(max-width:720px){.cohort-strip{grid-template-columns:auto 1fr;gap:14px;padding:14px 18px}.cohort-strip .cs-field{grid-column:1 / -1;text-align:left;border-left:none;border-top:1px solid var(--border);padding-left:0;padding-top:10px;flex-direction:row;justify-content:space-between}.cohort-strip .cs-field .cs-label{font-size:.52rem}}
-@media(max-width:480px){.cohort-strip .cs-field{display:none}}
+/* cs-field removed — strip is now dot+title only. */
+@media(max-width:720px){.cohort-strip{gap:14px;padding:14px 18px}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 .hero h1{font-family:'Noto Serif Armenian',serif;font-size:clamp(var(--fs-3xl),7vw,var(--fs-5xl));font-weight:900;line-height:var(--lh-tight);margin-bottom:var(--sp-5);letter-spacing:var(--tr-tight)}
 .hero h1 .hl{color:var(--secondary);font-style:italic;font-weight:700}
@@ -277,7 +273,7 @@ html[lang="hy"] .t-en{display:none!important}
 @media(max-width:640px){.about-quote{padding:18px 18px 18px 26px;margin:6px 0 22px}.about-quote .aq-mark{font-size:2.8rem;left:6px}.about-quote p{font-size:.98rem;line-height:1.55}}
 /* cred-row removed — duplicated the .record grid (numerals) below it. */
 /* Ed's record — tabular editorial numbers */
-.record{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:24px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.record{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:24px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .record-item{padding:16px 18px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:3px}
 .record-item:last-child{border-right:none}
 .record-item .r-num{font-family:'Noto Serif Armenian',serif;font-style:italic;font-size:1.8rem;line-height:1;color:var(--secondary);font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
@@ -439,7 +435,17 @@ html[lang="hy"] .t-en{display:none!important}
 .qo-mark{font-family:'Noto Serif Armenian',serif;font-style:italic;font-size:.92rem;color:var(--secondary);font-weight:700;letter-spacing:.02em;font-variant-numeric:tabular-nums;min-width:22px;transition:color .2s var(--ease)}
 .qo-label{font-family:'Inter',sans-serif;font-size:.98rem;color:var(--text);font-weight:500;line-height:1.45}
 .qo-hint{font-family:'Noto Serif Armenian',serif;font-style:italic;font-size:.74rem;color:var(--text-subtle);font-weight:400;opacity:0;transform:translateX(6px);transition:opacity .3s var(--ease),transform .3s var(--ease);white-space:nowrap}
-@media(max-width:640px){.qo-hint{display:none}.quiz-opt{grid-template-columns:auto 1fr;padding:14px 2px;gap:12px}.qo-label{font-size:.92rem}}
+@media(max-width:640px){
+  .qo-hint{display:none}
+  .quiz-opt{grid-template-columns:auto 1fr;padding:14px 2px;gap:12px;min-height:52px}
+  .qo-label{font-size:.92rem}
+  .fit-intro h2{font-size:clamp(1.45rem,6.4vw,1.85rem)}
+  .fit-intro p{font-size:.88rem}
+  .quiz-q{font-size:clamp(1.05rem,4.6vw,1.3rem);min-height:0;margin-bottom:20px}
+  .quiz-advance-row{margin-top:18px;padding-top:16px}
+  .quiz-back{padding:12px 6px;min-height:44px}
+  .quiz-continue{padding:12px 18px;font-size:.82rem}
+}
 /* Back button — bottom-left */
 .quiz-advance-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:26px;padding-top:22px;border-top:1px solid var(--border)}
 .quiz-back{background:transparent;border:none;color:var(--text-subtle);font-family:'Inter',sans-serif;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;cursor:pointer;padding:10px 4px;transition:color .2s var(--ease)}
@@ -459,14 +465,15 @@ html[lang="hy"] .t-en{display:none!important}
 .quiz-result h3 em{font-style:italic;color:var(--secondary);font-weight:700}
 .quiz-result .qr-rationale{color:var(--text-dim);font-size:.94rem;line-height:1.7;margin-bottom:28px;max-width:500px}
 .quiz-result .qr-rationale em{font-style:italic;color:var(--text)}
-.qr-table{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:24px}
+.qr-table{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:24px}
 .qr-table > div{padding:14px 16px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:4px;font-variant-numeric:tabular-nums}
 .qr-table > div:last-child{border-right:none}
 .qr-table .qr-lbl{font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-subtle);font-weight:700}
 .qr-table .qr-val{font-family:'Noto Serif Armenian',serif;font-style:italic;font-size:1rem;color:var(--secondary);font-weight:700}
-@media(max-width:560px){.qr-table{grid-template-columns:1fr}.qr-table > div{border-right:none;border-bottom:1px solid var(--border);padding:10px 0;flex-direction:row;justify-content:space-between}.qr-table > div:last-child{border-bottom:none}}
+@media(max-width:640px){.qr-table{grid-template-columns:1fr}.qr-table > div{border-right:none;border-bottom:1px solid var(--border);padding:10px 0;flex-direction:row;justify-content:space-between;align-items:baseline}.qr-table > div:last-child{border-bottom:none}}
 .qr-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 .qr-ctas .btn{flex:1;min-width:180px;text-align:center}
+@media(max-width:640px){.qr-ctas{flex-direction:column;gap:8px}.qr-ctas .btn,.qr-ctas .btn-whatsapp{width:100%;min-width:0;flex:none}}
 .qr-foot{font-size:.72rem;color:var(--text-subtle);line-height:1.6;text-align:center;margin-top:8px}
 .qr-foot a{color:var(--secondary);text-decoration:none;font-style:italic;border-bottom:1px solid rgba(196,154,110,.28);transition:border-color .2s var(--ease)}
 .qr-foot a:hover{border-color:var(--secondary)}
@@ -1114,11 +1121,7 @@ section.visible::after{width:200px}
       <span class="cs-dot" aria-hidden="true"></span>
       <div>
         <div class="cs-status">[EN: Applications open][HY: Ընդունելությունը բաց է]</div>
-        <div class="cs-title">[EN: Next cohort — starts <em>May 19, 2026</em>][HY: Հաջորդ խումբ — մեկնարկը՝ <em>Մայիսի 19, 2026</em>]</div>
-      </div>
-      <div class="cs-field">
-        <span class="cs-label">[EN: Next cohort][HY: Հաջորդ խումբը]</span>
-        <span class="cs-val">[EN: <em>Autumn</em> 2026][HY: <em>Աշուն</em> 2026]</span>
+        <div class="cs-title">[EN: Next cohort — starts <em>May 10, 2026</em>][HY: Հաջորդ խումբ — մեկնարկը՝ <em>Մայիսի 10, 2026</em>]</div>
       </div>
     </div>
   </div>
@@ -1266,10 +1269,10 @@ section.visible::after{width:200px}
       <!-- 05 AI for Teaching -->
       <div class="tf-card scale-in stagger-5" id="track-teaching">
         <div class="tf-inner">
-          <div class="tf-face tf-front" onclick="flipCard(this)" role="button" tabindex="0" aria-label="[EN: Flip AI for teaching card][HY: Շրջել AI դասավանդողների համար քարտը]">
+          <div class="tf-face tf-front" onclick="flipCard(this)" role="button" tabindex="0" aria-label="[EN: Flip AI for teaching card][HY: Շրջել Ուսուցիչների համար քարտը]">
             <div class="tf-num">05</div>
             <div class="tf-aud">[EN: For teachers &amp; educators][HY: Դասավանդողների և կրթության ոլորտի համար]</div>
-            <h3 class="tf-title">[EN: AI for teaching][HY: AI դասավանդողների համար]</h3>
+            <h3 class="tf-title">[EN: AI for teaching][HY: Ուսուցիչների համար]</h3>
             <p class="tf-desc">[EN: Lesson plans, feedback, curriculum work. AI that saves grading hours without cheating the learning.][HY: Դասապլաններ, հետադարձ կապ, ուսումնական ծրագրեր։ AI, որը խնայում է Ձեր ժամանակը՝ առանց կրթության որակը զոհելու։]</p>
             <div class="tf-tools">
               <span class="tf-tool">Claude</span>
@@ -1281,7 +1284,7 @@ section.visible::after{width:200px}
           <div class="tf-face tf-back" onclick="unflipCard(this)">
             <button type="button" class="tf-close" onclick="event.stopPropagation();unflipCard(this.closest('.tf-back'))" aria-label="[EN: Close][HY: Փակել]">&times;</button>
             <div class="tf-num">05</div>
-            <h3 class="tf-title">[EN: AI for teaching][HY: AI դասավանդողների համար]</h3>
+            <h3 class="tf-title">[EN: AI for teaching][HY: Ուսուցիչների համար]</h3>
             <ul class="tf-back-outcomes">
               <li>[EN: Lesson plans drafted in minutes, not evenings][HY: Դասապլաններ րոպեների ընթացքում. ոչ թե երեկոյան ժամերի հաշվին, այլ ավտոմատացված։]</li>
               <li>[EN: Feedback that stays pedagogical, not generic][HY: Հետադարձ կապ. որակյալ և մանկավարժական արձագանք ուսանողներին, ոչ թե «չոր» պատասխաններ։]</li>
@@ -1347,8 +1350,8 @@ section.visible::after{width:200px}
   <div class="container">
     <div class="fit-intro">
       <div class="sec-marker"><span class="sec-num">§ 02</span><span class="sec-rule"></span><span class="sec-name">[EN: Find your path][HY: Գտեք Ձեր ուղղությունը]</span></div>
-      <h2 class="serif"><em>[EN: Four questions.][HY: Չորս հարց։]</em> [EN: Forty seconds.][HY: Քառասուն վայրկյան։]</h2>
-      <p>[EN: Pick <em>one or more</em> per question — whatever feels like you. There's no wrong answer; we'll read the pattern across all four.][HY: Ընտրեք <em>մեկ կամ մի քանի</em> տարբերակ յուրաքանչյուր հարցի համար։ Սխալ պատասխաններ չկան. մենք կկարդանք ընդհանուր պատկերը չորս հարցերից։]</p>
+      <h2 class="serif"><em>[EN: Four questions.][HY: Չորս հարց։]</em> [EN: Find your direction.][HY: Գտեք Ձեր ուղղությունը։]</h2>
+      <p>[EN: Pick <em>one or more</em> per question and we&rsquo;ll point you to the right track.][HY: Ընտրեք <em>մեկ կամ մի քանի</em> տարբերակ յուրաքանչյուր հարցի համար, և մենք ցույց կտանք Ձեզ ճիշտ ուղղությունը։]</p>
     </div>
     <div class="quiz" id="quiz" role="region" aria-live="polite">
       <div class="quiz-rail" aria-hidden="true">
@@ -1370,8 +1373,7 @@ section.visible::after{width:200px}
         <p class="qr-rationale" id="qzResRationale"></p>
         <div class="qr-alts" id="qzResAlts" hidden></div>
         <div class="qr-table">
-          <div><span class="qr-lbl">[EN: Starts][HY: Մեկնարկ]</span><span class="qr-val">[EN: May 19][HY: Մայիսի 19]</span></div>
-          <div><span class="qr-lbl">[EN: Next cohort][HY: Հաջորդ խումբը]</span><span class="qr-val">[EN: Autumn 2026][HY: Աշուն 2026]</span></div>
+          <div><span class="qr-lbl">[EN: Starts][HY: Մեկնարկ]</span><span class="qr-val">[EN: May 10, 2026][HY: Մայիսի 10, 2026]</span></div>
           <div><span class="qr-lbl">[EN: Format][HY: Ձևաչափ]</span><span class="qr-val" id="qzResFmt">[EN: Online + Yerevan][HY: Օնլայն + Երևան]</span></div>
         </div>
         <div class="qr-ctas">
@@ -1400,12 +1402,11 @@ section.visible::after{width:200px}
           <span class="aq-mark" aria-hidden="true">&ldquo;</span>
           <p>[EN: I&rsquo;m not trying to make you faster at AI. I&rsquo;m trying to make you better at thinking &mdash; and better at knowing when a tool is actually helping.][HY: Ես չեմ փորձում Ձեզ ստիպել ավելի արագ օգտվել AI-ից։ Ես փորձում եմ օգնել Ձեզ ավելի լավ մտածել և հասկանալ՝ երբ է գործիքն իրոք օգնում։]</p>
         </blockquote>
-        <p class="about-body">[EN: I&rsquo;ve taught AI here in Yerevan and abroad &mdash; to teenagers and designers, founders and skeptics. Most arrive wanting to automate something. Most leave asking better questions instead.][HY: Ես AI եմ դասավանդել Երևանում և արտերկրում&mdash;պատանիներին, դիզայներներին, հիմնադիրներին և սկեպտիկներին։ Շատերը գալիս են ինչ-որ բան ավտոմատացնելու հույսով, բայց հեռանում են ավելի ճիշտ հարցեր տալու հմտությամբ։]</p>
-        <p class="about-body">[EN: This school stays small on purpose. One instructor. One cohort at a time. One long conversation about what these tools can do for your work &mdash; and where they quietly start doing the thinking for you.][HY: Այս դպրոցը փոքր է մնում նպատակադրված։ Մեկ հրահանգիչ, մեկ խումբ։ Մեկ երկար զրույց այն մասին, թե ինչ կարող են այս գործիքներն անել Ձեր գործում, և որտեղ են դրանք սկսում մտածել Ձեր փոխարեն։]</p>
+        <p class="about-body">[EN: I&rsquo;ve led education and technology projects in Armenia and abroad &mdash; working with teenagers, designers, and founders. My experience has taught me one thing: these tools only work in the hands of those who know how to ask the right questions.][HY: Ես ղեկավարել եմ կրթական և տեխնոլոգիական բազմաթիվ նախագծեր ինչպես Հայաստանում, այնպես էլ արտերկրում՝ աշխատելով պատանիների, դիզայներների և բիզնես հիմնադիրների հետ։ Իմ փորձը ցույց է տվել, որ տեխնոլոգիաներն արդյունավետ են միայն նրանց ձեռքում, ովքեր գիտեն ճիշտ հարցեր տալ։]</p>
+        <p class="about-body">[EN: Today, fluency with AI isn&rsquo;t just an edge &mdash; it&rsquo;s the price of staying competitive. Real education should be practical and focused. My goal is to help you see what AI can actually do, and use it not as a toy but as a serious thinking partner &mdash; one that helps you grow and saves you the thing you can never get back: your time.][HY: Այսօր AI-ի տիրապետումը պարզապես առավելություն չէ, այլ անհրաժեշտություն՝ մրցունակ մնալու համար։ Ես հավատում եմ, որ որակյալ կրթությունը պետք է լինի գործնական և թիրախային։ Իմ նպատակն է օգնել Ձեզ տեսնել AI-ի իրական ներուժը և սովորեցնել օգտագործել այն ոչ թե որպես խաղալիք, այլ որպես հզոր մտավոր գործընկեր, որը կօգնի Ձեզ աճել և խնայել ամենաթանկը՝ Ձեր ժամանակը։]</p>
         <div class="record" aria-label="[EN: Teaching record][HY: Դասավանդման փորձը]">
-          <div class="record-item"><span class="r-num">04</span><span class="r-lbl">[EN: Cohorts run][HY: Անցկացված խմբեր]</span></div>
+          <div class="record-item"><span class="r-num">10+</span><span class="r-lbl">[EN: Cohorts run][HY: Անցկացված խմբեր]</span></div>
           <div class="record-item"><span class="r-num">60+</span><span class="r-lbl">[EN: Students taught][HY: Ուսանողների քանակ]</span></div>
-          <div class="record-item"><span class="r-num">01</span><span class="r-lbl">[EN: Instructor · always][HY: Միշտ Ձեր կողքին]</span></div>
         </div>
       </div>
     </div>
@@ -1426,11 +1427,11 @@ section.visible::after{width:200px}
         </div>
         <span class="pc-node" aria-hidden="true"></span>
         <div class="pc-card">
-          <h3>[EN: Meet the tools &mdash; carefully.][HY: Ծանոթություն գործիքներին&mdash;սթափ հայացքով։]</h3>
-          <p>[EN: Open the real tools. Watch them shine &mdash; and watch them quietly go wrong.][HY: Բացում ենք իրական գործիքները։ Տեսնում ենք՝ որտեղ են փայլում, և որտեղ՝ լուռ սխալվում։]</p>
+          <h3>[EN: Tour the tools.][HY: Գործիքների զննում։]</h3>
+          <p>[EN: What can AI actually do? We map the possibilities &mdash; and the lines where the technology quietly fails.][HY: Ի՞նչ կարող է AI-ն իրականում։ Տեսնում ենք հնարավորությունները և այն սահմանները, որտեղ տեխնոլոգիան սխալվում է։]</p>
           <span class="pc-make">
             <span class="pc-make-lbl">[EN: By the end][HY: Վերջում]</span>
-            <span class="pc-make-val">[EN: Your first real prompt, tested.][HY: Ձեր առաջին իրական, փորձարկված հուշումը (prompt)։]</span>
+            <span class="pc-make-val">[EN: Your first working prompt.][HY: Ձեր առաջին աշխատող հուշումը (prompt)։]</span>
           </span>
         </div>
       </li>
@@ -1441,11 +1442,11 @@ section.visible::after{width:200px}
         </div>
         <span class="pc-node" aria-hidden="true"></span>
         <div class="pc-card">
-          <h3>[EN: Prompting, the careful way.][HY: Հուշումների (prompting) կառուցումը՝ սթափ ճանապարհով։]</h3>
-          <p>[EN: Role, context, task, format. A small structure that earns its keep.][HY: Դեր, կոնտեքստ, առաջադրանք, ձևաչափ։ Փոքր կառուցվածք, որը իրեն արդարացնում է։]</p>
+          <h3>[EN: Prompt engineering.][HY: Հուշումների (prompts) ճարտարագիտություն։]</h3>
+          <p>[EN: How do you actually talk to AI? Role, context, and a clear structure that makes the result predictable.][HY: Ինչպե՞ս խոսել AI-ի հետ։ Դեր, կոնտեքստ և հստակ կառուցվածք, որն ապահովում է կանխատեսելի արդյունք։]</p>
           <span class="pc-make">
             <span class="pc-make-lbl">[EN: By the end][HY: Վերջում]</span>
-            <span class="pc-make-val">[EN: Three prompts you&rsquo;ll keep using.][HY: Երեք հուշում (prompts), որոնք կիրառելու եք միշտ։]</span>
+            <span class="pc-make-val">[EN: 3 foundational prompts for your everyday work.][HY: 3 հիմնարար հուշում՝ առօրյա աշխատանքի համար։]</span>
           </span>
         </div>
       </li>
@@ -1456,11 +1457,11 @@ section.visible::after{width:200px}
         </div>
         <span class="pc-node" aria-hidden="true"></span>
         <div class="pc-card">
-          <h3>[EN: The thing you actually do.][HY: Այն, ինչ իրոք անում եք։]</h3>
-          <p>[EN: One piece of your real week. Rebuilt with AI. Notice what changed.][HY: Իրական շաբաթվա մի մաս՝ վերակառուցված AI-ով։ Նկատեք՝ ինչ փոխվեց։]</p>
+          <h3>[EN: Workflow, optimised.][HY: Workflow-ի օպտիմալացում։]</h3>
+          <p>[EN: We take your real tasks and rebuild them with AI. Time saved from day one.][HY: Վերցնում ենք Ձեր իրական գործերը և վերակառուցում դրանք AI-ի օգնությամբ։ Խնայում ենք ժամանակը հենց առաջին օրվանից։]</p>
           <span class="pc-make">
             <span class="pc-make-lbl">[EN: By the end][HY: Վերջում]</span>
-            <span class="pc-make-val">[EN: One real task, done differently.][HY: Մեկ իրական գործ՝ արված նորովի։]</span>
+            <span class="pc-make-val">[EN: One real task, done faster and better.][HY: Մեկ պատրաստի գործ՝ արված ավելի արագ և որակյալ։]</span>
           </span>
         </div>
       </li>
@@ -1471,11 +1472,11 @@ section.visible::after{width:200px}
         </div>
         <span class="pc-node" aria-hidden="true"></span>
         <div class="pc-card">
-          <h3>[EN: Image. Sound. Motion.][HY: Պատկեր։ Ձայն։ Շարժում։]</h3>
-          <p>[EN: Pick a medium. Make something real. We critique it like an editor would.][HY: Ընտրեք միջոցը։ Ստեղծեք իրական բան։ Քննում ենք, ինչպես խմբագիրը։]</p>
+          <h3>[EN: Image, sound, and video.][HY: Պատկեր, ձայն և վիդեո։]</h3>
+          <p>[EN: Mastering creative tools. We learn to produce professional content &mdash; while keeping your own voice.][HY: Ստեղծարար գործիքների տիրապետում։ Սովորում ենք ստեղծել պրոֆեսիոնալ բովանդակություն՝ պահպանելով Ձեր անհատական ոճը։]</p>
           <span class="pc-make">
             <span class="pc-make-lbl">[EN: By the end][HY: Վերջում]</span>
-            <span class="pc-make-val">[EN: One output you&rsquo;re not embarrassed by.][HY: Արդյունք, որի համար չեք ամաչի։]</span>
+            <span class="pc-make-val">[EN: A finished multimedia project.][HY: Պատրաստի մուլտիմեդիա նախագիծ։]</span>
           </span>
         </div>
       </li>
@@ -1486,11 +1487,11 @@ section.visible::after{width:200px}
         </div>
         <span class="pc-node" aria-hidden="true"></span>
         <div class="pc-card">
-          <h3>[EN: When to stop using it.][HY: Երբ դադարեցնել օգտագործումը։]</h3>
-          <p>[EN: Which decisions is AI quietly making for you? We audit. You take them back.][HY: Ո՞ր որոշումներն է AI-ն կայացնում Ձեր փոխարեն։ Վերլուծում ենք։ Հետ եք վերցնում։]</p>
+          <h3>[EN: A critical eye.][HY: Քննադատական մոտեցում։]</h3>
+          <p>[EN: When <em>not</em> to use AI. Where human judgement belongs &mdash; and how to keep quality under your control.][HY: Ե՞րբ չօգտագործել AI։ Հասկանում ենք, թե որտեղ է պետք մարդու միջամտությունը և ինչպես պահպանել որակի վերահսկողությունը։]</p>
           <span class="pc-make">
             <span class="pc-make-lbl">[EN: By the end][HY: Վերջում]</span>
-            <span class="pc-make-val">[EN: A sharper sense of when <em>not</em> to prompt.][HY: Ավելի սուր զգացողություն՝ երբ <em>չօգտագործել</em> հուշումներ (prompts)։]</span>
+            <span class="pc-make-val">[EN: A clear line between AI and what stays on you.][HY: Հստակ սահման՝ AI-ի և Ձեր պատասխանատվության միջև։]</span>
           </span>
         </div>
       </li>
@@ -1501,11 +1502,11 @@ section.visible::after{width:200px}
         </div>
         <span class="pc-node" aria-hidden="true"></span>
         <div class="pc-card">
-          <h3>[EN: A final, real thing.][HY: Վերջնական, իրական արդյունք։]</h3>
-          <p>[EN: One thing from your actual life &mdash; presented, reviewed, ready to publish.][HY: Մեկ բան Ձեր կյանքից՝ ներկայացված, քննարկված, հրապարակման պատրաստ։]</p>
+          <h3>[EN: The final project.][HY: Ավարտական նախագիծ։]</h3>
+          <p>[EN: One real problem from your life or business &mdash; solved with AI, ready to put to work.][HY: Ձեր կյանքից կամ բիզնեսից մի իրական խնդիր՝ լուծված AI-ով և պատրաստ գործնական կիրառության։]</p>
           <span class="pc-make">
-            <span class="pc-make-lbl">[EN: The finale][HY: Ավարտը]</span>
-            <span class="pc-make-val">[EN: One thing worth your name on it.][HY: Մի բան, որի տակ հպարտությամբ կստորագրեք։]</span>
+            <span class="pc-make-lbl">[EN: At the end][HY: Ավարտին]</span>
+            <span class="pc-make-val">[EN: Work you can be proud of.][HY: Աշխատանք, որով կարող եք հպարտանալ։]</span>
           </span>
         </div>
       </li>
@@ -1515,7 +1516,6 @@ section.visible::after{width:200px}
       <span class="psh-label">[EN: swipe through six classes][HY: սահեցրեք վեց դասով]</span>
       <span class="psh-arrow">&#8594;</span>
     </div>
-    <p class="path-foot fade-in">[EN: <strong>Six classes later:</strong> something you built &mdash; not something we handed you.][HY: <strong>Վեց դաս անց.</strong> մի բան, որը Դուք եք ստեղծել, այլ ոչ թե մենք ենք Ձեզ տվել։]</p>
   </div>
 </section>
 
@@ -1613,7 +1613,7 @@ section.visible::after{width:200px}
       <div class="sec-marker" style="margin-bottom:14px"><span class="sec-num">&sect; [EN: Apply][HY: Դիմել]</span><span class="sec-rule"></span><span class="sec-name">[EN: Next cohort][HY: Հաջորդ խումբ]</span></div>
       <h2 class="serif apply-title"><em>[EN: Write us.][HY: Գրեք մեզ։]</em> [EN: We&rsquo;ll read it.][HY: Մենք կկարդանք։]</h2>
       <p class="apply-sub">[EN: Three fields. A real person replies on WhatsApp within 24 hours &mdash; usually faster.][HY: Երեք դաշտ։ Իրական մարդ կպատասխանի Ձեզ WhatsApp-ով 24 ժամվա ընթացքում — սովորաբար ավելի արագ։]</p>
-      <div class="apply-cohort"><span>[EN: <b>May 19</b> start][HY: Մեկնարկը՝ <b>Մայիսի 19-ին</b>]</span><span class="dot"></span><span>[EN: Next: <b>Autumn 2026</b>][HY: Հաջորդ՝ <b>Աշուն 2026</b>]</span><span class="dot"></span><span>[EN: <b>Online</b> + Yerevan][HY: <b>Օնլայն</b> + Երևան]</span></div>
+      <div class="apply-cohort"><span>[EN: <b>May 10</b> start][HY: Մեկնարկը՝ <b>Մայիսի 10-ին</b>]</span><span class="dot"></span><span>[EN: <b>Online</b> + Yerevan][HY: <b>Օնլայն</b> + Երևան]</span></div>
     </div>
     <form id="signupForm" onsubmit="return submitSignup(event)" class="apply-form">
       <input type="hidden" id="sf-track" name="track" value="AI for Work" data-key="career">
@@ -1655,7 +1655,7 @@ section.visible::after{width:200px}
           </button>
           <button type="button" class="apply-tile" data-track="AI for teaching" data-key="teaching">
             <span class="at-num">05</span>
-            <span class="at-name">[EN: AI for teaching][HY: AI դասավանդողների համար]</span>
+            <span class="at-name">[EN: AI for teaching][HY: Ուսուցիչների համար]</span>
             <span class="at-desc">[EN: Lesson plans, feedback.][HY: Դասապլաններ, հետադարձ կապ։]</span>
           </button>
           <button type="button" class="apply-tile" data-track="Teens 13-17" data-key="teen">
@@ -2072,7 +2072,7 @@ section.visible::after{width:200px}
      apply-tile at-name spans exactly — same string everywhere per language. */
   var TRACK_LABEL_I18N={
     en:{career:'AI for Work',research:'Research AI',creative:'Creative AI',marketing:'Marketing & SMM',teaching:'AI for teaching',teen:'Teens 13–17'},
-    hy:{career:'AI աշխատանքի համար',research:'AI հետազոտությունների համար',creative:'Ստեղծարար AI',marketing:'Մարքեթինգ և SMM',teaching:'AI դասավանդողների համար',teen:'Դեռահասներ 13–17'}
+    hy:{career:'AI աշխատանքի համար',research:'AI հետազոտությունների համար',creative:'Ստեղծարար AI',marketing:'Մարքեթինգ և SMM',teaching:'Ուսուցիչների համար',teen:'Դեռահասներ 13–17'}
   };
   window.submitSignup=function(e){
     e.preventDefault();
@@ -2148,12 +2148,12 @@ section.visible::after{width:200px}
       research:{title:'[EN: <em>Research AI</em> &mdash; your fit.][HY: <em>AI հետազոտությունների համար</em> — Ձեր ուղին։]',rationale:'[EN: You read to think, not just to finish. We&rsquo;ll build a deep-research workflow around NotebookLM, Claude, and Perplexity that holds up beyond the course.][HY: Դուք ընթերցում եք մտածելու, ոչ թե պարզապես ավարտելու համար։ Մենք կկառուցենք խորը հետազոտության աշխատանքային հոսք՝ NotebookLM-ի, Claude-ի և Perplexity-ի շուրջ, որը կգործի նաև դասընթացից հետո։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'research'},
       creative:{title:'[EN: <em>Creative AI</em> &mdash; your fit.][HY: <em>Ստեղծարար AI</em> — Ձեր ուղին։]',rationale:'[EN: You&rsquo;re chasing output you can show, not just use. Image, motion, sound &mdash; with taste and craft first, prompts second. Midjourney, Nanobanana, Higgsfield.][HY: Դուք հետամուտ եք այնպիսի արդյունքի, որը կարող եք ցույց տալ, ոչ միայն օգտագործել։ Նկար, շարժում, ձայն — նախ ճաշակ և վարպետություն, հետո՝ հուշումներ (prompts)։ Midjourney, Nanobanana, Higgsfield։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'creative'},
       marketing:{title:'[EN: <em>Marketing &amp; SMM</em> &mdash; your fit.][HY: <em>Մարքեթինգ և SMM</em> — Ձեր ուղին։]',rationale:'[EN: Posts, campaigns, short-form video &mdash; with the craft behind them, not just prompts. Built to ship on a calendar, not admire in a tab.][HY: Փոստեր, արշավներ, կարճ վիդեո — իրական վարպետությամբ, ոչ միայն հուշումներով (prompts)։ Կառուցված՝ օրացույցով հրապարակելու համար, ոչ թե tab-ում հիանալու։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'marketing'},
-      teaching:{title:'[EN: <em>AI for teaching</em> &mdash; your fit.][HY: <em>AI դասավանդողների համար</em> — Ձեր ուղին։]',rationale:'[EN: Lesson prep, student materials, feedback loops &mdash; designed around your week so the tools reduce load, not add to it. Claude &amp; NotebookLM, honestly used.][HY: Դասի պատրաստում, ուսանողական նյութեր, հետադարձ կապի ցիկլեր — կառուցված Ձեր շաբաթվա շուրջ, որպեսզի գործիքները նվազեցնեն ծանրաբեռնվածությունը, ոչ ավելացնեն։ Claude և NotebookLM՝ ազնվորեն օգտագործված։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'teaching'},
+      teaching:{title:'[EN: <em>AI for teaching</em> &mdash; your fit.][HY: <em>Ուսուցիչների համար</em> — Ձեր ուղին։]',rationale:'[EN: Lesson prep, student materials, feedback loops &mdash; designed around your week so the tools reduce load, not add to it. Claude &amp; NotebookLM, honestly used.][HY: Դասի պատրաստում, ուսանողական նյութեր, հետադարձ կապի ցիկլեր — կառուցված Ձեր շաբաթվա շուրջ, որպեսզի գործիքները նվազեցնեն ծանրաբեռնվածությունը, ոչ ավելացնեն։ Claude և NotebookLM՝ ազնվորեն օգտագործված։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'teaching'},
       teen:{title:'[EN: <em>Teens 13&ndash;17</em> &mdash; your fit.][HY: <em>Դեռահասներ 13–17</em> — Ձեր ուղին։]',rationale:'[EN: Curiosity-led, supervised, project-first. We build habits of good taste now, so the tools serve you later &mdash; not the other way around.][HY: Հետաքրքրասիրությամբ ղեկավարվող, ուղեկցվող, նախագծերի վրա հիմնված։ Հիմա կառուցում ենք լավ ճաշակի սովորություններ, որպեսզի հետագայում գործիքները ծառայեն Ձեզ — ոչ հակառակը։]',fmt:'[EN: Online + Yerevan][HY: Օնլայն + Երևան]',trackKey:'teen'}
     };
     /* SHORT: used in result card as "ALSO CLOSE" alternate pills. Must match
        the canonical track labels above — same string everywhere per language. */
-    var SHORT={career:'[EN: AI for your work][HY: AI աշխատանքի համար]',research:'[EN: Research AI][HY: AI հետազոտությունների համար]',creative:'[EN: Creative AI][HY: Ստեղծարար AI]',marketing:'[EN: Marketing &amp; SMM][HY: Մարքեթինգ և SMM]',teaching:'[EN: AI for teaching][HY: AI դասավանդողների համար]',teen:'[EN: Teens 13&ndash;17][HY: Դեռահասներ 13–17]'};
+    var SHORT={career:'[EN: AI for your work][HY: AI աշխատանքի համար]',research:'[EN: Research AI][HY: AI հետազոտությունների համար]',creative:'[EN: Creative AI][HY: Ստեղծարար AI]',marketing:'[EN: Marketing &amp; SMM][HY: Մարքեթինգ և SMM]',teaching:'[EN: AI for teaching][HY: Ուսուցիչների համար]',teen:'[EN: Teens 13&ndash;17][HY: Դեռահասներ 13–17]'};
     var PRIORITY=['career','research','creative','marketing','teaching','teen'];
     // Multi-select: each question's picks is an ARRAY of track keys
     var state={i:0,picks:[[],[],[],[]]};
