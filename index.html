@@ -482,43 +482,50 @@ section{padding:var(--section-y) 0}
 .principle-cite{margin-top:auto;padding-top:18px;border-top:1px solid var(--border);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-subtle);font-weight:600;font-variant-numeric:tabular-nums}
 .tracks{display:grid;grid-template-columns:1fr;gap:16px}
 @media(min-width:640px){.tracks{grid-template-columns:repeat(3,1fr)}}
-.t-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-8) var(--sp-6);display:flex;flex-direction:column;position:relative;transition:border-color var(--dur-base) var(--ease),transform var(--dur-base) var(--ease),box-shadow var(--dur-base) var(--ease);overflow:hidden;box-shadow:var(--el-1)}
-/* Editorial numbered index for track cards */
-.t-index{font-family:'Noto Serif Armenian',serif;font-style:italic;font-weight:400;font-size:2.4rem;line-height:1;color:var(--secondary);opacity:.72;margin-bottom:18px;letter-spacing:-.02em;display:flex;align-items:baseline;gap:10px}
-.t-index::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border-strong),transparent);opacity:.5;margin-bottom:6px}
-.t-audience{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-subtle);font-weight:600;margin-bottom:8px}
-.t-rule{height:1px;background:linear-gradient(90deg,var(--border),var(--border-strong),var(--border));margin:18px 0 14px;opacity:.7}
+.t-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-6);display:flex;flex-direction:column;position:relative;transition:border-color var(--dur-base) var(--ease),transform var(--dur-base) var(--ease),box-shadow var(--dur-base) var(--ease);overflow:hidden;box-shadow:var(--el-1)}
+/* Editorial numbered index for track cards — tightened */
+.t-index{font-family:'Noto Serif Armenian',serif;font-style:italic;font-weight:400;font-size:1.75rem;line-height:1;color:var(--secondary);opacity:.7;margin-bottom:10px;letter-spacing:-.02em;display:flex;align-items:baseline;gap:10px}
+.t-index::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border-strong),transparent);opacity:.5;margin-bottom:4px}
+.t-audience{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-subtle);font-weight:600;margin-bottom:6px}
+.t-rule{display:none}
 .t-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s}
 .t-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--el-2)}.t-card:hover::before{opacity:1}
 .t-card.recommended{border-color:rgba(224,122,58,.3);box-shadow:0 0 60px var(--accent-glow)}
 .t-card.recommended::before{opacity:1}
 .t-card .t-icon{display:none}
-.t-card h3{font-family:'Noto Serif Armenian',serif;font-size:1.05rem;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
-.t-card .t-desc{font-size:.86rem;color:var(--text-dim);line-height:1.7;margin-bottom:18px}
-/* Outcomes — editorial bullets, previously hidden */
-.t-outcomes{display:block;list-style:none;padding:0;margin:0 0 20px}
-.t-outcomes li{position:relative;padding:8px 0 8px 26px;font-size:.8rem;color:var(--text);line-height:1.55;border-top:1px solid var(--border)}
-.t-outcomes li:first-child{border-top:none}
-.t-outcomes li::before{content:'→';position:absolute;left:0;top:8px;color:var(--secondary);font-weight:600;font-size:.82rem;line-height:1.55}
-/* Meta — editorial labeled rows, not pills */
-.t-meta{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:rgba(240,236,230,.02)}
-.t-meta span{display:flex;flex-direction:column;gap:3px;padding:10px 14px;font-size:.78rem;color:var(--text);letter-spacing:0;border-radius:0;border:none;font-weight:600;font-variant-numeric:tabular-nums}
-.t-meta span:nth-child(2n){border-left:1px solid var(--border)}
-.t-meta span:nth-child(n+3){border-top:1px solid var(--border)}
-.t-meta span::before{content:attr(data-label);font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-subtle);font-weight:600}
+.t-card h3{font-family:'Noto Serif Armenian',serif;font-size:1.12rem;font-weight:700;margin-bottom:10px;letter-spacing:-.01em;line-height:1.25}
+.t-card .t-desc{font-size:.82rem;color:var(--text-dim);line-height:1.6;margin-bottom:14px}
+/* Outcomes — tighter rhythm, honest bullets */
+.t-outcomes{display:block;list-style:none;padding:0;margin:0 0 14px}
+.t-outcomes li{position:relative;padding:6px 0 6px 20px;font-size:.78rem;color:var(--text);line-height:1.5;border-top:1px solid var(--border)}
+.t-outcomes li:first-child{border-top:none;padding-top:2px}
+.t-outcomes li::before{content:'→';position:absolute;left:0;top:6px;color:var(--secondary);font-weight:600;font-size:.8rem;line-height:1.5}
+.t-outcomes li:first-child::before{top:2px}
+/* Meta — single compact strip (desktop); 2×2 on tablets / mobile */
+.t-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:rgba(240,236,230,.02)}
+.t-meta span{display:flex;flex-direction:column;gap:2px;padding:7px 8px;font-size:.72rem;color:var(--text);letter-spacing:0;border-radius:0;border:none;font-weight:600;font-variant-numeric:tabular-nums}
+.t-meta span+span{border-left:1px solid var(--border)}
+.t-meta span::before{content:attr(data-label);font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-subtle);font-weight:600}
+@media(max-width:900px){
+  .t-meta{grid-template-columns:1fr 1fr}
+  .t-meta span+span{border-left:none}
+  .t-meta span:nth-child(2n){border-left:1px solid var(--border)}
+  .t-meta span:nth-child(n+3){border-top:1px solid var(--border)}
+}
 /* Spots indicator — separate editorial row */
 .t-price{display:flex;align-items:baseline;justify-content:space-between;margin:10px 0 0;padding:12px 14px;border:1px solid var(--border);border-radius:8px;background:rgba(240,236,230,.01);font-variant-numeric:tabular-nums}
 .t-price .tp-amt{font-family:'Noto Serif Armenian',serif;font-size:1.15rem;font-weight:700;color:var(--text);letter-spacing:-.01em}
 .t-price .tp-amt em{font-style:italic;color:var(--secondary);font-weight:700;margin-right:4px}
 .t-price .tp-terms{font-size:.7rem;color:var(--text-subtle);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
-.t-cta-row{display:flex;align-items:center;gap:14px;margin-top:4px}
-.t-cta-row .btn-sm{flex:0 0 auto}
-.t-more{background:transparent;border:none;color:var(--text-dim);font-family:inherit;font-size:.82rem;cursor:pointer;padding:6px 0;letter-spacing:.01em;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
-.t-more:hover{color:var(--secondary);border-bottom-color:var(--secondary)}
-.t-spots{display:flex;align-items:center;gap:10px;margin:14px 0 0;padding:10px 14px;background:rgba(224,122,58,.06);border:1px solid rgba(224,122,58,.18);border-radius:8px;font-size:.74rem;color:var(--secondary);font-weight:600;letter-spacing:.02em}
+/* CTA row — both buttons visible, primary stretches, details is a real outlined button */
+.t-cta-row{display:flex;align-items:stretch;gap:8px;margin-top:auto;padding-top:14px}
+.t-cta-row .btn-sm{flex:1 1 auto;text-align:center;min-width:0}
+.t-more{flex:0 0 auto;background:transparent;border:1px solid var(--border-strong);color:var(--text);font-family:inherit;font-size:.74rem;font-weight:600;cursor:pointer;padding:0 14px;letter-spacing:.04em;border-radius:8px;transition:border-color .2s,color .2s,background .2s;white-space:nowrap;min-height:36px;display:inline-flex;align-items:center;justify-content:center}
+.t-more:hover{border-color:var(--accent);color:var(--accent);background:rgba(224,122,58,.05)}
+.t-more:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.t-spots{display:flex;align-items:center;gap:10px;margin:10px 0 0;padding:7px 12px;background:rgba(224,122,58,.06);border:1px solid rgba(224,122,58,.18);border-radius:8px;font-size:.7rem;color:var(--secondary);font-weight:600;letter-spacing:.02em}
 .t-spots::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(224,122,58,.2)}
-.t-card .btn-sm{width:100%;text-align:center;margin-top:auto}
-.rec-badge{position:absolute;top:12px;right:12px;background:var(--accent);color:#10131a;font-size:.62rem;font-weight:700;padding:5px 12px;border-radius:8px;white-space:nowrap;display:none;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 2px 8px rgba(224,122,58,.3);z-index:2}
+.rec-badge{position:absolute;top:12px;right:12px;background:var(--accent);color:#10131a;font-size:.6rem;font-weight:700;padding:4px 10px;border-radius:8px;white-space:nowrap;display:none;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 2px 8px rgba(224,122,58,.3);z-index:2}
 .t-card.recommended .rec-badge{display:block}
 
 /* ── Social Proof ── */
@@ -1039,12 +1046,11 @@ section.visible::after{width:200px}
         <div class="t-index">01</div>
         <div class="t-audience">For work</div>
         <h3 class="serif">[EN: AI for your work]</h3>
-        <div class="t-persona">[EN: For adults who want to use AI in the actual work they do every day.]</div>
-        <p class="t-desc">[EN: No generic playbook. You learn to use ChatGPT, Claude, and NotebookLM on the real tasks sitting on your desk &mdash; not on toy examples.]</p>
+        <p class="t-desc">[EN: For people who want AI to help with the real work on their desk &mdash; email, reports, decisions &mdash; using ChatGPT, Claude, and NotebookLM.]</p>
         <ul class="t-outcomes">
-          <li>[EN: Write prompts that work on the first try, not the fifth]</li>
-          <li>[EN: Turn email, meetings, and reports into AI-assisted workflows]</li>
-          <li>[EN: Build a small, professional AI portfolio you can show]</li>
+          <li>[EN: Prompts with structure you can reuse]</li>
+          <li>[EN: Email, meetings, and reports handled faster]</li>
+          <li>[EN: A few real pieces from your own work]</li>
         </ul>
         <div class="t-meta">
           <span data-label="Duration">6 classes</span>
@@ -1053,10 +1059,9 @@ section.visible::after{width:200px}
           <span data-label="Start">Apr 14</span>
         </div>
         <div class="t-spots">4 seats remain of 6</div>
-        <div class="t-rule" aria-hidden="true"></div>
         <div class="t-cta-row">
           <button class="btn btn-sm" onclick="openSignup('career','track-career')">Apply &rarr;</button>
-          <button class="t-more" onclick="openModal('career')">About this path</button>
+          <button class="t-more" onclick="openModal('career')" aria-label="Details about AI for your work">Details</button>
         </div>
       </div>
       <div class="t-card tilt scale-in stagger-2" id="track-creative">
@@ -1064,12 +1069,11 @@ section.visible::after{width:200px}
         <div class="t-index">02</div>
         <div class="t-audience">For creatives</div>
         <h3 class="serif">Creative AI</h3>
-        <div class="t-persona">[EN: For designers, content creators, SMM managers, and anyone making visual work.]</div>
-        <p class="t-desc">[EN: Learn to make images, videos, and motion content with a professional toolkit &mdash; Midjourney, Nanobanana, Higgsfield, and more.]</p>
+        <p class="t-desc">[EN: For designers, content creators, and anyone making visual work &mdash; images, video, and motion with Midjourney, Nanobanana, Higgsfield, and a working creative kit.]</p>
         <ul class="t-outcomes">
-          <li>[EN: Professional image &amp; video output with a repeatable style]</li>
-          <li>[EN: Build a 10+ visual campaign you can use in real work]</li>
-          <li>[EN: A personal style guide and brand kit that feels like you]</li>
+          <li>[EN: A visual style you can repeat, not one-offs]</li>
+          <li>[EN: A small body of finished work you can show]</li>
+          <li>[EN: A style guide that sounds like you]</li>
         </ul>
         <div class="t-meta">
           <span data-label="Duration">6 classes</span>
@@ -1078,10 +1082,9 @@ section.visible::after{width:200px}
           <span data-label="Start">Apr 14</span>
         </div>
         <div class="t-spots">6 seats remain of 8</div>
-        <div class="t-rule" aria-hidden="true"></div>
         <div class="t-cta-row">
           <button class="btn btn-sm" onclick="openSignup('creative','track-creative')">Apply &rarr;</button>
-          <button class="t-more" onclick="openModal('creative')">About this path</button>
+          <button class="t-more" onclick="openModal('creative')" aria-label="Details about Creative AI">Details</button>
         </div>
       </div>
       <div class="t-card tilt scale-in stagger-3" id="track-teen">
@@ -1089,12 +1092,11 @@ section.visible::after{width:200px}
         <div class="t-index">03</div>
         <div class="t-audience">For teens · 13–17</div>
         <h3 class="serif">[EN: AI for teens (13&ndash;17)]</h3>
-        <div class="t-persona">[EN: For the students, builders, and curious minds of tomorrow.]</div>
-        <p class="t-desc">[EN: A first serious look at AI &mdash; how it works, where it fits in creativity and study, and how to present your own idea to a small live jury at the end.]</p>
+        <p class="t-desc">[EN: A first serious look at AI for curious students &mdash; how it works, where it helps in study and creativity, ending with a small project of their own.]</p>
         <ul class="t-outcomes">
-          <li>[EN: Your own AI project, presented to real people]</li>
-          <li>[EN: Critical thinking and independent habits around AI]</li>
-          <li>[EN: Understanding how AI actually learns and where it fails]</li>
+          <li>[EN: One project of their own, shown to a small jury]</li>
+          <li>[EN: Independent habits around AI, not shortcuts]</li>
+          <li>[EN: A clear sense of how AI works &mdash; and where it doesn&rsquo;t]</li>
         </ul>
         <div class="t-meta">
           <span data-label="Duration">6 classes</span>
@@ -1103,10 +1105,9 @@ section.visible::after{width:200px}
           <span data-label="Start">Apr 18</span>
         </div>
         <div class="t-spots">3 seats remain of 8</div>
-        <div class="t-rule" aria-hidden="true"></div>
         <div class="t-cta-row">
           <button class="btn btn-sm" onclick="openSignup('teen','track-teen')">Apply &rarr;</button>
-          <button class="t-more" onclick="openModal('teen')">About this path</button>
+          <button class="t-more" onclick="openModal('teen')" aria-label="Details about AI for teens">Details</button>
         </div>
       </div>
     </div>
