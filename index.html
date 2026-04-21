@@ -567,7 +567,29 @@ section{padding:var(--section-y) 0}
 .tf-back-btn{flex:0 0 auto;background:transparent;border:1px solid var(--border-strong);color:var(--text);padding:0 14px;border-radius:8px;font-size:.72rem;cursor:pointer;letter-spacing:.04em;font-weight:600;font-family:inherit;min-height:44px;transition:border-color .2s,color .2s,background .2s}
 .tf-back-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(224,122,58,.05)}
 .tf-back-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-@media(prefers-reduced-motion:reduce){.tf-inner{transition:none}}
+.tf-front{position:relative;overflow:hidden}
+.tf-front::before{content:'';position:absolute;top:0;left:var(--sp-6);right:var(--sp-6);height:1px;background:linear-gradient(90deg,transparent,var(--accent) 20%,var(--accent) 80%,transparent);opacity:.18;transition:opacity .3s var(--ease),left .3s var(--ease),right .3s var(--ease);pointer-events:none}
+.tf-front::after{content:'·';position:absolute;top:10px;right:18px;font-family:'Noto Serif Armenian',serif;font-size:1.1rem;color:var(--accent);opacity:.35;line-height:1;pointer-events:none;transition:opacity .25s var(--ease)}
+.tf-front:hover::before{opacity:.8;left:20px;right:20px}
+.tf-front:hover::after{opacity:.85}
+.tf-front:hover{border-color:var(--accent);box-shadow:var(--el-2);transform:translateY(-3px);transition:transform .25s var(--ease),border-color .2s var(--ease),box-shadow .2s var(--ease)}
+.tf-front:active{transform:translateY(-1px) scale(.995);transition:transform .1s var(--ease)}
+.tf-back::before{content:'';position:absolute;top:0;left:20px;right:20px;height:1px;background:linear-gradient(90deg,transparent,var(--secondary) 20%,var(--secondary) 80%,transparent);opacity:.35;pointer-events:none}
+.tf-apply{background:linear-gradient(180deg,var(--accent) 0%,#c96a2d 100%);box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 2px 0 rgba(0,0,0,.04)}
+.tf-apply:hover{background:linear-gradient(180deg,#d37033 0%,#b15e28 100%);box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 4px 12px rgba(224,122,58,.28)}
+.tf-apply:active{transform:scale(.985)}
+.qr-alts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 18px;padding-top:14px;border-top:1px dashed var(--border-strong)}
+.qr-alts-lbl{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-subtle);font-weight:600;margin-right:4px}
+.qr-alt{background:transparent;border:1px solid var(--border-strong);color:var(--text);padding:6px 12px;border-radius:100px;font-size:.78rem;cursor:pointer;font-family:inherit;letter-spacing:.01em;transition:border-color .2s var(--ease),color .2s var(--ease),background .2s var(--ease)}
+.qr-alt:hover{border-color:var(--accent);color:var(--accent);background:rgba(224,122,58,.04)}
+.qr-alt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.qr-alt.active{border-color:var(--accent);color:var(--accent);background:rgba(224,122,58,.08)}
+.btn-whatsapp{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;border:none;padding:12px 18px;border-radius:8px;font-weight:700;font-size:.88rem;cursor:pointer;letter-spacing:.01em;font-family:inherit;text-decoration:none;min-height:48px;box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 2px 6px rgba(37,211,102,.22);transition:background .2s var(--ease),transform .1s var(--ease),box-shadow .2s var(--ease)}
+.btn-whatsapp:hover{background:#1eb859;transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 4px 14px rgba(37,211,102,.35)}
+.btn-whatsapp:active{transform:translateY(0) scale(.99)}
+.btn-whatsapp:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn-whatsapp::before{content:'';display:inline-block;width:16px;height:16px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.966-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z'/></svg>");background-size:contain;background-repeat:no-repeat;flex-shrink:0}
+@media(prefers-reduced-motion:reduce){.tf-inner,.tf-face,.tf-front,.btn-whatsapp{transition:none}}
 
 /* ── Inclusive fields strip + levels note (Paths section) ── */
 .fields-strip{margin:28px 0 0;padding:22px 28px;border:1px solid var(--border);border-radius:var(--r-lg);background:rgba(240,236,230,.02)}
@@ -1076,7 +1098,7 @@ section.visible::after{width:200px}
     <a href="#fit" class="hero-secondary-link">[EN: Not sure which path fits? Take the 3-question quiz →]</a>
     <div class="hero-meta" aria-hidden="true">
       <span>6 Classes</span>
-      <span>Hybrid · Yerevan + Online</span>
+      <span>Online + Yerevan</span>
       <span>Armenian &amp; English</span>
     </div>
     <div class="cohort-strip" role="status">
@@ -1106,7 +1128,7 @@ section.visible::after{width:200px}
   <div class="container">
     <div class="sec-marker"><span class="sec-num">§ 01</span><span class="sec-rule"></span><span class="sec-name">Paths</span></div>
     <h2 class="stitle serif reveal-3d">[EN: One foundation. Many fields.]</h2>
-    <p class="ssub fade-in">[EN: The six-class syllabus is the same for everyone. The tools, examples, and homework shape around the cohort you&rsquo;re in. Tap a card to see what you&rsquo;ll build.]</p>
+    <p class="ssub fade-in">[EN: The six-class syllabus is the same for everyone. Tools, examples, and homework shape around your cohort. Join live online from anywhere, or come to the Yerevan studio on class evenings &mdash; your call, week to week.]</p>
     <div class="tf-grid">
 
       <!-- 01 AI for Work -->
@@ -1122,7 +1144,7 @@ section.visible::after{width:200px}
               <span class="tf-tool">Claude</span>
               <span class="tf-tool">NotebookLM</span>
             </div>
-            <div class="tf-flip-hint">[EN: Tap to see what you&rsquo;ll build]</div>
+            <div class="tf-flip-hint">[EN: Turn it over]</div>
           </div>
           <div class="tf-face tf-back">
             <div class="tf-num">01</div>
@@ -1133,7 +1155,7 @@ section.visible::after{width:200px}
               <li>[EN: A clear sense of when AI helps and when it wastes your time]</li>
               <li>[EN: A few real pieces from your own work, done differently]</li>
             </ul>
-            <div class="tf-meta"><span>6 classes</span><span>Hybrid</span><span>Starts Apr 14</span></div>
+            <div class="tf-meta"><span>6 classes</span><span>Online + Yerevan</span><span>Starts Apr 14</span></div>
             <div class="tf-cta-row">
               <button class="tf-apply" onclick="event.stopPropagation();openSignup('career','track-career')">Apply &rarr;</button>
               <button class="tf-back-btn" onclick="event.stopPropagation();unflipCard(this)" aria-label="[EN: Flip back]">&larr; [EN: Back]</button>
@@ -1155,7 +1177,7 @@ section.visible::after{width:200px}
               <span class="tf-tool">Claude</span>
               <span class="tf-tool">Perplexity</span>
             </div>
-            <div class="tf-flip-hint">[EN: Tap to see what you&rsquo;ll build]</div>
+            <div class="tf-flip-hint">[EN: Turn it over]</div>
           </div>
           <div class="tf-face tf-back">
             <div class="tf-num">02</div>
@@ -1166,7 +1188,7 @@ section.visible::after{width:200px}
               <li>[EN: Reusable prompts for synthesis and summary]</li>
               <li>[EN: One research piece, built with the new tools]</li>
             </ul>
-            <div class="tf-meta"><span>6 classes</span><span>Hybrid</span><span>Starts Apr 14</span></div>
+            <div class="tf-meta"><span>6 classes</span><span>Online + Yerevan</span><span>Starts Apr 14</span></div>
             <div class="tf-cta-row">
               <button class="tf-apply" onclick="event.stopPropagation();openSignup('research','track-research')">Apply &rarr;</button>
               <button class="tf-back-btn" onclick="event.stopPropagation();unflipCard(this)" aria-label="[EN: Flip back]">&larr; [EN: Back]</button>
@@ -1188,7 +1210,7 @@ section.visible::after{width:200px}
               <span class="tf-tool">Nanobanana</span>
               <span class="tf-tool">Higgsfield</span>
             </div>
-            <div class="tf-flip-hint">[EN: Tap to see what you&rsquo;ll build]</div>
+            <div class="tf-flip-hint">[EN: Turn it over]</div>
           </div>
           <div class="tf-face tf-back">
             <div class="tf-num">03</div>
@@ -1199,7 +1221,7 @@ section.visible::after{width:200px}
               <li>[EN: The judgment calls: when to generate, when to edit, when to start over]</li>
               <li>[EN: A style guide that sounds like you]</li>
             </ul>
-            <div class="tf-meta"><span>6 classes</span><span>Hybrid</span><span>Starts Apr 14</span></div>
+            <div class="tf-meta"><span>6 classes</span><span>Online + Yerevan</span><span>Starts Apr 14</span></div>
             <div class="tf-cta-row">
               <button class="tf-apply" onclick="event.stopPropagation();openSignup('creative','track-creative')">Apply &rarr;</button>
               <button class="tf-back-btn" onclick="event.stopPropagation();unflipCard(this)" aria-label="[EN: Flip back]">&larr; [EN: Back]</button>
@@ -1221,7 +1243,7 @@ section.visible::after{width:200px}
               <span class="tf-tool">Claude</span>
               <span class="tf-tool">Midjourney</span>
             </div>
-            <div class="tf-flip-hint">[EN: Tap to see what you&rsquo;ll build]</div>
+            <div class="tf-flip-hint">[EN: Turn it over]</div>
           </div>
           <div class="tf-face tf-back">
             <div class="tf-num">04</div>
@@ -1232,7 +1254,7 @@ section.visible::after{width:200px}
               <li>[EN: A few campaign variants without the usual drain]</li>
               <li>[EN: A small prompt kit your whole team can use]</li>
             </ul>
-            <div class="tf-meta"><span>6 classes</span><span>Hybrid</span><span>Starts Apr 14</span></div>
+            <div class="tf-meta"><span>6 classes</span><span>Online + Yerevan</span><span>Starts Apr 14</span></div>
             <div class="tf-cta-row">
               <button class="tf-apply" onclick="event.stopPropagation();openSignup('marketing','track-marketing')">Apply &rarr;</button>
               <button class="tf-back-btn" onclick="event.stopPropagation();unflipCard(this)" aria-label="[EN: Flip back]">&larr; [EN: Back]</button>
@@ -1254,7 +1276,7 @@ section.visible::after{width:200px}
               <span class="tf-tool">NotebookLM</span>
               <span class="tf-tool">ChatGPT</span>
             </div>
-            <div class="tf-flip-hint">[EN: Tap to see what you&rsquo;ll build]</div>
+            <div class="tf-flip-hint">[EN: Turn it over]</div>
           </div>
           <div class="tf-face tf-back">
             <div class="tf-num">05</div>
@@ -1265,7 +1287,7 @@ section.visible::after{width:200px}
               <li>[EN: A clear line between AI help and student work]</li>
               <li>[EN: A small curriculum rethink for the AI era]</li>
             </ul>
-            <div class="tf-meta"><span>6 classes</span><span>Hybrid</span><span>Starts Apr 14</span></div>
+            <div class="tf-meta"><span>6 classes</span><span>Online + Yerevan</span><span>Starts Apr 14</span></div>
             <div class="tf-cta-row">
               <button class="tf-apply" onclick="event.stopPropagation();openSignup('teaching','track-teaching')">Apply &rarr;</button>
               <button class="tf-back-btn" onclick="event.stopPropagation();unflipCard(this)" aria-label="[EN: Flip back]">&larr; [EN: Back]</button>
@@ -1287,7 +1309,7 @@ section.visible::after{width:200px}
               <span class="tf-tool">Claude</span>
               <span class="tf-tool">Midjourney</span>
             </div>
-            <div class="tf-flip-hint">[EN: Tap to see what you&rsquo;ll build]</div>
+            <div class="tf-flip-hint">[EN: Turn it over]</div>
           </div>
           <div class="tf-face tf-back">
             <div class="tf-num">06</div>
@@ -1361,16 +1383,18 @@ section.visible::after{width:200px}
         </div>
         <h3 id="qzResTitle"></h3>
         <p class="qr-rationale" id="qzResRationale"></p>
+        <div class="qr-alts" id="qzResAlts" hidden></div>
         <div class="qr-table">
           <div><span class="qr-lbl">Starts</span><span class="qr-val">Apr 14</span></div>
           <div><span class="qr-lbl">Seats</span><span class="qr-val">11 of 18</span></div>
-          <div><span class="qr-lbl">Format</span><span class="qr-val" id="qzResFmt">Hybrid</span></div>
+          <div><span class="qr-lbl">Format</span><span class="qr-val" id="qzResFmt">Online + Yerevan</span></div>
         </div>
         <div class="qr-ctas">
-          <button type="button" class="btn" id="qzApply">Apply — track pre-filled &rarr;</button>
-          <button type="button" class="btn btn-ghost" id="qzReset">Start over</button>
+          <button type="button" class="btn" id="qzApply">[EN: Apply &mdash; track pre-filled] &rarr;</button>
+          <a class="btn-whatsapp" id="qzWa" href="https://wa.me/37493388443?text=Hi%20Ed%2C%20I%20took%20the%20quiz%20and%20I%27d%20like%20to%20chat%20before%20applying." target="_blank" rel="noopener">[EN: Not sure? Message us on WhatsApp]</a>
+          <button type="button" class="btn btn-ghost" id="qzReset">[EN: Start over]</button>
         </div>
-        <div class="qr-foot">Not sure? <a href="#modules">Read the syllabus</a> · <a href="https://wa.me/37493388443?text=Hi%20Ed%2C%20I%27d%20like%20to%20talk" target="_blank" rel="noopener">Write to us</a></div>
+        <div class="qr-foot">[EN: Free consultation before you decide &mdash; no commitment. Or] <a href="#modules">[EN: read the full syllabus]</a>.</div>
       </div>
     </div>
   </div>
@@ -1617,7 +1641,7 @@ section.visible::after{width:200px}
     <div class="faq-list">
       <div class="faq-item fade-in"><button class="faq-q">[EN: Do I need any prior technical background?]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: No. The first class is a careful introduction. If you can use a browser and a phone, you will keep up &mdash; we start there on purpose.]</p></div></div>
       <div class="faq-item fade-in"><button class="faq-q">[EN: How long is the course and how much time per week?]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: Six classes, spread over about six weeks. One 90-minute session per week, live on Zoom or in person &mdash; plus roughly 2 hours of practical homework between classes. One weekly open Q&amp;A.]</p></div></div>
-      <div class="faq-item fade-in"><button class="faq-q">[EN: Are the classes online or in person?]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: Hybrid. Most students join online; some come to the Yerevan studio on the evenings we meet in person. Both work &mdash; pick what fits your week.]</p></div></div>
+      <div class="faq-item fade-in"><button class="faq-q">[EN: Are the classes online or in person?]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: Both. Most students join live online from anywhere. Some come to the Yerevan studio on class evenings. Pick what fits your week &mdash; you can switch week to week.]</p></div></div>
       <div class="faq-item fade-in"><button class="faq-q">[EN: What if I miss a class?]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: Every session is recorded and sent to students within a day. You can catch up on your own time, then drop questions into the next Q&amp;A.]</p></div></div>
       <div class="faq-item fade-in"><button class="faq-q">[EN: Do you offer a personal path?]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: Yes &mdash; a private 1:1 track built around your own tools and workflow. Availability is limited to a few slots per cohort.]</p></div></div>
       <div class="faq-item fade-in"><button class="faq-q">[EN: What counts as passing the course?]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: A small final project &mdash; something real from your life or work. You show it, we review it together, you leave with something you actually made.]</p></div></div>
@@ -1686,7 +1710,7 @@ section.visible::after{width:200px}
       <li>A few real pieces from your own work, done differently</li>
     </ul>
     <p style="font-size:.8rem;color:var(--text-subtle);font-style:italic;margin-top:-4px">The exact class-by-class is shaped around the cohort &mdash; what you bring sets the agenda.</p>
-    <div class="m-meta"><span>6 classes</span><span>Weekly</span><span>Hybrid &middot; Yerevan + online</span><span>Starts Apr 14</span></div>
+    <div class="m-meta"><span>6 classes</span><span>Weekly</span><span>Online + Yerevan</span><span>Starts Apr 14</span></div>
     <a href="#" onclick="closeModal(event,true);openSignup('career');return false" class="btn">Apply &mdash; we'll tell you more &rarr;</a>
   </div>
 </div>
@@ -1702,7 +1726,7 @@ section.visible::after{width:200px}
       <li>A style guide that sounds like you</li>
     </ul>
     <p style="font-size:.8rem;color:var(--text-subtle);font-style:italic;margin-top:-4px">The toolset evolves each cohort &mdash; the best tool this month isn&rsquo;t always next month.</p>
-    <div class="m-meta"><span>6 classes</span><span>Weekly</span><span>Hybrid &middot; Yerevan + online</span><span>Starts Apr 14</span></div>
+    <div class="m-meta"><span>6 classes</span><span>Weekly</span><span>Online + Yerevan</span><span>Starts Apr 14</span></div>
     <a href="#" onclick="closeModal(event,true);openSignup('creative');return false" class="btn">Apply &mdash; we'll tell you more &rarr;</a>
   </div>
 </div>
@@ -1718,7 +1742,7 @@ section.visible::after{width:200px}
       <li>Habits that serve them as the tools keep changing</li>
     </ul>
     <p style="font-size:.8rem;color:var(--text-subtle);font-style:italic;margin-top:-4px">The project is theirs to choose &mdash; we shape the path around what each student wants to make.</p>
-    <div class="m-meta"><span>6 classes</span><span>Saturdays</span><span>Hybrid &middot; Yerevan + online</span><span>Starts Apr 18</span></div>
+    <div class="m-meta"><span>6 classes</span><span>Saturdays</span><span>Online + Yerevan</span><span>Starts Apr 18</span></div>
     <a href="#" onclick="closeModal(event,true);openSignup('teen');return false" class="btn">Apply &mdash; we'll tell you more &rarr;</a>
   </div>
 </div>
@@ -1730,7 +1754,7 @@ section.visible::after{width:200px}
       <div class="sec-marker" style="margin-bottom:14px"><span class="sec-num">&sect; Apply</span><span class="sec-rule"></span><span class="sec-name">Cohort 05</span></div>
       <h2 class="serif apply-title"><em>Write us.</em> We&rsquo;ll read it.</h2>
       <p class="apply-sub">Three fields. A real person replies on WhatsApp within 24 hours &mdash; usually faster.</p>
-      <div class="apply-cohort"><span><b>Apr 14</b> start</span><span class="dot"></span><span><b>11 / 18</b> seats left</span><span class="dot"></span><span><b>Hybrid</b> &middot; Yerevan</span></div>
+      <div class="apply-cohort"><span><b>Apr 14</b> start</span><span class="dot"></span><span><b>11 / 18</b> seats left</span><span class="dot"></span><span><b>Online</b> + Yerevan</span></div>
     </div>
     <form id="signupForm" onsubmit="return submitSignup(event)" class="apply-form">
       <input type="hidden" id="sf-track" value="AI-&#1398; &#1377;&#1399;&#1389;&#1377;&#1407;&#1377;&#1398;&#1412;&#1400;&#1410;&#1396;">
@@ -1799,6 +1823,8 @@ section.visible::after{width:200px}
   /* ── Strip [EN: ...] translation-placeholder wrappers ── */
   /* Authoring convention: text wrapped in [EN: ...] is English copy awaiting
      translation. At runtime we unwrap it so only the inner English reads. */
+  // Exposed helper so JS-generated HTML can be unwrapped too (alts, toasts, etc.)
+  window.unEN=function(s){return String(s).replace(/\[EN:\s*([\s\S]*?)\]/g,'$1');};
   (function stripEN(){
     // Pass 1: innerHTML pass for containers whose [EN: ...] wrappers span inline
     // children (e.g. h1 with <span> inside). Scoped to common text elements so
@@ -2036,27 +2062,41 @@ section.visible::after{width:200px}
   (function(){
     var qzEl=document.getElementById('quiz');if(!qzEl)return;
     var Q=[
-      {q:'What would make this feel like <em>a real win</em> in 90 days?',o:[
-        {t:'Work I actually want',k:'career'},
-        {t:'Things I can publish',k:'creative'},
-        {t:'A school project that stands out',k:'teen'}
+      {q:'What do you mostly <em>make or handle</em> these days?',o:[
+        {t:'Emails, decks, plans &mdash; knowledge work',k:'career'},
+        {t:'Reading, notes, research threads',k:'research'},
+        {t:'Images, video, sound &mdash; creative output',k:'creative'},
+        {t:'Posts, campaigns, copy &mdash; marketing',k:'marketing'},
+        {t:'Lessons, slides, materials for students',k:'teaching'},
+        {t:'School and side projects (I&rsquo;m 13&ndash;17)',k:'teen'}
       ]},
-      {q:'When you open a blank page, what&rsquo;s <em>on your mind</em>?',o:[
-        {t:'Something I owe someone',k:'career'},
-        {t:'A mood I want to make real',k:'creative'},
-        {t:'Schoolwork or a curiosity',k:'teen'}
+      {q:'Which tools are you <em>most curious</em> to use properly?',o:[
+        {t:'ChatGPT &amp; Claude, end-to-end for work',k:'career'},
+        {t:'NotebookLM, Perplexity, deep research',k:'research'},
+        {t:'Midjourney, Nanobanana, Higgsfield',k:'creative'},
+        {t:'Short-form video with AI-assisted copy',k:'marketing'},
+        {t:'Claude &amp; NotebookLM for class prep',k:'teaching'},
+        {t:'A little of everything, guided',k:'teen'}
       ]},
-      {q:'Which tools do you most want to <em>actually use</em>?',o:[
-        {t:'ChatGPT, Claude, Notion AI',k:'career'},
-        {t:'Midjourney, Runway, ElevenLabs',k:'creative'},
-        {t:'A little of everything, safely',k:'teen'}
+      {q:'In six weeks, what would feel like <em>the time was worth it</em>?',o:[
+        {t:'I ship faster at my job, with real outputs',k:'career'},
+        {t:'I research and summarise deeper, not slower',k:'research'},
+        {t:'A small body of finished creative work',k:'creative'},
+        {t:'Posts I&rsquo;d actually publish, with process',k:'marketing'},
+        {t:'Better lessons, less prep burnout',k:'teaching'},
+        {t:'A project I&rsquo;m proud to show a live jury',k:'teen'}
       ]}
     ];
     var RESULTS={
-      career:{title:'<em>AI for Work</em> &mdash; your fit.',rationale:'Your answers point to career tempo: real deliverables, knowledge-work tools, measurable wins. Start here; branch into Creative later if you want.',fmt:'Hybrid',trackKey:'career'},
-      creative:{title:'<em>Creative AI</em> &mdash; your fit.',rationale:'You&rsquo;re chasing output you can show, not just use. Image, sound, motion &mdash; with a producer&rsquo;s eye for quality.',fmt:'Hybrid',trackKey:'creative'},
-      teen:{title:'<em>Teens 13&ndash;17</em> &mdash; your fit.',rationale:'Curiosity-led, supervised, project-first. We build habits of good taste now, so the tools serve you later.',fmt:'Hybrid',trackKey:'teen'}
+      career:{title:'<em>AI for your work</em> &mdash; your fit.',rationale:'Your answers point to knowledge-work tempo &mdash; real deliverables, measurable wins, tools you&rsquo;ll keep using after the course. Claude, ChatGPT, NotebookLM as daily partners.',fmt:'Online + Yerevan',trackKey:'career'},
+      research:{title:'<em>Research AI</em> &mdash; your fit.',rationale:'You read to think, not just to finish. We&rsquo;ll build a deep-research workflow around NotebookLM, Claude, and Perplexity that holds up beyond the course.',fmt:'Online + Yerevan',trackKey:'research'},
+      creative:{title:'<em>Creative AI</em> &mdash; your fit.',rationale:'You&rsquo;re chasing output you can show, not just use. Image, motion, sound &mdash; with taste and craft first, prompts second. Midjourney, Nanobanana, Higgsfield.',fmt:'Online + Yerevan',trackKey:'creative'},
+      marketing:{title:'<em>Marketing &amp; SMM</em> &mdash; your fit.',rationale:'Posts, campaigns, short-form video &mdash; with the craft behind them, not just prompts. Built to ship on a calendar, not admire in a tab.',fmt:'Online + Yerevan',trackKey:'marketing'},
+      teaching:{title:'<em>AI for teaching</em> &mdash; your fit.',rationale:'Lesson prep, student materials, feedback loops &mdash; designed around your week so the tools reduce load, not add to it. Claude &amp; NotebookLM, honestly used.',fmt:'Online + Yerevan',trackKey:'teaching'},
+      teen:{title:'<em>Teens 13&ndash;17</em> &mdash; your fit.',rationale:'Curiosity-led, supervised, project-first. We build habits of good taste now, so the tools serve you later &mdash; not the other way around.',fmt:'Online + Yerevan',trackKey:'teen'}
     };
+    var SHORT={career:'AI for your work',research:'Research AI',creative:'Creative AI',marketing:'Marketing &amp; SMM',teaching:'AI for teaching',teen:'Teens 13&ndash;17'};
+    var PRIORITY=['career','research','creative','marketing','teaching','teen'];
     var state={i:0,picks:[]};
     var qEl=document.getElementById('qzQuestion'),oEl=document.getElementById('qzOptions'),bEl=document.getElementById('qzBack'),lEl=document.getElementById('qzLabel'),fEl=document.getElementById('qzFill');
     function pad(n){return (n<10?'0':'')+n;}
@@ -2084,29 +2124,68 @@ section.visible::after{width:200px}
         else{showResult();}
       },220);
     }
+    function applyResult(winner,tally){
+      var r=RESULTS[winner];if(!r)return;
+      document.getElementById('qzResTitle').innerHTML=r.title;
+      document.getElementById('qzResRationale').innerHTML=r.rationale;
+      document.getElementById('qzResFmt').textContent=r.fmt;
+      qzEl._winner=winner;
+      // alts: everyone else with a vote, plus highest-priority zero-votes if we have fewer than 2
+      var altsEl=document.getElementById('qzResAlts');if(!altsEl)return;
+      var voted=Object.keys(tally).filter(function(k){return k!==winner&&tally[k]>0;})
+        .sort(function(a,b){return tally[b]-tally[a]||PRIORITY.indexOf(a)-PRIORITY.indexOf(b);});
+      var alts=voted.slice(0,2);
+      if(alts.length===0){
+        // no other votes: offer the two highest-priority tracks that aren't the winner
+        alts=PRIORITY.filter(function(k){return k!==winner;}).slice(0,2);
+      }else if(alts.length===1){
+        var filler=PRIORITY.filter(function(k){return k!==winner&&alts.indexOf(k)===-1;})[0];
+        if(filler)alts.push(filler);
+      }
+      var html='<span class="qr-alts-lbl">[EN: Also close:]</span>';
+      alts.forEach(function(k){
+        html+=' <button type="button" class="qr-alt" data-track="'+k+'">'+SHORT[k]+'</button>';
+      });
+      altsEl.innerHTML=(window.unEN||function(s){return s;})(html);
+      altsEl.hidden=false;
+      // Update WhatsApp link with the current winner context
+      var wa=document.getElementById('qzWa');
+      if(wa){
+        var msg='Hi Ed, I took the quiz and landed on '+SHORT[winner].replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&ndash;/g,'-').replace(/&mdash;/g,'-')+'. Could we chat before I apply?';
+        wa.setAttribute('href','https://wa.me/37493388443?text='+encodeURIComponent(msg));
+      }
+    }
     function showResult(){
       fEl.style.width='100%';
-      var tally={career:0,creative:0,teen:0};
+      var tally={career:0,research:0,creative:0,marketing:0,teaching:0,teen:0};
       state.picks.forEach(function(p){if(tally[p]!==undefined)tally[p]++;});
-      // Override: if Q1 answered teen, result is teen
+      // Override: if Q1 answered teen, result is teen (age cohort beats topic)
       var winner;
       if(state.picks[0]==='teen')winner='teen';
       else{
         var max=-1;
-        Object.keys(tally).forEach(function(k){if(tally[k]>max){max=tally[k];winner=k;}});
-        // tie-break toward career (more general)
-        if(tally.career===max)winner='career';
+        PRIORITY.forEach(function(k){if(tally[k]>max){max=tally[k];winner=k;}});
       }
-      var r=RESULTS[winner];
-      document.getElementById('qzResTitle').innerHTML=r.title;
-      document.getElementById('qzResRationale').innerHTML=r.rationale;
-      document.getElementById('qzResFmt').textContent=r.fmt;
+      qzEl._lastTally=tally;
+      applyResult(winner,tally);
       qzEl.classList.add('is-result');
-      qzEl._winner=winner;
     }
     bEl.addEventListener('click',function(){if(state.i>0){state.i--;render();}});
-    document.getElementById('qzReset').addEventListener('click',function(){state={i:0,picks:[]};qzEl.classList.remove('is-result');render();});
+    document.getElementById('qzReset').addEventListener('click',function(){state={i:0,picks:[]};qzEl.classList.remove('is-result');var altsEl=document.getElementById('qzResAlts');if(altsEl){altsEl.hidden=true;altsEl.innerHTML='';}render();});
     document.getElementById('qzApply').addEventListener('click',function(){var w=qzEl._winner||'career';window.openSignup(w,'path-quiz');});
+    // Alt track switcher — swap primary without restarting the quiz
+    var altsContainer=document.getElementById('qzResAlts');
+    if(altsContainer){
+      altsContainer.addEventListener('click',function(e){
+        var b=e.target&&e.target.closest?e.target.closest('.qr-alt'):null;
+        if(!b)return;
+        var k=b.getAttribute('data-track');
+        if(!k||!RESULTS[k])return;
+        applyResult(k,qzEl._lastTally||{career:0,research:0,creative:0,marketing:0,teaching:0,teen:0});
+        // focus the new title for screen readers
+        var t=document.getElementById('qzResTitle');if(t&&t.focus){t.setAttribute('tabindex','-1');t.focus({preventScroll:true});}
+      });
+    }
     render();
   })();
 
