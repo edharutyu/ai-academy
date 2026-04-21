@@ -143,12 +143,14 @@ section{padding:var(--section-y) 0}
 @media(max-width:640px){section{padding:var(--section-y-mobile) 0}}
 
 /* ── Section titles ── */
-.stitle{text-align:center;font-size:clamp(var(--fs-xl),4vw,var(--fs-3xl));margin-bottom:var(--sp-3);font-weight:700;letter-spacing:var(--tr-tight);line-height:var(--lh-tight)}
-/* Editorial section marker — § NN · RULE · NAME */
+.stitle{text-align:center;font-size:clamp(var(--fs-xl),5.5vw,var(--fs-3xl));margin-bottom:var(--sp-3);font-weight:700;letter-spacing:var(--tr-tight);line-height:var(--lh-tight)}
+/* Editorial section marker — § NN · RULE · NAME
+   Numeric §NN is the visual anchor; the .sec-name label lives below its weight. */
 .sec-marker{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-subtle);font-weight:700;font-variant-numeric:tabular-nums}
-.sec-marker .sec-num{color:var(--secondary);font-family:'Noto Serif Armenian',serif;font-style:italic;font-weight:400;font-size:.86rem;letter-spacing:.02em;text-transform:none;opacity:.9}
+.sec-marker .sec-num{color:var(--secondary);font-family:'Noto Serif Armenian',serif;font-style:italic;font-weight:500;font-size:.98rem;letter-spacing:.02em;text-transform:none;opacity:1}
 .sec-marker .sec-rule{flex:0 0 40px;height:1px;background:var(--border-strong)}
-.sec-marker .sec-name{color:var(--text-dim)}
+.sec-marker .sec-name{color:var(--text-dim);font-size:.62rem}
+@media(max-width:640px){.sec-marker{font-size:.72rem;gap:10px}.sec-marker .sec-num{font-size:1rem}.sec-marker .sec-name{font-size:.68rem;color:var(--text-dim)}}
 .ssub{text-align:center;color:var(--text-dim);margin:0 auto var(--sp-8);font-size:var(--fs-sm);max-width:460px;line-height:var(--lh-loose)}
 @media(max-width:640px){.ssub{margin-bottom:var(--sp-5)}}
 
@@ -202,22 +204,15 @@ html[lang="hy"] .t-en{display:none!important}
 .hero-content{position:relative;z-index:1;max-width:640px}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-xs);font-weight:600;color:var(--text-dim);margin-bottom:var(--sp-8);letter-spacing:var(--tr-wider);text-transform:uppercase}
 .hero-eyebrow .pulse{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2.4s ease-in-out infinite}
-/* Editorial locator — eyebrow | rule | cohort */
-.hero-locator{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:var(--sp-6);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);font-weight:600}
-.hero-locator .loc-rule{flex:0 0 56px;height:1px;background:linear-gradient(90deg,transparent,var(--border-strong),transparent)}
-.hero-locator .loc-cohort{color:var(--secondary);font-weight:700}
-@media(max-width:480px){.hero-locator{flex-direction:column;gap:6px;font-size:.6rem}.hero-locator .loc-rule{display:none}}
+/* hero-locator removed — cohort-strip already carries the next-cohort line. */
 /* Passport-style margin details on hero */
 .hero-passport{position:absolute;bottom:28px;left:32px;right:32px;display:flex;justify-content:space-between;align-items:flex-end;font-family:'Inter',sans-serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-subtle);font-weight:500;pointer-events:none;z-index:1}
 .hero-passport .pp-item{display:flex;flex-direction:column;gap:4px;line-height:1.3}
 .hero-passport .pp-label{color:var(--text-subtle);opacity:.6}
 .hero-passport .pp-val{color:var(--text-dim)}
 @media(max-width:640px){.hero-passport{bottom:16px;left:16px;right:16px;font-size:.62rem;letter-spacing:.14em}.hero-passport .pp-item:nth-child(2){text-align:right}}
-/* Hero meta strip — duration · format · language */
-.hero-meta{display:flex;gap:24px;justify-content:center;margin:22px auto 0;padding:14px 0 0;flex-wrap:wrap;max-width:520px;border-top:1px solid var(--border);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-subtle);font-weight:600}
-.hero-meta span{display:inline-flex;align-items:center;gap:8px}
-.hero-meta span::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--secondary);opacity:.8}
-.hero-meta span:first-child::before{display:none}
+@media(max-width:480px){.hero-passport{display:none}}
+/* hero-meta removed — info resurfaces in the apply modal cohort line. */
 /* Cohort status bar — right under hero CTA */
 .cohort-strip{position:relative;margin:40px auto 0;max-width:720px;padding:16px 28px;border:1px solid var(--border-strong);border-radius:12px;background:linear-gradient(180deg,rgba(240,236,230,.02),rgba(240,236,230,.005));display:grid;grid-template-columns:auto 1fr auto auto;gap:20px;align-items:center;text-align:left;font-family:'Inter',sans-serif}
 .cohort-strip .cs-dot{width:8px;height:8px;border-radius:50%;background:#6fcf6a;box-shadow:0 0 0 3px rgba(111,207,106,.18);animation:csPulse 2.4s ease-in-out infinite}
@@ -230,6 +225,7 @@ html[lang="hy"] .t-en{display:none!important}
 .cohort-strip .cs-field .cs-val{font-size:.82rem;color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
 .cohort-strip .cs-field .cs-val em{font-style:italic;color:var(--secondary);font-weight:700}
 @media(max-width:720px){.cohort-strip{grid-template-columns:auto 1fr;gap:14px;padding:14px 18px}.cohort-strip .cs-field{grid-column:1 / -1;text-align:left;border-left:none;border-top:1px solid var(--border);padding-left:0;padding-top:10px;flex-direction:row;justify-content:space-between}.cohort-strip .cs-field .cs-label{font-size:.52rem}}
+@media(max-width:480px){.cohort-strip .cs-field{display:none}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 .hero h1{font-family:'Noto Serif Armenian',serif;font-size:clamp(var(--fs-3xl),7vw,var(--fs-5xl));font-weight:900;line-height:var(--lh-tight);margin-bottom:var(--sp-5);letter-spacing:var(--tr-tight)}
 .hero h1 .hl{color:var(--secondary);font-style:italic;font-weight:700}
@@ -241,6 +237,7 @@ html[lang="hy"] .t-en{display:none!important}
 .word-rotate .wr-item.is-on{opacity:1;transform:translateY(0);pointer-events:auto;transition:opacity .42s ease .3s,transform .5s cubic-bezier(.2,.8,.2,1) .3s}
 @media(prefers-reduced-motion:reduce){.word-rotate .wr-item{transition:none;transform:none}.word-rotate .wr-item:not(.is-on){opacity:0}}
 .hero .sub{font-size:var(--fs-md);color:var(--text-dim);max-width:480px;margin:0 auto var(--sp-10);line-height:var(--lh-loose)}
+@media(max-width:640px){.hero .sub{font-size:var(--fs-sm);letter-spacing:0}}
 .hero-cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 @media(max-width:400px){.hero-cta-row{flex-direction:column;align-items:center}.hero-cta-row .btn{width:100%;max-width:280px}}
 .hero-secondary-link{display:inline-block;margin-top:14px;font-size:.82rem;color:var(--text-dim);text-decoration:none;letter-spacing:.01em;border-bottom:1px solid rgba(176,168,160,.28);padding-bottom:2px;transition:color .2s,border-color .2s}
@@ -278,11 +275,7 @@ html[lang="hy"] .t-en{display:none!important}
 .about-body{color:#c0bbb3;font-size:.92rem;line-height:1.8;margin-bottom:18px}
 .about-body + .about-body{margin-top:-4px}
 @media(max-width:640px){.about-quote{padding:18px 18px 18px 26px;margin:6px 0 22px}.about-quote .aq-mark{font-size:2.8rem;left:6px}.about-quote p{font-size:.98rem;line-height:1.55}}
-.cred-row{display:flex;gap:8px;flex-wrap:wrap}
-@media(max-width:640px){.cred-row{justify-content:center}}
-.cred{display:inline-flex;flex-direction:column;gap:2px;font-size:.74rem;padding:9px 14px;border-radius:8px;background:rgba(224,122,58,.06);border:1px solid rgba(224,122,58,.16);color:var(--secondary);font-weight:600;letter-spacing:.01em;line-height:1.3}
-.cred b{font-weight:700;color:var(--secondary);font-size:.78rem}
-.cred .cred-role{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-subtle);font-weight:600}
+/* cred-row removed — duplicated the .record grid (numerals) below it. */
 /* Ed's record — tabular editorial numbers */
 .record{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:24px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .record-item{padding:16px 18px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:3px}
@@ -376,6 +369,15 @@ html[lang="hy"] .t-en{display:none!important}
 .path-foot{margin:var(--sp-10) auto 0;max-width:580px;text-align:center;font-size:.98rem;color:var(--text-dim);line-height:1.7;font-family:'Noto Serif Armenian',serif;font-style:italic;padding-top:var(--sp-6);border-top:1px solid var(--border)}
 .path-foot strong{color:var(--secondary);font-style:normal;font-weight:700;font-family:inherit}
 
+/* Swipe affordance — visible on touch widths only, fades after first scroll */
+.path-swipe-hint{display:none;align-items:center;justify-content:center;gap:10px;margin:10px auto 0;padding:6px 14px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);opacity:.85;transition:opacity .4s ease}
+.path-swipe-hint.has-scrolled{opacity:0;pointer-events:none}
+.path-swipe-hint .psh-arrow{color:var(--secondary);font-size:.9rem;animation:pshPulse 1.8s ease-in-out infinite}
+.path-swipe-hint .psh-arrow:last-child{animation-delay:.9s}
+.path-swipe-hint .psh-label{font-family:'Noto Serif Armenian',serif;font-style:italic;letter-spacing:.04em;text-transform:none;font-size:.78rem}
+@keyframes pshPulse{0%,100%{opacity:.5;transform:translateX(0)}50%{opacity:1;transform:translateX(2px)}}
+@media (prefers-reduced-motion:reduce){.path-swipe-hint .psh-arrow{animation:none}}
+
 /* Tablet ≤1024: same horizontal scroll, cards still comfortable */
 @media(max-width:1024px){
   .path-chapter{flex:0 0 clamp(260px,38vw,300px)}
@@ -392,52 +394,14 @@ html[lang="hy"] .t-en{display:none!important}
   .pc-card p{font-size:.85rem;line-height:1.55}
   .pc-make-val{font-size:.88rem}
   .path-foot{font-size:.92rem;margin-top:var(--sp-8)}
+  .path-swipe-hint{display:flex}
 }
 @media (prefers-reduced-motion:reduce){
   .path-chapter,.pc-num,.pc-node{transition:none!important}
   .path-rail{scroll-behavior:auto}
 }
 
-/* ── Try a Taste (interactive demo) ── */
-.try-taste{position:relative;text-align:center}
-.taste-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1100px;margin:36px auto 0;text-align:left}
-@media(max-width:900px){.taste-grid{grid-template-columns:1fr;max-width:520px}}
-.taste-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-8) var(--sp-6);position:relative;overflow:hidden;display:flex;flex-direction:column;transition:border-color var(--dur-base) var(--ease),box-shadow var(--dur-base) var(--ease);box-shadow:var(--el-1)}
-.taste-card:hover{border-color:var(--accent);box-shadow:var(--el-2)}
-.taste-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px;flex-wrap:wrap}
-.taste-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(224,122,58,.12);color:var(--accent);border:1px solid rgba(224,122,58,.24);padding:5px 12px;border-radius:100px;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-.taste-chip-alt{background:rgba(196,154,110,.1);color:var(--secondary);border-color:rgba(196,154,110,.22)}
-.taste-head-note{font-size:.7rem;color:var(--text-dim);letter-spacing:.02em}
-.taste-label{display:block;font-size:.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:8px}
-.taste-in{width:100%;background:rgba(245,239,230,.04);border:1px solid rgba(245,239,230,.08);border-radius:12px;padding:14px 16px;color:var(--text);font-family:inherit;font-size:.92rem;line-height:1.55;resize:vertical;min-height:86px;transition:border-color .2s,background .2s}
-.taste-in:focus{outline:none;border-color:rgba(224,122,58,.4);background:rgba(245,239,230,.06)}
-.taste-in::placeholder{color:rgba(245,239,230,.35)}
-.taste-examples{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 0 14px}
-.taste-ex-label{font-size:.72rem;color:var(--text-dim);margin-right:4px}
-.taste-ex{background:rgba(245,239,230,.04);border:1px solid rgba(245,239,230,.1);color:var(--text);font-size:.72rem;padding:5px 10px;border-radius:100px;cursor:pointer;font-family:inherit;transition:all .2s}
-.taste-ex:hover{background:rgba(224,122,58,.1);border-color:rgba(224,122,58,.3);color:var(--accent)}
-.taste-run{width:100%;margin-top:4px}
-.taste-out{margin-top:16px;min-height:120px;background:rgba(245,239,230,.03);border:1px dashed rgba(245,239,230,.1);border-radius:12px;padding:16px 18px;font-size:.88rem;line-height:1.65;color:var(--text)}
-.taste-out.has-result{border-style:solid;border-color:rgba(224,122,58,.2);background:linear-gradient(165deg,rgba(224,122,58,.04),rgba(245,239,230,.03))}
-.taste-out-hint{color:var(--text-dim);font-size:.82rem;font-style:italic;line-height:1.6}
-.taste-out .ty-line{display:block}
-.taste-out .ty-cursor{display:inline-block;width:8px;height:1em;background:var(--accent);margin-left:2px;vertical-align:middle;animation:tyBlink 1s steps(2) infinite}
-@keyframes tyBlink{0%,50%{opacity:1}51%,100%{opacity:0}}
-.taste-h3{font-size:1.45rem;margin:0 0 10px;color:var(--text);letter-spacing:-.01em}
-.taste-p{font-size:.92rem;line-height:1.7;color:var(--text-dim);margin-bottom:18px}
-.taste-list{list-style:none;margin:0 0 22px;padding:0}
-.taste-list li{position:relative;padding:10px 0 10px 24px;font-size:.88rem;line-height:1.55;color:var(--text);border-bottom:1px dashed rgba(245,239,230,.05)}
-.taste-list li:last-child{border-bottom:none}
-.taste-dot{position:absolute;left:0;top:15px;width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--secondary));box-shadow:0 0 10px rgba(224,122,58,.35)}
-.taste-cta-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto}
-.taste-cta-row .btn{white-space:nowrap}
-.taste-cta-note{font-size:.74rem;color:var(--text-dim)}
-/* "Coming soon" platform badge — muted amber, pulsing dot */
-.platform-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 10px;border-radius:100px;background:rgba(196,154,110,.08);border:1px solid rgba(196,154,110,.22);color:var(--secondary);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:18px;align-self:flex-start}
-.platform-badge .pb-dot{width:7px;height:7px;border-radius:50%;background:var(--secondary);box-shadow:0 0 0 0 rgba(196,154,110,.6);animation:pbPulse 2.4s cubic-bezier(.4,0,.2,1) infinite}
-@keyframes pbPulse{0%{box-shadow:0 0 0 0 rgba(196,154,110,.5)}70%{box-shadow:0 0 0 9px rgba(196,154,110,0)}100%{box-shadow:0 0 0 0 rgba(196,154,110,0)}}
-.platform-soon{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text-dim);line-height:1.4;font-style:italic}
-.platform-soon::before{content:'';width:14px;height:1px;background:var(--secondary);opacity:.5}
+/* Try-a-Taste styles removed — section cut in overwhelm audit. */
 
 /* ── Offerings ── */
 .offerings{position:relative;background:linear-gradient(180deg,var(--bg) 0%,rgba(30,34,48,.3) 50%,var(--bg) 100%)}
@@ -600,8 +564,9 @@ html[lang="hy"] .t-en{display:none!important}
 .tf-back .tf-num::after{display:none}
 .tf-back .tf-title{font-size:1rem;margin-bottom:12px}
 .tf-back-outcomes{list-style:none;padding:0;margin:0 0 12px;flex:1}
-.tf-back-outcomes li{position:relative;padding:6px 0 6px 18px;font-size:.76rem;color:var(--text);line-height:1.5;border-top:1px solid var(--border)}
+.tf-back-outcomes li{position:relative;padding:6px 0 6px 18px;font-size:.76rem;color:var(--text-dim);line-height:1.5;border-top:1px solid var(--border)}
 .tf-back-outcomes li:first-child{border-top:none;padding-top:2px}
+.tf-back-outcomes li strong{color:var(--text);font-weight:600}
 .tf-back-outcomes li::before{content:'';position:absolute;left:0;top:12px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
 .tf-back-outcomes li:first-child::before{top:8px}
 .tf-cta-row{display:flex;gap:8px;align-items:stretch}
@@ -648,26 +613,14 @@ html[lang="hy"] .t-en{display:none!important}
 @media(prefers-reduced-motion:reduce){.tf-inner,.tf-face,.tf-front,.btn-whatsapp{transition:none}}
 
 /* ── Inclusive fields strip + levels note (Paths section) ── */
-.fields-strip{margin:28px 0 0;padding:22px 28px;border:1px solid var(--border);border-radius:var(--r-lg);background:rgba(240,236,230,.02)}
-.fs-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-.fs-rule{flex:0 0 24px;height:1px;background:var(--accent);opacity:.55;display:inline-block}
-.fs-label{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-subtle);font-weight:600}
-.fs-tags{display:flex;flex-wrap:wrap;gap:8px 10px;margin-bottom:14px}
-.ft{display:inline-flex;align-items:center;padding:6px 14px;border:1px solid var(--border-strong);border-radius:100px;font-size:.75rem;color:var(--text);font-weight:500;background:rgba(240,236,230,.02);letter-spacing:.01em;transition:border-color .2s,color .2s,background .2s;white-space:nowrap}
-.ft:hover{border-color:var(--accent);color:var(--accent);background:rgba(224,122,58,.05)}
-.fs-note{font-size:.82rem;color:var(--text-dim);line-height:1.6;margin:0;max-width:62ch}
-.levels-note{margin:14px 0 0;padding:22px 28px;border:1px solid rgba(201,168,106,.22);border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(201,168,106,.05),rgba(201,168,106,.01))}
-.ln-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px}
-.ln-badge .ln-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:.45}
-.ln-badge .ln-dot:nth-child(2){opacity:.7}
-.ln-badge .ln-dot:nth-child(3){opacity:1;box-shadow:0 0 0 2px rgba(201,168,106,.22)}
-.ln-kicker{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-left:4px}
-.ln-title{font-family:'Noto Serif Armenian',serif;font-size:1.1rem;font-weight:700;margin:0 0 6px;letter-spacing:-.01em;color:var(--text)}
-.ln-title em{font-style:italic;color:var(--gold)}
-.ln-desc{font-size:.82rem;color:var(--text-dim);line-height:1.65;margin:0;max-width:62ch}
+/* Slim tag row — no card chrome, centered, quiet. */
+.fields-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;margin:36px auto 0;max-width:720px;padding:0 var(--sp-4)}
+.ft{display:inline-flex;align-items:center;padding:6px 14px;border:1px solid var(--border-strong);border-radius:100px;font-size:.75rem;color:var(--text-dim);font-weight:500;background:transparent;letter-spacing:.01em;transition:border-color .2s,color .2s,background .2s;white-space:nowrap}
+.ft:hover{border-color:var(--accent);color:var(--accent);background:rgba(224,122,58,.04)}
+/* levels-note removed — duplicated the .ssub "foundation" idea above. */
 @media(max-width:640px){
-  .fields-strip,.levels-note{padding:18px 18px}
-  .fs-head{gap:10px;margin-bottom:12px}
+  .fields-strip{margin-top:28px;gap:6px 8px}
+  .ft{padding:5px 12px;font-size:.72rem}
 }
 
 /* ── Social Proof ── */
@@ -686,7 +639,7 @@ html[lang="hy"] .t-en{display:none!important}
 .faq-item{border-bottom:1px solid var(--card-border)}
 .faq-q{width:100%;background:none;border:none;color:var(--text);font-family:inherit;font-size:.95rem;font-weight:600;padding:22px 0;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:color .2s;letter-spacing:-.01em}
 .faq-q:hover{color:var(--accent)}
-.faq-q .arrow{width:20px;height:20px;border-radius:50%;background:rgba(245,239,230,.04);display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:.6rem;color:var(--text-dim);flex-shrink:0}
+.faq-q .arrow{width:28px;height:28px;border-radius:50%;background:rgba(245,239,230,.04);display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:.7rem;color:var(--text-dim);flex-shrink:0}
 .faq-item.open .faq-q .arrow{transform:rotate(180deg);background:var(--accent);color:#10131a}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
 .faq-item.open .faq-a{max-height:640px}
@@ -1151,27 +1104,17 @@ section.visible::after{width:200px}
     <canvas id="particles"></canvas>
   </div>
   <div class="hero-content">
-    <div class="hero-locator">
-      <span>[EN: A small school for AI][HY: AI-ի փոքրիկ դպրոց]</span>
-      <span class="loc-rule" aria-hidden="true"></span>
-      <span class="loc-cohort">[EN: Cohort 06 · May 2026][HY: Խումբ 06 · Մայիս 2026]</span>
-    </div>
     <h1 class="serif">[EN: Learn to work with AI, <span class="hl word-rotate" data-rotate="en"><span class="wr-item is-on">skillfully.</span><span class="wr-item">confidently.</span><span class="wr-item">effectively.</span></span>][HY: Սովորեք աշխատել AI-ի հետ <span class="hl word-rotate" data-rotate="hy"><span class="wr-item is-on">հմտորեն։</span><span class="wr-item">վստահորեն։</span><span class="wr-item">արդյունավետորեն։</span></span>]</h1>
     <p class="sub">[EN: AI isn&rsquo;t optional anymore &mdash; it&rsquo;s the new shape of work. Learn to master the tools that handle your routine, freeing your time and mind for what matters.][HY: AI-ն այլևս ընտրություն չէ, այլ աշխատանքային նոր իրականություն։ Սովորեք տիրապետել գործիքներին, որոնք կստանձնեն Ձեր առօրյա միօրինակ գործերը՝ ազատելով ժամանակ և միտքը կենտրոնացնելով կարևորի վրա։]</p>
     <div class="hero-cta-row">
       <a href="#" onclick="openSignup(null,'hero');return false" class="btn">[EN: Apply →][HY: Դիմել →]</a>
     </div>
     <a href="#fit" class="hero-secondary-link">[EN: Not sure which path fits? Take the 4-question quiz →][HY: Չգիտե՞ք որ ուղղությունն ընտրել։ Անցեք այս կարճ թեստը →]</a>
-    <div class="hero-meta" aria-hidden="true">
-      <span>[EN: 6 Classes][HY: 6 Դաս]</span>
-      <span>[EN: Online + Yerevan][HY: Օնլայն + Երևան]</span>
-      <span>[EN: Armenian &amp; English][HY: Հայերեն և Անգլերեն]</span>
-    </div>
     <div class="cohort-strip" role="status">
       <span class="cs-dot" aria-hidden="true"></span>
       <div>
         <div class="cs-status">[EN: Applications open][HY: Ընդունելությունը բաց է]</div>
-        <div class="cs-title">[EN: Cohort 06 — starts <em>May 19, 2026</em>][HY: Խումբ 06 — մեկնարկը՝ <em>Մայիսի 19, 2026</em>]</div>
+        <div class="cs-title">[EN: Next cohort — starts <em>May 19, 2026</em>][HY: Հաջորդ խումբ — մեկնարկը՝ <em>Մայիսի 19, 2026</em>]</div>
       </div>
       <div class="cs-field">
         <span class="cs-label">[EN: Next cohort][HY: Հաջորդ խումբը]</span>
@@ -1181,7 +1124,6 @@ section.visible::after{width:200px}
   </div>
   <div class="hero-passport" aria-hidden="true">
     <div class="pp-item"><span class="pp-label">[EN: Lat · Lon][HY: Լայն․ · Երկ․]</span><span class="pp-val">40.1792° N · 44.4991° E</span></div>
-    <div class="pp-item"><span class="pp-label">[EN: Established][HY: Հիմնադրված է]</span><span class="pp-val">[EN: 2024 · Yerevan][HY: 2024 · Երևան]</span></div>
   </div>
 </section>
 
@@ -1386,32 +1328,16 @@ section.visible::after{width:200px}
       </div>
 
     </div>
-    <!-- Inclusive fields strip -->
-    <div class="fields-strip fade-in">
-      <div class="fs-head">
-        <span class="fs-rule" aria-hidden="true"></span>
-        <span class="fs-label">[EN: You&rsquo;ll fit, whatever your field][HY: Անկախ ձեր ոլորտից, կգտնեք ձեր տեղը]</span>
-      </div>
-      <div class="fs-tags" role="list">
-        <span class="ft" role="listitem">[EN: Research][HY: Հետազոտություն]</span>
-        <span class="ft" role="listitem">[EN: Marketing &middot; SMM][HY: Մարքեթինգ &middot; SMM]</span>
-        <span class="ft" role="listitem">[EN: Founders][HY: Հիմնադիրներ]</span>
-        <span class="ft" role="listitem">[EN: Product][HY: Պրոդուկտ]</span>
-        <span class="ft" role="listitem">[EN: Writers][HY: Գրողներ]</span>
-        <span class="ft" role="listitem">[EN: Teachers][HY: Դասավանդողներ]</span>
-        <span class="ft" role="listitem">[EN: Students][HY: Ուսանողներ]</span>
-        <span class="ft" role="listitem">[EN: Designers][HY: Դիզայներներ]</span>
-      </div>
-      <p class="fs-note">[EN: Pick the cohort closest to your work &mdash; we shape the homework around what you bring. The foundation is universal; the examples are yours.][HY: Ընտրեք այն խումբը, որն առավել մոտ է Ձեր աշխատանքին &mdash; տնային առաջադրանքները մենք կհարմարեցնենք ըստ Ձեր բերած նյութի։ Հիմքը նույնն է բոլորի համար, օրինակները՝ Ձերը։]</p>
-    </div>
-    <!-- Levels / mindset note -->
-    <div class="levels-note fade-in">
-      <div class="ln-badge" aria-hidden="true">
-        <span class="ln-dot"></span><span class="ln-dot"></span><span class="ln-dot"></span>
-        <span class="ln-kicker">[EN: Level 01 &rarr; 02 &rarr; 03&hellip;][HY: Մակարդակ 01 &rarr; 02 &rarr; 03&hellip;]</span>
-      </div>
-      <h3 class="ln-title"><em>[EN: Each round, a level up.][HY: Ամեն անգամ՝ նոր մակարդակ։]</em></h3>
-      <p class="ln-desc">[EN: The six classes give you the foundation &mdash; a mindset, not a toolkit that expires. After that, it compounds: the tools keep moving, and so does what you can ask of them. Come back a year later and you&rsquo;ll be asking sharper questions, not relearning the basics.][HY: Վեց դասերը տալիս են հիմքը &mdash; մտածելակերպ, ոչ թե գործիքակազմ, որը կհնանա։ Դրանից հետո ամեն ինչ կուտակվում է. գործիքները զարգանում են, և Ձեր հարցերը նույնպես ավելի են սրվում։ Մեկ տարի անց կվերադառնաք և կտաք ավելի խորը հարցեր, ոչ թե կվերասովորեք հիմքը։]</p>
+    <!-- Inclusive fields tag row — just the tags, no chrome. -->
+    <div class="fields-strip fade-in" role="list" aria-label="[EN: Fields we support][HY: Ոլորտներ, որոնք ենք ընդգրկում]">
+      <span class="ft" role="listitem">[EN: Research][HY: Հետազոտություն]</span>
+      <span class="ft" role="listitem">[EN: Marketing &middot; SMM][HY: Մարքեթինգ &middot; SMM]</span>
+      <span class="ft" role="listitem">[EN: Founders][HY: Հիմնադիրներ]</span>
+      <span class="ft" role="listitem">[EN: Product][HY: Պրոդուկտ]</span>
+      <span class="ft" role="listitem">[EN: Writers][HY: Գրողներ]</span>
+      <span class="ft" role="listitem">[EN: Teachers][HY: Դասավանդողներ]</span>
+      <span class="ft" role="listitem">[EN: Students][HY: Ուսանողներ]</span>
+      <span class="ft" role="listitem">[EN: Designers][HY: Դիզայներներ]</span>
     </div>
   </div>
 </section>
@@ -1476,11 +1402,6 @@ section.visible::after{width:200px}
         </blockquote>
         <p class="about-body">[EN: I&rsquo;ve taught AI here in Yerevan and abroad &mdash; to teenagers and designers, founders and skeptics. Most arrive wanting to automate something. Most leave asking better questions instead.][HY: Ես AI եմ դասավանդել Երևանում և արտերկրում&mdash;պատանիներին, դիզայներներին, հիմնադիրներին և սկեպտիկներին։ Շատերը գալիս են ինչ-որ բան ավտոմատացնելու հույսով, բայց հեռանում են ավելի ճիշտ հարցեր տալու հմտությամբ։]</p>
         <p class="about-body">[EN: This school stays small on purpose. One instructor. One cohort at a time. One long conversation about what these tools can do for your work &mdash; and where they quietly start doing the thinking for you.][HY: Այս դպրոցը փոքր է մնում նպատակադրված։ Մեկ հրահանգիչ, մեկ խումբ։ Մեկ երկար զրույց այն մասին, թե ինչ կարող են այս գործիքներն անել Ձեր գործում, և որտեղ են դրանք սկսում մտածել Ձեր փոխարեն։]</p>
-        <div class="cred-row">
-          <span class="cred"><b>[EN: 2024&ndash;now][HY: 2024&ndash;այժմ]</b><span class="cred-role">[EN: Teaching AI][HY: Դասավանդում]</span></span>
-          <span class="cred"><b>[EN: Local &amp; Abroad][HY: Տեղական և արտերկրյա]</b><span class="cred-role">[EN: Cohorts taught][HY: Դասավանդված խմբեր]</span></span>
-          <span class="cred"><b>1&#8239;:&#8239;1</b><span class="cred-role">[EN: Instructor ratio][HY: Անհատական մոտեցում]</span></span>
-        </div>
         <div class="record" aria-label="[EN: Teaching record][HY: Դասավանդման փորձը]">
           <div class="record-item"><span class="r-num">04</span><span class="r-lbl">[EN: Cohorts run][HY: Անցկացված խմբեր]</span></div>
           <div class="record-item"><span class="r-num">60+</span><span class="r-lbl">[EN: Students taught][HY: Ուսանողների քանակ]</span></div>
@@ -1506,7 +1427,7 @@ section.visible::after{width:200px}
         <span class="pc-node" aria-hidden="true"></span>
         <div class="pc-card">
           <h3>[EN: Meet the tools &mdash; carefully.][HY: Ծանոթություն գործիքներին&mdash;սթափ հայացքով։]</h3>
-          <p>[EN: We open ChatGPT, Claude, and the rest &mdash; the real ones, not the demos &mdash; and see where they&rsquo;re brilliant and where they quietly go wrong. You leave with a working vocabulary.][HY: Մենք բացում ենք ChatGPT, Claude և մյուսները&mdash;իրական գործիքները, ոչ թե դեմոները&mdash;և տեսնում ենք՝ որտեղ են դրանք փայլում, և որտեղ՝ լուռ սխալվում։ Դուք դուրս եք գալիս աշխատանքային բազայով։]</p>
+          <p>[EN: Open the real tools. Watch them shine &mdash; and watch them quietly go wrong.][HY: Բացում ենք իրական գործիքները։ Տեսնում ենք՝ որտեղ են փայլում, և որտեղ՝ լուռ սխալվում։]</p>
           <span class="pc-make">
             <span class="pc-make-lbl">[EN: By the end][HY: Վերջում]</span>
             <span class="pc-make-val">[EN: Your first real prompt, tested.][HY: Ձեր առաջին իրական, փորձարկված հուշումը (prompt)։]</span>
@@ -1521,7 +1442,7 @@ section.visible::after{width:200px}
         <span class="pc-node" aria-hidden="true"></span>
         <div class="pc-card">
           <h3>[EN: Prompting, the careful way.][HY: Հուշումների (prompting) կառուցումը՝ սթափ ճանապարհով։]</h3>
-          <p>[EN: Role, context, task, format. We rewrite bad prompts together and keep the ones that hold up. No hacks. No gimmicks. Just the small structure that earns its place.][HY: Դեր, կոնտեքստ, առաջադրանք, ձևաչափ։ Մենք միասին վերախմբագրում ենք վատ հուշումները (prompts) և պահում նրանք, որոնք իրոք աշխատում են։ Ոչ մի աճպարարություն, միայն հստակ կառուցվածք։]</p>
+          <p>[EN: Role, context, task, format. A small structure that earns its keep.][HY: Դեր, կոնտեքստ, առաջադրանք, ձևաչափ։ Փոքր կառուցվածք, որը իրեն արդարացնում է։]</p>
           <span class="pc-make">
             <span class="pc-make-lbl">[EN: By the end][HY: Վերջում]</span>
             <span class="pc-make-val">[EN: Three prompts you&rsquo;ll keep using.][HY: Երեք հուշում (prompts), որոնք կիրառելու եք միշտ։]</span>
@@ -1536,7 +1457,7 @@ section.visible::after{width:200px}
         <span class="pc-node" aria-hidden="true"></span>
         <div class="pc-card">
           <h3>[EN: The thing you actually do.][HY: Այն, ինչ իրոք անում եք։]</h3>
-          <p>[EN: An email. A plan. A paper. A side project. We pick one piece of your real week and rebuild it with AI in the loop &mdash; then notice, honestly, what changed.][HY: Նամակ, պլան, հոդված կամ նախագիծ։ Մենք վերցնում ենք Ձեր իրական շաբաթվա մի մասը և վերակառուցում այն AI-ի օգնությամբ։ Հետո անկեղծ գնահատում ենք՝ ինչ փոխվեց։]</p>
+          <p>[EN: One piece of your real week. Rebuilt with AI. Notice what changed.][HY: Իրական շաբաթվա մի մաս՝ վերակառուցված AI-ով։ Նկատեք՝ ինչ փոխվեց։]</p>
           <span class="pc-make">
             <span class="pc-make-lbl">[EN: By the end][HY: Վերջում]</span>
             <span class="pc-make-val">[EN: One real task, done differently.][HY: Մեկ իրական գործ՝ արված նորովի։]</span>
@@ -1551,7 +1472,7 @@ section.visible::after{width:200px}
         <span class="pc-node" aria-hidden="true"></span>
         <div class="pc-card">
           <h3>[EN: Image. Sound. Motion.][HY: Պատկեր։ Ձայն։ Շարժում։]</h3>
-          <p>[EN: Pick a medium. Make a real thing &mdash; a generated image, a short video, a cloned voice, a piece of music. Then we critique it, together, the way an editor would.][HY: Ընտրեք ֆորմատը։ Ստեղծեք իրական բան՝ պատկեր, վիդեո, ձայն կամ երաժշտություն։ Հետո մենք միասին կվերլուծենք այն՝ ինչպես կաներ պրոֆեսիոնալ խմբագիրը։]</p>
+          <p>[EN: Pick a medium. Make something real. We critique it like an editor would.][HY: Ընտրեք միջոցը։ Ստեղծեք իրական բան։ Քննում ենք, ինչպես խմբագիրը։]</p>
           <span class="pc-make">
             <span class="pc-make-lbl">[EN: By the end][HY: Վերջում]</span>
             <span class="pc-make-val">[EN: One output you&rsquo;re not embarrassed by.][HY: Արդյունք, որի համար չեք ամաչի։]</span>
@@ -1566,7 +1487,7 @@ section.visible::after{width:200px}
         <span class="pc-node" aria-hidden="true"></span>
         <div class="pc-card">
           <h3>[EN: When to stop using it.][HY: Երբ դադարեցնել օգտագործումը։]</h3>
-          <p>[EN: The other half of the skill. Which decisions is AI quietly making for you? Which ones do you need to take back? We audit a week of your own work &mdash; and your instincts get sharper.][HY: Հմտության մյուս կողմը։ Ո՞ր որոշումներն է AI-ն գաղտնի կայացնում Ձեր փոխարեն։ Երբ է պետք հետ վերցնել վերահսկողությունը։ Մենք կվերլուծենք Ձեր աշխատանքային շաբաթը, և Ձեր բնազդներն ավելի կսրվեն։]</p>
+          <p>[EN: Which decisions is AI quietly making for you? We audit. You take them back.][HY: Ո՞ր որոշումներն է AI-ն կայացնում Ձեր փոխարեն։ Վերլուծում ենք։ Հետ եք վերցնում։]</p>
           <span class="pc-make">
             <span class="pc-make-lbl">[EN: By the end][HY: Վերջում]</span>
             <span class="pc-make-val">[EN: A sharper sense of when <em>not</em> to prompt.][HY: Ավելի սուր զգացողություն՝ երբ <em>չօգտագործել</em> հուշումներ (prompts)։]</span>
@@ -1581,7 +1502,7 @@ section.visible::after{width:200px}
         <span class="pc-node" aria-hidden="true"></span>
         <div class="pc-card">
           <h3>[EN: A final, real thing.][HY: Վերջնական, իրական արդյունք։]</h3>
-          <p>[EN: Something from your actual life &mdash; a portfolio piece, a school project, a job application, a side idea. You present it. We review it, carefully. You leave with one thing you&rsquo;re ready to publish.][HY: Մի բան Ձեր կյանքից&mdash;պորտֆոլիո, նախագիծ, աշխատանքի դիմում կամ գաղափար։ Դուք ներկայացնում եք, մենք սթափ քննարկում ենք։ Դուք դուրս եք գալիս մի արդյունքով, որը պատրաստ է հրապարակման։]</p>
+          <p>[EN: One thing from your actual life &mdash; presented, reviewed, ready to publish.][HY: Մեկ բան Ձեր կյանքից՝ ներկայացված, քննարկված, հրապարակման պատրաստ։]</p>
           <span class="pc-make">
             <span class="pc-make-lbl">[EN: The finale][HY: Ավարտը]</span>
             <span class="pc-make-val">[EN: One thing worth your name on it.][HY: Մի բան, որի տակ հպարտությամբ կստորագրեք։]</span>
@@ -1589,57 +1510,19 @@ section.visible::after{width:200px}
         </div>
       </li>
     </ol>
-    <p class="path-foot fade-in">[EN: <strong>Six classes later:</strong> something you built &mdash; not something we handed you.][HY: <strong>Վեց դաս անց.</strong> մի բան, որը Դուք եք ստեղծել, այլ ոչ թե մենք ենք Ձեզ տվել։]</p>
-  </div>
-</section>
-
-<!-- TRY A TASTE (interactive demo) — all copy in English, translate to Armenian via Gemini -->
-<section class="try-taste" id="try">
-  <div class="container">
-    <div class="sec-marker"><span class="sec-num">§ 05</span><span class="sec-rule"></span><span class="sec-name">[EN: Try a lesson][HY: Փորձեք դաս]</span></div>
-    <h2 class="stitle serif reveal-3d">[EN: See how a lesson feels][HY: Զգացեք դասի ընթացքը]</h2>
-    <p class="ssub fade-in">[EN: Type a real task. The result you&rsquo;ll see is the kind of thing a careful prompt gets you.][HY: Գրեք իրական առաջադրանք։ Արդյունքը ցույց կտա, թե ինչպես է աշխատում սթափ կազմված հուշումը (prompt)։]</p>
-
-    <div class="taste-grid">
-      <!-- Left: live prompt playground -->
-      <div class="taste-card taste-play fade-in">
-        <label class="taste-label" for="tasteIn">[EN: Your task][HY: Ձեր առաջադրանքը]</label>
-        <textarea id="tasteIn" class="taste-in" rows="3" placeholder="[EN: e.g. My friend said &lsquo;maybe later&rsquo; about our trip &mdash; what do they actually mean?][HY: օր․՝ Ընկերս ասաց «երևի հետո» մեր ճամփորդության մասին. ի՞նչ է դա իրականում նշանակում։]"></textarea>
-        <div class="taste-examples">
-          <span class="taste-ex-label">[EN: Or try a life hack:][HY: Կամ փորձեք այս տարբերակները.]</span>
-          <button type="button" class="taste-ex" data-ex="decode">[EN: Decode a text][HY: Վերծանել տեքստը]</button>
-          <button type="button" class="taste-ex" data-ex="decide">[EN: I&rsquo;m stuck on a decision][HY: Չեմ կարողանում որոշում կայացնել]</button>
-          <button type="button" class="taste-ex" data-ex="name">[EN: Name my thing][HY: Անուն մտածել նախագծի համար]</button>
-        </div>
-        <button type="button" id="tasteRun" class="btn taste-run">[EN: See my result &rarr;][HY: Տեսնել արդյունքը &rarr;]</button>
-        <div class="taste-out" id="tasteOut" aria-live="polite">
-          <div class="taste-out-hint">[EN: Your AI-generated result will appear here &mdash; just like it does in ChatGPT or Claude.][HY: Ձեր արդյունքը կհայտնվի այստեղ&mdash;ճիշտ այնպես, ինչպես ChatGPT-ում կամ Claude-ում։]</div>
-        </div>
-      </div>
-
-      <!-- Right: platform preview / what's inside -->
-      <div class="taste-card taste-platform fade-in">
-        <span class="platform-badge"><span class="pb-dot" aria-hidden="true"></span>[EN: Coming &middot; Phase 02][HY: Շուտով &middot; Փուլ 02]</span>
-        <h3 class="taste-h3 serif">[EN: A learning platform, built alongside you.][HY: Ուսումնական հարթակ՝ ստեղծված Ձեզ հետ միասին։]</h3>
-        <p class="taste-p">[EN: A small interactive classroom &mdash; lessons you work through, a prompt library, a gallery of real outputs, and homework tied to real situations. We&rsquo;re building it with Cohort 05 students and opening it up after.][HY: Ինտերակտիվ դասարան&mdash;դասեր, հուշումների (prompts) գրադարան և իրական աշխատանքների պատկերասրահ։ Մենք սա կառուցում ենք մայիսյան խմբի հետ միասին և կբացենք այն ավելի ուշ։]</p>
-        <ul class="taste-list">
-          <li><span class="taste-dot"></span>[EN: Lessons you work through, not watch][HY: Դասեր, որոնք անցնում եք գործնականում, ոչ թե պարզապես դիտում]</li>
-          <li><span class="taste-dot"></span>[EN: A prompt library you can copy from][HY: Հուշումների (prompts) գրադարան, որից կարող եք օգտվել]</li>
-          <li><span class="taste-dot"></span>[EN: A gallery of real outputs to study][HY: Իրական արդյունքների պատկերասրահ՝ վերլուծության համար]</li>
-          <li><span class="taste-dot"></span>[EN: Homework tied to real-world scenarios][HY: Տնային առաջադրանքներ՝ կապված իրական կյանքի հետ]</li>
-        </ul>
-        <div class="taste-cta-row">
-          <span class="platform-soon">[EN: Enrolled students get early access.][HY: Գրանցված ուսանողները կստանան վաղ հասանելիություն։]</span>
-        </div>
-      </div>
+    <div class="path-swipe-hint" aria-hidden="true">
+      <span class="psh-arrow">&#8592;</span>
+      <span class="psh-label">[EN: swipe through six classes][HY: սահեցրեք վեց դասով]</span>
+      <span class="psh-arrow">&#8594;</span>
     </div>
+    <p class="path-foot fade-in">[EN: <strong>Six classes later:</strong> something you built &mdash; not something we handed you.][HY: <strong>Վեց դաս անց.</strong> մի բան, որը Դուք եք ստեղծել, այլ ոչ թե մենք ենք Ձեզ տվել։]</p>
   </div>
 </section>
 
 <!-- FAQ -->
 <section class="faq" id="faq">
   <div class="container">
-    <div class="sec-marker"><span class="sec-num">§ 06</span><span class="sec-rule"></span><span class="sec-name">[EN: Questions][HY: Հարցեր]</span></div>
+    <div class="sec-marker"><span class="sec-num">§ 05</span><span class="sec-rule"></span><span class="sec-name">[EN: Questions][HY: Հարցեր]</span></div>
     <h2 class="stitle serif reveal-3d">[EN: Questions people ask][HY: Հարցեր, որոնք մեզ տալիս են]</h2>
     <p class="ssub fade-in" style="display:none"></p>
     <div class="faq-list">
@@ -1727,7 +1610,7 @@ section.visible::after{width:200px}
 <div class="modal-overlay" id="modal-signup" onclick="closeModal(event)">
   <div class="modal apply-modal"><button class="modal-close" onclick="closeModal(event,true)" aria-label="[EN: Close][HY: Փակել]">&times;</button>
     <div class="apply-head">
-      <div class="sec-marker" style="margin-bottom:14px"><span class="sec-num">&sect; [EN: Apply][HY: Դիմել]</span><span class="sec-rule"></span><span class="sec-name">[EN: Cohort 06][HY: Խումբ 06]</span></div>
+      <div class="sec-marker" style="margin-bottom:14px"><span class="sec-num">&sect; [EN: Apply][HY: Դիմել]</span><span class="sec-rule"></span><span class="sec-name">[EN: Next cohort][HY: Հաջորդ խումբ]</span></div>
       <h2 class="serif apply-title"><em>[EN: Write us.][HY: Գրեք մեզ։]</em> [EN: We&rsquo;ll read it.][HY: Մենք կկարդանք։]</h2>
       <p class="apply-sub">[EN: Three fields. A real person replies on WhatsApp within 24 hours &mdash; usually faster.][HY: Երեք դաշտ։ Իրական մարդ կպատասխանի Ձեզ WhatsApp-ով 24 ժամվա ընթացքում — սովորաբար ավելի արագ։]</p>
       <div class="apply-cohort"><span>[EN: <b>May 19</b> start][HY: Մեկնարկը՝ <b>Մայիսի 19-ին</b>]</span><span class="dot"></span><span>[EN: Next: <b>Autumn 2026</b>][HY: Հաջորդ՝ <b>Աշուն 2026</b>]</span><span class="dot"></span><span>[EN: <b>Online</b> + Yerevan][HY: <b>Օնլայն</b> + Երևան]</span></div>
@@ -2042,6 +1925,19 @@ section.visible::after{width:200px}
       });
     },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
     pathObs.observe(pathSec);
+
+    /* Swipe affordance — fade the hint the first time the rail actually moves */
+    var rail=pathSec.querySelector('.path-rail');
+    var hint=pathSec.querySelector('.path-swipe-hint');
+    if(rail && hint){
+      var hide=function(){
+        if(rail.scrollLeft>8){
+          hint.classList.add('has-scrolled');
+          rail.removeEventListener('scroll',hide);
+        }
+      };
+      rail.addEventListener('scroll',hide,{passive:true});
+    }
   })();
 
   /* ── Modals (only signup modal remains; flip cards replaced per-track modals) ── */
@@ -2715,78 +2611,9 @@ section.visible::after{width:200px}
     });
   })();
 
-  /* ── Try-a-Taste prompt playground ── */
-  (function(){
-    var inEl=document.getElementById('tasteIn');
-    var outEl=document.getElementById('tasteOut');
-    var runBtn=document.getElementById('tasteRun');
-    if(!inEl||!outEl||!runBtn)return;
-    // Examples and simulated outputs — small "life hack" prompts that show
-    // AI doing something surprising, not just writing office email.
-    // Keep results tight (~120 words) so the typing animation stays snappy.
-    var EX={
-      decode:{
-        prompt:"My friend just texted \u201Cyeah sure, whatever works\u201D after I asked her to pick a place for dinner. What does she actually mean?",
-        result:"\u201CWhatever works\u201D after you asked her to pick is rarely enthusiasm. It\u2019s usually one of three things \u2014 most likely first:\n\n1. She\u2019s tired and wants you to decide. Don\u2019t ask again. Pick a place and send the pin.\n2. She had a preference but felt it wasn\u2019t welcome. Try: \u201CI was hoping you\u2019d pick \u2014 what did you actually want?\u201D\n3. She\u2019s fine, just a short texter. Rare, but possible.\n\nThe move: stop asking, start deciding. If she says no to your pick, now you have real information."
-      },
-      decide:{
-        prompt:"I\u2019ve been stuck for 3 weeks between a better-paying job I\u2019ll dread and the one where I\u2019m underpaid but respected. Help me decide.",
-        result:"Three weeks of stuck isn\u2019t indecision \u2014 it\u2019s already an answer you haven\u2019t let yourself hear.\n\nTry this before you decide: say out loud, \u201CIf the pay was equal, which would I pick?\u201D Your first two seconds of answer is the real one.\n\nNow the real question isn\u2019t which job. It\u2019s: \u201CIs the pay gap worth who I become in the dread job for a year?\u201D\n\nWrite down the number. Multiply it by 12. Look at it. Then write who you\u2019d be by month 8 in that role. Decide on that, not the salary. You\u2019ll know."
-      },
-      name:{
-        prompt:"I\u2019m starting a small online shop for handmade ceramics from Yerevan. Everything I come up with sounds like a tech startup.",
-        result:"Startup names happen when you reach for English tech words. A handmade shop from Yerevan should sound handmade and from Yerevan.\n\nTen directions that aren\u2019t startup-y:\n\n1. Kav & Kar \u2014 \u201Cclay\u201D and \u201Cstone\u201D in Armenian. Short, gritty.\n2. The Clay Hour \u2014 a ritual, not a brand.\n3. Yerevan Hand \u2014 confident, geographic.\n4. Soft Stone Studio \u2014 an oxymoron sticks.\n5. Araks Clay \u2014 named after the river.\n6. Small Oven \u2014 warm, modest, honest.\n7. Eight Fingers \u2014 a workshop detail, specific.\n8. Mayr Hogh \u2014 \u201Cmother earth,\u201D roots deep.\n9. Kilncraft Yerevan \u2014 function plus place.\n10. Vardananc Ceramics \u2014 named studio, not a brand.\n\nAvoid \u2011ly, \u2011ify, \u201CCo.,\u201D or anything ending in \u201CStudios.\u201D The name should feel like it belongs in a hand, not a pitch deck."
-      },
-      email:{
-        prompt:"Help me write an email declining a meeting a client invited me to. I don\u2019t want to sound dismissive.",
-        result:"The trick with declining is that most drafts try to apologise, and apology is what makes it sound dismissive. Replace it with a real reason and a next step.\n\nDraft:\n\n\u201CHi [Name],\n\nThanks for including me \u2014 I\u2019d been looking forward to it, and I want to give the topic real attention instead of half-attention on Thursday.\n\nCan we do a focused 20 minutes the week after? I\u2019ll come with [specific thing] ready to discuss. If it\u2019s truly time-sensitive, a voice note today works and I\u2019ll reply by end of day.\n\nBest,\n[You]\u201D\n\nWhy this lands: it declines once, gives a reason that flatters the topic (not yourself), and offers two real alternatives. No \u201Csorry,\u201D no \u201Cunfortunately,\u201D no calendar screenshot."
-      }
-    };
-    function matchResult(q){
-      var s=(q||'').toLowerCase();
-      // Subtext / interpretation: what did someone mean
-      if(/\bmean|decode|subtext|really saying|whatever|maybe later|said to me|texted|ghost|replied?|silence|read into|interpret|passive[- ]aggressive|friend|partner|boyfriend|girlfriend|ex\b|crush|date\b/.test(s))return EX.decode.result;
-      // Decision / choice / stuck
-      if(/decide|decision|stuck|pick|choose|choice|between|dilemma|should i|torn|which (one|should)|option|quit|leave|stay|accept|reject|offer|move (to|back)/.test(s))return EX.decide.result;
-      // Naming / branding
-      if(/\bname|brand|called|naming|title(s)?|shop|business name|startup name|handle|domain|logo|come up with a name/.test(s))return EX.name.result;
-      // Professional writing: email, message, decline, reply, announcement
-      if(/\bemail|decline|reject|meeting|invite|schedule|polite|professional|say no|push back|boss|client|draft (a|an|me)|reply|respond to|announce|memo\b/.test(s))return EX.email.result;
-      // Graceful fallback \u2014 no sales pitch, no "in the full cohort." A real-shape
-      // simulated AI reply that acknowledges the ask and returns something useful.
-      var clean=q.replace(/[?!.]+$/,'').trim();
-      var hint=clean.length>84?clean.slice(0,84)+'\u2026':clean;
-      return 'A good answer to \u201C'+hint+'\u201D starts by making the question sharper. Here\u2019s the shape I\u2019d use:\n\n1. What outcome do you actually want? Not the surface ask (\u201Chelp me write\u2026,\u201D \u201Chelp me decide\u2026\u201D) \u2014 the real thing you want to be true once this is done.\n2. Who is this for, and what do they already know? One line of context changes the answer more than any clever phrasing.\n3. What would make the answer wrong? Name the constraint, the tone you don\u2019t want, the thing you\u2019ve already tried and it didn\u2019t work.\n\nAdd any one of those to your prompt and ask again \u2014 the reply jumps a full quality grade. That\u2019s the whole craft in one move.';
-    }
-    function typeOut(txt){
-      outEl.classList.add('has-result');
-      outEl.innerHTML='';
-      var i=0;var lines=txt.split('\n');var lineIdx=0;var charIdx=0;
-      var cur=document.createElement('span');cur.className='ty-line';outEl.appendChild(cur);
-      var cursor=document.createElement('span');cursor.className='ty-cursor';outEl.appendChild(cursor);
-      var timer=setInterval(function(){
-        if(lineIdx>=lines.length){clearInterval(timer);cursor.remove();return;}
-        var line=lines[lineIdx];
-        if(charIdx<line.length){cur.textContent+=line.charAt(charIdx);charIdx++;}
-        else{lineIdx++;charIdx=0;if(lineIdx<lines.length){cur=document.createElement('span');cur.className='ty-line';cur.textContent='\n';outEl.insertBefore(cur,cursor);cur=document.createElement('span');cur.className='ty-line';outEl.insertBefore(cur,cursor);}}
-      },12);
-    }
-    function run(){
-      var q=inEl.value.trim();
-      if(!q){inEl.focus();inEl.style.borderColor='rgba(224,122,58,.6)';setTimeout(function(){inEl.style.borderColor=''},1200);return;}
-      outEl.classList.add('has-result');
-      outEl.innerHTML='<div class="taste-out-hint" style="font-style:normal;color:var(--accent)">[EN: Thinking...][HY: Մտածում է...] <span class="ty-cursor"></span></div>';
-      setTimeout(function(){typeOut(matchResult(q))},650);
-    }
-    runBtn.addEventListener('click',run);
-    inEl.addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&e.key==='Enter')run();});
-    document.querySelectorAll('.taste-ex').forEach(function(b){
-      b.addEventListener('click',function(){
-        var k=b.getAttribute('data-ex');var ex=EX[k];if(!ex)return;
-        inEl.value=ex.prompt;run();
-      });
-    });
-  })();
+  /* Try-a-Taste section removed (overwhelm audit 2026-04): simulated
+     replies duplicated ChatGPT without lesson value. See git history for
+     the EX keyword bucket + typewriter code if we ever revive it. */
 
   /* ── FAQ ──
      Accordion behaviour + a11y: each button gets aria-expanded and aria-controls
@@ -2844,14 +2671,16 @@ section.visible::after{width:200px}
       syncStickyCta();
     },{threshold:0}).observe(footerEl);
   }
-  /* Hide sticky while quiz is materially in view (≥40% of its height).
-     Protects the quiz options + result rail from a floating bar that
-     would otherwise cover their bottom ~62px on mobile. */
+  /* Hide sticky while the quiz is in view. On tall viewports intersectionRatio
+     can cap below 0.4 (quiz section is taller than screen), so we use a
+     rootMargin-based trigger: quiz is "active" if any part is in the middle
+     60% of the viewport. Prevents the floating Apply bar from doubling up on
+     the quiz Continue CTA on small screens. */
   if(quizEl){
     new IntersectionObserver(function(entries){
-      quizActive = entries[0].isIntersecting && entries[0].intersectionRatio>=0.4;
+      quizActive = entries[0].isIntersecting;
       syncStickyCta();
-    },{threshold:[0, 0.4, 0.8]}).observe(quizEl);
+    },{threshold:0, rootMargin:'-20% 0px -20% 0px'}).observe(quizEl);
   }
 
   /* ── Scroll fade ── */
