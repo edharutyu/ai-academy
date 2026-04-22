@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-20",
+  "version": "2026-04-22",
   "notes": "Update this file and push to GitHub to unlock sessions for all students. Set each courseId to the highest session number students can access.",
   "unlocks": {
     "1": 4,
@@ -7,6 +7,7 @@
     "3": 6,
     "4": 5,
     "5": 4,
-    "6": 4
+    "6": 4,
+    "7": 6
   }
 }

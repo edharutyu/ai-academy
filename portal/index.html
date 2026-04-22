@@ -1496,7 +1496,7 @@ var PASS_S='academy2026',PASS_T='TEACHER_PASS',_r='';
    copy JSON → paste into portal/unlocks.json → commit & push.
    DEFAULT_UNLOCKS is the fallback if unlocks.json fetch fails.
 */
-var DEFAULT_UNLOCKS={1:4, 2:5, 3:6, 4:5, 5:4, 6:4};
+var DEFAULT_UNLOCKS={1:4, 2:5, 3:6, 4:5, 5:4, 6:4, 7:6};
 var REMOTE_UNLOCKS_VERSION=null;
 function LS(k,v){var K='aap_'+k;if(v===undefined){try{return JSON.parse(localStorage.getItem(K))}catch(e){return null}}localStorage.setItem(K,JSON.stringify(v))}
 function E(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML}
@@ -2222,25 +2222,25 @@ var CL={subject:'Subject',role:'Role',context:'Context',lighting:'Lighting',task
 function rBlock(b,id){
 var h='';
 if(b.type==='text')h+='<div class="tblk">'+b.content+'</div>';
-else if(b.type==='key-points'){h+='<ul class="kpl">';b.points.forEach(function(p){h+='<li><span class="kpd"></span><span>'+E(p)+'</span></li>'});h+='</ul>'}
+else if(b.type==='key-points'){h+='<ul class="kpl">';b.points.forEach(function(p){h+='<li><span class="kpd"></span><span>'+p+'</span></li>'});h+='</ul>'}
 else if(b.type==='prompt-anatomy')h+=bPA(b,id);
 else if(b.type==='method-compare'){h+='<div class="mcg">';b.methods.forEach(function(m){h+='<div class="mc"><div class="mc-ic">'+E(m.icon)+'</div><div class="mc-nm">'+E(m.name)+'</div><div class="mc-ds">'+E(m.desc)+'</div><div class="mc-wh">'+E(m.when)+'</div></div>'});h+='</div>'}
 else if(b.type==='callout'){h+='<div class="callout"><div class="callout-label">'+(b.label||'Key Insight')+'</div><div class="callout-body">'+b.content+'</div></div>'}
 else if(b.type==='divider')h+='<div class="content-divider"></div>';
-else if(b.type==='visual-tip'){h+='<div class="vtip-grid">';b.tips.forEach(function(t){h+='<div class="vtip"><div class="vtip-icon">'+E(t.icon)+'</div><div class="vtip-body"><div class="vtip-title">'+E(t.title)+'</div><div class="vtip-desc">'+E(t.desc)+'</div></div></div>'});h+='</div>'}
+else if(b.type==='visual-tip'){h+='<div class="vtip-grid">';b.tips.forEach(function(t){h+='<div class="vtip"><div class="vtip-icon">'+E(t.icon)+'</div><div class="vtip-body"><div class="vtip-title">'+E(t.title)+'</div><div class="vtip-desc">'+t.desc+'</div></div></div>'});h+='</div>'}
 else if(b.type==='visual-compare'){
 h+='<div class="vcomp">';
-h+='<div class="vcomp-side bad"><div class="vcomp-label"><span class="vcomp-mark">\u2014</span> Before</div><div class="vcomp-prompt">'+E(b.bad.prompt)+'</div><div class="vcomp-result">'+E(b.bad.result)+'</div>';
+h+='<div class="vcomp-side bad"><div class="vcomp-label"><span class="vcomp-mark">\u2014</span> Before</div><div class="vcomp-prompt">'+E(b.bad.prompt)+'</div><div class="vcomp-result">'+b.bad.result+'</div>';
 if(b.bad.img)h+='<img class="vcomp-img" src="'+E(b.bad.img)+'" alt="Bad result">';
 h+='</div>';
-h+='<div class="vcomp-side good"><div class="vcomp-label"><span class="vcomp-mark">+</span> After</div><div class="vcomp-prompt">'+E(b.good.prompt)+'</div><div class="vcomp-result">'+E(b.good.result)+'</div>';
+h+='<div class="vcomp-side good"><div class="vcomp-label"><span class="vcomp-mark">+</span> After</div><div class="vcomp-prompt">'+E(b.good.prompt)+'</div><div class="vcomp-result">'+b.good.result+'</div>';
 if(b.good.img)h+='<img class="vcomp-img" src="'+E(b.good.img)+'" alt="Good result">';
 h+='</div></div>'}
-else if(b.type==='tool-spotlight'){h+='<div class="tspot"><div class="tspot-icon">'+E(b.icon)+'</div><div class="tspot-info"><div class="tspot-name">'+E(b.name)+'</div><div class="tspot-desc">'+E(b.desc)+'</div></div>'+(b.url?'<a class="tspot-link" href="'+E(b.url)+'" target="_blank" rel="noopener">Open Tool \u2192</a>':'')+'</div>'}
+else if(b.type==='tool-spotlight'){h+='<div class="tspot"><div class="tspot-icon">'+E(b.icon)+'</div><div class="tspot-info"><div class="tspot-name">'+E(b.name)+'</div><div class="tspot-desc">'+b.desc+'</div></div>'+(b.url?'<a class="tspot-link" href="'+E(b.url)+'" target="_blank" rel="noopener">Open Tool \u2192</a>':'')+'</div>'}
 else if(b.type==='prompt-playground'){h+=bPG(b,id)}
 else if(b.type==='cheat-sheet'){
-h+='<div class="cheat"><div class="cheat-hdr">'+(b.icon||'\u{1F4CB}')+' '+E(b.title)+'</div><div class="cheat-grid">';
-b.items.forEach(function(it){h+='<div class="cheat-item"><div class="cheat-item-name">'+E(it.name)+'</div><div class="cheat-item-desc">'+E(it.desc)+'</div>'+(it.tag?'<div class="cheat-item-tag '+E(it.tag)+'">'+E(it.tag)+'</div>':'')+'</div>'});
+h+='<div class="cheat"><div class="cheat-hdr">'+(b.icon?b.icon+' ':'<span class="sec-num">\u00a7</span> ')+E(b.title)+'</div><div class="cheat-grid">';
+b.items.forEach(function(it){h+='<div class="cheat-item"><div class="cheat-item-name">'+E(it.name)+'</div><div class="cheat-item-desc">'+it.desc+'</div>'+(it.tag?'<div class="cheat-item-tag '+E(it.tag)+'">'+E(it.tag)+'</div>':'')+'</div>'});
 h+='</div></div>'}
 return h;
 }
