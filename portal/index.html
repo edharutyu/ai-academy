@@ -207,8 +207,9 @@ input,textarea,select{font-family:inherit}
 .ps-step.active{background:var(--gold);color:#fff}
 .ps-step.done{background:rgba(63,185,80,.1);color:#3FB950}
 .ps-step.locked{opacity:.4;cursor:default;pointer-events:none}
-.ps-icon{font-size:1rem;line-height:1}
-.ps-label{font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.ps-num{font-family:var(--serif);font-style:italic;font-weight:500;font-size:.78rem;line-height:1;color:var(--secondary);letter-spacing:.02em}
+.ps-step.active .ps-num{color:rgba(255,255,255,.85)}
+.ps-label{font-family:var(--serif);font-size:.78rem;font-weight:600;letter-spacing:.01em;white-space:nowrap;text-transform:none}
 .ps-step:not(.active):not(.locked):hover{background:rgba(26,21,16,.06)}
 .ps-sep{width:1px;height:24px;background:rgba(26,21,16,.10);flex-shrink:0}
 
@@ -706,8 +707,9 @@ input,textarea,select{font-family:inherit}
 .cc-head{height:88px;background:var(--cc);border-radius:18px 18px 0 0;display:flex;align-items:flex-end;padding:14px 20px;gap:12px;position:relative;overflow:hidden}
 .cc-head::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.28) 0%,rgba(0,0,0,.06) 55%,rgba(255,255,255,.06) 100%);pointer-events:none}
 .cc-head::after{content:'';position:absolute;top:-40px;right:-20px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.10);pointer-events:none}
-.cc-head-icon{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:1.5rem;backdrop-filter:blur(8px);flex-shrink:0;border:1.5px solid rgba(255,255,255,.35);position:relative;z-index:1}
-.cc-head-label{font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.9);line-height:1;position:relative;z-index:1;text-shadow:0 1px 3px rgba(0,0,0,.2)}
+.cc-head-icon{width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);flex-shrink:0;border:1px solid rgba(255,255,255,.25);position:relative;z-index:1}
+.cc-head-num{font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.2rem;color:rgba(255,255,255,.95);letter-spacing:-.01em;line-height:1}
+.cc-head-label{font-family:var(--serif);font-style:italic;font-size:.85rem;font-weight:500;letter-spacing:.01em;text-transform:none;color:rgba(255,255,255,.95);line-height:1.2;position:relative;z-index:1}
 .cc-body{padding:0 20px 4px;padding-top:16px}
 .cc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
 .cc-track{position:absolute;top:10px;left:12px;z-index:2;font-size:.55rem;font-weight:700;padding:4px 9px 4px 7px;border-radius:999px;letter-spacing:1px;background:rgba(255,255,255,.92);color:var(--text);box-shadow:0 2px 6px rgba(0,0,0,.1);display:inline-flex;align-items:center;gap:5px}
@@ -749,17 +751,19 @@ input,textarea,select{font-family:inherit}
 .snode-line.sn-ldone{background:var(--cc,var(--gold));opacity:.4}
 
 /* ═══ HERO BANNER ═══ */
-.hero-banner{border-radius:20px;overflow:hidden;margin-bottom:28px;position:relative;background:linear-gradient(135deg,#1F1A14 0%,#2B2319 40%,#4A3420 72%,#8B4A1F 140%);padding:40px 36px 36px;color:#fff}
+.hero-banner{border-radius:18px;overflow:hidden;margin-bottom:28px;position:relative;background:var(--bg2);border:1px solid var(--hairline);padding:44px 40px 36px;color:var(--text)}
+.hero-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent)}
+.hero-banner::after{content:'';position:absolute;top:40px;left:40px;width:40px;height:1px;background:var(--secondary);opacity:.45}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 85% 40%,rgba(124,58,237,.35) 0%,transparent 62%),radial-gradient(ellipse at 15% 85%,rgba(16,185,129,.18) 0%,transparent 55%);pointer-events:none}
 .hero-content{position:relative;z-index:1;max-width:600px}
-.hero-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:10px}
-.hero-title{font-size:2.3rem;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:-0.02em;line-height:1.15;color:#fff;margin-bottom:8px}
-.hero-sub{font-size:.9rem;color:rgba(255,255,255,.6);margin-bottom:24px;font-weight:400;line-height:1.5}
-.hero-stats{display:flex;align-items:center;gap:20px}
+.hero-eyebrow{font-family:var(--serif);font-style:italic;font-size:.78rem;font-weight:500;letter-spacing:.04em;text-transform:none;color:var(--secondary);margin-bottom:12px;padding-left:52px}
+.hero-title{font-size:2.4rem;font-weight:700;font-family:var(--serif);letter-spacing:-.012em;line-height:1.1;color:var(--text);margin-bottom:10px}
+.hero-sub{font-size:.98rem;color:var(--text-mid);margin-bottom:28px;font-weight:400;line-height:1.55;font-family:var(--serif);font-style:italic;max-width:52ch}
+.hero-stats{display:flex;align-items:center;gap:24px;border-top:1px solid var(--hairline);padding-top:22px}
 .hero-stat{display:flex;flex-direction:column;gap:2px}
-.hero-stat-n{font-size:1.4rem;font-weight:700;color:#fff;font-family:'Inter',sans-serif;line-height:1}
-.hero-stat-l{font-size:.65rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5)}
-.hero-stat-div{width:1px;height:32px;background:rgba(255,255,255,.15)}
+.hero-stat-n{font-size:1.6rem;font-weight:700;color:var(--accent);font-family:var(--serif);line-height:1;letter-spacing:-.01em}
+.hero-stat-l{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted)}
+.hero-stat-div{width:1px;height:34px;background:var(--hairline)}
 
 /* ═══ COURSE FILTERS ═══ */
 .course-filters{display:flex;gap:6px;padding:4px;background:#f3efe8;border-radius:14px;margin-bottom:24px;flex-wrap:wrap}
@@ -1197,10 +1201,12 @@ input,textarea,select{font-family:inherit}
 @media(min-width:769px){.fab-back{bottom:24px;right:24px}}
 
 /* ═══ PROGRESS EMPTY STATE ═══ */
-.prog-empty{text-align:center;padding:40px 20px;margin-bottom:28px}
-.prog-empty-icon{font-size:3rem;margin-bottom:12px;display:block;animation:float 3s ease-in-out infinite}
-.prog-empty-title{font-size:1.2rem;font-weight:700;font-family:'Inter',sans-serif;margin-bottom:6px}
-.prog-empty-desc{font-size:.88rem;color:var(--text-dim);margin-bottom:18px;line-height:1.5}
+.prog-empty{text-align:left;padding:52px 44px;margin:8px 0 28px;background:var(--bg2);border:1px solid var(--hairline);border-radius:18px;position:relative;overflow:hidden;max-width:640px}
+.prog-empty::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent)}
+.prog-empty-eyebrow{font-family:var(--serif);font-style:italic;color:var(--secondary);font-size:.85rem;font-weight:500;letter-spacing:.01em;margin-bottom:14px}
+.prog-empty-title{font-family:var(--serif);font-size:1.9rem;font-weight:700;color:var(--text);letter-spacing:-.012em;line-height:1.15;margin-bottom:12px}
+.prog-empty-desc{font-size:.98rem;color:var(--text-mid);margin-bottom:20px;line-height:1.6;font-family:var(--serif);font-style:italic;max-width:54ch}
+.prog-empty-meta{font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);margin-bottom:26px;padding-top:18px;border-top:1px solid var(--hairline)}
 
 /* ═══ TOOL LEVEL BADGES ═══ */
 .tool-level{font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;position:absolute;top:8px;right:8px}
@@ -1322,6 +1328,29 @@ input,textarea,select{font-family:inherit}
 .lib-sec-ttl{font-family:var(--serif);font-size:1.45rem;font-weight:700;color:var(--text);letter-spacing:-.01em;margin:0;line-height:1.2}
 .lib-sec-sub{font-size:.88rem;color:var(--text-mid);margin:0;flex-basis:100%;margin-top:-2px}
 @media (max-width:640px){.lib-subnav{top:56px}.lib-sec-ttl{font-size:1.2rem}}
+
+/* ═══ WAVE 1 POLISH — numerals, hairlines, emoji-free chrome ═══ */
+/* Journey strip numeral prefix */
+.jn-num{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--secondary);margin-right:6px;opacity:.9}
+.journey-node.jn-active .jn-num{color:var(--accent)}
+
+/* Progress course-row numeral prefix */
+.pcrn{display:flex;align-items:center;gap:10px}
+.pcrn-num{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--secondary);font-size:.95em;min-width:1.2em;text-align:center}
+
+/* Homework line numeral prefix */
+.hwli-num{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--secondary);letter-spacing:.01em;margin-right:6px}
+
+/* Hairline gold top on content cards (echoes landing) */
+.cc,.hub-tile,.sess-item,.home-card,.continue-card,.ps,.ucard,.bcard,.hwli,.pcr,.next-step{position:relative}
+.cc::after,.hub-tile::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent);opacity:.35;pointer-events:none;z-index:3;transition:opacity var(--dur-norm) var(--ease)}
+.cc:hover::after,.hub-tile:hover::after{opacity:1}
+
+/* Course-card colors are now warm bronze family — soften the legacy overlay */
+.cc-head::before{background:linear-gradient(135deg,rgba(0,0,0,.2) 0%,rgba(0,0,0,.04) 55%,rgba(255,255,255,.05) 100%)}
+
+/* Chdr2 (lesson course header) — replace boxy icon with numeral */
+.chdr2-icon{background:rgba(255,255,255,.1)!important;border:1px solid rgba(255,255,255,.25)!important;font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.25rem!important}
 </style>
 </head>
 <body>
@@ -1414,9 +1443,9 @@ input,textarea,select{font-family:inherit}
         <div id="labWrap"></div>
       </section>
     </div>
-    <div class="section" id="secProgress"><div class="sec-hdr"><div class="sec-dots"><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div></div><div class="sec-hdr-title">📊 My Progress</div><div class="sec-hdr-sub">Your learning journey — sessions completed, badges earned</div></div><div id="progWrap"></div></div>
+    <div class="section" id="secProgress"><div class="sec-hdr"><div class="sec-dots"><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div></div><div class="sec-hdr-title"><span class="sec-num">§</span> My Progress</div><div class="sec-hdr-sub">Your learning journey — sessions completed, badges earned.</div></div><div id="progWrap"></div></div>
     <div class="section teacher-only" id="secTeach">
-      <div class="sec-hdr"><div class="sec-dots"><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div></div><div class="sec-hdr-title">🎓 Teacher Panel</div><div class="sec-hdr-sub">Course controls, session unlocks, student tracker</div></div>
+      <div class="sec-hdr"><div class="sec-dots"><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div></div><div class="sec-hdr-title"><span class="sec-num">§</span> Teacher Panel</div><div class="sec-hdr-sub">Course controls, session unlocks, student tracker.</div></div>
       <div class="tps"><h4 style="color:var(--success)">⚙ Active Session</h4><div class="crow"><div><label>Course</label><select id="selC" onchange="onCC()"></select></div><div><label>Session</label><select id="selS" onchange="onSC()"></select></div></div></div>
       <div class="tps"><h4 style="color:var(--gold)">Session Access</h4>
         <p style="font-size:.76rem;color:var(--text-dim);margin-bottom:12px">Tap the highest session number each course should open up to. Changes preview locally — hit <strong>Publish</strong> to push to students.</p>
@@ -1668,11 +1697,11 @@ var ICO={
    Gallery / Tools / Lab still exist as sections but are reached via the Library hub
    and internal deep-links from Learn. Keeps the nav glanceable on mobile & desktop. */
 var TABS=[
-  {id:'secHome',    l:'Home',     ic:ICO.home||ICO.learn, h:'overview',  mob:true},
-  {id:'secLearn',   l:'Learn',    ic:ICO.learn,   h:'courses',       mob:true},
-  {id:'secLibrary', l:'Library',  ic:ICO.library, h:'prompts · tools · gallery', mob:true},
-  {id:'secProgress',l:'Progress', ic:ICO.progress,h:'stats',         mob:true},
-  {id:'secTeach',   l:'Teach',    ic:ICO.teach,   h:'teacher',       mob:true, t:1}
+  {id:'secHome',    l:'Home',     ic:ICO.home||ICO.learn, mob:true},
+  {id:'secLearn',   l:'Learn',    ic:ICO.learn,   mob:true},
+  {id:'secLibrary', l:'Library',  ic:ICO.library, mob:true},
+  {id:'secProgress',l:'Progress', ic:ICO.progress,mob:true},
+  {id:'secTeach',   l:'Teach',    ic:ICO.teach,   mob:true, t:1}
 ];
 function bNav(){
 var rb=$('roleBadge');rb.textContent=_r==='teacher'?'Teacher':'Student';rb.className='role-badge '+(_r==='teacher'?'teacher':'student');
@@ -1853,7 +1882,7 @@ var heroTitle=ds>0?'Continue your journey':'Begin your AI journey';
 h+='<div class="hero-banner ent ent0">';
 h+='<div class="hero-bg"></div>';
 h+='<div class="hero-content">';
-h+='<div class="hero-eyebrow">YOUR LEARNING PATH</div>';
+h+='<div class="hero-eyebrow">§ Your learning path</div>';
 h+='<div class="hero-title">'+heroTitle+'</div>';
 h+='<div class="hero-sub">'+(ds>0?'You\'ve completed '+ds+' session'+(ds>1?'s':'')+' — keep going!':'Master AI tools used by professionals \u2014 at your own pace')+'</div>';
 h+='<div class="hero-stats">';
@@ -1874,7 +1903,7 @@ var isActive=c.id===a.c;
 var isDone=cd===c.sessions.length;
 var cls=isActive?'jn-active':(isDone?'jn-done':'');
 if(i>0)h+='<div class="journey-line'+(isDone?' jl-done':'')+'"></div>';
-h+='<div class="journey-node '+cls+'" onclick="selCourse('+c.id+')">'+c.icon+' '+E(c.title)+'</div>';
+h+='<div class="journey-node '+cls+'" onclick="selCourse('+c.id+')"><span class="jn-num">'+c.id+'</span> '+E(c.titleEn||c.title)+'</div>';
 });
 h+='</div>';
 /* Stats — replaced by hero banner above */
@@ -1896,7 +1925,7 @@ var trk=trackMap[c.id];
 h+='<div class="cc'+(isAct?' cc-act':'')+(isFirst?' cc-first':'')+' ent ent'+Math.min(i,5)+'" style="--cc:'+c.color+'" onclick="selCourse('+c.id+')">';
 h+='<div class="cc-shine"></div>';
 h+='<div class="cc-head" style="--cc:'+c.color+'">';
-h+='<div class="cc-head-icon">'+c.icon+'</div>';
+h+='<div class="cc-head-icon"><span class="cc-head-num">'+c.id.toString().padStart(2,'0')+'</span></div>';
 h+='<div><div class="cc-head-label">'+E(c.titleEn)+'</div></div>';
 if(trk)h+='<div class="cc-track '+trk.cls+'" aria-label="Track: '+trk.lbl+'">'+_svgTrack[trk.cls]+'<span>'+trk.lbl+'</span></div>';
 if(status)h+='<div class="cc-status '+status+'" style="position:absolute;top:10px;right:12px;z-index:2">'+(status==='done'?'\u2713 Done':'In Progress')+'</div>';
@@ -1964,13 +1993,13 @@ var h='';
 /* ── Breadcrumb ── */
 h+='<nav class="breadcrumb ent ent0" aria-label="Breadcrumb">';
 h+='<button type="button" class="bc-link" onclick="LS(\'activeCourse\',null);LS(\'activeSession\',null);window.scrollTo(0,0);rLearn()" aria-label="Go to All Courses">All Courses</button><span class="bc-sep" aria-hidden="true">/</span>';
-h+='<button type="button" class="bc-link" onclick="selCourse('+co.id+')" aria-label="Go to '+E(co.titleEn)+'">'+co.icon+' '+E(co.titleEn)+'</button><span class="bc-sep" aria-hidden="true">/</span>';
+h+='<button type="button" class="bc-link" onclick="selCourse('+co.id+')" aria-label="Go to '+E(co.titleEn)+'">'+E(co.titleEn)+'</button><span class="bc-sep" aria-hidden="true">/</span>';
 h+='<span class="bc-current" aria-current="page">Session '+se.n+': '+E(se.titleEn)+'</span></nav>';
 
 /* ── Course hero with outcomes ── */
 h+='<div class="chdr2 ent ent0" style="--cc:'+co.color+'">';
 h+='<div class="chdr2-bg"></div><div class="chdr2-glow"></div>';
-h+='<div class="chdr2-top"><div class="chdr2-icon">'+co.icon+'</div>';
+h+='<div class="chdr2-top"><div class="chdr2-icon">'+co.id.toString().padStart(2,'0')+'</div>';
 h+='<div class="chdr2-info"><div class="chdr2-label">'+E(co.titleEn)+'</div>';
 h+='<div class="chdr2-title">'+E(co.title)+'</div>';
 if(co.persona)h+='<div class="chdr2-per">'+co.avatar+' '+E(co.persona)+'</div>';
@@ -2134,11 +2163,11 @@ if(allDone)setTimeout(function(){showCourseComplete(co)},2000)}
 
 function rPhaseStepper(ci,si,activePhase){
   var phases=[
-    {id:'learn',icon:'📖',label:'Learn'},
-    {id:'see',icon:'👀',label:'See'},
-    {id:'try',icon:'🛠',label:'Try'},
-    {id:'quiz',icon:'🧠',label:'Quiz'},
-    {id:'hw',icon:'🎯',label:'Homework'}
+    {id:'learn',num:'I',  label:'Learn'},
+    {id:'see',  num:'II', label:'See'},
+    {id:'try',  num:'III',label:'Try'},
+    {id:'quiz', num:'IV', label:'Quiz'},
+    {id:'hw',   num:'V',  label:'Homework'}
   ];
   var h='<div class="phase-stepper" id="phaseStepper">';
   phases.forEach(function(p,i){
@@ -2146,7 +2175,7 @@ function rPhaseStepper(ci,si,activePhase){
     var isActive=(p.id===activePhase);
     var cls=isActive?'active':isDone?'done':'';
     h+='<div class="ps-step '+cls+'" onclick="switchPhase(\''+p.id+'\')" id="ps_'+p.id+'">';
-    h+='<span class="ps-icon">'+p.icon+'</span>';
+    h+='<span class="ps-num">§ '+p.num+'</span>';
     h+='<span class="ps-label">'+p.label+'</span>';
     h+='</div>';
     if(i<phases.length-1)h+='<div class="ps-sep"></div>';
@@ -2690,17 +2719,19 @@ var h='',ts=0,ds=0;
 C.forEach(function(c){c.sessions.forEach(function(s){ts++;if(isHW(c.id,s.n))ds++})});
 var pp=ts?Math.round(ds/ts*100):0;
 if(ds===0){
-h+='<div class="prog-empty"><span class="prog-empty-icon">\u{1F680}</span>';
-h+='<div class="prog-empty-title">0 of '+ts+' sessions complete</div>';
-h+='<div class="prog-empty-desc">Your journey starts with one click</div>';
-h+='<div style="max-width:320px;margin:0 auto 18px;background:#e8e3da;border-radius:8px;height:8px;overflow:hidden"><div style="height:100%;width:0%;background:var(--gold);border-radius:8px"></div></div>';
-h+='<button class="btn" onclick="sw(\'secLearn\')">Start Learning \u2192</button></div>';
+h+='<div class="prog-empty">';
+h+='<div class="prog-empty-eyebrow">§ Your first session awaits</div>';
+h+='<div class="prog-empty-title">A blank page, for now</div>';
+h+='<div class="prog-empty-desc">Every course, every session \u2014 open. Start with the first lesson; the rest unlocks as you go.</div>';
+h+='<div class="prog-empty-meta">'+ts+' sessions &middot; '+C.length+' courses &middot; one step at a time</div>';
+h+='<button class="btn" onclick="sw(\'secLearn\')">Begin \u2192</button>';
+h+='</div>';
 }
 h+='<div class="psr"><div class="ps"><div class="psn">'+ds+'</div><div class="psl">Sessions Complete</div></div><div class="ps"><div class="psn">'+ts+'</div><div class="psl">Total Sessions</div></div><div class="ps"><div class="psn">'+pp+'%</div><div class="psl">Overall Progress</div></div><div class="ps"><div class="psn">'+C.length+'</div><div class="psl">Courses Available</div></div></div>';
 h+='<div class="slbl">Course Progress</div><div class="pcrs">';
 var u=gU(),a=gA();
 C.forEach(function(c){var d=c.sessions.filter(function(s){return isHW(c.id,s.n)}).length,cp=Math.round(d/c.sessions.length*100);
-h+='<div class="pcr"><div class="pcrt"><div class="pcrn">'+c.icon+' '+E(c.titleEn)+'</div><div class="pcrp">'+d+'/'+c.sessions.length+'</div></div>';
+h+='<div class="pcr"><div class="pcrt"><div class="pcrn"><span class="pcrn-num">'+c.id+'</span>'+E(c.titleEn)+'</div><div class="pcrp">'+d+'/'+c.sessions.length+'</div></div>';
 h+='<div class="pcrb"><div class="pcrf" style="width:'+cp+'%;background:'+c.color+'"></div></div>';
 h+='<div class="pcsess">';c.sessions.forEach(function(s){var dv=isHW(c.id,s.n),ic=(c.id===a.c&&s.n===a.s),op=s.n<=(u[c.id]||1);
 var st=!op?'locked':(dv?'done':(ic?'active':''));
@@ -2724,7 +2755,7 @@ badges.forEach(function(b){var e=b.ch();h+='<div class="bcard '+(e?'earned':'lkb
 h+='</div>';
 h+='<div class="slbl">Homework</div>';
 C.forEach(function(c){c.sessions.forEach(function(s){var d=isHW(c.id,s.n),op=s.n<=(u[c.id]||1);if(!op&&_r!=='teacher')return;
-h+='<div class="hwli'+(d?' done':'')+'"><div><div class="hwli-nm">'+c.icon+' S'+s.n+': '+E(s.titleEn)+'</div><div class="hwli-s">'+E(c.titleEn)+'</div></div><div class="hwli-st '+(d?'done':'pending')+'">'+(d?'\u2713 Done':'Pending')+'</div></div>'})});
+h+='<div class="hwli'+(d?' done':'')+'"><div><div class="hwli-nm"><span class="hwli-num">§ '+c.id+'.'+s.n+'</span> '+E(s.titleEn)+'</div><div class="hwli-s">'+E(c.titleEn)+'</div></div><div class="hwli-st '+(d?'done':'pending')+'">'+(d?'\u2713 Done':'Pending')+'</div></div>'})});
 $('progWrap').innerHTML=h;
 }
 
