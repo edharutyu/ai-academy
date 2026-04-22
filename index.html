@@ -779,7 +779,9 @@ html[lang="hy"] .t-en{display:none!important}
 .scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),#f0a06a);z-index:999;width:0;transition:none}
 
 /* ── Hamburger ── */
-.hamburger{display:none;flex-direction:column;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;padding:10px;z-index:101;width:44px;height:44px}
+/* z-index:200 must be HIGHER than .nav-links drawer (150) so the close-tap lands
+   on the hamburger and not the overlay painted on top of it. */
+.hamburger{display:none;flex-direction:column;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;padding:10px;z-index:200;width:44px;height:44px;position:relative}
 .hamburger span{display:block;width:22px;height:2px;background:var(--text);transition:all .3s cubic-bezier(.4,0,.2,1);border-radius:2px}
 .hamburger span+span{margin-top:5px}
 .hamburger.open span{background:var(--accent)}
@@ -1832,7 +1834,20 @@ section.visible::after{width:200px}
   window.setLang=setLang;
   // Wire click handlers (buttons live in nav markup)
   document.querySelectorAll('.lt-opt').forEach(function(b){
-    b.addEventListener('click',function(){setLang(b.dataset.lang);});
+    b.addEventListener('click',function(){
+      setLang(b.dataset.lang);
+      /* If this click happened inside the mobile drawer, close the drawer
+         so the user can see the newly-translated page instead of the overlay. */
+      var nv=document.getElementById('nav');
+      var nl=document.getElementById('navLinks');
+      var hb=document.getElementById('hamburger');
+      if(nl && nl.classList.contains('open')){
+        nl.classList.remove('open');
+        if(hb)hb.classList.remove('open');
+        if(nv)nv.classList.remove('menu-open');
+        document.body.style.overflow='';
+      }
+    });
   });
   // Init from storage; default = Armenian (school is in Yerevan, Armenian-first)
   try{
