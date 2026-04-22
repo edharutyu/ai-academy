@@ -366,11 +366,16 @@ html[lang="hy"] .t-en{display:none!important}
 .path-foot strong{color:var(--secondary);font-style:normal;font-weight:700;font-family:inherit}
 
 /* Swipe affordance — visible on touch widths only, fades after first scroll */
-.path-swipe-hint{display:none;align-items:center;justify-content:center;gap:10px;margin:10px auto 0;padding:6px 14px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);opacity:.85;transition:opacity .4s ease}
-.path-swipe-hint.has-scrolled{opacity:0;pointer-events:none}
-.path-swipe-hint .psh-arrow{color:var(--secondary);font-size:.9rem;animation:pshPulse 1.8s ease-in-out infinite}
-.path-swipe-hint .psh-arrow:last-child{animation-delay:.9s}
-.path-swipe-hint .psh-label{font-family:'Noto Serif Armenian',serif;font-style:italic;letter-spacing:.04em;text-transform:none;font-size:.78rem}
+.path-swipe-hint{display:none;align-items:center;justify-content:center;gap:14px;margin:14px auto 0;padding:9px 18px;color:var(--text);background:rgba(224,122,58,.08);border:1px solid rgba(224,122,58,.3);border-radius:999px;width:fit-content;max-width:92%}
+.path-swipe-hint .psh-counter{font-family:'Noto Serif Armenian',serif;font-style:italic;font-size:.92rem;color:var(--text);min-width:44px;text-align:center;letter-spacing:.02em;line-height:1;font-weight:600}
+.path-swipe-hint .psh-counter strong.psh-now{color:var(--accent);font-size:1.1rem;font-weight:700}
+.path-swipe-hint .psh-counter .psh-div{color:var(--text-subtle);margin:0 3px;font-style:normal}
+.path-swipe-hint .psh-dots{display:flex;align-items:center;gap:6px;padding:0;margin:0}
+.path-swipe-hint .psh-dot{width:7px;height:7px;border-radius:50%;background:rgba(240,236,230,.22);border:0;padding:0;cursor:pointer;transition:all .2s ease;appearance:none;-webkit-appearance:none}
+.path-swipe-hint .psh-dot.active{background:var(--accent);transform:scale(1.5)}
+.path-swipe-hint .psh-dot:hover{background:rgba(240,236,230,.5)}
+.path-swipe-hint .psh-dot:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.path-swipe-hint .psh-arrow{color:var(--secondary);font-size:1rem;animation:pshPulse 1.8s ease-in-out infinite;font-weight:700;line-height:1}
 @keyframes pshPulse{0%,100%{opacity:.5;transform:translateX(0)}50%{opacity:1;transform:translateX(2px)}}
 @media (prefers-reduced-motion:reduce){.path-swipe-hint .psh-arrow{animation:none}}
 
@@ -379,10 +384,10 @@ html[lang="hy"] .t-en{display:none!important}
   .path-chapter{flex:0 0 clamp(260px,38vw,300px)}
 }
 
-/* Mobile ≤720: wider cards for single-card focus, native swipe */
+/* Mobile ≤720: show a peek of next card so users discover the rail */
 @media(max-width:720px){
-  .path-rail{gap:16px;padding:0 16px 14px}
-  .path-chapter{flex:0 0 82vw}
+  .path-rail{gap:14px;padding:0 14px 14px}
+  .path-chapter{flex:0 0 76vw}
   .path-chapter::after{left:-8px;right:-8px}
   .pc-num{font-size:2.2rem}
   .pc-card{padding:15px 14px 13px;margin-top:24px}
@@ -436,15 +441,24 @@ html[lang="hy"] .t-en{display:none!important}
 .qo-label{font-family:'Inter',sans-serif;font-size:.98rem;color:var(--text);font-weight:500;line-height:1.45}
 .qo-hint{font-family:'Noto Serif Armenian',serif;font-style:italic;font-size:.74rem;color:var(--text-subtle);font-weight:400;opacity:0;transform:translateX(6px);transition:opacity .3s var(--ease),transform .3s var(--ease);white-space:nowrap}
 @media(max-width:640px){
+  .fit .container{padding-top:8px}
+  .fit-intro{margin-bottom:18px}
+  .fit-intro h2{font-size:clamp(1.25rem,5.5vw,1.55rem);margin-bottom:8px;line-height:1.2}
+  .fit-intro p{font-size:.82rem;line-height:1.5}
+  .quiz{padding:14px 14px 14px;border-radius:12px}
+  .quiz-rail{margin-bottom:16px;gap:10px}
+  .quiz-rail .qr-label{font-size:.62rem;letter-spacing:.18em;color:var(--accent);font-weight:700;background:rgba(224,122,58,.1);border:1px solid rgba(224,122,58,.3);padding:4px 10px;border-radius:999px}
+  .quiz-q{font-size:clamp(.98rem,4.2vw,1.15rem);min-height:0;margin-bottom:12px;line-height:1.28}
   .qo-hint{display:none}
-  .quiz-opt{grid-template-columns:auto 1fr;padding:14px 2px;gap:12px;min-height:52px}
-  .qo-label{font-size:.92rem}
-  .fit-intro h2{font-size:clamp(1.45rem,6.4vw,1.85rem)}
-  .fit-intro p{font-size:.88rem}
-  .quiz-q{font-size:clamp(1.05rem,4.6vw,1.3rem);min-height:0;margin-bottom:20px}
-  .quiz-advance-row{margin-top:18px;padding-top:16px}
-  .quiz-back{padding:12px 6px;min-height:44px}
-  .quiz-continue{padding:12px 18px;font-size:.82rem}
+  .quiz-opts{border-top:none}
+  .quiz-opt{grid-template-columns:auto 1fr;padding:10px 2px;gap:10px;min-height:46px}
+  .qo-mark{font-size:.82rem;min-width:20px}
+  .qo-label{font-size:.86rem;line-height:1.4}
+  .quiz-advance-row{margin-top:12px;padding-top:12px}
+  .quiz-back{padding:10px 4px;min-height:44px;font-size:.56rem}
+  .quiz-continue{padding:10px 14px;font-size:.76rem;min-height:44px}
+  .quiz-result h3{font-size:clamp(1.2rem,5.2vw,1.5rem);margin-bottom:12px}
+  .quiz-result .qr-rationale{font-size:.84rem;line-height:1.55;margin-bottom:16px}
 }
 /* Back button — bottom-left */
 .quiz-advance-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:26px;padding-top:22px;border-top:1px solid var(--border)}
@@ -546,15 +560,18 @@ html[lang="hy"] .t-en{display:none!important}
 .t-card.recommended .rec-badge{display:block}
 
 /* ── Flip cards — 6 paths ───────────────────────────────────── */
-.tf-grid{display:grid;grid-template-columns:1fr;gap:16px;perspective:1400px;grid-auto-rows:1fr}
-@media(min-width:720px){.tf-grid{grid-template-columns:repeat(2,1fr)}}
+/* On mobile each card sits in its own row — let it size to its own tallest face.
+   Only force equal row heights once cards share a row (tablet/desktop). */
+.tf-grid{display:grid;grid-template-columns:1fr;gap:16px;perspective:1400px}
+@media(min-width:720px){.tf-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr}}
 @media(min-width:1040px){.tf-grid{grid-template-columns:repeat(3,1fr)}}
 .tf-card{position:relative;display:flex;height:100%}
 /* Grid-stacked faces: both occupy same cell, card auto-sizes to tallest face — no overflow */
 .tf-inner{display:grid;grid-template-areas:"stack";width:100%;flex:1;transition:transform .6s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}
 .tf-card.is-flipped .tf-inner{transform:rotateY(180deg)}
 .tf-face{grid-area:stack;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-6);display:flex;flex-direction:column;box-shadow:var(--el-1);transition:border-color .2s var(--ease),box-shadow .2s var(--ease),transform .6s cubic-bezier(.2,.8,.2,1);position:relative}
-.tf-back{transform:rotateY(180deg);cursor:pointer}
+.tf-back{transform:rotateY(180deg);cursor:pointer;justify-content:center}
+.tf-back .tf-cta-row{margin-top:18px}
 .tf-front{cursor:pointer;user-select:none}
 .tf-front:hover{border-color:var(--accent);box-shadow:var(--el-2)}
 .tf-front:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
@@ -570,7 +587,7 @@ html[lang="hy"] .t-en{display:none!important}
 .tf-back .tf-num{opacity:.35;font-size:1.05rem;margin-bottom:6px}
 .tf-back .tf-num::after{display:none}
 .tf-back .tf-title{font-size:1rem;margin-bottom:12px}
-.tf-back-outcomes{list-style:none;padding:0;margin:0 0 12px;flex:1}
+.tf-back-outcomes{list-style:none;padding:0;margin:0;flex:0 0 auto}
 .tf-back-outcomes li{position:relative;padding:6px 0 6px 18px;font-size:.76rem;color:var(--text-dim);line-height:1.5;border-top:1px solid var(--border)}
 .tf-back-outcomes li:first-child{border-top:none;padding-top:2px}
 .tf-back-outcomes li strong{color:var(--text);font-weight:600}
@@ -771,10 +788,14 @@ html[lang="hy"] .t-en{display:none!important}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 @media(max-width:640px){
   .hamburger{display:flex}
-  .nav-links{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(12,15,20,.97);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);flex-direction:column;justify-content:center;align-items:center;gap:32px;opacity:0;pointer-events:none;transition:opacity .35s}
+  .nav-links{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(12,15,20,.97);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);flex-direction:column;justify-content:center;align-items:center;gap:32px;opacity:0;pointer-events:none;transition:opacity .35s;z-index:150}
   .nav-links.open{opacity:1;pointer-events:auto}
   .nav-links a{font-size:1.1rem;text-transform:none;letter-spacing:0}
   .nav-links .nav-cta{display:inline-flex;padding:12px 28px;font-size:.9rem}
+  /* Fix: backdrop-filter on .nav.scrolled creates a containing block that traps
+     the .nav-links position:fixed overlay inside the nav bar height. When the menu
+     is open, disable the backdrop effect so the drawer can fill the viewport. */
+  .nav.menu-open{background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-bottom-color:transparent!important}
 }
 
 /* ── Scroll down indicator ── */
@@ -1355,7 +1376,7 @@ section.visible::after{width:200px}
     </div>
     <div class="quiz" id="quiz" role="region" aria-live="polite">
       <div class="quiz-rail" aria-hidden="true">
-        <span class="qr-label" id="qzLabel">Question 01 / 04</span>
+        <span class="qr-label" id="qzLabel">Quiz · 01 / 04</span>
         <span class="qr-track"><span class="qr-fill" id="qzFill"></span></span>
       </div>
       <div class="quiz-q" id="qzQuestion"></div>
@@ -1511,10 +1532,17 @@ section.visible::after{width:200px}
         </div>
       </li>
     </ol>
-    <div class="path-swipe-hint" aria-hidden="true">
-      <span class="psh-arrow">&#8592;</span>
-      <span class="psh-label">[EN: swipe through six classes][HY: սահեցրեք վեց դասով]</span>
-      <span class="psh-arrow">&#8594;</span>
+    <div class="path-swipe-hint" role="tablist" aria-label="[EN: Class navigation][HY: Դասերի նավիգացիա]">
+      <span class="psh-counter" aria-live="polite"><strong class="psh-now">1</strong><span class="psh-div">/</span><span class="psh-total">6</span></span>
+      <div class="psh-dots">
+        <button type="button" class="psh-dot active" data-idx="0" aria-label="[EN: Class 1][HY: Դաս 1]"></button>
+        <button type="button" class="psh-dot" data-idx="1" aria-label="[EN: Class 2][HY: Դաս 2]"></button>
+        <button type="button" class="psh-dot" data-idx="2" aria-label="[EN: Class 3][HY: Դաս 3]"></button>
+        <button type="button" class="psh-dot" data-idx="3" aria-label="[EN: Class 4][HY: Դաս 4]"></button>
+        <button type="button" class="psh-dot" data-idx="4" aria-label="[EN: Class 5][HY: Դաս 5]"></button>
+        <button type="button" class="psh-dot" data-idx="5" aria-label="[EN: Class 6][HY: Դաս 6]"></button>
+      </div>
+      <span class="psh-arrow" aria-hidden="true">&#8594;</span>
     </div>
   </div>
 </section>
@@ -1529,7 +1557,6 @@ section.visible::after{width:200px}
       <div class="faq-item fade-in"><button class="faq-q">[EN: Do I need any prior technical background?][HY: Կարիք կա՞ նախնական տեխնիկական գիտելիքների։]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: No. The first class is a careful introduction. If you can use a browser and a phone, you will keep up &mdash; we start there on purpose.][HY: Ոչ։ Առաջին դասը մանրամասն ներածություն է։ Եթե կարողանում եք օգտվել բրաուզերից և հեռախոսից, ապա ամեն ինչ կհասցնեք։ Մենք միտումնավոր սկսում ենք հենց այդտեղից։]</p></div></div>
       <div class="faq-item fade-in"><button class="faq-q">[EN: How long is the course and how much time per week?][HY: Որքա՞ն է տևում դասընթացը և որքա՞ն ժամանակ է պահանջվում շաբաթական։]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: Six classes, spread over about six weeks. One 90-minute session per week, live on Zoom or in person &mdash; plus roughly 2 hours of practical homework between classes. One weekly open Q&amp;A.][HY: Վեց դաս՝ վեց շաբաթվա ընթացքում։ Շաբաթական մեկ 90 րոպեանոց հանդիպում Zoom-ով կամ օֆլայն, գումարած մոտ 2 ժամ գործնական տնային աշխատանք։ Շաբաթը մեկ անգամ՝ հարց ու պատասխան։]</p></div></div>
       <div class="faq-item fade-in"><button class="faq-q">[EN: Are the classes online or in person?][HY: Դասերն օնլա՞յն են, թե՞ օֆլայն։]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: Both. Most students join live online from anywhere. Some come to the Yerevan studio on class evenings. Pick what fits your week &mdash; you can switch week to week.][HY: Երկուսն էլ։ Ուսանողների մեծ մասը միանում է օնլայն՝ ցանկացած վայրից։ Ոմանք գալիս են Երևանի ստուդիա։ Ընտրեք Ձեզ հարմար տարբերակը ամեն շաբաթ։]</p></div></div>
-      <div class="faq-item fade-in"><button class="faq-q">[EN: What if I miss a class?][HY: Իսկ եթե բաց թողնե՞մ դասը։]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: Every session is recorded and sent to students within a day. You can catch up on your own time, then drop questions into the next Q&amp;A.][HY: Յուրաքանչյուր դաս ձայնագրվում է և ուղարկվում ուսանողներին մեկ օրվա ընթացքում։ Դուք կարող եք դիտել այն Ձեզ հարմար ժամանակ և հարցեր տալ հաջորդ հանդիպմանը։]</p></div></div>
       <div class="faq-item fade-in"><button class="faq-q">[EN: Do you offer a personal path?][HY: Առաջարկո՞ւմ եք անհատական ուղի։]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: Yes &mdash; a private 1:1 track built around your own tools and workflow. Availability is limited to a few slots per cohort.][HY: Այո, անհատական 1:1 ձևաչափ՝ հարմարեցված հենց Ձեր գործիքներին և աշխատանքային պրոցեսին։ Տեղերը խիստ սահմանափակ են։]</p></div></div>
       <div class="faq-item fade-in"><button class="faq-q">[EN: What counts as passing the course?][HY: Ի՞նչն է համարվում դասընթացը հաջող ավարտել։]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: A small final project &mdash; something real from your life or work. You show it, we review it together, you leave with something you actually made.][HY: Փոքրիկ վերջնական նախագիծը&mdash;մի իրական բան Ձեր կյանքից կամ գործից։ Դուք այն ներկայացնում եք, մենք վերլուծում ենք, և Դուք հեռանում եք Ձեր իսկ ստեղծած արդյունքով։]</p></div></div>
       <div class="faq-item fade-in"><button class="faq-q">[EN: How quickly can I get a technical question answered?][HY: Որքա՞ն արագ կարող եմ ստանալ տեխնիկական հարցիս պատասխանը։]<span class="arrow">&#9660;</span></button><div class="faq-a"><p>[EN: Usually the same day via WhatsApp or Google Meet, during working hours. For deeper topics, we keep one weekly live Q&amp;A on the calendar.][HY: Սովորաբար նույն օրվա ընթացքում՝ WhatsApp-ով կամ Google Meet-ով, աշխատանքային ժամերին։ Ավելի բարդ հարցերի համար ունենք շաբաթական Q&amp;A հանդիպումներ։]</p></div></div>
@@ -1612,7 +1639,7 @@ section.visible::after{width:200px}
     <div class="apply-head">
       <div class="sec-marker" style="margin-bottom:14px"><span class="sec-num">&sect; [EN: Apply][HY: Դիմել]</span><span class="sec-rule"></span><span class="sec-name">[EN: Next cohort][HY: Հաջորդ խումբ]</span></div>
       <h2 class="serif apply-title"><em>[EN: Write us.][HY: Գրեք մեզ։]</em> [EN: We&rsquo;ll read it.][HY: Մենք կկարդանք։]</h2>
-      <p class="apply-sub">[EN: Three fields. A real person replies on WhatsApp within 24 hours &mdash; usually faster.][HY: Երեք դաշտ։ Իրական մարդ կպատասխանի Ձեզ WhatsApp-ով 24 ժամվա ընթացքում — սովորաբար ավելի արագ։]</p>
+      <p class="apply-sub">[EN: Three fields. We&rsquo;ll continue the conversation on WhatsApp.][HY: Երեք դաշտ։ Շարունակում ենք զրույցը WhatsApp-ով։]</p>
       <div class="apply-cohort"><span>[EN: <b>May 10</b> start][HY: Մեկնարկը՝ <b>Մայիսի 10-ին</b>]</span><span class="dot"></span><span>[EN: <b>Online</b> + Yerevan][HY: <b>Օնլայն</b> + Երևան]</span></div>
     </div>
     <form id="signupForm" onsubmit="return submitSignup(event)" class="apply-form">
@@ -1667,7 +1694,7 @@ section.visible::after{width:200px}
         <button type="button" class="apply-change" id="applyChange">[EN: Change path &rarr;][HY: Փոխել ուղղությունը →]</button>
       </div>
       <button type="submit" class="btn apply-cta">[EN: Send to WhatsApp &rarr;][HY: Ուղարկել WhatsApp-ին →]</button>
-      <p class="apply-foot">[EN: We reply from a real number in <b>Yerevan</b>. Or call][HY: Մենք պատասխանում ենք <b>Երևանյան</b> իրական համարից։ Կամ զանգահարեք՝] <a href="tel:+37493388443">+374 93 388 443</a>.</p>
+      <p class="apply-foot">[EN: We reply on <b>WhatsApp</b> &mdash; the fastest way to reach us.][HY: Պատասխանում ենք <b>WhatsApp-ով</b>՝ մեզ հետ կապվելու ամենաարագ ճանապարհը։]</p>
     </form>
     <div class="apply-sent" id="applySent">
       <div class="sec-marker" style="margin-bottom:14px;justify-content:center"><span class="sec-rule"></span><span class="sec-num">[EN: Sent][HY: Ուղարկված է]</span><span class="sec-rule"></span></div>
@@ -1830,14 +1857,17 @@ section.visible::after{width:200px}
     updateProgress();
   },{passive:true});
   hamburger.addEventListener('click',function(){
+    var willOpen=!hamburger.classList.contains('open');
     hamburger.classList.toggle('open');
     navLinks.classList.toggle('open');
-    document.body.style.overflow=navLinks.classList.contains('open')?'hidden':'';
+    nav.classList.toggle('menu-open',willOpen);
+    document.body.style.overflow=willOpen?'hidden':'';
   });
   navLinks.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click',function(){
       hamburger.classList.remove('open');
       navLinks.classList.remove('open');
+      nav.classList.remove('menu-open');
       document.body.style.overflow='';
     });
   });
@@ -1926,17 +1956,39 @@ section.visible::after{width:200px}
     },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
     pathObs.observe(pathSec);
 
-    /* Swipe affordance — fade the hint the first time the rail actually moves */
+    /* Syllabus navigation — live counter + dots, click-to-jump */
     var rail=pathSec.querySelector('.path-rail');
     var hint=pathSec.querySelector('.path-swipe-hint');
     if(rail && hint){
-      var hide=function(){
-        if(rail.scrollLeft>8){
-          hint.classList.add('has-scrolled');
-          rail.removeEventListener('scroll',hide);
+      var dots=hint.querySelectorAll('.psh-dot');
+      var nowEl=hint.querySelector('.psh-now');
+      var arrow=hint.querySelector('.psh-arrow');
+      var totalEl=hint.querySelector('.psh-total');
+      if(totalEl)totalEl.textContent=chapters.length;
+      var syncPos=function(){
+        var rect=rail.getBoundingClientRect();
+        var center=rect.left+rect.width/2;
+        var best=0,bestDist=Infinity;
+        for(var i=0;i<chapters.length;i++){
+          var r=chapters[i].getBoundingClientRect();
+          var d=Math.abs((r.left+r.width/2)-center);
+          if(d<bestDist){bestDist=d;best=i;}
         }
+        for(var j=0;j<dots.length;j++){dots[j].classList.toggle('active',j===best);}
+        if(nowEl)nowEl.textContent=best+1;
+        /* Fade the pulsing arrow once the user reaches the last card */
+        if(arrow)arrow.style.opacity=(best>=chapters.length-1)?'0.25':'';
       };
-      rail.addEventListener('scroll',hide,{passive:true});
+      rail.addEventListener('scroll',syncPos,{passive:true});
+      dots.forEach(function(dot,i){
+        dot.addEventListener('click',function(){
+          if(chapters[i]){
+            chapters[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+          }
+        });
+      });
+      /* Initial sync after layout settles */
+      setTimeout(syncPos,60);
     }
   })();
 
@@ -2176,8 +2228,8 @@ section.visible::after{width:200px}
     function render(){
       var cur=Q[state.i];
       var rl=window.renderLang||function(s){return s;};
-      var labelEn='Question '+pad(state.i+1)+' / '+pad(Q.length);
-      var labelHy='Հարց '+pad(state.i+1)+' / '+pad(Q.length);
+      var labelEn='Quiz · '+pad(state.i+1)+' / '+pad(Q.length);
+      var labelHy='Քվիզ · '+pad(state.i+1)+' / '+pad(Q.length);
       lEl.textContent=window.t(labelEn,labelHy);
       fEl.style.width=((state.i)/Q.length*100)+'%';
       qEl.innerHTML=rl(cur.q);
@@ -2203,10 +2255,19 @@ section.visible::after{width:200px}
       else { arr.push(k); btn.classList.add('chosen'); btn.setAttribute('aria-selected','true'); }
       updateContinue();
     }
+    function scrollQuizToTop(){
+      /* Keep the quiz card pinned at a comfortable position when users advance —
+         otherwise they land mid-question and have to scroll up to re-read. */
+      var quizEl=document.getElementById('quiz');
+      if(!quizEl)return;
+      var navH=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'))||60;
+      var top=quizEl.getBoundingClientRect().top+window.scrollY-navH-12;
+      window.scrollTo({top:top,behavior:'smooth'});
+    }
     function advance(){
       if(!state.picks[state.i] || state.picks[state.i].length===0) return;
-      if(state.i<Q.length-1){ state.i++; render(); }
-      else { showResult(); }
+      if(state.i<Q.length-1){ state.i++; render(); scrollQuizToTop(); }
+      else { showResult(); scrollQuizToTop(); }
     }
     function applyResult(winner,tally){
       var r=RESULTS[winner];if(!r)return;
@@ -2261,12 +2322,12 @@ section.visible::after{width:200px}
       applyResult(winner,tally);
       qzEl.classList.add('is-result');
     }
-    bEl.addEventListener('click',function(){if(state.i>0){state.i--;render();}});
+    bEl.addEventListener('click',function(){if(state.i>0){state.i--;render();scrollQuizToTop();}});
     cEl.addEventListener('click',advance);
     // Re-sync the text-only label + Continue button when language toggles
     document.addEventListener('langchange',function(){
-      var labelEn='Question '+pad(state.i+1)+' / '+pad(Q.length);
-      var labelHy='Հարց '+pad(state.i+1)+' / '+pad(Q.length);
+      var labelEn='Quiz · '+pad(state.i+1)+' / '+pad(Q.length);
+      var labelHy='Քվիզ · '+pad(state.i+1)+' / '+pad(Q.length);
       lEl.textContent=window.t(labelEn,labelHy);
       updateContinue();
       // If result screen is showing, also re-render alt button labels (SHORT passes through unEN)
