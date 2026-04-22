@@ -610,10 +610,10 @@ input,textarea,select{font-family:inherit}
 /* BOTTOM NAV */
 .bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(250,248,245,.97);backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);border-top:1px solid rgba(26,21,16,.10);padding:6px 0 env(safe-area-inset-bottom,6px)}
 .bni{display:flex;justify-content:space-around;max-width:600px;margin:0 auto}
-.bni a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 4px;font-size:.58rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:all .2s;cursor:pointer;border-radius:6px;min-width:0;flex:1;min-height:52px;-webkit-tap-highlight-color:transparent}
+.bni a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px 4px;font-size:.68rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:color var(--dur-fast) var(--ease);cursor:pointer;border-radius:6px;min-width:0;flex:1;min-height:56px;-webkit-tap-highlight-color:transparent;letter-spacing:.005em;font-family:var(--serif)}
 .bni a .bnico{display:flex;align-items:center;justify-content:center;line-height:0}
-.bni a .bnico svg{width:22px;height:22px;stroke-width:2}
-.bni a .bnilb{font-size:inherit;letter-spacing:.2px}
+.bni a .bnico svg{width:22px;height:22px;stroke-width:1.8}
+.bni a .bnilb{font-size:inherit;letter-spacing:.005em;font-style:italic}
 .bni a:active{transform:scale(.92);background:rgba(224,122,58,.08)}
 .bni a.active{color:var(--gold)}
 .bni a.active .bnico svg{stroke-width:2.4}
@@ -717,17 +717,17 @@ input,textarea,select{font-family:inherit}
 .cc-head-label{font-family:var(--serif);font-style:italic;font-size:.85rem;font-weight:500;letter-spacing:.01em;text-transform:none;color:rgba(255,255,255,.95);line-height:1.2;position:relative;z-index:1}
 .cc-body{padding:0 20px 4px;padding-top:16px}
 .cc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
-.cc-track{position:absolute;top:10px;left:12px;z-index:2;font-size:.55rem;font-weight:700;padding:4px 9px 4px 7px;border-radius:999px;letter-spacing:1px;background:rgba(255,255,255,.92);color:var(--text);box-shadow:0 2px 6px rgba(0,0,0,.1);display:inline-flex;align-items:center;gap:5px}
-.cc-track svg{width:11px;height:11px;stroke-width:2.2}
-.cc-track.core{color:#8B4513}
+.cc-track{position:absolute;top:12px;left:14px;z-index:2;font-family:var(--serif);font-style:italic;font-size:.72rem;font-weight:500;padding:4px 10px 4px 9px;border-radius:999px;letter-spacing:.02em;background:rgba(255,255,255,.92);color:var(--text);backdrop-filter:blur(4px);display:inline-flex;align-items:center;gap:6px;text-transform:none}
+.cc-track svg{width:11px;height:11px;stroke-width:1.75}
+.cc-track.core{color:#5A3318}
 .cc-track.track{color:#3d6b96}
 .cc-track.biz{color:#b07a10}
-.cc-status{font-size:.55rem;font-weight:700;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
-.cc-status.done{background:rgba(255,255,255,.9);color:#3FB950}
-.cc-status.progress{background:rgba(255,255,255,.9);color:var(--gold)}
+.cc-status{font-family:var(--serif);font-style:italic;font-size:.7rem;font-weight:500;padding:3px 10px;border-radius:999px;text-transform:none;letter-spacing:.01em;white-space:nowrap}
+.cc-status.done{background:rgba(255,255,255,.9);color:#2F7A4B}
+.cc-status.progress{background:rgba(255,255,255,.9);color:var(--accent)}
 /* border-top replaced by gradient header band */
 .cc-ttl{font-size:1.05rem;font-weight:700;line-height:1.2;margin-bottom:8px;font-family:'Inter',sans-serif;letter-spacing:-.3px}
-.cc-per{font-size:.6875rem;font-weight:700;color:var(--text-mid);margin-bottom:14px;display:flex;align-items:center;gap:5px}
+.cc-per{font-family:var(--serif);font-style:italic;font-size:.85rem;font-weight:500;color:var(--secondary);margin-bottom:14px;display:flex;align-items:center;gap:8px;letter-spacing:.005em;text-transform:none}
 .cc-per-dot{width:5px;height:5px;border-radius:50%;background:var(--cc);flex-shrink:0}
 .cc-ol{list-style:none;padding:0;margin:0 0 14px}
 .cc-ol li{font-size:.875rem;color:var(--text-mid);padding:5px 0;display:flex;align-items:flex-start;gap:7px;line-height:1.55}
@@ -809,9 +809,9 @@ input,textarea,select{font-family:inherit}
 .chdr2-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .chdr2-icon{font-size:1.8rem;line-height:1}
 .chdr2-info{flex:1}
-.chdr2-label{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--cc);margin-bottom:3px;opacity:1}
-.chdr2-title{font-size:1rem;font-weight:700;line-height:1.2}
-.chdr2-per{display:inline-flex;align-items:center;gap:5px;font-size:.6875rem;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(26,21,16,.08);color:var(--text-mid);margin-top:5px}
+.chdr2-label{font-size:.8rem;font-weight:500;text-transform:none;letter-spacing:.01em;color:var(--cc);margin-bottom:2px;opacity:1}
+.chdr2-title{font-size:1.2rem;font-weight:700;line-height:1.25;letter-spacing:-.008em}
+.chdr2-per{display:inline-flex;align-items:center;gap:5px;font-family:var(--serif);font-style:italic;font-size:.8rem;font-weight:500;padding:3px 12px;border-radius:999px;background:transparent;border:1px solid var(--hairline);color:var(--secondary);margin-top:6px;letter-spacing:.01em}
 .chdr2-outcomes{list-style:none;padding:0;margin:0 0 12px;display:flex;flex-wrap:wrap;gap:6px}
 .chdr2-outcomes li{font-size:.8125rem;display:flex;align-items:center;gap:5px;color:var(--text-dim)}
 .chdr2-outcomes li .cko{color:var(--cc);font-weight:700;font-size:.65rem}
@@ -1138,7 +1138,7 @@ input,textarea,select{font-family:inherit}
 .sec-hdr-title{font-size:var(--text-xl)!important}
 .sec-hdr-sub{font-size:var(--text-sm)!important;color:var(--text-dim)!important}
 .cc-ttl{font-size:1.1rem!important;font-weight:700!important;color:var(--text)!important;background:none!important;-webkit-text-fill-color:var(--text)!important;margin-bottom:4px;padding:16px 20px 0}
-.cc-per{font-size:.65rem!important;font-weight:700!important;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted,var(--text-mid))!important;padding:0 20px;margin-bottom:10px}
+.cc-per{font-size:.78rem!important;font-weight:500!important;letter-spacing:.005em;text-transform:none;color:var(--secondary)!important;padding:0 20px;margin-bottom:10px;font-style:italic}
 .cc-ol{padding:0 20px;margin-bottom:0}
 .cc-ol li{font-size:.8rem!important;color:var(--text-mid);line-height:1.5;padding:2px 0;display:flex;align-items:flex-start;gap:6px}
 .lstat-n{font-size:var(--text-3xl)!important}
@@ -1254,7 +1254,7 @@ input,textarea,select{font-family:inherit}
 .home-card-ttl{font-family:var(--serif);font-style:italic;font-size:.88rem;font-weight:500;letter-spacing:.005em;text-transform:none;color:var(--secondary);display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .home-card-ttl::before{content:'§';font-family:var(--serif);font-style:italic;font-weight:500;color:var(--accent);font-size:1em}
 .continue-card{background:var(--bg2);border:1px solid var(--hairline);padding:28px 30px 26px;display:flex;flex-direction:column}
-.continue-ttl{font-size:1.55rem;font-weight:700;letter-spacing:-.012em;line-height:1.2;color:var(--text);margin:8px 0 14px}
+.continue-ttl{font-size:1.9rem;font-weight:700;letter-spacing:-.015em;line-height:1.1;color:var(--text);margin:10px 0 16px}
 .continue-meta{font-size:.88rem;color:var(--text-mid);margin-top:2px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--serif);font-style:italic}
 .continue-meta .ctag{padding:3px 12px;border-radius:999px;background:transparent;border:1px solid var(--accent);color:var(--accent)!important;font-weight:500;font-size:.72rem;letter-spacing:.02em;text-transform:none!important;font-family:var(--serif);font-style:italic}
 .continue-cta{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;background:var(--accent);color:#fff;font-weight:600;border-radius:10px;font-size:.92rem;border:none;cursor:pointer;margin-top:22px;align-self:flex-start;transition:transform var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease);letter-spacing:.01em}
@@ -1340,7 +1340,8 @@ input,textarea,select{font-family:inherit}
 .lib-pill.active{border-color:var(--accent);background:var(--accent);color:#fff}
 .lib-pill.active .sec-num{color:#fff;opacity:.85}
 
-.lib-sec{scroll-margin-top:130px;margin:40px 0 48px;padding-top:8px}
+.lib-sec{scroll-margin-top:130px;margin:28px 0 56px;padding-top:4px}
+.lib-sec:first-of-type{margin-top:12px}
 .lib-sec-hdr{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;margin:0 0 18px;padding-bottom:14px;border-bottom:1px solid var(--hairline);position:relative}
 .lib-sec-hdr::after{content:'';position:absolute;left:0;bottom:-1px;width:80px;height:1px;background:var(--hairline-accent)}
 .lib-sec-hdr .sec-num{font-size:1.1rem;font-weight:600}
@@ -1370,6 +1371,14 @@ input,textarea,select{font-family:inherit}
 
 /* Chdr2 (lesson course header) — replace boxy icon with numeral */
 .chdr2-icon{background:rgba(255,255,255,.1)!important;border:1px solid rgba(255,255,255,.25)!important;font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.25rem!important}
+
+/* Locked session placeholder (when student deep-links to a locked session) */
+.sess-locked-panel{text-align:left;padding:56px 44px;margin:16px 0;background:var(--bg2);border:1px solid var(--hairline);border-radius:18px;position:relative;overflow:hidden;max-width:640px}
+.sess-locked-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent)}
+.sess-locked-icon{color:var(--secondary);margin-bottom:16px;opacity:.7}
+.sess-locked-eyebrow{font-family:var(--serif);font-style:italic;font-size:.88rem;font-weight:500;color:var(--secondary);margin-bottom:10px;letter-spacing:.005em}
+.sess-locked-title{font-family:var(--serif);font-size:1.6rem;font-weight:700;color:var(--text);letter-spacing:-.012em;line-height:1.2;margin-bottom:10px}
+.sess-locked-desc{font-size:.95rem;color:var(--text-mid);line-height:1.6;max-width:52ch}
 </style>
 </head>
 <body>
@@ -1416,28 +1425,6 @@ input,textarea,select{font-family:inherit}
         <a class="lib-pill" href="#libLab" data-lib="libLab" onclick="return libJump(event,'libLab')"><span class="sec-num">§ IV</span> Lab</a>
       </nav>
 
-      <div class="hub-grid" id="libHub">
-        <a class="hub-tile" onclick="libJump(null,'libPrompts')" role="button" tabindex="0">
-          <div class="hub-ico"><span class="hub-num">§ I</span></div>
-          <div class="hub-body"><div class="hub-ttl">Prompt library</div><div class="hub-sub">Copy-ready prompts by task</div></div>
-          <div class="hub-arr">→</div>
-        </a>
-        <a class="hub-tile" onclick="libJump(null,'libGallery')" role="button" tabindex="0">
-          <div class="hub-ico"><span class="hub-num">§ II</span></div>
-          <div class="hub-body"><div class="hub-ttl">Gallery</div><div class="hub-sub">See real AI results</div></div>
-          <div class="hub-arr">→</div>
-        </a>
-        <a class="hub-tile" onclick="libJump(null,'libTools')" role="button" tabindex="0">
-          <div class="hub-ico"><span class="hub-num">§ III</span></div>
-          <div class="hub-body"><div class="hub-ttl">Tools</div><div class="hub-sub">Which app for which task</div></div>
-          <div class="hub-arr">→</div>
-        </a>
-        <a class="hub-tile" onclick="libJump(null,'libLab')" role="button" tabindex="0">
-          <div class="hub-ico"><span class="hub-num">§ IV</span></div>
-          <div class="hub-body"><div class="hub-ttl">Prompt lab</div><div class="hub-sub">Practice with the teacher</div></div>
-          <div class="hub-arr">→</div>
-        </a>
-      </div>
 
       <section id="libPrompts" class="lib-sec">
         <header class="lib-sec-hdr"><span class="sec-num">§ I</span><h3 class="lib-sec-ttl">Prompt Library</h3><p class="lib-sec-sub">Copy-ready prompts by task.</p></header>
@@ -2004,7 +1991,7 @@ if(a.c&&a.s){
 }
 if(!co){$('learnWrap').innerHTML='';return;}
 var se=co.sessions.find(function(s){return s.n===a.s});if(!se){$('learnWrap').innerHTML='';return;}
-if(!isU(a.c,a.s)){$('learnWrap').innerHTML='<div style="text-align:center;padding:48px;color:var(--text-dim);animation:fadeIn .4s ease"><div style="font-size:2.5rem;margin-bottom:12px">\u{1F512}</div><div>This session is locked.<br>Complete the previous session to unlock.</div></div>';return}
+if(!isU(a.c,a.s)){$('learnWrap').innerHTML='<div class="sess-locked-panel"><div class="sess-locked-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><div class="sess-locked-eyebrow">\u00a7 Locked</div><div class="sess-locked-title">This session is not yet open</div><div class="sess-locked-desc">Complete the previous session to unlock this lesson.</div></div>';return}
 var dn=co.sessions.filter(function(s){return isHW(co.id,s.n)}).length,pct=Math.round(dn/co.sessions.length*100);
 var u=gU();
 var h='';
@@ -2021,7 +2008,7 @@ h+='<div class="chdr2-bg"></div><div class="chdr2-glow"></div>';
 h+='<div class="chdr2-top"><div class="chdr2-icon">'+co.id.toString().padStart(2,'0')+'</div>';
 h+='<div class="chdr2-info"><div class="chdr2-label">'+E(co.titleEn)+'</div>';
 h+='<div class="chdr2-title">'+E(co.title)+'</div>';
-if(co.persona)h+='<div class="chdr2-per">'+co.avatar+' '+E(co.persona)+'</div>';
+if(co.persona)h+='<div class="chdr2-per">'+E(co.persona)+'</div>';
 h+='</div></div>';
 if(co.outcomes){h+='<ul class="chdr2-outcomes">';co.outcomes.forEach(function(o){h+='<li><span class="cko">&#10003;</span>'+E(o)+'</li>'});h+='</ul>'}
 h+='<div class="chdr2-prog"><div class="chdr2-prog-bar"><div class="chdr2-prog-fill" style="width:'+pct+'%;background:'+co.color+'"></div></div>';
@@ -2038,7 +2025,7 @@ h+='<div class="sess-num">'+(hw?'\u2713':s.n)+'</div>';
 h+='<div class="sess-info"><div class="sess-title">'+E(s.titleEn)+'</div>';
 if(s.tools)h+='<div class="sess-tools">'+E(s.tools)+'</div>';
 h+='</div>';
-if(!op)h+='<div class="sess-lock">\u{1F512}</div>';
+if(!op)h+='<div class="sess-lock" aria-label="Locked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>';
 if(ic)h+='<div class="sess-badge">Current</div>';
 h+='</div>';
 });h+='</div>';
