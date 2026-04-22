@@ -229,15 +229,12 @@ input,textarea,select{font-family:inherit}
 .phase-nav-spacer{flex:1}
 
 /* PHASE LABELS */
-.plbl{display:flex;align-items:center;gap:10px;padding:10px 20px;border-radius:12px;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;position:relative}
-.plbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,currentColor,transparent);opacity:.15;margin-left:8px}
-.phase-desc{font-size:.78rem;color:var(--text-dim);margin-bottom:16px;padding:14px 18px;font-weight:500;background:#f3efe8;border-radius:var(--r-sm);border-left:3px solid var(--gold)}
-.plbl.learn{background:rgba(74,113,150,.10);color:var(--trust);border:1px solid rgba(74,113,150,.18)}
-.plbl.see{background:rgba(91,189,240,.1);color:var(--blue);border:1px solid rgba(91,189,240,.18)}
-.plbl.try{background:rgba(79,206,124,.1);color:var(--green);border:1px solid rgba(79,206,124,.18)}
-.plbl.create{background:rgba(155,126,216,.1);color:var(--purple);border:1px solid rgba(155,126,216,.2)}
-.plbl.quiz{background:rgba(240,82,82,.09);color:var(--red);border:1px solid rgba(240,82,82,.18)}
-.pdot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.plbl{display:flex;align-items:baseline;gap:14px;padding:0 0 14px;border-bottom:1px solid var(--hairline);margin-bottom:18px;position:relative;background:none!important;border-top:none;border-left:none;border-right:none;color:var(--text)!important;border-radius:0}
+.plbl::after{content:'';position:absolute;left:0;bottom:-1px;width:56px;height:1px;background:var(--hairline-accent)}
+.plbl-num{font-family:var(--serif);font-style:italic;font-weight:500;font-size:.95rem;color:var(--secondary);letter-spacing:.02em;flex-shrink:0}
+.plbl-txt{font-family:var(--serif);font-weight:700;font-size:1.3rem;letter-spacing:-.008em;color:var(--text);text-transform:none;line-height:1}
+.phase-desc{font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--text-mid);margin-bottom:22px;padding:0;font-weight:400;background:transparent;border:none;max-width:60ch;line-height:1.55}
+.pdot{display:none}
 
 /* PROMPT ANATOMY */
 .anat{background:linear-gradient(145deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.8) 100%);border:1px solid rgba(26,21,16,.10);border-radius:16px;padding:22px;margin-bottom:10px;position:relative;overflow:hidden}
@@ -441,7 +438,8 @@ input,textarea,select{font-family:inherit}
 
 /* TOOLS */
 .tcat{margin-bottom:26px}
-.tcattl{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--card-border)}
+.tcattl{font-family:var(--serif);font-style:italic;font-size:1rem;font-weight:500;text-transform:none;letter-spacing:.005em;color:var(--secondary);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--hairline);position:relative}
+.tcattl::after{content:'';position:absolute;left:0;bottom:-1px;width:40px;height:1px;background:var(--hairline-accent)}
 .tlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:9px}
 .titem{background:linear-gradient(145deg,rgba(255,255,255,.92) 0%,rgba(248,245,240,.75) 100%);border:1px solid rgba(26,21,16,.07);border-radius:12px;padding:14px;display:flex;gap:10px;align-items:flex-start;transition:all .25s;box-shadow:0 1px 2px rgba(26,21,16,.04),0 4px 12px rgba(26,21,16,.03)}
 .titem:hover{border-color:rgba(224,122,58,.30);transform:translateY(-2px);box-shadow:0 8px 20px rgba(26,21,16,.10)}
@@ -914,9 +912,10 @@ input,textarea,select{font-family:inherit}
 .vcomp-side{border-radius:var(--r-lg);padding:var(--sp-5);position:relative;overflow:hidden}
 .vcomp-side.bad{background:var(--bg2);border:1px solid var(--hairline);border-top:2px solid rgba(143,92,52,.55);border-radius:4px}
 .vcomp-side.good{background:var(--bg2);border:1px solid var(--hairline);border-top:2px solid var(--accent);border-radius:4px}
-.vcomp-label{font-size:var(--text-base);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:var(--sp-3);display:flex;align-items:center;gap:var(--sp-2);padding-bottom:var(--sp-2);border-bottom:1px solid rgba(26,21,16,.05)}
-.vcomp-side.bad .vcomp-label{color:#9BA3AF}
-.vcomp-side.good .vcomp-label{color:var(--success)}
+.vcomp-label{font-family:var(--serif);font-style:italic;font-size:.95rem;font-weight:500;text-transform:none;letter-spacing:.01em;margin-bottom:var(--sp-3);display:flex;align-items:center;gap:10px;padding-bottom:var(--sp-2);border-bottom:1px solid var(--hairline)}
+.vcomp-mark{font-family:var(--serif);font-weight:500;font-size:1.1em;line-height:1;display:inline-block;min-width:1em;text-align:center}
+.vcomp-side.bad .vcomp-label{color:var(--text-muted)}
+.vcomp-side.good .vcomp-label{color:var(--accent)}
 .vcomp-prompt{font-family:'Courier New',monospace;font-size:.82rem;line-height:1.5;color:var(--text-dim);padding:10px 12px;background:#f3efe8;border-radius:8px;margin-bottom:10px}
 .vcomp-result{font-size:.84rem;color:#3a3430;line-height:1.55}
 .vcomp-img{width:100%;border-radius:10px;margin-top:10px;aspect-ratio:16/10;object-fit:cover;background:linear-gradient(135deg,rgba(26,21,16,.02),rgba(26,21,16,.01));display:block}
@@ -934,13 +933,14 @@ input,textarea,select{font-family:inherit}
 /* ═══ PROMPT PLAYGROUND ═══ */
 .playground{border-radius:16px;overflow:hidden;border:1.5px solid rgba(26,21,16,.10);margin-bottom:12px;background:rgba(255,255,255,.95)}
 .pg-header{padding:12px 18px;background:rgba(248,245,240,.8);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(26,21,16,.10)}
-.pg-header-title{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);display:flex;align-items:center;gap:8px}
+.pg-header-title{font-family:var(--serif);font-style:italic;font-size:.95rem;font-weight:500;letter-spacing:.01em;text-transform:none;color:var(--secondary);display:flex;align-items:center;gap:8px}
+.pg-header-title::before{content:'\00a7';font-family:var(--serif);font-style:italic;font-weight:500;color:var(--accent);margin-right:4px}
 .pg-body{display:grid;grid-template-columns:1fr 1fr;min-height:200px}
 @media(max-width:600px){.pg-body{grid-template-columns:1fr}}
 .pg-panel{padding:16px;display:flex;flex-direction:column}
 .pg-panel:first-child{border-right:1px solid rgba(26,21,16,.10)}
 @media(max-width:600px){.pg-panel:first-child{border-right:none;border-bottom:1px solid rgba(26,21,16,.10)}}
-.pg-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:8px}
+.pg-label{font-family:var(--serif);font-style:italic;font-size:.8rem;font-weight:500;text-transform:none;letter-spacing:.01em;color:var(--text-mid);margin-bottom:8px}
 .pg-input{width:100%;flex:1;resize:none;background:#f8f6f2;border:1px solid rgba(26,21,16,.12);border-radius:10px;padding:12px;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.5;color:var(--text);outline:none;transition:border-color .2s;min-height:100px}
 .pg-input:focus{border-color:var(--purple)}
 .pg-output{flex:1;padding:12px;background:#f3efe8;border-radius:10px;font-size:.85rem;line-height:1.6;color:var(--text);min-height:100px;white-space:pre-wrap;border:1px solid rgba(26,21,16,.08);transition:opacity .25s}
@@ -2044,7 +2044,7 @@ h+=rPhaseStepper(a.c,a.s,'learn');
 
 var delays=['ent3','ent4','ent5','ent5','ent5','ent5'];var di=0;
 if(se.learn&&se.learn.length){
-h+='<div class="pblk pblk-anim phase-active '+delays[di++]+'" data-phase="learn"><div class="plbl learn"><div class="pdot"></div>\u{1F4D6} LEARN</div><div class="phase-desc">The core ideas you need before touching any AI tool</div>';
+h+='<div class="pblk pblk-anim phase-active '+delays[di++]+'" data-phase="learn"><div class="plbl learn"><span class="plbl-num">\u00a7 I</span><span class="plbl-txt">Learn</span></div><div class="phase-desc">The core ideas you need before touching any AI tool.</div>';
 se.learn.forEach(function(b,bi){h+=rBlock(b,a.c+'_'+a.s+'_'+bi,co.color)});
 /* Optional "See in the Lab" deep-link for visual/image sessions */
 var _labMapLearn={1:{4:'lighting'},2:{1:'style',2:'camera',3:'product',4:'style'},3:{1:'style'},4:{1:'product',2:'branding'},5:{1:'branding',2:'branding',3:'social',4:'branding'}};
@@ -2055,19 +2055,19 @@ if(_labCatLearn&&typeof LAB!=='undefined'&&LAB[_labCatLearn]){
 h+='</div>';
 }
 if(se.gallery&&se.gallery.length){
-h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="see"><div class="plbl see"><div class="pdot"></div>\u{1F440} SEE</div><div class="phase-desc">Real examples with results \u2014 tap cards to reveal</div>';
+h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="see"><div class="plbl see"><span class="plbl-num">\u00a7 II</span><span class="plbl-txt">See</span></div><div class="phase-desc">Real examples with results \u2014 tap cards to reveal.</div>';
 h+='<div class="see-scroll">';se.gallery.forEach(function(g,gi){h+=bFC(g,'s_'+a.c+'_'+a.s+'_'+gi)});h+='</div></div>';
 }
 if(se.recipe&&se.recipe.length){
-h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="try"><div class="plbl try"><div class="pdot"></div>\u{1F6E0} TRY</div><div class="phase-desc">Follow along step by step \u2014 '+se.recipe.length+' steps</div><div class="rsteps">';
+h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="try"><div class="plbl try"><span class="plbl-num">\u00a7 III</span><span class="plbl-txt">Try</span></div><div class="phase-desc">Follow along step by step \u2014 '+se.recipe.length+' steps.</div><div class="rsteps">';
 se.recipe.forEach(function(r,ri){h+=bRS(r,'r_'+a.c+'_'+a.s+'_'+ri,ri<2)});h+='</div></div>';
 }
 if(se.quiz&&se.quiz.length){
-h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="quiz"><div class="plbl quiz"><div class="pdot"></div>\u{1F9E0} QUIZ</div><div class="phase-desc">Test what you learned \u2014 '+se.quiz.length+' questions</div>';
+h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="quiz"><div class="plbl quiz"><span class="plbl-num">\u00a7 IV</span><span class="plbl-txt">Quiz</span></div><div class="phase-desc">Test what you learned \u2014 '+se.quiz.length+' questions.</div>';
 se.quiz.forEach(function(q,qi){h+=bQ(q,a.c+'_'+a.s+'_'+qi)});h+='</div>';
 }
 var wk=a.c+'_'+a.s,wd=isHW(a.c,a.s);
-h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="hw"><div class="plbl create"><div class="pdot"></div>\u{1F3A8} HOMEWORK</div><div class="phase-desc">Your take-home project \u2014 30-60 min at home</div>';
+h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="hw"><div class="plbl create"><span class="plbl-num">\u00a7 V</span><span class="plbl-txt">Homework</span></div><div class="phase-desc">Your take-home project \u2014 30-60 min at home.</div>';
 h+='<div class="hwb" style="border-color:'+co.color+'">';
 if(typeof se.hw==='object'){
 h+='<div class="hw-structured">';
@@ -2140,7 +2140,7 @@ $('learnWrap').innerHTML=h;
 (function(){
   var allPhases=['learn','see','try','quiz','hw'];
   var existingPhases=allPhases.filter(function(p){return document.querySelector('.pblk[data-phase="'+p+'"]')});
-  var labels={learn:'📖 Learn',see:'👀 See',try:'🛠 Try',quiz:'🧠 Quiz',hw:'🎯 Homework'};
+  var labels={learn:'Learn',see:'See',try:'Try',quiz:'Quiz',hw:'Homework'};
   existingPhases.forEach(function(phaseId,idx){
     var block=document.querySelector('.pblk[data-phase="'+phaseId+'"]');
     if(!block)return;
@@ -2226,10 +2226,10 @@ else if(b.type==='divider')h+='<div class="content-divider"></div>';
 else if(b.type==='visual-tip'){h+='<div class="vtip-grid">';b.tips.forEach(function(t){h+='<div class="vtip"><div class="vtip-icon">'+E(t.icon)+'</div><div class="vtip-body"><div class="vtip-title">'+E(t.title)+'</div><div class="vtip-desc">'+E(t.desc)+'</div></div></div>'});h+='</div>'}
 else if(b.type==='visual-compare'){
 h+='<div class="vcomp">';
-h+='<div class="vcomp-side bad"><div class="vcomp-label">\u274C Before</div><div class="vcomp-prompt">'+E(b.bad.prompt)+'</div><div class="vcomp-result">'+E(b.bad.result)+'</div>';
+h+='<div class="vcomp-side bad"><div class="vcomp-label"><span class="vcomp-mark">\u2014</span> Before</div><div class="vcomp-prompt">'+E(b.bad.prompt)+'</div><div class="vcomp-result">'+E(b.bad.result)+'</div>';
 if(b.bad.img)h+='<img class="vcomp-img" src="'+E(b.bad.img)+'" alt="Bad result">';
 h+='</div>';
-h+='<div class="vcomp-side good"><div class="vcomp-label">\u2705 After</div><div class="vcomp-prompt">'+E(b.good.prompt)+'</div><div class="vcomp-result">'+E(b.good.result)+'</div>';
+h+='<div class="vcomp-side good"><div class="vcomp-label"><span class="vcomp-mark">+</span> After</div><div class="vcomp-prompt">'+E(b.good.prompt)+'</div><div class="vcomp-result">'+E(b.good.result)+'</div>';
 if(b.good.img)h+='<img class="vcomp-img" src="'+E(b.good.img)+'" alt="Good result">';
 h+='</div></div>'}
 else if(b.type==='tool-spotlight'){h+='<div class="tspot"><div class="tspot-icon">'+E(b.icon)+'</div><div class="tspot-info"><div class="tspot-name">'+E(b.name)+'</div><div class="tspot-desc">'+E(b.desc)+'</div></div>'+(b.url?'<a class="tspot-link" href="'+E(b.url)+'" target="_blank" rel="noopener">Open Tool \u2192</a>':'')+'</div>'}
@@ -2344,7 +2344,7 @@ document.body.appendChild(ov);
 /* PROMPT PLAYGROUND */
 function bPG(b,id){
 var pid='pg_'+id;
-var h='<div class="playground"><div class="pg-header"><div class="pg-header-title">\u{1F3AE} Try It Yourself</div>';
+var h='<div class="playground"><div class="pg-header"><div class="pg-header-title">Try it yourself</div>';
 h+='<button class="pg-btn" onclick="runPG(\''+pid+'\')">Try it \u2192</button></div>';
 h+='<div class="pg-body"><div class="pg-panel"><div class="pg-label">Your Prompt</div>';
 h+='<textarea class="pg-input" id="'+pid+'_in" placeholder="Type your prompt here...">'+E(b.starter)+'</textarea></div>';
