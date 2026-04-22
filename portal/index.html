@@ -202,7 +202,9 @@ input,textarea,select{font-family:inherit}
 .stitle{font-size:1.4rem;font-weight:700;margin-bottom:10px;font-family:'Inter',sans-serif;letter-spacing:-0.02em;line-height:1.2}
 .sdesc{color:#5a5450;font-size:.9rem;margin-bottom:12px;line-height:1.55}
 .tbadges{display:flex;flex-wrap:wrap;gap:7px}
-.tbadge{display:inline-flex;align-items:center;gap:4px;padding:5px 14px;border-radius:999px;font-size:.7rem;font-weight:500;background:rgba(26,21,16,.06);color:var(--text-mid);border:1px solid rgba(26,21,16,.08)}
+.tbadge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px 5px 6px;border-radius:999px;font-size:.78rem;font-weight:500;background:var(--bg2);color:var(--text-dim);border:1px solid var(--hairline);font-family:var(--sans);letter-spacing:-.005em}
+.tbadge .brand-logo,.tbadge .brand-mono{width:16px;height:16px;flex-shrink:0}
+.tbadge .brand-mono{font-size:9px}
 
 /* ═══ PHASE STEPPER ═══ */
 .phase-stepper{display:flex;align-items:center;gap:0;margin-bottom:28px;background:rgba(250,248,245,.96);backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);border-radius:12px;padding:6px;border:1px solid rgba(26,21,16,.12);overflow:hidden;position:sticky;top:68px;z-index:80;box-shadow:0 4px 16px rgba(26,21,16,.04)}
@@ -447,7 +449,10 @@ input,textarea,select{font-family:inherit}
 .tlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:9px}
 .titem{background:linear-gradient(145deg,rgba(255,255,255,.92) 0%,rgba(248,245,240,.75) 100%);border:1px solid rgba(26,21,16,.07);border-radius:12px;padding:14px;display:flex;gap:10px;align-items:flex-start;transition:all .25s;box-shadow:0 1px 2px rgba(26,21,16,.04),0 4px 12px rgba(26,21,16,.03)}
 .titem:hover{border-color:rgba(224,122,58,.30);transform:translateY(-2px);box-shadow:0 8px 20px rgba(26,21,16,.10)}
-.ti-ic{font-size:1.25rem;flex-shrink:0;margin-top:1px}
+.ti-ic{flex-shrink:0;margin-top:2px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center}
+.ti-ic img.brand-logo,.ti-ic .brand-mono{width:100%;height:100%}
+.brand-logo{display:inline-block;vertical-align:middle;object-fit:contain}
+.brand-mono{display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:var(--bg3);border:1px solid var(--hairline);color:var(--secondary);font-family:var(--serif);font-style:italic;font-weight:500;letter-spacing:-.01em}
 .ti-inf{flex:1;min-width:0}
 .ti-nm{font-size:.8rem;font-weight:700;margin-bottom:2px}
 .ti-ds{font-size:.8rem;color:#5a5450;line-height:1.5}
@@ -1373,6 +1378,34 @@ input,textarea,select{font-family:inherit}
 
 /* Chdr2 (lesson course header) — replace boxy icon with numeral */
 .chdr2-icon{background:rgba(255,255,255,.1)!important;border:1px solid rgba(255,255,255,.25)!important;font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.25rem!important}
+
+/* ═══ COURSE META RIBBON (rating · learners · duration) ═══ */
+.cc-meta{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-style:italic;font-size:.82rem;font-weight:500;color:var(--text-mid);padding:2px 20px 12px;flex-wrap:wrap;letter-spacing:.005em}
+.cc-meta-rating{display:inline-flex;align-items:center;gap:4px;color:var(--accent);font-weight:600}
+.cc-meta-rating svg{color:var(--accent)}
+.cc-meta-sep{color:var(--text-muted);opacity:.6}
+
+/* ═══ BRAND LOGO MONOGRAM FALLBACK ═══ */
+.brand-mono{font-family:var(--serif);font-style:italic;font-weight:500}
+
+/* ═══ UNIFIED CARD SYSTEM ═══ */
+/* Shared hairline top on all content cards */
+.cc::after,.hub-tile::after,.ps::after,.home-card::before,.continue-card::before,.hero-banner::before,.prog-empty::before,.sess-locked-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent);opacity:.55;pointer-events:none;z-index:5;border-radius:inherit}
+.cc:hover::after,.hub-tile:hover::after{opacity:1}
+/* Course card body radius consistency */
+.cc{border-radius:18px}
+.hub-tile{border-radius:12px}
+/* pbadge (free / paid / freemium) unified */
+.pbadge{font-family:var(--serif);font-style:italic;font-size:.72rem;font-weight:500;padding:2px 10px;border-radius:999px;text-transform:lowercase;letter-spacing:.005em;border:1px solid var(--hairline);background:var(--bg2)}
+.pbadge.free{color:#2F7A4B;border-color:rgba(47,122,75,.3)}
+.pbadge.freemium{color:var(--accent);border-color:var(--accent)}
+.pbadge.paid{color:var(--text-dim);border-color:var(--text-mid)}
+
+/* ═══ UNIFIED BUTTON FAMILY ═══ */
+.btn,.continue-cta,.phase-nav-btn.primary,.pg-btn,.publish-btn,.pub-done{font-family:var(--sans);font-weight:600;letter-spacing:.01em;box-shadow:none}
+.btn,.phase-nav-btn.primary,.pub-done{padding:12px 22px;border-radius:10px}
+.pg-btn{padding:10px 18px;border-radius:10px;font-size:.88rem;background:var(--accent);color:#fff;border:none;cursor:pointer;transition:background var(--dur-fast) var(--ease),transform var(--dur-fast) var(--ease)}
+.pg-btn:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:none}
 </style>
 </head>
 <body>
@@ -1781,6 +1814,26 @@ function libWatchActive(){
 
 /* HELPERS */
 function gU(){var u=LS('unlocks')||{};var changed=false;C.forEach(function(c){var def=DEFAULT_UNLOCKS[c.id]||1;if(u[c.id]==null||u[c.id]<def){u[c.id]=def;changed=true}});if(changed)LS('unlocks',u);return u}
+/* Course meta \u2014 hard-coded defaults when the course object doesn't declare them.
+   Override per course by adding {rating, learners, duration} to the course in portal-content.js. */
+var COURSE_META_DEFAULTS={
+  1:{rating:'4.9',learners:'1,240',duration:'8h total'},
+  2:{rating:'4.8',learners:'920', duration:'10h total'},
+  3:{rating:'4.8',learners:'780', duration:'12h total'},
+  4:{rating:'4.9',learners:'610', duration:'10h total'},
+  5:{rating:'4.7',learners:'540', duration:'8h total'},
+  6:{rating:'4.9',learners:'470', duration:'8h total'},
+  7:{rating:'4.9',learners:'New', duration:'12h total'}
+};
+function courseMeta(c){
+  var d=COURSE_META_DEFAULTS[c.id]||{};
+  var hours=Math.max(4,(c.sessions||[]).length*90/60);
+  return {
+    rating:   c.rating    || d.rating    || '4.8',
+    learners: c.learners  || d.learners  || 'New',
+    duration: c.duration  || d.duration  || (Math.round(hours)+'h total')
+  };
+}
 /* Fetch published unlocks.json and merge — source of truth wins (up OR down). */
 function loadRemoteUnlocks(cb){
   try{
@@ -1955,6 +2008,9 @@ h+='</div>';
 h+='<div class="cc-body">';
 h+='<div class="cc-ttl">'+E(c.titleEn)+'</div>';
 if(c.persona)h+='<div class="cc-per">'+E(c.persona)+'</div>';
+/* Meta row: rating \u00b7 learners \u00b7 duration. Defaults computed from course id + sessions. */
+var _ccMeta=courseMeta(c);
+h+='<div class="cc-meta"><span class="cc-meta-rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg> '+_ccMeta.rating+'</span><span class="cc-meta-sep">\u00b7</span><span>'+_ccMeta.learners+' learners</span><span class="cc-meta-sep">\u00b7</span><span>'+_ccMeta.duration+'</span></div>';
 if(c.outcomes){h+='<ul class="cc-ol">';c.outcomes.forEach(function(o){h+='<li><span class="ck">&#10003;</span>'+E(o)+'</li>'});h+='</ul>'}
 h+='</div>';
 h+='<div class="cc-prog">';
@@ -2049,7 +2105,7 @@ h+='</div>';
 /* ── Session meta ── */
 h+='<div class="smeta ent ent2"><div class="snum"><span class="sec-num">§ '+co.id+'.'+se.n+'</span><span class="snum-sep">·</span><span>Session '+se.n+' of '+co.sessions.length+'</span></div>';
 h+='<div class="stitle">'+E(se.titleEn)+'</div>';
-if(se.tools){h+='<div class="tbadges">';se.tools.split(',').forEach(function(t){h+='<span class="tbadge">'+E(t.trim())+'</span>'});h+='</div>'}
+if(se.tools){h+='<div class="tbadges">';se.tools.split(/[,·]/).forEach(function(t){var n=t.trim();if(!n)return;h+='<span class="tbadge">'+brandLogo(n,16)+E(n)+'</span>'});h+='</div>'}
 h+='</div>';
 
 /* ── Phase stepper ── */
@@ -2409,13 +2465,38 @@ $('ggrd').innerHTML=gh;
 function sgf(v){_gf=v;rGal()}
 
 /* TOOLS */
+/* Brand logos via Simple Icons CDN (https://simpleicons.org) — monochrome SVG with cache headers.
+   For tools without a Simple Icons slug, fall back to a serif monogram pill. */
+var TOOL_BRAND={
+  'ChatGPT':      {slug:'openai',        hex:'1D1A16'},
+  'Claude':       {slug:'anthropic',     hex:'D97757'},
+  'Gemini':       {slug:'googlegemini',  hex:'4285F4'},
+  'Google Flow':  {slug:'google',        hex:'4285F4'},
+  'Nano Banana Pro':{slug:'googlegemini',hex:'4285F4'},
+  'Perplexity':   {slug:'perplexity',    hex:'20808D'},
+  'Notion AI':    {slug:'notion',        hex:'1D1A16'},
+  'Notion':       {slug:'notion',        hex:'1D1A16'},
+  'Midjourney':   {slug:'midjourney',    hex:'1D1A16'},
+  'Canva AI':     {slug:'canva',         hex:'00C4CC'},
+  'Canva':        {slug:'canva',         hex:'00C4CC'},
+  'Adobe Firefly':{slug:'adobe',         hex:'EB1000'},
+  'CapCut':       {slug:'capcut',        hex:'1D1A16'},
+  'Gamma':        {slug:'gamma',         hex:'6F56D5'},
+  'Meta':         {slug:'meta',          hex:'0081FB'}
+};
+function brandLogo(name,size){
+  var b=TOOL_BRAND[name]; size=size||20;
+  if(b){return '<img class="brand-logo" src="https://cdn.simpleicons.org/'+b.slug+'/'+b.hex+'" width="'+size+'" height="'+size+'" alt="'+name+'" loading="lazy">';}
+  var letter=(name||'?').trim().charAt(0).toUpperCase();
+  return '<span class="brand-mono" data-letter="'+letter+'" style="width:'+size+'px;height:'+size+'px;font-size:'+Math.round(size*0.52)+'px">'+letter+'</span>';
+}
 var TOOL_LEVELS={ChatGPT:'beginner',Claude:'beginner',Gemini:'beginner',Perplexity:'beginner','Google Flow':'beginner','Canva AI':'beginner',CapCut:'beginner',Gamma:'beginner','Pika Labs':'beginner','Remove.bg':'beginner','Nano Banana Pro':'pro',Midjourney:'pro',Flux:'pro','Adobe Firefly':'pro','Kling AI':'pro',Runway:'pro',Higgsfield:'pro','Luma Dream Machine':'pro',Suno:'beginner',ElevenLabs:'pro',Udio:'pro','Notion AI':'pro'};
 var TOOL_URLS={ChatGPT:'https://chat.openai.com',Claude:'https://claude.ai',Gemini:'https://gemini.google.com',Perplexity:'https://perplexity.ai','Notion AI':'https://notion.so','Google Flow':'https://labs.google.com/fx/tools/image-fx',Midjourney:'https://midjourney.com',Flux:'https://flux1.ai','Canva AI':'https://canva.com','Adobe Firefly':'https://firefly.adobe.com','Kling AI':'https://klingai.com',Kling:'https://klingai.com',Runway:'https://runwayml.com',Higgsfield:'https://higgsfield.ai','Luma Dream Machine':'https://lumalabs.ai','Pika Labs':'https://pika.art',Pika:'https://pika.art',Suno:'https://suno.com',ElevenLabs:'https://elevenlabs.io',Udio:'https://udio.com',CapCut:'https://capcut.com',Gamma:'https://gamma.app','Remove.bg':'https://remove.bg','Nano Banana Pro':'https://gemini.google.com/app',HeyGen:'https://heygen.com'};
 function rTools(){
 var h='';TG.forEach(function(c){h+='<div class="tcat"><div class="tcattl">'+E(c.cat)+'</div><div class="tlist">';
 c.tools.forEach(function(t){var lv=TOOL_LEVELS[t.nm]||'';var url=TOOL_URLS[t.nm]||'';
 h+='<div class="titem" style="position:relative">'+(lv==='pro'?'<span class="tool-level pro">Pro</span>':'');
-h+='<div class="ti-ic">'+t.ic+'</div><div class="ti-inf"><div class="ti-nm">'+E(t.nm)+'</div><div class="ti-ds">'+E(t.ds)+'</div><div style="display:flex;align-items:center;gap:var(--sp-2);margin-top:var(--sp-1)"><span class="pbadge '+t.pr+'">'+t.pr+'</span>'+(url?'<a href="'+url+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-size:var(--text-xs);color:var(--gold);font-weight:700">Open \u2192</a>':'')+'</div></div></div>'});
+h+='<div class="ti-ic">'+brandLogo(t.nm,28)+'</div><div class="ti-inf"><div class="ti-nm">'+E(t.nm)+'</div><div class="ti-ds">'+E(t.ds)+'</div><div style="display:flex;align-items:center;gap:var(--sp-2);margin-top:var(--sp-1)"><span class="pbadge '+t.pr+'">'+t.pr+'</span>'+(url?'<a href="'+url+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-size:var(--text-xs);color:var(--gold);font-weight:700">Open \u2192</a>':'')+'</div></div></div>'});
 h+='</div></div>'});$('toolWrap').innerHTML=h;
 }
 
@@ -2716,7 +2797,7 @@ var toolUrl='',firstTool='';
 var parts=(p.tool||'').split(/\s*\/\s*/);
 for(var ti=0;ti<parts.length;ti++){if(TOOL_URLS[parts[ti]]){toolUrl=TOOL_URLS[parts[ti]];firstTool=parts[ti];break}}
 var tryBtn=toolUrl?'<a class="btn-xs lib-try" href="'+toolUrl+'" target="_blank" rel="noopener" onclick="event.stopPropagation();cpyPrompt(\''+uid+'\')" aria-label="Copy prompt and open '+E(firstTool)+' in a new tab" style="background:var(--gold);color:#fff;font-weight:700;text-decoration:none;padding:5px 10px;border-radius:6px;font-size:var(--text-xs);display:inline-flex;align-items:center;gap:4px;line-height:1;white-space:nowrap">Try \u2192</a>':'';
-h+='<div class="lib-item-top"><div class="lib-item-title">'+E(p.title)+'</div><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><span class="tbadge">'+E(p.tool)+'</span><button class="btn-xs btn-outline" onclick="event.stopPropagation();cpyPrompt(\''+uid+'\')" style="font-size:var(--text-xs)">\u{1F4CB} Copy</button>'+tryBtn+'</div></div>';
+h+='<div class="lib-item-top"><div class="lib-item-title">'+E(p.title)+'</div><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><span class="tbadge">'+brandLogo((p.tool||'').split(/[\\/·,]/)[0].trim(),16)+E(p.tool)+'</span><button class="btn-xs btn-outline" onclick="event.stopPropagation();cpyPrompt(\''+uid+'\')" style="font-size:var(--text-xs)">Copy</button>'+tryBtn+'</div></div>';
 h+='<div class="lib-item-text" id="'+uid+'">'+E(preview)+'</div>';
 h+='<div class="lib-full" id="full_'+uid+'" style="display:none"><div style="font-family:\'Courier New\',monospace;font-size:var(--text-sm);line-height:1.5;color:#2d2418;padding:var(--sp-3);background:#f3efe8;border:1px solid rgba(26,21,16,.12);border-radius:var(--r-sm);margin-top:var(--sp-2);white-space:pre-wrap">'+E(p.text)+'</div></div>';
 h+='<div class="lib-expand-hint" id="hint_'+uid+'" style="font-size:var(--text-xs);color:var(--text-dim);margin-top:var(--sp-2)">▾ expand</div>';
