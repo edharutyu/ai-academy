@@ -872,9 +872,6 @@ input,textarea,select{font-family:inherit}
 
 .sec-hdr-title{font-size:1.35rem;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:-0.02em;color:var(--text)}
 .sec-hdr-sub{font-size:.85rem;color:var(--text-dim);line-height:1.5;margin-top:4px}
-#secGallery .sec-hdr{--sec-color1:var(--accent);--sec-color2:var(--secondary)}
-#secTools .sec-hdr{--sec-color1:#5b7fa6;--sec-color2:#06B6D4}
-#secLab .sec-hdr{--sec-color1:#8B5CF6;--sec-color2:#34D399}
 #secLibrary .sec-hdr{--sec-color1:var(--accent);--sec-color2:var(--secondary)}
 #secProgress .sec-hdr{--sec-color1:#34D399;--sec-color2:#5b7fa6}
 
@@ -1216,9 +1213,6 @@ input,textarea,select{font-family:inherit}
 /* Section rhythm backgrounds */
 #secHome{background:var(--bg)}
 #secLearn{background:var(--bg)}
-#secGallery{background:var(--bg3)}
-#secTools{background:var(--bg2)}
-#secLab{background:var(--bg3)}
 #secLibrary{background:var(--bg2)}
 #secProgress{background:var(--bg)}
 
@@ -1313,6 +1307,23 @@ input,textarea,select{font-family:inherit}
 /* Card top hairline accent (cue from landing) */
 .continue-card,.home-card,.hub-tile{position:relative}
 .continue-card::before,.home-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent);opacity:.5;pointer-events:none}
+
+/* ═══ LIBRARY — sub-nav + anchored sections ═══ */
+.lib-subnav{position:sticky;top:60px;z-index:40;display:flex;gap:6px;padding:10px 0;margin:0 0 22px;background:linear-gradient(to bottom,var(--bg) 80%,transparent);overflow-x:auto;scrollbar-width:none}
+.lib-subnav::-webkit-scrollbar{display:none}
+.lib-pill{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:var(--r-full);border:1px solid var(--hairline);background:var(--bg2);color:var(--text-dim);font-size:.82rem;font-weight:600;white-space:nowrap;transition:all var(--dur-fast) var(--ease);text-decoration:none}
+.lib-pill .sec-num{font-size:.78rem;color:var(--secondary)}
+.lib-pill:hover{border-color:var(--accent);color:var(--text);background:var(--accent-soft)}
+.lib-pill.active{border-color:var(--accent);background:var(--accent);color:#fff}
+.lib-pill.active .sec-num{color:#fff;opacity:.85}
+
+.lib-sec{scroll-margin-top:130px;margin:40px 0 48px;padding-top:8px}
+.lib-sec-hdr{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;margin:0 0 18px;padding-bottom:14px;border-bottom:1px solid var(--hairline);position:relative}
+.lib-sec-hdr::after{content:'';position:absolute;left:0;bottom:-1px;width:80px;height:1px;background:var(--hairline-accent)}
+.lib-sec-hdr .sec-num{font-size:1.1rem;font-weight:600}
+.lib-sec-ttl{font-family:var(--serif);font-size:1.45rem;font-weight:700;color:var(--text);letter-spacing:-.01em;margin:0;line-height:1.2}
+.lib-sec-sub{font-size:.88rem;color:var(--text-mid);margin:0;flex-basis:100%;margin-top:-2px}
+@media (max-width:640px){.lib-subnav{top:56px}.lib-sec-ttl{font-size:1.2rem}}
 </style>
 </head>
 <body>
@@ -1345,38 +1356,65 @@ input,textarea,select{font-family:inherit}
   <main class="container" id="portalMain" tabindex="-1">
     <div class="section" id="secHome"><div id="homeWrap"></div></div>
     <div class="section" id="secLearn"><div id="pathWrap"></div><div id="learnWrap"></div></div>
-    <div class="section" id="secGallery">
-      <div class="sec-hdr"><div class="sec-dots"><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div></div><div class="sec-hdr-title">🖼 Inspiration Gallery</div><div class="sec-hdr-sub">See the prompt on front → Flip to see what AI created</div></div>
-      <div class="gallery-how"><span class="gallery-how-step">👆 Tap any card to flip</span><span class="gallery-how-sep">·</span><span class="gallery-how-step">📋 Front = the prompt used</span><span class="gallery-how-sep">·</span><span class="gallery-how-step">🎨 Back = what AI generated</span></div>
-      <div class="gfilters" id="gfilt"></div><div class="ggrid" id="ggrd"></div>
-    </div>
-    <div class="section" id="secTools"><div class="sec-hdr"><div class="sec-dots"><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div></div><div class="sec-hdr-title">🔧 Tool Guide</div><div class="sec-hdr-sub">Which AI tool for which task — pricing, strengths, and direct links</div></div><div id="toolWrap"></div></div>
-    <div class="section" id="secLab"><div class="sec-hdr"><div class="sec-dots"><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div></div><div class="sec-hdr-title">🧪 Prompt Lab</div><div class="sec-hdr-sub">In-class practice tool — we use this together during lessons</div></div><div class="lab-onboard" id="labOnboard"><div class="lab-onboard-toggle" onclick="toggleLabOnboard()"><div style="display:flex;align-items:center;gap:8px"><div class="lab-onboard-chevron">▼</div><div class="lab-onboard-title" style="margin-bottom:0">How this works</div><span class="lab-onboard-toggle-hint">click to expand</span></div></div><div class="lab-onboard-body"><div class="lab-onboard-badge">🎓 Used during class with your teacher</div><div class="lab-onboard-concept">Each category takes the <strong>same prompt</strong> and changes <strong>only one thing</strong> (highlighted in gold). You generate both → compare → see what that one variable actually does.</div><div class="lab-steps-row"><div class="lab-step-item"><div class="lab-step-num">1</div><div class="lab-step-txt">Teacher picks a category</div></div><div class="lab-step-arrow">→</div><div class="lab-step-item"><div class="lab-step-num">2</div><div class="lab-step-txt">Click a card to copy</div></div><div class="lab-step-arrow">→</div><div class="lab-step-item"><div class="lab-step-num">3</div><div class="lab-step-txt">Paste into <a href="https://labs.google.com" target="_blank" rel="noopener" style="color:var(--gold)">Google ImageFX</a></div></div><div class="lab-step-arrow">→</div><div class="lab-step-item"><div class="lab-step-num">4</div><div class="lab-step-txt">Compare with classmates!</div></div></div><div class="lab-onboard-note">💡 You can also use this at home for extra practice — try different categories and build your prompt skills.</div></div></div><div id="labWrap"></div></div>
     <div class="section" id="secLibrary">
-      <div class="sec-hdr"><div class="sec-dots"><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div></div><div class="sec-hdr-title">Library</div><div class="sec-hdr-sub">Prompts, tools, gallery and practice — everything you need after the lesson</div></div>
+      <div class="sec-hdr">
+        <div class="sec-dots"><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div></div>
+        <div class="sec-hdr-title"><span class="sec-num">§</span> Library</div>
+        <div class="sec-hdr-sub">Prompts, gallery, tools and practice — everything you need after the lesson.</div>
+      </div>
+
+      <nav class="lib-subnav" id="libSubnav" aria-label="Library sections">
+        <a class="lib-pill" href="#libPrompts" data-lib="libPrompts" onclick="return libJump(event,'libPrompts')"><span class="sec-num">§ I</span> Prompts</a>
+        <a class="lib-pill" href="#libGallery" data-lib="libGallery" onclick="return libJump(event,'libGallery')"><span class="sec-num">§ II</span> Gallery</a>
+        <a class="lib-pill" href="#libTools" data-lib="libTools" onclick="return libJump(event,'libTools')"><span class="sec-num">§ III</span> Tools</a>
+        <a class="lib-pill" href="#libLab" data-lib="libLab" onclick="return libJump(event,'libLab')"><span class="sec-num">§ IV</span> Lab</a>
+      </nav>
+
       <div class="hub-grid" id="libHub">
-        <a class="hub-tile" onclick="sw('secLibrary');document.getElementById('libWrap').scrollIntoView({behavior:'smooth',block:'start'})" role="button" tabindex="0">
+        <a class="hub-tile" onclick="libJump(null,'libPrompts')" role="button" tabindex="0">
           <div class="hub-ico">📚</div>
           <div class="hub-body"><div class="hub-ttl">Prompt library</div><div class="hub-sub">Copy-ready prompts by task</div></div>
           <div class="hub-arr">→</div>
         </a>
-        <a class="hub-tile" onclick="sw('secGallery')" role="button" tabindex="0">
+        <a class="hub-tile" onclick="libJump(null,'libGallery')" role="button" tabindex="0">
           <div class="hub-ico">🖼</div>
           <div class="hub-body"><div class="hub-ttl">Gallery</div><div class="hub-sub">See real AI results</div></div>
           <div class="hub-arr">→</div>
         </a>
-        <a class="hub-tile" onclick="sw('secTools')" role="button" tabindex="0">
+        <a class="hub-tile" onclick="libJump(null,'libTools')" role="button" tabindex="0">
           <div class="hub-ico">🧰</div>
           <div class="hub-body"><div class="hub-ttl">Tools</div><div class="hub-sub">Which app for which task</div></div>
           <div class="hub-arr">→</div>
         </a>
-        <a class="hub-tile" onclick="sw('secLab')" role="button" tabindex="0">
+        <a class="hub-tile" onclick="libJump(null,'libLab')" role="button" tabindex="0">
           <div class="hub-ico">🧪</div>
           <div class="hub-body"><div class="hub-ttl">Prompt lab</div><div class="hub-sub">Practice with the teacher</div></div>
           <div class="hub-arr">→</div>
         </a>
       </div>
-      <div id="libWrap"></div>
+
+      <section id="libPrompts" class="lib-sec">
+        <header class="lib-sec-hdr"><span class="sec-num">§ I</span><h3 class="lib-sec-ttl">Prompt Library</h3><p class="lib-sec-sub">Copy-ready prompts by task.</p></header>
+        <div id="libWrap"></div>
+      </section>
+
+      <section id="libGallery" class="lib-sec">
+        <header class="lib-sec-hdr"><span class="sec-num">§ II</span><h3 class="lib-sec-ttl">Inspiration Gallery</h3><p class="lib-sec-sub">Prompt on the front → flip for the result.</p></header>
+        <div class="gallery-how"><span class="gallery-how-step">👆 Tap any card to flip</span><span class="gallery-how-sep">·</span><span class="gallery-how-step">📋 Front = the prompt used</span><span class="gallery-how-sep">·</span><span class="gallery-how-step">🎨 Back = what AI generated</span></div>
+        <div class="gfilters" id="gfilt"></div>
+        <div class="ggrid" id="ggrd"></div>
+      </section>
+
+      <section id="libTools" class="lib-sec">
+        <header class="lib-sec-hdr"><span class="sec-num">§ III</span><h3 class="lib-sec-ttl">Tool Guide</h3><p class="lib-sec-sub">Which AI tool for which task — pricing, strengths, and direct links.</p></header>
+        <div id="toolWrap"></div>
+      </section>
+
+      <section id="libLab" class="lib-sec">
+        <header class="lib-sec-hdr"><span class="sec-num">§ IV</span><h3 class="lib-sec-ttl">Prompt Lab</h3><p class="lib-sec-sub">In-class practice tool — we use this together during lessons.</p></header>
+        <div class="lab-onboard" id="labOnboard"><div class="lab-onboard-toggle" onclick="toggleLabOnboard()"><div style="display:flex;align-items:center;gap:8px"><div class="lab-onboard-chevron">▼</div><div class="lab-onboard-title" style="margin-bottom:0">How this works</div><span class="lab-onboard-toggle-hint">click to expand</span></div></div><div class="lab-onboard-body"><div class="lab-onboard-badge">🎓 Used during class with your teacher</div><div class="lab-onboard-concept">Each category takes the <strong>same prompt</strong> and changes <strong>only one thing</strong> (highlighted in gold). You generate both → compare → see what that one variable actually does.</div><div class="lab-steps-row"><div class="lab-step-item"><div class="lab-step-num">1</div><div class="lab-step-txt">Teacher picks a category</div></div><div class="lab-step-arrow">→</div><div class="lab-step-item"><div class="lab-step-num">2</div><div class="lab-step-txt">Click a card to copy</div></div><div class="lab-step-arrow">→</div><div class="lab-step-item"><div class="lab-step-num">3</div><div class="lab-step-txt">Paste into <a href="https://labs.google.com" target="_blank" rel="noopener" style="color:var(--gold)">Google ImageFX</a></div></div><div class="lab-step-arrow">→</div><div class="lab-step-item"><div class="lab-step-num">4</div><div class="lab-step-txt">Compare with classmates!</div></div></div><div class="lab-onboard-note">💡 You can also use this at home for extra practice — try different categories and build your prompt skills.</div></div></div>
+        <div id="labWrap"></div>
+      </section>
     </div>
     <div class="section" id="secProgress"><div class="sec-hdr"><div class="sec-dots"><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div></div><div class="sec-hdr-title">📊 My Progress</div><div class="sec-hdr-sub">Your learning journey — sessions completed, badges earned</div></div><div id="progWrap"></div></div>
     <div class="section teacher-only" id="secTeach">
@@ -2691,14 +2729,45 @@ var b=document.createElement('a');b.innerHTML='<span class="bnico">'+t.ic+'</spa
 });
 }
 function sw(id,opts){
+/* Legacy redirect: secGallery/secTools/secLab are now anchored sections inside Library */
+var _libRedir={secGallery:'libGallery',secTools:'libTools',secLab:'libLab'};
+if(_libRedir[id]){libJump(null,_libRedir[id]);return;}
 document.querySelectorAll('.section').forEach(function(s){s.classList.remove('visible')});
 var t=$(id);if(!t)return;
 t.classList.add('visible');
 document.querySelectorAll('#navLinks a, #bnI a').forEach(function(a){a.classList.toggle('active',a.dataset.tab===id)});
 window.scrollTo({top:0,behavior:'smooth'});
-if(id==='secHome')rHome();if(id==='secLearn')rLearn();if(id==='secGallery')rGal();if(id==='secProgress')rProg();if(id==='secLibrary')rLib();if(id==='secLab')rLab();
+if(id==='secHome')rHome();
+if(id==='secLearn')rLearn();
+if(id==='secProgress')rProg();
+if(id==='secLibrary'){rLib();rGal();rLab();setTimeout(libWatchActive,120);}
 /* Update hash for tabs other than Learn (Learn uses course/session hashes) */
 try{if(!opts||!opts.silent){if(id==='secLearn'){/* keep course/session hash if set */}else{location.hash='#/tab/'+id;}}}catch(e){}
+}
+
+/* Library sub-nav: smooth-scroll to anchored section + mark active pill */
+function libJump(ev,secId){
+  if(ev&&ev.preventDefault)ev.preventDefault();
+  if(!document.getElementById('secLibrary').classList.contains('visible'))sw('secLibrary',{silent:true});
+  var el=document.getElementById(secId);if(!el)return false;
+  setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'start'})},ev?0:80);
+  libSetActive(secId);
+  return false;
+}
+function libSetActive(secId){
+  document.querySelectorAll('.lib-pill').forEach(function(p){p.classList.toggle('active',p.dataset.lib===secId)});
+}
+var _libIO=null;
+function libWatchActive(){
+  if(_libIO)_libIO.disconnect();
+  if(!('IntersectionObserver' in window))return;
+  var secs=document.querySelectorAll('.lib-sec');if(!secs.length)return;
+  _libIO=new IntersectionObserver(function(entries){
+    var top=entries.filter(function(e){return e.isIntersecting}).sort(function(a,b){return b.intersectionRatio-a.intersectionRatio})[0];
+    if(top&&top.target.id)libSetActive(top.target.id);
+  },{rootMargin:'-140px 0px -55% 0px',threshold:[0,.25,.5,.75,1]});
+  secs.forEach(function(s){_libIO.observe(s)});
+  libSetActive(secs[0].id);
 }
 
 /* HELPERS */
@@ -2738,9 +2807,7 @@ function reRenderActiveView(){
   if(id==='secHome')rHome();
   else if(id==='secLearn')rLearn();
   else if(id==='secProgress')rProg();
-  else if(id==='secGallery')rGal();
-  else if(id==='secLibrary')rLib();
-  else if(id==='secLab')rLab();
+  else if(id==='secLibrary'){rLib();rGal();rLab();}
 }
 function isU(ci,n){if(_r==='teacher')return true;return n<=(gU()[ci]||1)}
 function isHW(ci,n){return!!LS('hw_'+ci+'_'+n)}
@@ -2903,12 +2970,17 @@ try{location.hash='#/course/'+ci+'/session/'+firstIncomplete;}catch(e){}
 /* keep rPath as alias */
 function rPath(){return rCourseGrid()}
 
-/* Hash routing — deep link to #/course/1/session/2, #/tab/secGallery, etc. */
+/* Hash routing — deep link to #/course/1/session/2, #/tab/secGallery (→ libGallery), etc. */
 function _applyHash(){
   var h=(location.hash||'').replace(/^#/,'');if(!h)return false;
   var m=h.match(/^\/course\/(\d+)\/session\/(\d+)/);
   if(m){var ci=+m[1],sn=+m[2];var co=C.find(function(c){return c.id===ci});if(co&&co.sessions.find(function(s){return s.n===sn})){if(isU(ci,sn)){LS('activeCourse',ci);LS('activeSession',sn);sw('secLearn');return true;}}}
-  var t=h.match(/^\/tab\/(\w+)/);if(t){sw(t[1]);return true;}
+  var t=h.match(/^\/tab\/(\w+)/);
+  if(t){
+    var redir={secGallery:'libGallery',secTools:'libTools',secLab:'libLab'};
+    if(redir[t[1]]){libJump(null,redir[t[1]]);return true;}
+    sw(t[1]);return true;
+  }
   return false;
 }
 window.addEventListener('hashchange',_applyHash);
@@ -3821,7 +3893,7 @@ function _cmdKPick(i){
   var x=window._cmdKMatches&&window._cmdKMatches[i];if(!x)return;
   closeCmdK();
   if(x.t==='session'){selSess(x.c,x.n)}
-  else if(x.labCat){sw('secLab');setTimeout(function(){if(typeof swLab==='function')swLab(x.labCat)},120)}
+  else if(x.labCat){libJump(null,'libLab');setTimeout(function(){if(typeof swLab==='function')swLab(x.labCat)},160)}
   else if(x.tab){sw(x.tab)}
 }
 document.addEventListener('keydown',function(e){
