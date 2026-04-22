@@ -368,7 +368,8 @@ input,textarea,select{font-family:inherit}
 .hwc:hover{border-color:var(--gold);background:linear-gradient(135deg,rgba(224,122,58,.15) 0%,rgba(224,122,58,.05) 100%);transform:translateY(-2px);box-shadow:0 8px 24px rgba(224,122,58,.15)}
 /* CREATIVE CHALLENGE BLOCK */
 .hw-creative{margin-top:14px;padding:16px 18px;background:linear-gradient(135deg,rgba(155,126,216,.10) 0%,rgba(224,122,58,.07) 100%);border:1px solid rgba(155,126,216,.22);border-left:3px solid #9B7ED8;border-radius:12px}
-.hw-creative-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#7c5cbf;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.hw-creative-label{font-family:var(--serif);font-style:italic;font-size:.9rem;font-weight:500;text-transform:none;letter-spacing:.005em;color:var(--secondary);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.hw-creative-label::before{content:'\00a7  ';color:var(--accent)}
 .hw-creative-text{font-size:.875rem;color:var(--text-dim);line-height:1.65}
 .hwc input{width:20px;height:20px;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
 .hwcl{font-size:.88rem;font-weight:700;transition:all .2s}
@@ -966,13 +967,15 @@ input,textarea,select{font-family:inherit}
 .hw-deliv-item{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text);padding:10px 14px;background:#f0faf5;border-radius:10px;border:1px solid rgba(39,174,96,.20)}
 .hw-deliv-dot{width:8px;height:8px;border-radius:50%;background:var(--success);flex-shrink:0}
 .hw-steps-wrap{margin-bottom:16px}
-.hw-steps-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:8px}
+.hw-steps-label{font-family:var(--serif);font-style:italic;font-size:.9rem;font-weight:500;text-transform:none;letter-spacing:.005em;color:var(--secondary);margin-bottom:10px}
+.hw-steps-label::before{content:'\00a7  ';color:var(--accent)}
 .hw-steps{display:flex;flex-direction:column;gap:8px}
 .hw-step{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:10px;background:#f8f6f2;border:1px solid rgba(26,21,16,.10)}
 .hw-step-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),color-mix(in srgb,var(--gold) 60%,var(--purple) 40%));color:#0A0A12;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .hw-step-text{font-size:.85rem;color:#5a5450;line-height:1.5}
 .hw-check{margin-bottom:16px}
-.hw-check-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);margin-bottom:8px}
+.hw-check-label{font-family:var(--serif);font-style:italic;font-size:.9rem;font-weight:500;text-transform:none;letter-spacing:.005em;color:var(--secondary);margin-bottom:10px}
+.hw-check-label::before{content:'\00a7  ';color:var(--accent)}
 .hw-check-list{display:flex;flex-direction:column;gap:6px}
 .hw-check-item{display:flex;align-items:center;gap:10px;font-size:.83rem;color:var(--text-mid);padding:8px 12px;background:#f8f6f2;border-radius:8px;border:1px solid rgba(26,21,16,.10);cursor:pointer;transition:all .2s}
 .hw-check-item:has(input:checked){background:#e8f8f0;border-color:rgba(39,174,96,.30);color:var(--text)}
@@ -991,13 +994,14 @@ input,textarea,select{font-family:inherit}
 /* HW draft notes + autosave */
 .hw-draft{margin:16px 0 14px;padding:14px 16px;border-radius:var(--r-md);background:#fff;border:1px solid rgba(26,21,16,.1)}
 .hw-draft-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.hw-draft-lbl{font-size:.75rem;font-weight:700;color:var(--text-dim);letter-spacing:.2px}
+.hw-draft-lbl{font-family:var(--serif);font-style:italic;font-size:.9rem;font-weight:500;color:var(--secondary);letter-spacing:.005em}
 .hw-draft-saved{font-size:.7rem;color:var(--success);font-weight:600;opacity:.85;transition:all .25s;min-height:1em;font-variant-numeric:tabular-nums}
 .hw-draft-saved.flash{background:rgba(45,138,86,.12);padding:2px 8px;border-radius:999px;opacity:1}
 .hw-draft-ta{width:100%;min-height:84px;max-height:320px;padding:10px 12px;border-radius:10px;border:1px solid rgba(26,21,16,.12);background:#faf8f5;font-family:inherit;font-size:.88rem;line-height:1.55;color:var(--text);resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s}
 .hw-draft-ta:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(224,122,58,.14);background:#fff}
 .hw-submit{padding:14px;border:1px dashed rgba(224,122,58,.28);border-radius:var(--r-md);background:#f3efe8;margin-bottom:12px}
-.hw-submit-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:8px;text-align:center}
+.hw-submit-title{font-family:var(--serif);font-style:italic;font-size:.95rem;font-weight:500;text-transform:none;letter-spacing:.005em;color:var(--accent);margin-bottom:10px;text-align:center}
+.hw-submit-title::before{content:'\00a7  ';color:var(--secondary)}
 .hw-submit-steps{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;font-size:var(--text-sm);color:var(--text-mid)}
 .hw-submit-arr{color:var(--gold);font-weight:700}
 
@@ -2079,20 +2083,20 @@ if(se.hw.deliverables){h+='<div class="hw-deliv"><div class="hw-deliv-label">\u{
 se.hw.deliverables.forEach(function(d){h+='<div class="hw-deliv-item"><span class="hw-deliv-dot"></span>'+E(d)+'</div>'});
 h+='</div></div>'}
 /* Steps */
-if(se.hw.steps){h+='<div class="hw-steps-wrap"><div class="hw-steps-label">\u{1F6E0} Step by Step</div><div class="hw-steps">';se.hw.steps.forEach(function(s,i){
+if(se.hw.steps){h+='<div class="hw-steps-wrap"><div class="hw-steps-label">Step by step</div><div class="hw-steps">';se.hw.steps.forEach(function(s,i){
 var st=E(s);
 Object.keys(TOOL_URLS).forEach(function(tn){
 var re=new RegExp('\\b'+tn.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','g');
 st=st.replace(re,'<a href="'+TOOL_URLS[tn]+'" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;text-underline-offset:2px">'+tn+' \u2197</a>')});
 h+='<div class="hw-step"><div class="hw-step-num">'+(i+1)+'</div><div class="hw-step-text">'+st+'</div></div>'});h+='</div></div>'}
 /* Quality checklist */
-if(se.hw.checklist){h+='<div class="hw-check"><div class="hw-check-label">\u2705 Quality Check (before submitting)</div><div class="hw-check-list">';
+if(se.hw.checklist){h+='<div class="hw-check"><div class="hw-check-label">Quality check</div><div class="hw-check-list">';
 se.hw.checklist.forEach(function(c){h+='<label class="hw-check-item"><input type="checkbox"><span>'+E(c)+'</span></label>'});
 h+='</div></div>'}
 /* Pro tip */
-if(se.hw.pro_tip)h+='<div class="hw-pro-tip"><strong>\u{1F4A1} Pro Tip:</strong> '+E(se.hw.pro_tip)+'</div>';
+if(se.hw.pro_tip)h+='<div class="hw-pro-tip"><strong>Pro tip.</strong> '+E(se.hw.pro_tip)+'</div>';
 /* Creative challenge */
-if(se.hw.creative_challenge)h+='<div class="hw-creative"><div class="hw-creative-label">\u{1F525} Creative Challenge</div><div class="hw-creative-text">'+E(se.hw.creative_challenge)+'</div></div>';
+if(se.hw.creative_challenge)h+='<div class="hw-creative"><div class="hw-creative-label">Creative challenge</div><div class="hw-creative-text">'+E(se.hw.creative_challenge)+'</div></div>';
 /* Example */
 if(se.hw.example)h+='<div class="hw-example">'+E(se.hw.example)+'</div>';
 h+='</div>';
@@ -2100,9 +2104,9 @@ h+='</div>';
 /* Draft notes with autosave */
 var draftKey='hwd_'+a.c+'_'+a.s;
 var draftVal=LS(draftKey)||'';
-h+='<div class="hw-draft"><div class="hw-draft-head"><label class="hw-draft-lbl" for="hwdraft_'+wk+'">\u{1F4DD} Your draft notes</label><span class="hw-draft-saved" id="hwsaved_'+wk+'">'+(draftVal?'saved \u2713':'')+'</span></div><textarea id="hwdraft_'+wk+'" class="hw-draft-ta" rows="4" placeholder="Write your prompt, ideas, or notes here. Auto-saves as you type." oninput="hwSave(\''+draftKey+'\',\''+wk+'\',this.value)">'+E(draftVal)+'</textarea></div>';
+h+='<div class="hw-draft"><div class="hw-draft-head"><label class="hw-draft-lbl" for="hwdraft_'+wk+'">Your draft notes</label><span class="hw-draft-saved" id="hwsaved_'+wk+'">'+(draftVal?'saved \u2713':'')+'</span></div><textarea id="hwdraft_'+wk+'" class="hw-draft-ta" rows="4" placeholder="Write your prompt, ideas, or notes here. Auto-saves as you type." oninput="hwSave(\''+draftKey+'\',\''+wk+'\',this.value)">'+E(draftVal)+'</textarea></div>';
 /* Submit section */
-h+='<div class="hw-submit"><div class="hw-submit-title">\u{1F4E4} How to Submit</div><div class="hw-submit-steps"><span>1. Screenshot your best result(s)</span><span class="hw-submit-arr">\u2192</span><span>2. Send on Telegram to teacher</span><span class="hw-submit-arr">\u2192</span><span>3. Mark complete below</span></div></div>';
+h+='<div class="hw-submit"><div class="hw-submit-title">How to submit</div><div class="hw-submit-steps"><span>1. Screenshot your best result(s)</span><span class="hw-submit-arr">\u2192</span><span>2. Send on Telegram to teacher</span><span class="hw-submit-arr">\u2192</span><span>3. Mark complete below</span></div></div>';
 h+='<label class="hwc'+(wd?' dn':'')+'" id="hwl_'+wk+'"><input type="checkbox" '+(wd?'checked':'')+' onchange="shw(this,\''+wk+'\')">';
 h+='<span class="hwcl">'+(wd?'\u2713 Mission Complete!':'Mark as complete')+'</span></label>';
 h+='</div></div>';
