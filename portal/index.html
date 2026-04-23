@@ -1403,6 +1403,14 @@ input,textarea,select{font-family:inherit}
 /* Retire old chdr2 header */
 .chdr2-bg,.chdr2-glow,.chdr2-top,.chdr2-icon{display:none!important}
 
+/* ═══ COURSE CATEGORY FILTERS (Learn tab) ═══ */
+.cg-filters{display:flex;gap:6px;flex-wrap:wrap;margin:24px 0 18px;padding-bottom:6px;border-bottom:1px solid var(--hairline);overflow-x:auto;scrollbar-width:none}
+.cg-filters::-webkit-scrollbar{display:none}
+.cg-filter{font-family:var(--sans);font-weight:600;font-size:.92rem;color:var(--text-mid);background:transparent;border:none;padding:10px 14px;cursor:pointer;position:relative;letter-spacing:-.005em;white-space:nowrap;transition:color var(--dur-fast) var(--ease)}
+.cg-filter:hover{color:var(--text)}
+.cg-filter.active{color:var(--text);font-weight:700}
+.cg-filter.active::after{content:'';position:absolute;left:8px;right:8px;bottom:-7px;height:2px;background:var(--text);border-radius:2px}
+
 /* ═══ FEATURED PATHS (Home top-row) ═══ */
 .feat-section{margin:8px 0 32px;padding:0}
 .feat-head{margin:0 0 18px;display:flex;flex-direction:column;gap:4px}
@@ -1450,11 +1458,18 @@ input,textarea,select{font-family:inherit}
 .cc-brand{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px}
 .cc-brand .brand-logo,.cc-brand .brand-mono{width:100%;height:100%}
 
-/* Meta ribbon */
-.cc-meta{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-style:italic;font-size:.85rem;font-weight:500;color:var(--text-mid);margin:4px 0 8px;flex-wrap:wrap;letter-spacing:.005em;padding:0}
-.cc-meta-rating{display:inline-flex;align-items:center;gap:4px;color:var(--accent);font-weight:600}
+/* Instructor line + Udemy-style meta */
+.cc-instr{font-family:var(--sans);font-size:.8rem;font-weight:500;color:var(--text-mid);letter-spacing:-.005em;margin:2px 0 4px}
+.cc-meta{display:flex;align-items:center;gap:8px;font-family:var(--sans);font-size:.85rem;font-weight:500;color:var(--text-mid);margin:4px 0 10px;flex-wrap:wrap;letter-spacing:-.005em;padding:0}
+.cc-meta-rating{display:inline-flex;align-items:center;gap:2px;color:var(--accent);font-weight:700}
 .cc-meta-rating svg{color:var(--accent)}
+.cc-meta-count{color:var(--text-muted);font-weight:500;font-size:.82rem}
 .cc-meta-sep{color:var(--text-muted);opacity:.6}
+.cc-badge{display:inline-flex;align-items:center;font-family:var(--sans);font-size:.7rem;font-weight:600;padding:3px 10px;border-radius:4px;letter-spacing:.01em;text-transform:none;line-height:1}
+.cc-badge--bestseller{background:#FDEED0;color:#8a6000}
+.cc-badge--highest-rated{background:#FCEAD7;color:#b65a1a}
+.cc-badge--top-rated{background:#EAF1FF;color:#2a66d9}
+.cc-badge--new{background:#E7F6EC;color:#2F7A4B}
 
 /* Clean out old head styles we no longer render */
 .cc-head,.cc-head-icon,.cc-head-label,.cc-head-num,.cc-shine{display:none!important}
@@ -1901,21 +1916,25 @@ function gU(){var u=LS('unlocks')||{};var changed=false;C.forEach(function(c){va
 /* Course meta \u2014 hard-coded defaults when the course object doesn't declare them.
    Override per course by adding {rating, learners, duration} to the course in portal-content.js. */
 var COURSE_META_DEFAULTS={
-  1:{rating:'4.9',learners:'1,240',duration:'8h total'},
-  2:{rating:'4.8',learners:'920', duration:'10h total'},
-  3:{rating:'4.8',learners:'780', duration:'12h total'},
-  4:{rating:'4.9',learners:'610', duration:'10h total'},
-  5:{rating:'4.7',learners:'540', duration:'8h total'},
-  6:{rating:'4.9',learners:'470', duration:'8h total'},
-  7:{rating:'4.9',learners:'New', duration:'12h total'}
+  1:{rating:'4.9',ratingCount:'1,240',learners:'1,240',duration:'8h total', badge:'Bestseller'},
+  2:{rating:'4.8',ratingCount:'920',  learners:'920',  duration:'10h total',badge:'Bestseller'},
+  3:{rating:'4.8',ratingCount:'780',  learners:'780',  duration:'12h total',badge:'Highest Rated'},
+  4:{rating:'4.9',ratingCount:'610',  learners:'610',  duration:'10h total',badge:''},
+  5:{rating:'4.7',ratingCount:'540',  learners:'540',  duration:'8h total', badge:''},
+  6:{rating:'4.9',ratingCount:'470',  learners:'470',  duration:'8h total', badge:'Top rated'},
+  7:{rating:'4.9',ratingCount:'New',  learners:'New',  duration:'12h total',badge:'New'}
 };
+var COURSE_INSTRUCTOR_DEFAULT='Ed Harutyunyan';
 function courseMeta(c){
   var d=COURSE_META_DEFAULTS[c.id]||{};
   var hours=Math.max(4,(c.sessions||[]).length*90/60);
   return {
-    rating:   c.rating    || d.rating    || '4.8',
-    learners: c.learners  || d.learners  || 'New',
-    duration: c.duration  || d.duration  || (Math.round(hours)+'h total')
+    rating:      c.rating      || d.rating      || '4.8',
+    ratingCount: c.ratingCount || d.ratingCount || d.learners || 'New',
+    learners:    c.learners    || d.learners    || 'New',
+    duration:    c.duration    || d.duration    || (Math.round(hours)+'h total'),
+    badge:       (c.badge!==undefined?c.badge:(d.badge||'')),
+    instructor:  c.instructor  || COURSE_INSTRUCTOR_DEFAULT
   };
 }
 /* Course hero imagery \u2014 real Unsplash photos per course. Override on the
@@ -2105,6 +2124,14 @@ h+='<div class="hero-stat"><span class="hero-stat-n">5+</span><span class="hero-
 h+='</div>';
 h+='</div>';
 h+='</div>';
+/* Category filter tabs (Udemy-style) */
+var _activeFilter=window._cgFilter||'all';
+var _filters=[{id:'all',lbl:'All courses'},{id:'core',lbl:'Core foundations'},{id:'creative',lbl:'Creative AI'},{id:'business',lbl:'Business'},{id:'research',lbl:'Research'}];
+h+='<nav class="cg-filters ent ent1" aria-label="Course categories">';
+_filters.forEach(function(f){
+  h+='<button type="button" class="cg-filter'+(f.id===_activeFilter?' active':'')+'" onclick="setCgFilter(\''+f.id+'\')" data-filter="'+f.id+'">'+E(f.lbl)+'</button>';
+});
+h+='</nav>';
 /* Journey strip — course filter nav */
 h+='<div class="journey-strip ent ent1">';
 C.forEach(function(c,i){
@@ -2117,8 +2144,15 @@ h+='<div class="journey-node '+cls+'" onclick="selCourse('+c.id+')"><span class=
 });
 h+='</div>';
 /* Stats — replaced by hero banner above */
+/* Filter the course list by active category */
+var _cgFilterMap={core:[1,2],creative:[2,3,4,5],business:[6],research:[7]};
+var _cgVisible=C.filter(function(c){
+  if(_activeFilter==='all')return true;
+  var arr=_cgFilterMap[_activeFilter]||[];
+  return arr.indexOf(c.id)>=0;
+});
 h+='<div class="cg">';
-C.forEach(function(c,i){
+_cgVisible.forEach(function(c,i){
 var done=c.sessions.filter(function(s){return isHW(c.id,s.n)}).length;
 var total=c.sessions.length;
 var pct=Math.round(done/total*100);
@@ -2148,8 +2182,13 @@ h+='</div>';
 h+='<div class="cc-body">';
 if(toolsStrip)h+='<div class="cc-brands"><span class="cc-brands-lbl">Uses</span>'+toolsStrip+'</div>';
 h+='<div class="cc-ttl">'+E(c.titleEn)+'</div>';
-if(c.persona)h+='<div class="cc-per">'+E(c.persona)+'</div>';
-h+='<div class="cc-meta"><span class="cc-meta-rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg> '+_ccMeta.rating+'</span><span class="cc-meta-sep">\u00b7</span><span>'+_ccMeta.learners+' learners</span><span class="cc-meta-sep">\u00b7</span><span>'+_ccMeta.duration+'</span></div>';
+h+='<div class="cc-instr">Led by '+E(_ccMeta.instructor)+(c.persona?' \u00b7 for '+E(c.persona).toLowerCase():'')+'</div>';
+h+='<div class="cc-meta">';
+if(_ccMeta.badge)h+='<span class="cc-badge cc-badge--'+_ccMeta.badge.toLowerCase().replace(/\s+/g,'-')+'">'+E(_ccMeta.badge)+'</span>';
+h+='<span class="cc-meta-rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>&nbsp;'+_ccMeta.rating+'</span>';
+h+='<span class="cc-meta-count">('+_ccMeta.ratingCount+(_ccMeta.ratingCount==='New'?'':' ratings')+')</span>';
+h+='<span class="cc-meta-sep">\u00b7</span><span>'+_ccMeta.duration+'</span>';
+h+='</div>';
 if(c.outcomes){h+='<ul class="cc-ol">';c.outcomes.slice(0,3).forEach(function(o){h+='<li><span class="ck">&#10003;</span>'+E(o)+'</li>'});h+='</ul>'}
 h+='</div>';
 /* Progress */
@@ -2174,6 +2213,8 @@ try{location.hash='#/course/'+ci+'/session/'+firstIncomplete;}catch(e){}
 }
 /* keep rPath as alias */
 function rPath(){return rCourseGrid()}
+function setCgFilter(id){window._cgFilter=id;var pw=$('pathWrap');if(pw){pw.innerHTML=rCourseGrid();}}
+window.setCgFilter=setCgFilter;
 
 /* Hash routing — deep link to #/course/1/session/2, #/tab/secGallery (→ libGallery), etc. */
 function _applyHash(){
