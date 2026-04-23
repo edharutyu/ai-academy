@@ -1403,6 +1403,60 @@ input,textarea,select{font-family:inherit}
 /* Retire old chdr2 header */
 .chdr2-bg,.chdr2-glow,.chdr2-top,.chdr2-icon{display:none!important}
 
+/* ═══ HOME DASHBOARD HEAD (Coursue-inspired) ═══ */
+.home-top{display:grid;grid-template-columns:1.85fr 1fr;gap:18px;margin:8px 0 18px}
+@media(max-width:900px){.home-top{grid-template-columns:1fr}}
+
+.home-hero{position:relative;background:linear-gradient(135deg,#e07a3a 0%,#c96521 50%,#8A6A3D 100%);border-radius:24px;padding:42px 40px 38px;color:#fff;overflow:hidden;min-height:260px;display:flex;align-items:flex-start}
+.home-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);pointer-events:none}
+.home-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.08) 0%,transparent 50%),radial-gradient(circle at 20% 90%,rgba(255,255,255,.06) 0%,transparent 40%);pointer-events:none}
+.home-hero-inner{position:relative;z-index:2;max-width:560px}
+.home-hero-eyebrow{font-family:var(--serif);font-style:italic;font-size:.88rem;font-weight:500;color:rgba(255,255,255,.85);letter-spacing:.005em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.home-hero-eyebrow .sec-num{color:rgba(255,255,255,.95)}
+.home-hero-title{font-family:var(--serif);font-size:2.2rem;font-weight:700;line-height:1.1;letter-spacing:-.015em;color:#fff;margin-bottom:14px}
+.home-hero-sub{font-family:var(--serif);font-style:italic;font-size:1rem;color:rgba(255,255,255,.88);line-height:1.55;margin-bottom:22px;max-width:46ch}
+.home-hero-cta{display:inline-flex;align-items:center;gap:10px;background:#1D1A16;color:#fff;border:none;padding:12px 22px;border-radius:999px;font-family:var(--sans);font-weight:600;font-size:.92rem;cursor:pointer;letter-spacing:-.005em;transition:transform var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
+.home-hero-cta:hover{transform:translateY(-1px);background:#000}
+.home-hero-cta span{background:#fff;color:#1D1A16;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-size:.75rem}
+.home-hero-decor{position:absolute;right:-10px;top:40px;font-size:8rem;color:rgba(255,255,255,.18);pointer-events:none;z-index:1;transform:rotate(12deg);letter-spacing:-.1em}
+@media(max-width:640px){.home-hero{padding:32px 26px 28px}.home-hero-title{font-size:1.7rem}.home-hero-decor{font-size:5rem;right:-20px;top:20px}}
+
+/* Stats card with ring + avatar */
+.home-statcard{background:var(--bg2);border:1px solid var(--hairline);border-radius:24px;padding:24px 24px 22px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center}
+.home-statcard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent);opacity:.55;pointer-events:none}
+.home-statcard-head{width:100%;text-align:left;margin-bottom:8px;font-family:var(--serif);font-style:italic;font-size:.88rem;color:var(--secondary);font-weight:500;letter-spacing:.005em}
+.home-statring{position:relative;width:140px;height:140px;margin:4px auto 14px}
+.home-ring{width:100%;height:100%;display:block}
+.home-ring-fill{transition:stroke-dashoffset 1s cubic-bezier(.3,.9,.3,1)}
+.home-statring-avatar{position:absolute;inset:12px;border-radius:50%;overflow:hidden;background:var(--accent-soft);display:flex;align-items:center;justify-content:center}
+.home-statring-avatar img{width:100%;height:100%;object-fit:cover}
+.home-statring-pct{position:absolute;top:-4px;right:-4px;background:var(--accent);color:#fff;font-family:var(--sans);font-weight:700;font-size:.72rem;padding:4px 9px;border-radius:999px;letter-spacing:-.005em;box-shadow:0 2px 6px rgba(29,26,22,.15)}
+.home-statcard-greeting{font-family:var(--serif);font-size:1.15rem;font-weight:700;color:var(--text);letter-spacing:-.01em;margin-bottom:4px}
+.home-statcard-sub{font-family:var(--serif);font-style:italic;font-size:.85rem;color:var(--text-mid);line-height:1.5;letter-spacing:.005em;max-width:28ch}
+
+/* Progress pills row */
+.home-pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:4px 0 28px}
+.home-pill{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg2);border:1px solid var(--hairline);border-radius:14px;cursor:pointer;transition:all var(--dur-fast) var(--ease);position:relative;overflow:hidden}
+.home-pill::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent);opacity:.4;pointer-events:none}
+.home-pill:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 8px 20px rgba(29,26,22,.06)}
+.home-pill-num{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-family:var(--serif);font-style:italic;font-weight:500;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(224,122,58,.2)}
+.home-pill-body{flex:1;min-width:0}
+.home-pill-meta{font-family:var(--serif);font-style:italic;font-size:.78rem;color:var(--secondary);letter-spacing:.005em}
+.home-pill-ttl{font-family:var(--sans);font-size:.92rem;font-weight:600;color:var(--text);letter-spacing:-.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Mentor card */
+.home-mentor{background:var(--bg2);border:1px solid var(--hairline);border-radius:18px;padding:24px 26px;display:flex;align-items:center;gap:20px;position:relative;overflow:hidden;margin:28px 0 10px}
+.home-mentor::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent);opacity:.55;pointer-events:none}
+.home-mentor-photo{width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--accent-soft);border:2px solid var(--hairline)}
+.home-mentor-photo img{width:100%;height:100%;object-fit:cover}
+.home-mentor-body{flex:1;min-width:0}
+.home-mentor-eyebrow{font-family:var(--serif);font-style:italic;font-size:.82rem;color:var(--secondary);letter-spacing:.005em;font-weight:500;margin-bottom:4px}
+.home-mentor-name{font-family:var(--serif);font-size:1.25rem;font-weight:700;color:var(--text);letter-spacing:-.008em;margin-bottom:2px}
+.home-mentor-bio{font-family:var(--serif);font-style:italic;font-size:.9rem;color:var(--text-mid);line-height:1.5;letter-spacing:.005em}
+.home-mentor-cta{align-self:flex-start;padding:8px 18px;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:var(--sans);font-weight:600;font-size:.82rem;border-radius:999px;cursor:pointer;transition:all var(--dur-fast) var(--ease);white-space:nowrap;letter-spacing:-.005em}
+.home-mentor-cta:hover{background:var(--accent);color:#fff}
+@media(max-width:640px){.home-mentor{flex-direction:column;text-align:center;align-items:center}}
+
 /* ═══ COURSE CATEGORY FILTERS (Learn tab) ═══ */
 .cg-filters{display:flex;gap:6px;flex-wrap:wrap;margin:24px 0 18px;padding-bottom:6px;border-bottom:1px solid var(--hairline);overflow-x:auto;scrollbar-width:none}
 .cg-filters::-webkit-scrollbar{display:none}
@@ -2030,9 +2084,44 @@ function rHome(){
   /* Greeting by hour */
   var hr=new Date().getHours();var hello=hr<5?'Still up':hr<12?'Good morning':hr<17?'Good afternoon':hr<22?'Good evening':'Good night';
   var h='<div class="home-wrap">';
-  /* Head row */
-  h+='<div class="home-head"><div><div class="home-hello">'+hello+'</div><div class="home-title">Welcome back</div><div class="home-sub">Pick up where you left off \u2014 one short session at a time.</div></div>';
-  h+='<div class="home-head-stats"><div class="home-stat"><div class="home-stat-n">'+ds+'</div><div class="home-stat-l">Sessions done</div></div><div class="home-stat"><div class="home-stat-n">'+pct+'%</div><div class="home-stat-l">Overall</div></div></div></div>';
+
+  /* ─────── Hero + Stats ring (Coursue-inspired dashboard head) ─────── */
+  h+='<div class="home-top">';
+  /* Hero banner */
+  h+='<div class="home-hero">';
+  h+='<div class="home-hero-inner">';
+  h+='<div class="home-hero-eyebrow"><span class="sec-num">\u00a7</span> Online academy</div>';
+  h+='<div class="home-hero-title">Sharpen your AI skills<br>with practical projects</div>';
+  h+='<div class="home-hero-sub">Six short sessions per course. Real tools. Your own work, reviewed by a human instructor.</div>';
+  h+='<button class="home-hero-cta" onclick="selSess('+contC.id+','+contS.n+')">Resume session <span>\u2192</span></button>';
+  h+='</div>';
+  h+='<div class="home-hero-decor" aria-hidden="true">\u2728</div>';
+  h+='</div>';
+  /* Stats ring with Ed avatar */
+  var circ=2*Math.PI*52;var offset=circ-(pct/100)*circ;
+  h+='<div class="home-statcard">';
+  h+='<div class="home-statcard-head"><span>Statistic</span></div>';
+  h+='<div class="home-statring">';
+  h+='<svg class="home-ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="var(--bg3)" stroke-width="6"/><circle class="home-ring-fill" cx="60" cy="60" r="52" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'" transform="rotate(-90 60 60)"/></svg>';
+  h+='<div class="home-statring-avatar"><img src="../photo.jpg" alt="" onerror="this.style.display=\'none\'"></div>';
+  h+='<div class="home-statring-pct">'+pct+'%</div>';
+  h+='</div>';
+  h+='<div class="home-statcard-greeting">'+hello+', learner \u2728</div>';
+  h+='<div class="home-statcard-sub">Continue your learning to reach your target.</div>';
+  h+='</div>';
+  h+='</div>';
+
+  /* ─────── Progress pills row (watched X/Y per course) ─────── */
+  h+='<div class="home-pills">';
+  C.slice(0,4).forEach(function(c){
+    var tot=c.sessions.length;var done=0;c.sessions.forEach(function(s){if(isHW(c.id,s.n))done++});
+    h+='<div class="home-pill" onclick="sw(\'secLearn\');setTimeout(function(){selSess('+c.id+','+(u[c.id]||1)+')},80)">';
+    h+='<div class="home-pill-num">'+c.id.toString().padStart(2,'0')+'</div>';
+    h+='<div class="home-pill-body"><div class="home-pill-meta">'+done+'/'+tot+' watched</div><div class="home-pill-ttl">'+E(c.titleEn||c.title)+'</div></div>';
+    h+='</div>';
+  });
+  h+='</div>';
+
 
   /* Featured paths \u2014 editorial highlight row showing next-best courses. */
   var featured=[];
@@ -2094,6 +2183,18 @@ function rHome(){
   h+='</div></div>';
   h+='</div>'; /* right col */
   h+='</div>'; /* grid */
+
+  /* Mentor card */
+  h+='<div class="home-mentor">';
+  h+='<div class="home-mentor-photo"><img src="../photo.jpg" alt="Ed Harutyunyan" onerror="this.style.display=\'none\'"></div>';
+  h+='<div class="home-mentor-body">';
+  h+='<div class="home-mentor-eyebrow">\u00a7 Your instructor</div>';
+  h+='<div class="home-mentor-name">Ed Harutyunyan</div>';
+  h+='<div class="home-mentor-bio">AI Academy founder \u00b7 teaching practical AI in Armenia since 2021. Every lesson reviewed personally.</div>';
+  h+='</div>';
+  h+='<button class="home-mentor-cta" onclick="window.open(\'https://edharutyu.github.io/ai-academy/\',\'_blank\')">View profile</button>';
+  h+='</div>';
+
   h+='</div>'; /* wrap */
   host.innerHTML=h;
 }
