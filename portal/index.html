@@ -1379,11 +1379,43 @@ input,textarea,select{font-family:inherit}
 /* Chdr2 (lesson course header) — replace boxy icon with numeral */
 .chdr2-icon{background:rgba(255,255,255,.1)!important;border:1px solid rgba(255,255,255,.25)!important;font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.25rem!important}
 
-/* ═══ COURSE META RIBBON (rating · learners · duration) ═══ */
-.cc-meta{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-style:italic;font-size:.82rem;font-weight:500;color:var(--text-mid);padding:2px 20px 12px;flex-wrap:wrap;letter-spacing:.005em}
+/* ═══ COURSE MEDIA (Coursera-style) ═══ */
+.cc{padding:0 0 var(--sp-4);display:flex;flex-direction:column;overflow:hidden}
+.cc-media{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,var(--cc),color-mix(in srgb,var(--cc) 50%,#1D1A16 50%));overflow:hidden;border-radius:18px 18px 0 0}
+.cc-media-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform var(--dur-slow) var(--ease)}
+.cc:hover .cc-media-img{transform:scale(1.04)}
+.cc-media-tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.1) 55%,rgba(0,0,0,.5) 100%);pointer-events:none}
+.cc-media-num{position:absolute;bottom:12px;left:14px;font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.05rem;color:rgba(255,255,255,.95);letter-spacing:-.005em;text-shadow:0 1px 3px rgba(0,0,0,.35);z-index:2}
+.cc-track{position:absolute;top:12px;left:14px;z-index:2;font-family:var(--serif);font-style:italic;font-size:.72rem;font-weight:500;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:#1D1A16;backdrop-filter:blur(4px);display:inline-flex;align-items:center;gap:6px}
+.cc-track svg{width:11px;height:11px;stroke-width:1.75;color:var(--accent)}
+.cc-status{position:absolute;top:12px;right:14px;z-index:2;font-family:var(--serif);font-style:italic;font-size:.72rem;font-weight:500;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--accent);backdrop-filter:blur(4px)}
+.cc-status.done{color:#2F7A4B}
+
+/* Body padding */
+.cc-body{padding:18px 20px 10px;display:flex;flex-direction:column;gap:6px;flex:1}
+.cc-brands{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 6px}
+.cc-brands-lbl{font-family:var(--serif);font-style:italic;font-size:.72rem;color:var(--text-muted);letter-spacing:.01em}
+.cc-brand{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px}
+.cc-brand .brand-logo,.cc-brand .brand-mono{width:100%;height:100%}
+
+/* Meta ribbon */
+.cc-meta{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-style:italic;font-size:.85rem;font-weight:500;color:var(--text-mid);margin:4px 0 8px;flex-wrap:wrap;letter-spacing:.005em;padding:0}
 .cc-meta-rating{display:inline-flex;align-items:center;gap:4px;color:var(--accent);font-weight:600}
 .cc-meta-rating svg{color:var(--accent)}
 .cc-meta-sep{color:var(--text-muted);opacity:.6}
+
+/* Clean out old head styles we no longer render */
+.cc-head,.cc-head-icon,.cc-head-label,.cc-head-num,.cc-shine{display:none!important}
+
+/* cc-ttl + cc-per in the new layout */
+.cc-ttl{padding:0;margin-top:2px;font-family:var(--serif)!important;font-size:1.2rem!important;font-weight:700!important;color:var(--text)!important;letter-spacing:-.008em;line-height:1.2}
+.cc-per{padding:0;margin:0 0 2px;font-family:var(--serif)!important;font-style:italic;font-size:.82rem!important;font-weight:500!important;color:var(--secondary)!important;letter-spacing:.005em;text-transform:none!important}
+
+/* Outcome list tighter */
+.cc-ol{padding:0;margin:6px 0 10px}
+.cc-ol li{padding:3px 0!important;font-size:.85rem!important;color:var(--text-mid)!important;gap:8px}
+.cc-ol li .ck{color:var(--accent)!important;font-size:.65rem;margin-top:4px}
+.cc-prog{padding:0 20px;margin-top:auto}
 
 /* ═══ BRAND LOGO MONOGRAM FALLBACK ═══ */
 .brand-mono{font-family:var(--serif);font-style:italic;font-weight:500}
@@ -1834,6 +1866,28 @@ function courseMeta(c){
     duration: c.duration  || d.duration  || (Math.round(hours)+'h total')
   };
 }
+/* Course hero imagery \u2014 real Unsplash photos per course. Override on the
+   course object with `hero:"https://..."`. */
+var COURSE_HERO_DEFAULTS={
+  1:'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=720&auto=format&q=70',
+  2:'https://images.unsplash.com/photo-1579547945413-497e1b99dac0?w=720&auto=format&q=70',
+  3:'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=720&auto=format&q=70',
+  4:'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=720&auto=format&q=70',
+  5:'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=720&auto=format&q=70',
+  6:'https://images.unsplash.com/photo-1664575602554-2087b04935a5?w=720&auto=format&q=70',
+  7:'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=720&auto=format&q=70'
+};
+function courseHero(c){return c.hero||COURSE_HERO_DEFAULTS[c.id]||'';}
+/* Brand strip \u2014 aggregate the core tools used in the course, dedupe,
+   cap at 5, render as brandLogo mini row. */
+function courseBrandStrip(c){
+  var seen={},out=[];
+  (c.skills||[]).concat(((c.sessions||[])[0]&&(c.sessions[0].tools||'')).split(/[,\u00b7\/]/))
+    .concat((c.tools||'').split(/[,\u00b7\/]/))
+    .forEach(function(t){if(!t)return;var n=String(t).trim();if(!n||seen[n])return;seen[n]=1;if(TOOL_BRAND[n])out.push(n);});
+  if(!out.length)return '';
+  return out.slice(0,5).map(function(n){return '<span class="cc-brand" title="'+n+'">'+brandLogo(n,20)+'</span>';}).join('');
+}
 /* Fetch published unlocks.json and merge — source of truth wins (up OR down). */
 function loadRemoteUnlocks(cb){
   try{
@@ -1995,24 +2049,29 @@ var _svgTrack={
   track:_SVG+'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
   biz:_SVG+'<path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M9 7V5h6v2"/></svg>'
 };
-var trackMap={1:{lbl:'CORE',cls:'core'},2:{lbl:'CORE',cls:'core'},3:{lbl:'TRACK',cls:'track'},4:{lbl:'TRACK',cls:'track'},5:{lbl:'TRACK',cls:'track'},6:{lbl:'BUSINESS',cls:'biz'}};
+var trackMap={1:{lbl:'CORE',cls:'core'},2:{lbl:'CORE',cls:'core'},3:{lbl:'TRACK',cls:'track'},4:{lbl:'TRACK',cls:'track'},5:{lbl:'TRACK',cls:'track'},6:{lbl:'BUSINESS',cls:'biz'},7:{lbl:'RESEARCH',cls:'track'}};
 var trk=trackMap[c.id];
+var _ccMeta=courseMeta(c);
+var heroUrl=courseHero(c);
+var toolsStrip=courseBrandStrip(c);
 h+='<div class="cc'+(isAct?' cc-act':'')+(isFirst?' cc-first':'')+' ent ent'+Math.min(i,5)+'" style="--cc:'+c.color+'" onclick="selCourse('+c.id+')">';
-h+='<div class="cc-shine"></div>';
-h+='<div class="cc-head" style="--cc:'+c.color+'">';
-h+='<div class="cc-head-icon"><span class="cc-head-num">'+c.id.toString().padStart(2,'0')+'</span></div>';
-h+='<div><div class="cc-head-label">'+E(c.titleEn)+'</div></div>';
+/* Hero media band (image on top) */
+h+='<div class="cc-media" style="--cc:'+c.color+'">';
+h+='<img class="cc-media-img" src="'+heroUrl+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">';
+h+='<div class="cc-media-tint"></div>';
 if(trk)h+='<div class="cc-track '+trk.cls+'" aria-label="Track: '+trk.lbl+'">'+_svgTrack[trk.cls]+'<span>'+trk.lbl+'</span></div>';
-if(status)h+='<div class="cc-status '+status+'" style="position:absolute;top:10px;right:12px;z-index:2">'+(status==='done'?'\u2713 Done':'In Progress')+'</div>';
+if(status)h+='<div class="cc-status '+status+'">'+(status==='done'?'\u2713 Done':'In Progress')+'</div>';
+h+='<div class="cc-media-num">'+c.id.toString().padStart(2,'0')+'</div>';
 h+='</div>';
+/* Body */
 h+='<div class="cc-body">';
+if(toolsStrip)h+='<div class="cc-brands"><span class="cc-brands-lbl">Uses</span>'+toolsStrip+'</div>';
 h+='<div class="cc-ttl">'+E(c.titleEn)+'</div>';
 if(c.persona)h+='<div class="cc-per">'+E(c.persona)+'</div>';
-/* Meta row: rating \u00b7 learners \u00b7 duration. Defaults computed from course id + sessions. */
-var _ccMeta=courseMeta(c);
 h+='<div class="cc-meta"><span class="cc-meta-rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg> '+_ccMeta.rating+'</span><span class="cc-meta-sep">\u00b7</span><span>'+_ccMeta.learners+' learners</span><span class="cc-meta-sep">\u00b7</span><span>'+_ccMeta.duration+'</span></div>';
-if(c.outcomes){h+='<ul class="cc-ol">';c.outcomes.forEach(function(o){h+='<li><span class="ck">&#10003;</span>'+E(o)+'</li>'});h+='</ul>'}
+if(c.outcomes){h+='<ul class="cc-ol">';c.outcomes.slice(0,3).forEach(function(o){h+='<li><span class="ck">&#10003;</span>'+E(o)+'</li>'});h+='</ul>'}
 h+='</div>';
+/* Progress */
 h+='<div class="cc-prog">';
 h+='<div class="cc-prog-bar"><div class="cc-prog-fill" style="width:'+pct+'%;background:'+c.color+'"></div></div>';
 h+='<span class="cc-prog-lbl">'+done+' / '+total+' sessions</span>';
