@@ -157,7 +157,9 @@ input,textarea,select{font-family:inherit}
 .nav-links a.active{color:var(--accent);background:transparent;text-decoration:none;font-weight:600}
 .nav-links a.active::after{content:'';position:absolute;bottom:-2px;left:14px;right:14px;height:1.5px;background:var(--accent);border-radius:1px}
 .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.role-badge{font-size:.6875rem;font-weight:700;padding:4px 10px;border-radius:8px;text-transform:uppercase;letter-spacing:.8px}
+.role-badge{font-family:var(--sans);font-size:.72rem;font-weight:700;padding:8px 16px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em;border:1px solid var(--hairline);background:var(--bg2);color:var(--text);display:inline-flex;align-items:center;gap:8px}
+.role-badge.teacher{color:var(--accent);border-color:var(--accent)}
+.role-badge .role-dot{width:7px;height:7px;border-radius:50%;background:#2F7A4B;box-shadow:0 0 0 2px rgba(47,122,75,.15);flex-shrink:0}
 .role-badge.student{background:var(--gold-dim);color:var(--gold)}
 .role-badge.teacher{background:rgba(79,206,124,.15);color:var(--success)}
 .nav-icon-btn{position:relative;background:var(--bg2);border:1px solid var(--hairline);color:var(--text-dim);cursor:pointer;width:38px;height:38px;border-radius:50%;transition:all var(--dur-fast) var(--ease);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -246,11 +248,21 @@ input,textarea,select{font-family:inherit}
 .phase-nav-spacer{flex:1}
 
 /* PHASE LABELS */
-.plbl{display:flex;align-items:baseline;gap:14px;padding:0 0 16px;border-bottom:1px solid var(--hairline);margin:0 0 22px;position:relative;background:none!important;border-top:none;border-left:none;border-right:none;color:var(--text)!important;border-radius:0}
-.plbl::after{content:'';position:absolute;left:0;bottom:-1px;width:64px;height:1px;background:var(--hairline-accent)}
-.plbl-num{font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.05rem;color:var(--secondary);letter-spacing:.02em;flex-shrink:0}
-.plbl-txt{font-family:var(--serif);font-weight:700;font-size:1.55rem;letter-spacing:-.012em;color:var(--text);text-transform:none;line-height:1.1}
+/* Editorial phase hero — big Roman numeral + italic eyebrow + title */
+.plbl{display:grid;grid-template-columns:auto 1fr;gap:0 22px;align-items:start;padding:0 0 24px;border-bottom:1px solid var(--hairline);margin:0 0 28px;position:relative;background:none!important;border-top:none;border-left:none;border-right:none;border-radius:0}
+.plbl::after{content:'';position:absolute;left:0;bottom:-1px;width:72px;height:1px;background:var(--hairline-accent)}
+.plbl-num{font-family:var(--serif);font-style:italic;font-weight:500;font-size:4.2rem;color:var(--accent);letter-spacing:-.02em;line-height:.95;align-self:center;padding-right:4px}
+.plbl-body{display:flex;flex-direction:column;gap:4px;min-width:0}
+.plbl-eyebrow{font-family:var(--serif);font-style:italic;font-size:.88rem;font-weight:500;color:var(--secondary);letter-spacing:.005em;text-transform:none;margin-bottom:2px}
+.plbl-eyebrow::before{content:'§  ';color:var(--accent)}
+.plbl-txt{font-family:var(--serif);font-weight:700;font-size:2rem;letter-spacing:-.018em;color:var(--text);text-transform:none;line-height:1.05}
+.plbl-txt em,.plbl-accent{color:var(--accent);font-style:italic;font-weight:500}
 .phase-desc{font-family:var(--sans);font-style:normal;font-size:1rem;color:var(--text-mid);margin-bottom:28px;padding:0;font-weight:400;background:transparent;border:none;max-width:64ch;line-height:1.65;letter-spacing:-.005em}
+
+/* Drop cap on first <p>-like block within a phase */
+.pblk .drop-cap::first-letter,.phase-desc.drop-cap::first-letter{font-family:var(--serif);font-weight:700;font-style:italic;color:var(--accent);font-size:3.4em;float:left;line-height:.88;padding:.05em .12em 0 0;margin-top:.06em}
+
+@media(max-width:760px){.plbl{gap:0 14px}.plbl-num{font-size:2.8rem}.plbl-txt{font-size:1.5rem}}
 .pdot{display:none}
 
 /* PROMPT ANATOMY */
@@ -1210,12 +1222,24 @@ input,textarea,select{font-family:inherit}
 .cc-ttl{font-size:1.06rem!important;color:var(--text)!important;background:none!important;-webkit-text-fill-color:var(--text)!important}
 
 /* ═══ BREADCRUMB ═══ */
-.breadcrumb{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--text-dim);margin-bottom:16px;flex-wrap:wrap}
-.breadcrumb .bc-link{background:none;border:0;padding:4px 2px;font-family:inherit;font-size:inherit;color:inherit;cursor:pointer;transition:color .2s;border-radius:4px}
-.breadcrumb .bc-link:hover{color:var(--gold)}
-.breadcrumb .bc-link:focus-visible{color:var(--gold);outline:2px solid var(--accent);outline-offset:3px}
-.breadcrumb .bc-sep{color:rgba(26,21,16,.15)}
-.breadcrumb .bc-current{color:var(--text);font-weight:700}
+.breadcrumb{display:flex;align-items:center;gap:24px;font-size:.82rem;color:var(--text-dim);margin-bottom:24px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--hairline);justify-content:space-between}
+.breadcrumb .bc-path{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.breadcrumb .bc-link{background:none;border:0;padding:4px 2px;font-family:inherit;font-size:inherit;color:inherit;cursor:pointer;transition:color var(--dur-fast) var(--ease);border-radius:4px}
+.breadcrumb .bc-link:hover{color:var(--accent)}
+.breadcrumb .bc-sep{color:rgba(26,21,16,.25);padding:0 2px}
+.breadcrumb .bc-current{color:var(--text);font-weight:600}
+.bc-progress{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-style:italic;font-size:.82rem;color:var(--secondary)}
+.bc-progress-lbl{color:var(--accent);font-weight:500}
+.bc-dots{display:inline-flex;gap:5px}
+.bc-dot{width:6px;height:6px;border-radius:50%;background:var(--bg3);border:1px solid var(--hairline)}
+.bc-dot.active{background:var(--accent);border-color:var(--accent)}
+.bc-dot.done{background:var(--accent);border-color:var(--accent);opacity:.5}
+.bc-phase-name{color:var(--text-mid);letter-spacing:.005em}
+.bc-mates{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(47,122,75,.08);border:1px solid rgba(47,122,75,.22);font-family:var(--serif);font-style:italic;font-size:.82rem;color:#2F7A4B;letter-spacing:.005em}
+.bc-mates strong{color:#2F7A4B;font-family:var(--sans);font-style:normal;font-weight:700;letter-spacing:-.005em}
+.bc-mates-dot{width:7px;height:7px;border-radius:50%;background:#2F7A4B;box-shadow:0 0 0 3px rgba(47,122,75,.2);animation:bcPulse 2.4s ease-in-out infinite}
+@keyframes bcPulse{0%,100%{opacity:1}50%{opacity:.55}}
+@media(max-width:760px){.breadcrumb{gap:12px}.bc-progress,.bc-mates{display:none}}
 
 /* ═══ PHASE ROADMAP ═══ */
 .phase-roadmap{display:flex;align-items:center;gap:4px;margin-bottom:22px;padding:12px 16px;background:rgba(255,255,255,.6);border-radius:12px;border:1px solid rgba(26,21,16,.10);overflow-x:auto;scrollbar-width:none}
@@ -1409,11 +1433,16 @@ input,textarea,select{font-family:inherit}
 .pblk .phase-desc{margin-top:-8px}
 .pblk .phase-nav{margin-top:24px;padding-top:20px;border-top:1px solid var(--hairline)}
 
-/* Session meta (§ 1.1 / Title / Tool badge) — stronger hierarchy above the stepper */
-.smeta{margin:36px 0 22px;padding-bottom:0}
-.snum{margin-bottom:6px}
-.stitle{font-size:2.8rem!important;line-height:1.05!important;letter-spacing:-.018em;margin-bottom:14px}
-@media(max-width:760px){.stitle{font-size:2rem!important}}
+/* Session meta — Claude-design editorial hero */
+.smeta{margin:40px 0 28px;padding-bottom:0}
+.smeta-eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-style:italic;font-size:.92rem;font-weight:500;color:var(--text-mid);letter-spacing:.005em;margin-bottom:12px;flex-wrap:wrap}
+.smeta-num{color:var(--accent);font-weight:600;font-size:1.4em;letter-spacing:-.01em}
+.smeta-sep{color:var(--text-muted);opacity:.5}
+.stitle{font-family:var(--serif)!important;font-size:4.2rem!important;line-height:.98!important;letter-spacing:-.022em;margin:0 0 14px;font-weight:700;color:var(--text);max-width:14ch}
+.stitle em{color:var(--accent);font-style:italic;font-weight:500}
+@media(max-width:900px){.stitle{font-size:3rem!important}}
+@media(max-width:640px){.stitle{font-size:2.2rem!important;max-width:none}}
+.snum{display:none}
 .tbadges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
 
 /* ═══ INTERACTIVE QUIZ APP (one-at-a-time) ═══ */
@@ -1687,7 +1716,7 @@ input,textarea,select{font-family:inherit}
       <button class="search-trigger" onclick="openCmdK()" aria-label="Open search (Ctrl+K)" title="Search (⌘K)"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="search-trigger-label">Search courses, sessions, prompts…</span><kbd class="search-kbd">⌘K</kbd></button>
       <button class="nav-icon-btn" aria-label="Notifications" title="Notifications"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="nav-icon-dot" aria-hidden="true"></span></button>
       <span class="role-badge" id="roleBadge"></span>
-      <button class="logout-btn" onclick="doLogout()" title="Log out">Log out \u2192</button>
+      <button class="logout-btn" onclick="doLogout()" title="Log out">Log out →</button>
     </div>
   </div></nav>
   <main class="container" id="portalMain" tabindex="-1">
@@ -2014,7 +2043,7 @@ var TABS=[
   {id:'secTeach',   l:'Teach',    ic:ICO.teach,   mob:true, t:1}
 ];
 function bNav(){
-var rb=$('roleBadge');rb.textContent=_r==='teacher'?'Teacher':'Student';rb.className='role-badge '+(_r==='teacher'?'teacher':'student');
+var rb=$('roleBadge');rb.innerHTML=_r==='teacher'?'<span class="role-dot"></span>Teacher':'<span class="role-dot"></span>Creative cohort';rb.className='role-badge '+(_r==='teacher'?'teacher':'student');
 if(_r==='teacher')document.querySelectorAll('.teacher-only').forEach(function(el){el.style.display='block'});
 var nl=$('navLinks'),bn=$('bnI');nl.innerHTML='';bn.innerHTML='';
 TABS.forEach(function(t){if(t.t&&_r!=='teacher')return;
@@ -2470,9 +2499,19 @@ var h='';
 
 /* ── Breadcrumb ── */
 h+='<nav class="breadcrumb ent ent0" aria-label="Breadcrumb">';
+h+='<div class="bc-path">';
 h+='<button type="button" class="bc-link" onclick="LS(\'activeCourse\',null);LS(\'activeSession\',null);window.scrollTo(0,0);rLearn()" aria-label="Go to All Courses">All Courses</button><span class="bc-sep" aria-hidden="true">/</span>';
 h+='<button type="button" class="bc-link" onclick="selCourse('+co.id+')" aria-label="Go to '+E(co.titleEn)+'">'+E(co.titleEn)+'</button><span class="bc-sep" aria-hidden="true">/</span>';
-h+='<span class="bc-current" aria-current="page">Session '+se.n+': '+E(se.titleEn)+'</span></nav>';
+h+='<span class="bc-current" aria-current="page">Session '+se.n+': '+E(se.titleEn)+'</span>';
+h+='</div>';
+/* Session progress dots \u2014 one per phase (Reading \u00b7 See \u00b7 Try \u00b7 Quiz \u00b7 Homework) */
+h+='<div class="bc-progress"><span class="bc-progress-lbl">\u00a7 Reading</span>';
+h+='<span class="bc-dots"><span class="bc-dot active"></span><span class="bc-dot"></span><span class="bc-dot"></span><span class="bc-dot"></span><span class="bc-dot"></span></span>';
+h+='<span class="bc-phase-name">Learn</span></div>';
+/* Cohort mates online indicator */
+var _matesOnline=8+Math.floor(Math.random()*8);
+h+='<div class="bc-mates"><span class="bc-mates-dot"></span><strong>'+_matesOnline+'</strong> cohort mates online</div>';
+h+='</nav>';
 
 /* ── Course hero with outcomes ── */
 var _chdrMeta=courseMeta(co),_chdrBrands=courseBrandStrip(co),_chdrHero=courseHero(co);
@@ -2506,8 +2545,18 @@ h+='</div>';
 });h+='</div>';
 
 /* ── Session meta ── */
-h+='<div class="smeta ent ent2"><div class="snum"><span class="sec-num">§ '+co.id+'.'+se.n+'</span><span class="snum-sep">·</span><span>Session '+se.n+' of '+co.sessions.length+'</span></div>';
-h+='<div class="stitle">'+E(se.titleEn)+'</div>';
+/* Big editorial session hero with the Claude-Design treatment:
+   § 0N eyebrow · Session N of M · Course name, then a huge serif title
+   with the last word rendered in orange italic. */
+h+='<div class="smeta ent ent2">';
+h+='<div class="smeta-eyebrow"><span class="smeta-num">\u00a7 '+co.id.toString().padStart(2,'0')+'</span><span class="smeta-sep">\u00b7</span><span>Session '+se.n+' of '+co.sessions.length+'</span><span class="smeta-sep">\u00b7</span><span>'+E(co.titleEn||co.title)+'</span></div>';
+/* Split the title so the last word (or last 2 words) render as italic orange accent */
+var _sttl=(se.titleEn||'').trim();var _sWords=_sttl.split(/\s+/);var _sAccent='';var _sRest=_sttl;
+if(_sWords.length>=3){_sAccent=_sWords.slice(-2).join(' ');_sRest=_sWords.slice(0,-2).join(' ');}
+else if(_sWords.length===2){_sAccent=_sWords[1];_sRest=_sWords[0];}
+else{_sAccent=_sttl;_sRest='';}
+h+='<h1 class="stitle">'+(_sRest?E(_sRest)+' ':'')+'<em>'+E(_sAccent)+'</em>'+(_sAccent&&!_sttl.match(/[.?!]$/)?'.':'')+'</h1>';
+h+='</div>';
 if(se.tools){h+='<div class="tbadges">';se.tools.split(/[,·]/).forEach(function(t){var n=t.trim();if(!n)return;h+='<span class="tbadge">'+brandLogo(n,16)+E(n)+'</span>'});h+='</div>'}
 h+='</div>';
 
@@ -2516,7 +2565,7 @@ h+=rPhaseStepper(a.c,a.s,'learn');
 
 var delays=['ent3','ent4','ent5','ent5','ent5','ent5'];var di=0;
 if(se.learn&&se.learn.length){
-h+='<div class="pblk pblk-anim phase-active '+delays[di++]+'" data-phase="learn"><div class="plbl learn"><span class="plbl-num">\u00a7 I</span><span class="plbl-txt">Learn</span></div><div class="phase-desc">The core ideas you need before touching any AI tool.</div>';
+h+='<div class="pblk pblk-anim phase-active '+delays[di++]+'" data-phase="learn"><div class="plbl learn"><span class="plbl-num">I</span><div class="plbl-body"><div class="plbl-eyebrow">Phase one · read with intent</div><div class="plbl-txt">Read the <em>idea</em> first.</div></div></div><div class="phase-desc drop-cap">The core ideas you need before touching any AI tool. Skim-reading won\'t help here \u2014 read it once, then decide if you want to run the demo.</div>';
 se.learn.forEach(function(b,bi){h+=rBlock(b,a.c+'_'+a.s+'_'+bi,co.color)});
 /* Optional "See in the Lab" deep-link for visual/image sessions */
 var _labMapLearn={1:{4:'lighting'},2:{1:'style',2:'camera',3:'product',4:'style'},3:{1:'style'},4:{1:'product',2:'branding'},5:{1:'branding',2:'branding',3:'social',4:'branding'}};
@@ -2527,16 +2576,16 @@ if(_labCatLearn&&typeof LAB!=='undefined'&&LAB[_labCatLearn]){
 h+='</div>';
 }
 if(se.gallery&&se.gallery.length){
-h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="see"><div class="plbl see"><span class="plbl-num">\u00a7 II</span><span class="plbl-txt">See</span></div><div class="phase-desc">Real examples with results \u2014 tap cards to reveal.</div>';
+h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="see"><div class="plbl see"><span class="plbl-num">II</span><div class="plbl-body"><div class="plbl-eyebrow">Phase two · see the difference</div><div class="plbl-txt">Same question, <em>opposite answer</em>.</div></div></div><div class="phase-desc">Two prompts. Same model. Radically different output. Read both and notice where the change happens \u2014 it\'s never the tool.</div>';
 h+='<div class="see-scroll">';se.gallery.forEach(function(g,gi){h+=bFC(g,'s_'+a.c+'_'+a.s+'_'+gi)});h+='</div></div>';
 }
 if(se.recipe&&se.recipe.length){
-h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="try"><div class="plbl try"><span class="plbl-num">\u00a7 III</span><span class="plbl-txt">Try</span></div><div class="phase-desc">Follow along step by step \u2014 '+se.recipe.length+' steps.</div><div class="rsteps">';
+h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="try"><div class="plbl try"><span class="plbl-num">III</span><div class="plbl-body"><div class="plbl-eyebrow">Phase three · your turn</div><div class="plbl-txt">Write one. <em>Ship it.</em></div></div></div><div class="phase-desc">'+se.recipe.length+' steps. Follow them in order \u2014 each one builds on the last. If you get stuck, check the tip under each card.</div><div class="rsteps">';
 se.recipe.forEach(function(r,ri){h+=bRS(r,'r_'+a.c+'_'+a.s+'_'+ri,ri<2)});h+='</div></div>';
 }
 if(se.quiz&&se.quiz.length){
 var _qid='q_'+a.c+'_'+a.s;
-h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="quiz"><div class="plbl quiz"><span class="plbl-num">\u00a7 IV</span><span class="plbl-txt">Quiz</span></div><div class="phase-desc">Quick check \u2014 '+se.quiz.length+' question'+(se.quiz.length===1?'':'s')+'. One at a time. Answer, read the why, move on.</div>';
+h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="quiz"><div class="plbl quiz"><span class="plbl-num">IV</span><div class="plbl-body"><div class="plbl-eyebrow">Phase four · check yourself</div><div class="plbl-txt">'+(se.quiz.length===1?'One quick ':se.quiz.length===2?'Two quick ':'A few ')+'<em>questions</em>.</div></div></div><div class="phase-desc">One at a time. Answer, read the <em>why</em>, move on. Don\'t sweat a wrong answer \u2014 the explanation is where the learning actually sticks.</div>';
 h+='<div class="quizapp" id="quizapp_'+_qid+'" data-quiz="'+_qid+'" data-total="'+se.quiz.length+'">';
 /* Progress dots */
 h+='<div class="quizapp-progress"><div class="quizapp-dots">';
@@ -2560,7 +2609,7 @@ h+='</div>';
 h+='</div>';
 }
 var wk=a.c+'_'+a.s,wd=isHW(a.c,a.s);
-h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="hw"><div class="plbl create"><span class="plbl-num">\u00a7 V</span><span class="plbl-txt">Homework</span></div><div class="phase-desc">Do this on your own, after class. Clear deliverable, honest rubric, no surprises.</div>';
+h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="hw"><div class="plbl create"><span class="plbl-num">V</span><div class="plbl-body"><div class="plbl-eyebrow">Phase five · do the real thing</div><div class="plbl-txt">Your <em>assignment</em>.</div></div></div><div class="phase-desc">Do this on your own, after class. Clear deliverable, honest rubric, no surprises.</div>';
 /* Meta strip: time estimate + difficulty + tools. Derived from session unless session declares explicit values. */
 var _hwTime=(se.hw&&se.hw.time)||se.hwTime||'30\u201360 min';
 var _hwDiff=(se.hw&&se.hw.difficulty)||se.hwDifficulty||(a.s<=2?'Beginner':a.s<=4?'Intermediate':'Advanced');
