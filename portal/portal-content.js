@@ -1097,7 +1097,31 @@ quiz:[
 {q:'Why run the same question in three tools?',opts:['To pick the fastest one','To see three different shapes of answer, each right for a different purpose','So you can copy whichever looks longest','Because one of them is always wrong'],correct:1,explain:'Same question, three different shapes of answer. None is \u201Cright\u201D \u2014 each is right for a different purpose. Starting with one tool blinds you to the other three.'},
 {q:'What is the fastest way to catch an AI hallucination?',opts:['Ask the AI if it is sure','Look for grammar errors','Click the citation and read the original','Check if the answer is long enough'],correct:2,explain:'AI can produce confident, beautifully formatted, completely fabricated answers. Grammar, length, and the AI\'s own confidence tell you nothing. Only the citation tells you.'}
 ],
-hw:{brief:'Pick one real research question from your work, studies, or a project you care about. Run it in all four tools \u2014 Claude, Perplexity, ChatGPT, Gemini. Submit a one-page comparison table.',deliverables:['A specific, non-trivial research question','Answer from all four tools (screenshot or copy-paste)','A comparison table: time, citations, errors / gaps','One reflection sentence: which tool would you use next time, and why'],steps:['Pick a question that matters to you \u2014 not a textbook topic','Run it in Claude, Perplexity, ChatGPT, and Gemini. Default mode in each.','For each tool: note time to answer, number of citations, one thing it got wrong or missed','Build a comparison table (4 rows, 4 columns)','Write one closing sentence on your pick for next time'],checklist:['Question is specific and real','All four tools tested \u2014 none skipped','At least one error or gap flagged per tool','Reflection names a tool AND a reason','Table fits on one page'],pro_tip:'Pick a question you actually care about. The homework is only hard if the question is fake.'}
+hw:{
+brief:'A full-day workshop on choosing the right AI research tool. You\'ll take one real question, run it in four tools, catch at least one error per tool, and leave with a defended pick \u2014 not a guess.',
+warmup:{time:'\u224815 min before class',tasks:[
+'Install accounts for all four: <strong>Claude, Perplexity, ChatGPT, Gemini.</strong> Free tiers are fine.',
+'Pick <strong>one real research question</strong> from your work, studies, or a project you care about \u2014 <em>not</em> a textbook topic. Write it in one sentence.',
+'Have a blank sheet or Notion page open titled <em>Tool comparison \u2014 [your question]</em>.'
+]},
+live:{time:'\u224850 min in class',rounds:[
+{label:'Round 1',time:'10 min',task:'Open <strong>all four tools</strong> in four tabs. Paste the same question into each, default mode. Screenshot or copy each answer.',outcome:'Four very different answer-shapes sitting side by side. Already obvious that none of them is \u201Cthe\u201D answer.'},
+{label:'Round 2',time:'15 min',task:'Click <strong>at least one citation in each tool.</strong> Does the source actually back the claim? Flag any mismatches you find.',outcome:'You\'ll catch at least one mismatch. This is the session\'s most important reflex \u2014 citations prove provenance, not accuracy.'},
+{label:'Round 3',time:'15 min',task:'Fill a comparison table: <strong>Tool | Time to answer | # Citations | One gap or error | Overall grade (A\u2013F).</strong>',outcome:'A one-page table you could show a colleague. The shape of the answer matters more than its length.'},
+{label:'Round 4',time:'10 min',task:'Pair up. <strong>Defend your winner in 60 seconds</strong> \u2014 which tool, for this question, why. Take your partner\'s feedback.',outcome:'You can\'t pick a tool you can\'t defend. Speaking the rationale out loud locks it in.'}
+]},
+solo:{time:'during the week',tasks:[
+'Run <strong>3 more real questions</strong> through all four tools \u2014 one per weekday.',
+'Keep a <em>Tool Journal</em>: one line per question noting which tool won and why.',
+'End of week: share the 4-question comparison sheet in cohort Telegram. Nobody is graded on the winner \u2014 only on the reasoning.'
+]},
+rubric:[
+{name:'You showed up',criteria:'One question tested in all four tools. One error or gap flagged per tool. Comparison table completed.'},
+{name:'You built the habit',criteria:'The question is real and specific. Errors are specific (a bad citation, a missing angle). Written rationale names a tool <em>and</em> a reason.'},
+{name:'You changed your mind',criteria:'You found a mismatch nobody else in your pair flagged. You defended the choice in 60 seconds without notes. The comparison made you pick a tool you didn\'t expect.'}
+],
+pro_tip:'Pick a question you actually care about. The workshop is only hard if the question is fake.'
+}
 },
 
 /* ---------------- Session 2 ---------------- */
@@ -1136,7 +1160,32 @@ quiz:[
 {q:'When is a Deep Research run NOT worth the credits?',opts:['A quick factual lookup','A multi-source structured report','An investigative question with contested claims','A comparison across 5 countries'],correct:0,explain:'Deep Research is overkill for \u201Cwho is the CEO of X?\u201D. Regular ChatGPT or Perplexity default search answers instantly. Save Deep Research for questions where traceability matters.'},
 {q:'What should you do with the research plan ChatGPT proposes before clicking Run?',opts:['Trust it \u2014 the AI knows best','Always rewrite it from scratch','Review, edit, remove irrelevant sections, and add anything missing','Skip straight to run to save time'],correct:2,explain:'The plan is where you catch a bad run before wasting 20 minutes. Edit it: add missing angles, remove scope creep. Good plan = good report.'}
 ],
-hw:{brief:'Pick a topic you care about. Write a structured Deep Research brief following today\'s template (role, objective, scope, format, length, constraints). Run it in one Deep Research tool of your choice. Bring the report AND be ready to defend three citations orally.',deliverables:['Your completed Research Brief (one page, using the template)','The full Deep Research output','Three citations you will defend \u2014 meaning you have clicked each and read the source'],steps:['Pick a topic from your work or life \u2014 real stakes','Draft the brief in a regular model first; iterate until tight','Pick one Deep Research tool (Perplexity / ChatGPT / Gemini)','Paste the brief. Review and edit the plan. Run it.','Pick three citations to defend. Click each. Read the original.'],checklist:['Brief uses all 7 template fields','Topic is real and specific','Plan was edited before running','Output has citations intact and clickable','You have read three citations end to end'],pro_tip:'Spot-check citations at random \u2014 not just the easy ones. Next session is a verification masterclass; come prepared to talk about what you caught.'}
+hw:{
+brief:'A craft workshop on the 7-field Deep Research brief. You\'ll iterate a brief until it\'s tight, survive a partner red-pen, run it, and defend three citations orally \u2014 the skill that separates a 25-page junk report from a 25-page report you can ship.',
+warmup:{time:'\u224820 min before class',tasks:[
+'Pick <strong>one topic that matters</strong> \u2014 with real stakes and a sentence on <em>why</em> it matters to you.',
+'Have a Pro/Plus subscription on ChatGPT or Perplexity active (or use free Gemini Deep Research).',
+'Memorise the 7-field brief template: <strong>Role \u00b7 Objective \u00b7 Scope \u00b7 Sources \u00b7 Format \u00b7 Length \u00b7 Constraints.</strong>'
+]},
+live:{time:'\u224860 min in class',rounds:[
+{label:'Round 1',time:'10 min',task:'Draft the 7-field brief in Claude or regular ChatGPT. Iterate until every field is <strong>unambiguous</strong>.',outcome:'A tight one-pager \u2014 not \u201Ca market analysis\u201D, but \u201CCompare Armenian vs. Georgian tech ecosystems 2020\u20132026, for a pitch deck, 2000 words.\u201D'},
+{label:'Round 2',time:'10 min',task:'<strong>Swap briefs with a partner.</strong> Red-pen each other\'s: what\'s fuzzy? Which fields are copy-paste generic? What would a junior analyst mis-interpret?',outcome:'You\'ll find at least two things you didn\'t notice. Another pair of eyes always catches scope creep.'},
+{label:'Round 3',time:'15 min',task:'Paste the revised brief into your chosen Deep Research tool. <strong>Read the plan the AI proposes. Edit it.</strong> Add missing angles. Cut scope creep.',outcome:'The plan is where you catch a wrong run <em>before</em> wasting 20 minutes of your monthly cap. Editing the plan is the workshop\'s core skill.'},
+{label:'Round 4',time:'15 min',task:'Run it. <strong>While it runs, write down 3 claims you plan to verify.</strong> Don\'t wait to see the report \u2014 pre-commit.',outcome:'Pre-committing prevents the \u201Ceverything looks good\u201D bias when the polished report lands.'},
+{label:'Round 5',time:'10 min',task:'When the report arrives: click your 3 pre-written claims. Read each cited source end-to-end. <strong>Flag any mismatches.</strong>',outcome:'You will find at least one. That\'s not a failure \u2014 that\'s the verification habit working.'}
+]},
+solo:{time:'during the week',tasks:[
+'Run <strong>2 more Deep Research briefs</strong> using the template \u2014 different topics, different tools.',
+'Track: minutes saved vs. what a manual search would have taken. Be honest.',
+'From each report, pick ONE claim and triangulate it against two independent sources. Journal the result.'
+]},
+rubric:[
+{name:'You showed up',criteria:'7-field brief filled. Plan edited before running. Three citations read end-to-end. One mismatch or gap flagged honestly.'},
+{name:'You built the habit',criteria:'Brief survives partner red-pen without major edits. You caught one scope error in the plan before wasting credits. Verification happened at random \u2014 not just easy claims.'},
+{name:'You changed your mind',criteria:'You found a claim the AI stated as fact but was actually contested. Your brief is tight enough that a classmate could re-run it and get a comparable report.'}
+],
+pro_tip:'Spot-check citations <em>at random</em> \u2014 not just the easy ones. Next session is a verification masterclass; come prepared to talk about what you caught.'
+}
 },
 
 /* ---------------- Session 3 ---------------- */
@@ -1166,7 +1215,32 @@ quiz:[
 {q:'Can you trust Perplexity because it cites every sentence?',opts:['Yes \u2014 citations prove the claim is true','No \u2014 citations prove where the AI got it, not that it\'s true','Only for quotes, not for numbers','Only on the paid tier'],correct:1,explain:'Citations prove provenance. They do not prove accuracy. Perplexity sometimes cites a source that does not support the claim it made. Click and read. Every time.'},
 {q:'What should you do when three frontier models disagree on a claim through Perplexity Model Council?',opts:['Pick the one you like','Trust the majority','Treat the claim as contested and do more research','Ask a fourth model'],correct:2,explain:'If three frontier models disagree, the claim is not settled \u2014 even if it sounds factual. That is a signal to dig deeper, find primary sources, and be honest in your write-up about the uncertainty.'}
 ],
-hw:{brief:'Take the Deep Research report from Session 2\'s homework. Audit it with Claude using the Fact-Checker prompt. Pick the 5 most important claims. Triangulate each one manually against two independent sources. Submit the audit table.',deliverables:['Claude\'s Fact-Checker audit (full output)','Table of 5 claims with: AI\'s cited source, primary source you found, independent confirming source, verdict (verified / partially verified / unverified)','Honest \u2014 if you couldn\'t triangulate, mark it unverified'],steps:['Copy your Session 2 report into Claude with the Fact-Checker prompt','Read Claude\'s audit \u2014 note high/medium/low confidence claims','Pick the 5 most important (not the easiest)','For each: click AI citation, find primary source, find independent confirmation','Record the outcome honestly. Some will be unverified \u2014 that\'s the point.'],checklist:['Fact-Checker audit actually run (not faked)','5 claims are genuinely important, not cherry-picked easy ones','Each claim has a primary AND independent source attempt','Verdicts include at least one \u201Cpartially\u201D or \u201Cunverified\u201D \u2014 signal of honesty','Table is submittable to an editor as-is'],pro_tip:'If every claim comes back \u201Cverified\u201D with full confidence, the instructor will suspect you skipped the work. Real triangulation always produces at least one miss. Honesty beats performance.',creative_challenge:'Open the Source Verification Trainer in the Library. Score 80% or higher for the Verification Badge.'}
+hw:{
+brief:'A defensive workshop. Research without verification is a pretty way to publish a lie. You\'ll audit last week\'s report, triangulate five real claims, and leave with a table a serious editor would accept \u2014 including at least one \u201Cunverified.\u201D',
+warmup:{time:'\u224810 min before class',tasks:[
+'Bring <strong>your Session 2 Deep Research report</strong> \u2014 full output with citations intact.',
+'One notebook or doc open for capturing the triangulation table.',
+'Copy the <strong>Fact-Checker prompt</strong> into your clipboard: <em>\u201CYou are a senior fact-checker. Go through this report and identify every factual claim that includes a number, date, name, or direct attribution. For each claim: state the claim, rate confidence (high/medium/low/unverifiable), flag MISMATCH when the source doesn\'t support the claim. Output as a table.\u201D</em>'
+]},
+live:{time:'\u224865 min in class',rounds:[
+{label:'Round 1',time:'10 min',task:'Paste your S2 report into Claude with the Fact-Checker prompt. <strong>Get the audit table.</strong>',outcome:'A structured audit \u2014 high/medium/low confidence on every numeric, dated, named, or attributed claim.'},
+{label:'Round 2',time:'15 min',task:'Pick your <strong>5 most important claims</strong> \u2014 the ones your report depends on. Not the easiest. For each: click the AI\'s cited source, read the original passage.',outcome:'You\'ll find at least one MISMATCH \u2014 the AI cited a real paper but drifted in its summary. That\'s still a hallucination.'},
+{label:'Round 3',time:'15 min',task:'Find <strong>independent confirmation</strong> for each claim. Different outlet, different paper, different fact-checker. <em>Not</em> three outlets all quoting the same AI-generated press release.',outcome:'Triangulation in action. If you can\'t find an independent source, mark the claim <em>unverified</em>. That\'s honesty, not failure.'},
+{label:'Round 4',time:'15 min',task:'Fill the audit table: <strong>Claim | AI citation | Primary source | Independent source | Verdict (verified / partially / unverified).</strong>',outcome:'An auditor-grade table. Ready to share with an editor as-is.'},
+{label:'Round 5',time:'10 min',task:'Trade tables with a classmate. <strong>Can they spot your \u201Cpartially verified\u201D claims without you pointing them out?</strong> Be honest about one you couldn\'t confirm.',outcome:'Practising the defensive stance out loud. Most AI-hallucination lawsuits started with someone who \u201Cknew\u201D it was probably fine.'}
+]},
+solo:{time:'during the week',tasks:[
+'Audit <strong>2 other reports</strong> \u2014 from Session 1\'s homework or a teammate\'s work.',
+'Track: % of claims fully verified / partially / unverified. <em>Not</em> 100% verified \u2014 if it is, you skipped.',
+'Open the <strong>Source Verification Trainer</strong> in the Library. Score 80%+ for the Verification Badge.'
+]},
+rubric:[
+{name:'You showed up',criteria:'Fact-Checker audit run on real report. Five claims triangulated. At least one marked partially or unverified.'},
+{name:'You built the habit',criteria:'Your \u201Cunverified\u201D claim comes with a note on <em>what evidence would settle it.</em> You caught one MISMATCH where the AI summary drifted from the original source.'},
+{name:'You changed your mind',criteria:'Your audit caught a claim that would have been embarrassing to publish. You updated the underlying report to be honest about the uncertainty. Table ready for an editor.'}
+],
+pro_tip:'If every claim comes back \u201Cverified\u201D with full confidence, the instructor will suspect you skipped the work. Real triangulation always produces at least one miss. Honesty beats performance.'
+}
 },
 
 /* ---------------- Session 4 ---------------- */
@@ -1217,7 +1291,32 @@ quiz:[
 {q:'Which workspace tool is source-grounded \u2014 meaning every answer traces to a specific passage in your uploaded documents?',opts:['Claude Projects','Perplexity Spaces','ChatGPT Projects','NotebookLM'],correct:3,explain:'NotebookLM is the tightest, most trustworthy environment of the four. Every claim links to a specific passage. Nothing comes from the model\'s general training. Best for thesis, compliance, and research-paper work.'},
 {q:'What\'s the main benefit of custom instructions in a workspace?',opts:['They make the AI faster','They enforce consistent behaviour across all chats inside the workspace','They give you unlimited queries','They translate your questions'],correct:1,explain:'Custom instructions set the rules once; every query inside the workspace inherits them. You stop re-typing \u201Ccite APA\u201D or \u201Cacademic sources only\u201D every time. The AI behaves like a long-term collaborator, not a stranger.'}
 ],
-hw:{brief:'Build one real research workspace in the tool of your choice \u2014 Claude Project, Perplexity Space, ChatGPT Project, or NotebookLM. Upload at least 5 sources. Write honest custom instructions. Ask 10 questions across a full week.',deliverables:['Screenshot of the workspace with sources visible','Your custom instructions (copy-paste)','A list of your 10 questions and one-line notes on each','A short reflection: what worked, what didn\'t'],steps:['Pick a topic you\'ll work on for weeks \u2014 real, ongoing','Upload at least 5 sources of mixed type','Write custom instructions \u2014 role, expectations, hard rules','Ask 3 questions today, 3 in mid-week, 4 by end of week','Note what the workspace got right and where it still drifted'],checklist:['5+ real sources uploaded, not placeholder PDFs','Custom instructions are specific \u2014 not \u201Cbe helpful\u201D','10 questions spread across days, not batched','Reflection is honest about what didn\'t work, too'],pro_tip:'If your workspace is perfect after one week, your instructions weren\'t strict enough. Iterate the instructions \u2014 that\'s the real skill.'}
+hw:{
+brief:'A build workshop. You\'ll construct one real NotebookLM you\'ll return to for weeks \u2014 a living research workspace, not a one-off chat. The same pattern maps to Claude Projects and Perplexity Spaces; today we use NotebookLM for its source-grounding.',
+warmup:{time:'\u224820 min before class',tasks:[
+'Bring <strong>5+ real source documents</strong> on ONE topic: PDFs, links, Google Docs, YouTube transcripts, your own notes. Mixed types are best.',
+'Have a <strong>Google account</strong> ready for NotebookLM (free \u2014 up to 100 sources).',
+'Pick a topic you\'ll work on for <strong>at least two weeks</strong> \u2014 thesis, client, beat, side-project. Real ongoing work.'
+]},
+live:{time:'\u224855 min in class',rounds:[
+{label:'Round 1',time:'10 min',task:'Open NotebookLM, create a new notebook, <strong>upload all 5 sources.</strong> Watch the Source panel fill up.',outcome:'Your corpus is loaded. Every question from here will be answered only from what you just uploaded.'},
+{label:'Round 2',time:'10 min',task:'Write <strong>custom instructions</strong>: role, expertise level, always-rules, never-rules. Specific. Not \u201Cbe helpful.\u201D',outcome:'The notebook now has a spine. Good instructions stop the AI from drifting back into its training data.'},
+{label:'Round 3',time:'10 min',task:'Click <strong>Mind Map.</strong> Read the cluster structure. Which sub-topics are strong? Which are thin?',outcome:'Instant landscape of your corpus. The fastest way to orient in an unfamiliar field \u2014 and a signal of where to add more sources.'},
+{label:'Round 4',time:'10 min',task:'Generate an <strong>Audio Overview.</strong> Listen to 2 minutes. Note any drift from what your sources actually say.',outcome:'Turns a folder of PDFs into a commute-friendly briefing. Also a forcing function \u2014 if the overview sounds off, your instructions or sources need work.'},
+{label:'Round 5',time:'15 min',task:'Ask <strong>5 real questions.</strong> Click every citation. Screenshot one answer per question.',outcome:'Five traceable answers. Every claim links back to the exact passage in your sources.'}
+]},
+solo:{time:'during the week',tasks:[
+'Ask <strong>5 more questions</strong> across 5 different days \u2014 not all in one sitting. Real workspaces accumulate value over time.',
+'Generate a <strong>Briefing Doc</strong> at end of week. Use it as the <em>skeleton</em> of your own one-page summary \u2014 don\'t paste it as-is.',
+'If you have collaborators: <strong>share the notebook.</strong> Ask them to add one question each.'
+]},
+rubric:[
+{name:'You showed up',criteria:'5+ real sources uploaded. Custom instructions specific (not \u201Cbe helpful\u201D). 10 questions asked across the week. Audio Overview generated.'},
+{name:'You built the habit',criteria:'Instructions refined <em>mid-week</em> after catching a drift. At least one question built on a previous answer. You can trace a specific claim in your own notes back to a specific source passage.'},
+{name:'You changed your mind',criteria:'The notebook feeds into real output \u2014 thesis paragraph, client brief, article draft \u2014 where every claim has a source passage behind it. A classmate or advisor could verify any single sentence in under 30 seconds.'}
+],
+pro_tip:'If your workspace is perfect after one week, your instructions weren\'t strict enough. Iterate the instructions \u2014 that\'s the real skill.'
+}
 },
 
 /* ---------------- Session 5 ---------------- */
@@ -1252,7 +1351,31 @@ quiz:[
 {q:'Where should verification happen in the research-to-output pipeline?',opts:['After you build the deliverable \u2014 fix any errors in the output','Before you build the deliverable \u2014 at the seam between research and output','You can skip it if Deep Research already cited sources','Only if the output is for an external client'],correct:1,explain:'Verification at the seam. Any errors in the underlying research will be amplified by the output \u2014 a polished dashboard built on a wrong number is worse than a wrong text report, because it looks more credible.'},
 {q:'Which output format is best for a commuter who wants to revisit research on the way to work?',opts:['Claude Artifact dashboard','Perplexity Page','Gemini Audio Overview','A 20-page PDF'],correct:2,explain:'Audio Overview. Podcast-style summary generated in 2 minutes. Commuter-friendly, sharable, and testing your own understanding of the research \u2014 because you\'ll hear the gaps in the narration.'}
 ],
-hw:{brief:'Take any research report \u2014 yours or a partner\'s. Produce two different outputs from it. Not one. Not three. Exactly two, different types.',deliverables:['Two finished outputs in different formats','A one-line rationale per output: why this format for this content?','Both outputs audited \u2014 nothing published from an unverified report'],steps:['Pick a research report \u2014 yours from earlier homework, or a partner\'s','Run the Fact-Checker prompt on it first','Pick two output formats from: Claude Artifact dashboard, Perplexity Page, Gemini Audio Overview, interactive quiz','Build both','Write one rationale sentence per output'],checklist:['Exactly two outputs \u2014 different types','Both are finished \u2014 you\'d share them publicly','Underlying report was audited before building','Format choice is justified, not arbitrary','Outputs faithfully represent the research'],pro_tip:'The most common mistake: building a beautiful output from an unaudited report. The dashboard amplifies the errors. Verify first.'}
+hw:{
+brief:'A shipping workshop. Research that nobody reads is a diary. You\'ll take one audited report and produce two outputs for two different audiences \u2014 and learn the single rule that separates research you can publish from research that gets you sued.',
+warmup:{time:'\u224815 min before class',tasks:[
+'Bring <strong>one audited report</strong> \u2014 yours from Session 3, or a partner\'s. Must already be fact-checked.',
+'Decide now: who is <strong>audience A</strong>? Who is <strong>audience B</strong>? They must be <em>different</em> \u2014 e.g. commuter vs. boardroom, student vs. editor.',
+'Know which output tool you\'ll try for each: Claude Artifact, Perplexity Page, Gemini Audio Overview, or a quiz.'
+]},
+live:{time:'\u224860 min in class',rounds:[
+{label:'Round 1',time:'10 min',task:'Re-run the <strong>Fact-Checker audit.</strong> Nothing goes forward unverified. Flag any claim you can\'t confirm and either cut it or caveat it.',outcome:'The seam between research and output is where verification happens. Everything you build downstream amplifies what\'s here.'},
+{label:'Round 2',time:'20 min',task:'Build <strong>Output 1</strong> for Audience A. Pick the format that fits the audience, not your comfort zone. Start with the structure, then fill.',outcome:'A finished output you\'d share publicly. Audience-appropriate length, tone, density.'},
+{label:'Round 3',time:'20 min',task:'Build <strong>Output 2</strong> for Audience B. <em>Different format, different audience.</em> The same underlying research should look almost unrecognisable in the second format.',outcome:'The research is now two things \u2014 each shaped for the person who\'ll consume it.'},
+{label:'Round 4',time:'10 min',task:'Pair up. <strong>Show both outputs to a classmate without saying who each is for.</strong> Can they guess the audience from the format alone?',outcome:'If they can\'t, the format\'s not working for the audience \u2014 revise.'}
+]},
+solo:{time:'during the week',tasks:[
+'<strong>Ship ONE of the outputs publicly.</strong> Share the link in cohort Telegram, publish the Page, send to a real reader.',
+'Capture the first piece of real-world feedback. Did it land for the audience? What felt too long, too short, confusing?',
+'<strong>Iterate once.</strong> Based on the real feedback, not your guesses.'
+]},
+rubric:[
+{name:'You showed up',criteria:'Two outputs in different formats. Both based on an audited report. Rationale sentence for each format choice.'},
+{name:'You built the habit',criteria:'Audience choice shows visibly in typography, length, and framing. A stranger can tell which output is for which audience. Neither output introduces claims absent from the underlying report.'},
+{name:'You changed your mind',criteria:'Received real feedback from a real reader and iterated based on it. One output was sharp enough to be re-used in your work unchanged. Format choice reveals a deliberate pedagogy, not a default.'}
+],
+pro_tip:'The most common mistake: building a beautiful dashboard from an unaudited report. The format amplifies every error. Verify first, always.'
+}
 },
 
 /* ---------------- Session 6 ---------------- */
@@ -1289,7 +1412,32 @@ quiz:[
 {q:'Why shouldn\'t you subscribe to all four tools?',opts:['They\'re too expensive combined','You don\'t need four for one task \u2014 pick one primary','They all do the same thing','The free tiers are always enough'],correct:1,explain:'Pick one primary tool based on your role. Writer \u2192 Claude Pro. Researcher \u2192 Perplexity Pro. Google-ecosystem \u2192 Gemini Pro. Supplement with free tiers of the others. Paying for all four is a tell that you haven\'t picked a workflow.'},
 {q:'Which rule matters most after the module ends?',opts:['Use the fanciest tool','Click every citation and read the source','Produce the longest report','Subscribe to everything'],correct:1,explain:'Rule 1 is the rule. Every other habit \u2014 tool selection, workspace setup, output format \u2014 exists to support one core discipline: you cannot publish a claim you haven\'t verified. Everything else is negotiable.'}
 ],
-hw:{brief:'FINAL PROJECT \u2014 two weeks. A complete research project of your choice, from question to deliverable. Must demonstrate every skill from the six sessions.',deliverables:['Research Brief (one page, all 7 template fields)','Deep Research report (run in your Deep Research tool of choice)','Fact-Checker audit of the report (Claude, high/medium/low confidence ratings)','Three triangulated claims: AI citation + primary source + independent confirmation + verdict','Final deliverable (one of: Claude Artifact, Perplexity Page, Gemini Audio Overview, traditional article or slide deck)','Workflow log: which tool for which step, total time, what worked, what didn\'t, what you\'d do differently'],steps:['Pick a real, meaningful question \u2014 not a textbook topic','Write the one-page Research Brief. Save it before starting research.','Run Deep Research. Keep the full cited output.','Audit the report with Claude\'s Fact-Checker prompt.','Pick 3 important claims. Triangulate each.','Build a final deliverable faithful to the verified research.','Write the workflow log. Honest \u2014 including what failed.'],checklist:['Brief uses all 7 template fields and was saved before research began','Deep Research output preserved with citations intact','Fact-Checker audit run, with honest high/medium/low ratings','3 triangulated claims \u2014 including at least one marked \u201Cpartially verified\u201D or \u201Cunverified\u201D','Final deliverable is finished, faithful, and shareable','Workflow log is reflective \u2014 not just a summary'],pro_tip:'<strong>Auto-fail</strong> if: all claims marked \u201Cverified\u201D (didn\'t triangulate), final deliverable doesn\'t match research (switched topics), any component missing, or you can\'t defend the work in a 10-minute oral conversation. Real work, real verification, real output.',creative_challenge:'Grade 95+ looks like: chose a meaningful real question; used 2+ tools and compared; found at least one significant error through triangulation; built a deliverable a stranger could understand without the source research; workflow log shows genuine learning \u2014 you changed your approach mid-project or discovered a tool limit.'}
+hw:{
+brief:'<strong>Final project \u2014 two weeks.</strong> Not an exam. A real research project you actually need to ship, demonstrating every skill from every session. The work <em>is</em> the test.',
+warmup:{time:'before the 2-week sprint',tasks:[
+'Pick <strong>one real project with stakes</strong>: a pitch, thesis chapter, client brief, product research. Something you\'d do anyway.',
+'Block <strong>two weeks</strong> on your calendar. 2 hours/day is ideal. This is your exam replacement.',
+'Open all four tools. Verify your subscriptions are active. Don\'t start Week 1 with dead credits.'
+]},
+live:{time:'\u224875 min design day',rounds:[
+{label:'Round 1',time:'10 min',task:'Fill the <strong>6-question stack</strong>: Quick lookup / Deep research / Long documents / Verification / Output builder / Ongoing projects. One tool per row.',outcome:'A one-page cheat sheet of <em>your</em> research stack. If the same tool is on every row, you haven\'t internalised the module.'},
+{label:'Round 2',time:'15 min',task:'Write your <strong>Research Brief</strong> \u2014 all 7 fields, for your chosen project. Save it <em>before</em> any research starts.',outcome:'Saving before running locks the scope in. You\'ll have a record of where you started when you look back.'},
+{label:'Round 3',time:'15 min',task:'Outline your <strong>2-week sprint</strong>: Week 1 = research + verification. Week 2 = output + audience test + ship.',outcome:'A plan you can execute without re-thinking. Day-by-day granularity prevents drift.'},
+{label:'Round 4',time:'15 min',task:'Start. <strong>Kick off the first Deep Research run.</strong> While it runs, build your Fact-Checker prompt for when it lands.',outcome:'The sprint has begun. No more \u201CI\'ll start Monday.\u201D'},
+{label:'Round 5',time:'20 min',task:'<strong>Peer review.</strong> Trade briefs with 2 classmates. Spot scope creep, missing sources, fake stakes. Red-pen before credits burn.',outcome:'Another pair of eyes <em>always</em> catches something. Better to catch it now than in Week 2.'}
+]},
+solo:{time:'two-week sprint',tasks:[
+'<strong>Week 1:</strong> Deep Research run \u2192 Fact-Checker audit \u2192 triangulate 3 key claims \u2192 journal every tool switch.',
+'<strong>Week 2:</strong> Build final deliverable faithful to verified research \u2192 show it to one real reader \u2192 iterate \u2192 ship.',
+'<strong>Defence day:</strong> 10-minute oral walkthrough. Can you defend every claim? Every tool choice? Every format decision?'
+]},
+rubric:[
+{name:'You showed up',criteria:'All 6 components present: Brief (7 fields, saved early), DR report, Fact-Checker audit, 3 triangulations (one partially/unverified), final deliverable, workflow log.'},
+{name:'You built the habit',criteria:'Chose a meaningful real question. Used 2+ tools and compared. Workflow log shows iteration \u2014 you changed your approach mid-project or discovered a tool limit. Deliverable is audience-specific, not default.'},
+{name:'You changed your mind',criteria:'Found a significant error through triangulation that would have been embarrassing if published. Deliverable is shareable with a stranger who has no source context. Can defend the entire stack in 10 minutes without notes.'}
+],
+pro_tip:'<strong>Auto-fail</strong> if: all claims marked \u201Cverified\u201D (you didn\'t triangulate), final deliverable doesn\'t match the brief (you switched topics), any component missing, or you can\'t defend the work in a 10-minute oral conversation. Real work, real verification, real output.'
+}
 }
 
 ]}

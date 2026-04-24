@@ -1093,6 +1093,75 @@ input,textarea,select{font-family:inherit}
 .hw-submit-title{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--text);letter-spacing:-.01em;margin-bottom:14px;text-align:center}
 .hw-submit-title::before{content:'\00a7  ';color:var(--accent);font-style:italic;font-weight:500;font-size:.92rem;vertical-align:.2em}
 .hw-submit-steps{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;font-family:var(--sans);font-size:.92rem;color:var(--text-mid);letter-spacing:-.005em;line-height:1.6}
+
+/* ═══ WORKSHOP-STYLE HOMEWORK ═══ */
+.hw-ws{display:flex;flex-direction:column;gap:28px;margin:0 0 6px}
+.hw-ws-sec{background:var(--bg2);border:1px solid var(--hairline);border-radius:18px;padding:26px 30px 28px;position:relative;overflow:hidden}
+.hw-ws-sec::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent);opacity:.55;pointer-events:none}
+.hw-ws-hdr{display:flex;align-items:baseline;justify-content:space-between;gap:18px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--hairline);flex-wrap:wrap}
+.hw-ws-phase{font-family:var(--serif);font-size:1.18rem;font-weight:600;color:var(--text);letter-spacing:-.01em;display:flex;align-items:baseline;gap:14px}
+.hw-ws-phase::before{content:'\00a7';font-family:var(--serif);font-style:italic;font-weight:500;font-size:.92rem;color:var(--accent)}
+.hw-ws-phase em{font-family:var(--serif);font-style:italic;color:var(--accent);font-weight:500}
+.hw-ws-time{font-family:var(--serif);font-style:italic;font-size:.85rem;color:var(--text-mid);letter-spacing:.005em;display:inline-flex;align-items:center;gap:8px}
+.hw-ws-time::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.7}
+
+/* Warmup — light list */
+.hw-ws-warmup{background:#faf8f4;border-color:rgba(138,106,61,.18)}
+.hw-ws-warmup .hw-ws-phase::before{color:var(--secondary)}
+.hw-ws-tasks{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.hw-ws-tasks li{font-size:.94rem;line-height:1.6;color:var(--text);padding:4px 0 4px 28px;position:relative;letter-spacing:-.002em}
+.hw-ws-tasks li::before{content:'';position:absolute;left:0;top:14px;width:14px;height:1px;background:var(--secondary);opacity:.65}
+.hw-ws-tasks li strong{font-weight:600;color:var(--text)}
+
+/* Live rounds — featured card with round list */
+.hw-ws-live{background:linear-gradient(180deg,#fff 0%,#fefaf5 100%);border-color:rgba(224,122,58,.28);box-shadow:0 4px 22px rgba(224,122,58,.06)}
+.hw-ws-live::before{background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.7;height:2px}
+.hw-ws-rounds{display:flex;flex-direction:column;gap:14px;counter-reset:round}
+.hw-ws-round{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:16px 0;border-bottom:1px dashed var(--hairline);counter-increment:round}
+.hw-ws-round:last-child{border-bottom:none;padding-bottom:0}
+.hw-ws-round:first-child{padding-top:0}
+.hw-ws-round-n{font-family:var(--serif);font-style:italic;font-weight:500;font-size:2rem;color:var(--accent);letter-spacing:-.02em;line-height:1;min-width:56px;opacity:.88}
+.hw-ws-round-n::before{content:'0' counter(round)}
+.hw-ws-round-body{display:flex;flex-direction:column;gap:8px}
+.hw-ws-round-meta{display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:var(--text-muted)}
+.hw-ws-round-time{color:var(--accent)}
+.hw-ws-round-task{font-family:var(--serif);font-size:1.02rem;color:var(--text);line-height:1.55;font-weight:500;letter-spacing:-.005em}
+.hw-ws-round-task strong{font-weight:600;color:var(--accent)}
+.hw-ws-round-outcome{font-size:.84rem;color:var(--text-mid);font-style:italic;font-family:var(--serif);line-height:1.55;padding:8px 14px;background:rgba(224,122,58,.05);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;letter-spacing:.005em}
+.hw-ws-round-outcome::before{content:'Outcome: ';font-family:var(--sans);font-weight:700;font-style:normal;font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px}
+
+/* Solo — numbered weekly list */
+.hw-ws-solo{background:#fff;border-color:var(--hairline)}
+.hw-ws-solo-list{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none;counter-reset:soloc}
+.hw-ws-solo-list li{counter-increment:soloc;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:10px 12px;border-radius:8px;transition:background .2s}
+.hw-ws-solo-list li:hover{background:rgba(224,122,58,.04)}
+.hw-ws-solo-list li::before{content:counter(soloc,decimal-leading-zero);font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--accent);font-weight:500;letter-spacing:-.01em;min-width:26px}
+.hw-ws-solo-list li span{font-size:.94rem;line-height:1.6;color:var(--text);letter-spacing:-.002em}
+.hw-ws-solo-list li strong{font-weight:600}
+
+/* Rubric — 3-tier grading card */
+.hw-ws-rubric{background:linear-gradient(135deg,#faf8f3 0%,#fff 60%);border-color:rgba(138,106,61,.2)}
+.hw-ws-rubric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.hw-ws-rubric-tier{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:18px 20px 20px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
+.hw-ws-rubric-tier:hover{border-color:var(--accent);transform:translateY(-2px)}
+.hw-ws-rubric-tier[data-tier="pass"]{border-top:3px solid var(--secondary)}
+.hw-ws-rubric-tier[data-tier="great"]{border-top:3px solid var(--accent);background:linear-gradient(180deg,rgba(224,122,58,.04) 0%,#fff 100%)}
+.hw-ws-rubric-tier[data-tier="excellent"]{border-top:3px solid #2F7A4B;background:linear-gradient(180deg,rgba(47,122,75,.04) 0%,#fff 100%)}
+.hw-ws-rubric-level{font-family:var(--sans);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2.2px;color:var(--text-muted);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.hw-ws-rubric-tier[data-tier="pass"] .hw-ws-rubric-level{color:var(--secondary)}
+.hw-ws-rubric-tier[data-tier="great"] .hw-ws-rubric-level{color:var(--accent)}
+.hw-ws-rubric-tier[data-tier="excellent"] .hw-ws-rubric-level{color:#2F7A4B}
+.hw-ws-rubric-level-marks{font-family:var(--serif);font-style:italic;letter-spacing:-1px}
+.hw-ws-rubric-name{font-family:var(--serif);font-size:1.08rem;font-weight:600;color:var(--text);margin-bottom:8px;letter-spacing:-.008em}
+.hw-ws-rubric-crit{font-size:.86rem;line-height:1.55;color:var(--text-mid);letter-spacing:-.002em}
+
+@media(max-width:600px){
+  .hw-ws-sec{padding:22px 22px 24px}
+  .hw-ws-round{grid-template-columns:1fr;gap:8px}
+  .hw-ws-round-n{font-size:1.6rem}
+  .hw-ws-round-meta{flex-wrap:wrap;gap:8px}
+  .hw-ws-hdr{flex-direction:column;align-items:flex-start;gap:6px}
+}
 .hw-submit-arr{color:var(--accent);font-weight:700}
 .hw-submit-arr{color:var(--gold);font-weight:700}
 
@@ -2729,19 +2798,72 @@ h+='<div class="hw-structured">';
 /* Brief */
 if(se.hw.brief)h+='<div class="hw-brief"><div class="hw-brief-label">Project brief</div><div class="hw-brief-text">'+E(se.hw.brief)+'</div></div>';
 else if(se.hw.scenario)h+='<div class="hw-brief"><div class="hw-brief-label">Project brief</div><div class="hw-brief-text">'+E(se.hw.scenario)+'</div></div>';
-/* Deliverables */
-if(se.hw.deliverables){h+='<div class="hw-deliv"><div class="hw-deliv-label">What to submit</div><div class="hw-deliv-list">';
+
+/* ─── Workshop format (warmup / live / solo / rubric) ─── */
+var isWorkshop=se.hw.warmup||se.hw.live||se.hw.solo||se.hw.rubric;
+if(isWorkshop){
+  h+='<div class="hw-ws">';
+  /* Warmup */
+  if(se.hw.warmup){
+    var wu=se.hw.warmup;
+    h+='<div class="hw-ws-sec hw-ws-warmup"><div class="hw-ws-hdr"><div class="hw-ws-phase">Before class \u2014 <em>come ready</em></div>'+(wu.time?'<div class="hw-ws-time">'+E(wu.time)+'</div>':'')+'</div>';
+    if(wu.tasks){h+='<ul class="hw-ws-tasks">';wu.tasks.forEach(function(t){h+='<li>'+t+'</li>'});h+='</ul>'}
+    h+='</div>';
+  }
+  /* Live workshop rounds */
+  if(se.hw.live){
+    var lv=se.hw.live;
+    h+='<div class="hw-ws-sec hw-ws-live"><div class="hw-ws-hdr"><div class="hw-ws-phase">In the <em>workshop</em></div>'+(lv.time?'<div class="hw-ws-time">'+E(lv.time)+'</div>':'')+'</div>';
+    if(lv.rounds){h+='<div class="hw-ws-rounds">';lv.rounds.forEach(function(r){
+      h+='<div class="hw-ws-round"><div class="hw-ws-round-n"></div><div class="hw-ws-round-body">';
+      h+='<div class="hw-ws-round-meta">'+(r.label?'<span>'+E(r.label)+'</span>':'')+(r.time?'<span class="hw-ws-round-time">'+E(r.time)+'</span>':'')+'</div>';
+      h+='<div class="hw-ws-round-task">'+(r.task||'')+'</div>';
+      if(r.outcome)h+='<div class="hw-ws-round-outcome">'+r.outcome+'</div>';
+      h+='</div></div>';
+    });h+='</div>'}
+    h+='</div>';
+  }
+  /* Solo / this week */
+  if(se.hw.solo){
+    var so=se.hw.solo;
+    h+='<div class="hw-ws-sec hw-ws-solo"><div class="hw-ws-hdr"><div class="hw-ws-phase">This week \u2014 <em>practise</em></div>'+(so.time?'<div class="hw-ws-time">'+E(so.time)+'</div>':'')+'</div>';
+    if(so.tasks){h+='<ul class="hw-ws-solo-list">';so.tasks.forEach(function(t){h+='<li><span>'+t+'</span></li>'});h+='</ul>'}
+    h+='</div>';
+  }
+  /* Rubric */
+  if(se.hw.rubric){
+    var rb=se.hw.rubric;
+    var tiers=['pass','great','excellent'];
+    var marks={pass:'\u2713',great:'\u2713\u2713',excellent:'\u2713\u2713\u2713'};
+    var names={pass:'Pass',great:'Great',excellent:'Excellent'};
+    h+='<div class="hw-ws-sec hw-ws-rubric"><div class="hw-ws-hdr"><div class="hw-ws-phase">Quality <em>rubric</em></div><div class="hw-ws-time">How you\u2019ll be graded</div></div>';
+    h+='<div class="hw-ws-rubric-grid">';
+    rb.forEach(function(t,i){
+      var tier=tiers[i]||'pass';
+      h+='<div class="hw-ws-rubric-tier" data-tier="'+tier+'">';
+      h+='<div class="hw-ws-rubric-level"><span class="hw-ws-rubric-level-marks">'+(marks[tier]||'')+'</span><span>'+(names[tier]||E(t.level||''))+'</span></div>';
+      h+='<div class="hw-ws-rubric-name">'+E(t.name||names[tier]||'')+'</div>';
+      h+='<div class="hw-ws-rubric-crit">'+(t.criteria||t.desc||'')+'</div>';
+      h+='</div>';
+    });
+    h+='</div></div>';
+  }
+  h+='</div>';
+}
+
+/* Deliverables (legacy — skipped if workshop is present) */
+if(se.hw.deliverables && !isWorkshop){h+='<div class="hw-deliv"><div class="hw-deliv-label">What to submit</div><div class="hw-deliv-list">';
 se.hw.deliverables.forEach(function(d){h+='<div class="hw-deliv-item"><span class="hw-deliv-dot"></span>'+E(d)+'</div>'});
 h+='</div></div>'}
-/* Steps */
-if(se.hw.steps){h+='<div class="hw-steps-wrap"><div class="hw-steps-label">Step by step</div><div class="hw-steps">';se.hw.steps.forEach(function(s,i){
+/* Steps (legacy) */
+if(se.hw.steps && !isWorkshop){h+='<div class="hw-steps-wrap"><div class="hw-steps-label">Step by step</div><div class="hw-steps">';se.hw.steps.forEach(function(s,i){
 var st=E(s);
 Object.keys(TOOL_URLS).forEach(function(tn){
 var re=new RegExp('\\b'+tn.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','g');
 st=st.replace(re,'<a href="'+TOOL_URLS[tn]+'" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;text-underline-offset:2px">'+tn+' \u2197</a>')});
 h+='<div class="hw-step"><div class="hw-step-num">'+(i+1)+'</div><div class="hw-step-text">'+st+'</div></div>'});h+='</div></div>'}
-/* Quality checklist */
-if(se.hw.checklist){h+='<div class="hw-check"><div class="hw-check-label">Quality check</div><div class="hw-check-list">';
+/* Quality checklist (legacy) */
+if(se.hw.checklist && !isWorkshop){h+='<div class="hw-check"><div class="hw-check-label">Quality check</div><div class="hw-check-list">';
 se.hw.checklist.forEach(function(c){h+='<label class="hw-check-item"><input type="checkbox"><span>'+E(c)+'</span></label>'});
 h+='</div></div>'}
 /* Pro tip */
