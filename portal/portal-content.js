@@ -1193,6 +1193,13 @@ pro_tip:'Spot-check citations <em>at random</em> \u2014 not just the easy ones. 
 learn:[
 {type:'callout',icon:'',label:'The most important class in the module',content:'Every other session teaches what AI can do. This one teaches what AI <em>cannot do reliably</em> \u2014 and therefore what humans must still do. Without it, students leave confident and wrong. With it, they leave skeptical and safe.'},
 {type:'key-points',points:['<strong>No claim goes into your work</strong> until you have clicked the citation and read the original source.','<strong>Use at least two tools</strong> for anything important. If they disagree, the claim is contested \u2014 do more research.','<strong>Long answer \u2260 right answer.</strong> A 25-page Deep Research report can still be wrong.','AI hallucinates <strong>legal cases</strong> (fake holdings), <strong>academic papers</strong> (real authors, invented titles), <strong>quotes</strong> (attributed to real people who never said them), <strong>statistics</strong> (with plausible decimals), and whole <strong>diseases</strong> (the bixonimania case, 2026).']},
+{type:'stats',items:[
+{num:'47',suffix:'%',label:'of ChatGPT academic citations inaccurate',source:'NIH review, 2024'},
+{num:'1300',suffix:'+',label:'documented AI-hallucination legal filings',source:'HEC Paris database, 2025'},
+{num:'100',suffix:'B',label:'Google market-cap drop after one Bard hallucination',source:'Bard JWST demo, 2023'},
+{num:'6',label:'fabricated cases filed in Mata v. Avianca',source:'US District Court, 2023'}
+]},
+{type:'pull-quote',text:'The question is <em>never</em> whether AI will hallucinate. The question is whether <em>you</em> will catch it before publishing.',attribution:'The one rule of this module'},
 {type:'visual-compare',
 bad:{prompt:'The AI says: \u201CAccording to Mata v. Avianca, 22-cv-1461 (S.D.N.Y. 2023), airline liability extends to incidents during disembarkation.\u201D You include it in your brief.',result:'In 2023 a US lawyer did exactly this. The holding was invented. The real case number exists but the ruling was fabricated. Schwartz was sanctioned. The case made international news. You are responsible for what you file \u2014 not the AI.'},
 good:{prompt:'Same claim. You: (1) click the cited source, (2) go directly to the primary court record, (3) find one independent source confirming the holding. Only then does it go in the brief.',result:'Takes 15% longer. Catches 95% of errors. Over 1,300 documented AI-hallucination-in-legal-filing cases (HEC Paris database, 2025). Triangulation is the only defence.'}
@@ -1382,6 +1389,7 @@ pro_tip:'The most common mistake: building a beautiful dashboard from an unaudit
 {n:6,titleEn:'Building your personal research workflow',tools:'Your stack \u2014 Perplexity / Claude / ChatGPT / Gemini / NotebookLM',
 learn:[
 {type:'callout',icon:'',label:'Synthesize everything into a workflow you\'ll actually use',content:'Six sessions of tools, prompts, and techniques only matter if they turn into habit. Session 6 is design day \u2014 you leave with a one-page workflow you actually use at work, in studies, and in every research task from here on.'},
+{type:'pull-quote',text:'Your research workflow is not a <em>stack</em>. It\'s a <em>sequence</em> \u2014 which tool for which step, which rule at which seam.',attribution:'The design mindset for Session 6'},
 {type:'key-points',points:['<strong>Rule 1:</strong> No claim goes into your work until you\'ve clicked the citation and read the original.','<strong>Rule 2:</strong> Use at least two tools for anything that matters. If they disagree, do more research.','<strong>Rule 3:</strong> Long answer \u2260 right answer. A 25-page report can still be wrong.','<strong>Don\'t subscribe to all four.</strong> Pick one primary. Casual \u2014 nothing. Writer \u2014 Claude Pro. Researcher \u2014 Perplexity Pro. Google-ecosystem \u2014 Gemini Pro.']},
 {type:'cheat-sheet',icon:'',title:'Common research stacks',items:[
 {name:'Student (free)',desc:'Default Perplexity + free Claude for long documents + NotebookLM for thesis + free ChatGPT for quick help. $0/month.',tag:'student'},
