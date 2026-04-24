@@ -1416,6 +1416,59 @@ input,textarea,select{font-family:inherit}
 @media(max-width:760px){.stitle{font-size:2rem!important}}
 .tbadges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
 
+/* ═══ INTERACTIVE QUIZ APP (one-at-a-time) ═══ */
+.quizapp{margin:4px 0 0}
+.quizapp-progress{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;padding:0 2px}
+.quizapp-dots{display:flex;gap:8px;flex:1;max-width:60%}
+.quizapp-dot{flex:1;max-width:48px;height:4px;border-radius:999px;background:var(--bg3);transition:background var(--dur-fast) var(--ease)}
+.quizapp-dot.active{background:var(--accent)}
+.quizapp-dot.done{background:var(--accent);opacity:.55}
+.quizapp-count{font-family:var(--serif);font-style:italic;font-size:.88rem;color:var(--secondary);letter-spacing:.005em;font-variant-numeric:tabular-nums}
+.quizapp-count-cur{color:var(--accent);font-weight:600}
+.quizapp-stage{position:relative}
+.quizapp-card{display:none;animation:qCardIn .35s cubic-bezier(.2,.8,.2,1) both}
+.quizapp-card.current{display:block}
+@keyframes qCardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.quizapp-q{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--text);letter-spacing:-.012em;line-height:1.25;margin-bottom:22px;max-width:56ch}
+.quizapp-opts{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.quizapp-opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--bg2);border:1px solid var(--hairline);border-radius:14px;padding:16px 18px;font-family:var(--sans);font-size:1rem;font-weight:500;color:var(--text);cursor:pointer;transition:all var(--dur-fast) var(--ease);letter-spacing:-.005em;line-height:1.45}
+.quizapp-opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft);transform:translateX(3px)}
+.quizapp-opt:disabled{cursor:default}
+.quizapp-opt-letter{width:30px;height:30px;border-radius:50%;background:var(--bg3);color:var(--secondary);font-family:var(--serif);font-style:italic;font-weight:600;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.92rem;border:1px solid var(--hairline);transition:all var(--dur-fast) var(--ease)}
+.quizapp-opt:hover:not(:disabled) .quizapp-opt-letter{background:var(--accent);color:#fff;border-color:var(--accent)}
+.quizapp-opt.is-correct{border-color:#2F7A4B;background:rgba(47,122,75,.06)}
+.quizapp-opt.is-correct .quizapp-opt-letter{background:#2F7A4B;color:#fff;border-color:#2F7A4B}
+.quizapp-opt.is-wrong{border-color:var(--accent-hover);background:rgba(224,122,58,.05);opacity:.7}
+.quizapp-opt.is-wrong .quizapp-opt-letter{background:var(--accent-hover);color:#fff;border-color:var(--accent-hover)}
+.quizapp-exp{display:none;margin-top:18px;padding:18px 20px;background:var(--bg3);border:1px solid var(--hairline);border-radius:14px;position:relative;overflow:hidden}
+.quizapp-exp[data-state="show"]{display:block;animation:qExpIn .35s cubic-bezier(.2,.8,.2,1) both}
+.quizapp-exp::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent);opacity:.5}
+@keyframes qExpIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.quizapp-verdict{font-family:var(--serif);font-style:italic;font-size:.95rem;font-weight:500;margin-bottom:6px;letter-spacing:.005em}
+.quizapp-verdict.is-correct{color:#2F7A4B}
+.quizapp-verdict.is-wrong{color:var(--accent-hover)}
+.quizapp-exp-body{font-family:var(--sans);font-size:.95rem;color:var(--text-mid);line-height:1.6;margin-bottom:14px;letter-spacing:-.005em;max-width:60ch}
+.quizapp-next{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--accent);color:#fff;border:none;border-radius:999px;font-family:var(--sans);font-weight:600;font-size:.88rem;cursor:pointer;letter-spacing:-.005em;transition:background var(--dur-fast) var(--ease)}
+.quizapp-next:hover{background:var(--accent-hover)}
+.quizapp-done{display:none;text-align:center;padding:48px 24px 32px}
+.quizapp-done[data-state="show"]{display:block;animation:qExpIn .45s cubic-bezier(.2,.8,.2,1) both}
+.quizapp-score{font-family:var(--serif);font-size:4.2rem;font-weight:700;color:var(--accent);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.quizapp-score-total{font-size:2rem;color:var(--text-mid);font-weight:500}
+.quizapp-score-label{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--secondary);letter-spacing:.005em;margin:4px 0 14px}
+.quizapp-verdict-final{font-family:var(--serif);font-size:1.2rem;font-weight:600;color:var(--text);letter-spacing:-.008em;max-width:40ch;margin:0 auto 22px;line-height:1.35}
+.quizapp-retake{display:inline-flex;align-items:center;gap:10px;padding:10px 22px;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:999px;font-family:var(--sans);font-weight:600;font-size:.92rem;cursor:pointer;transition:all var(--dur-fast) var(--ease)}
+.quizapp-retake:hover{background:var(--accent);color:#fff}
+.quizapp-retake span{background:var(--accent);color:#fff;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;transition:background var(--dur-fast) var(--ease)}
+.quizapp-retake:hover span{background:#fff;color:var(--accent)}
+
+/* ═══ HOMEWORK META STRIP (time · difficulty · tools) ═══ */
+.hw-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:-4px 0 22px;padding-bottom:18px;border-bottom:1px solid var(--hairline)}
+.hw-meta-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:var(--bg2);border:1px solid var(--hairline);font-family:var(--serif);font-style:italic;font-size:.82rem;font-weight:500;color:var(--text-mid);letter-spacing:.005em}
+.hw-meta-chip svg{color:var(--secondary)}
+.hw-meta-chip-label{color:var(--text-muted);font-size:.75rem}
+.hw-meta-chip-tools{padding:4px 10px 4px 6px;gap:4px}
+.hw-meta-chip-tools .brand-wrap,.hw-meta-chip-tools .brand-mono{width:18px!important;height:18px!important}
+
 /* ═══ LESSON COURSE HERO (.chdr2) — Coursera-style hero strip ═══ */
 .chdr2{border-radius:16px!important;padding:0!important;margin-bottom:22px!important;overflow:hidden;border:1px solid var(--hairline)!important;background:var(--bg2)!important;border-left:none!important;position:relative;display:flex;flex-direction:column}
 .chdr2::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent);opacity:.6;pointer-events:none;z-index:5}
@@ -2482,11 +2535,41 @@ h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="try"><div class="pl
 se.recipe.forEach(function(r,ri){h+=bRS(r,'r_'+a.c+'_'+a.s+'_'+ri,ri<2)});h+='</div></div>';
 }
 if(se.quiz&&se.quiz.length){
-h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="quiz"><div class="plbl quiz"><span class="plbl-num">\u00a7 IV</span><span class="plbl-txt">Quiz</span></div><div class="phase-desc">Test what you learned \u2014 '+se.quiz.length+' questions.</div>';
-se.quiz.forEach(function(q,qi){h+=bQ(q,a.c+'_'+a.s+'_'+qi)});h+='</div>';
+var _qid='q_'+a.c+'_'+a.s;
+h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="quiz"><div class="plbl quiz"><span class="plbl-num">\u00a7 IV</span><span class="plbl-txt">Quiz</span></div><div class="phase-desc">Quick check \u2014 '+se.quiz.length+' question'+(se.quiz.length===1?'':'s')+'. One at a time. Answer, read the why, move on.</div>';
+h+='<div class="quizapp" id="quizapp_'+_qid+'" data-quiz="'+_qid+'" data-total="'+se.quiz.length+'">';
+/* Progress dots */
+h+='<div class="quizapp-progress"><div class="quizapp-dots">';
+for(var qd=0;qd<se.quiz.length;qd++)h+='<span class="quizapp-dot'+(qd===0?' active':'')+'" data-idx="'+qd+'"></span>';
+h+='</div><div class="quizapp-count"><span class="quizapp-count-cur">1</span> of '+se.quiz.length+'</div></div>';
+/* All question cards rendered; only current visible */
+h+='<div class="quizapp-stage">';
+se.quiz.forEach(function(q,qi){
+h+='<div class="quizapp-card'+(qi===0?' current':'')+'" data-idx="'+qi+'">';
+h+='<div class="quizapp-q">'+E(q.q)+'</div>';
+h+='<div class="quizapp-opts">';
+q.opts.forEach(function(o,i){h+='<button class="quizapp-opt" onclick="qApp.pick(\''+_qid+'\','+qi+','+i+','+q.correct+')" data-letter="'+QLTR[i]+'"><span class="quizapp-opt-letter">'+QLTR[i]+'</span><span class="quizapp-opt-text">'+E(o)+'</span></button>'});
+h+='</div>';
+h+='<div class="quizapp-exp" data-state="hidden"><div class="quizapp-verdict"></div><div class="quizapp-exp-body">'+E(q.explain)+'</div><button class="quizapp-next" onclick="qApp.next(\''+_qid+'\','+qi+')">'+(qi===se.quiz.length-1?'See result \u2192':'Next question \u2192')+'</button></div>';
+h+='</div>';
+});
+h+='</div>';
+/* Final score screen */
+h+='<div class="quizapp-done" data-state="hidden"><div class="quizapp-score"><span class="quizapp-score-num">0</span><span class="quizapp-score-total">/'+se.quiz.length+'</span></div><div class="quizapp-score-label">correct</div><div class="quizapp-verdict-final"></div><button class="quizapp-retake" onclick="qApp.reset(\''+_qid+'\')">Retake <span>\u2192</span></button></div>';
+h+='</div>';
+h+='</div>';
 }
 var wk=a.c+'_'+a.s,wd=isHW(a.c,a.s);
-h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="hw"><div class="plbl create"><span class="plbl-num">\u00a7 V</span><span class="plbl-txt">Homework</span></div><div class="phase-desc">Your take-home project \u2014 30-60 min at home.</div>';
+h+='<div class="pblk pblk-anim '+delays[di++]+'" data-phase="hw"><div class="plbl create"><span class="plbl-num">\u00a7 V</span><span class="plbl-txt">Homework</span></div><div class="phase-desc">Do this on your own, after class. Clear deliverable, honest rubric, no surprises.</div>';
+/* Meta strip: time estimate + difficulty + tools. Derived from session unless session declares explicit values. */
+var _hwTime=(se.hw&&se.hw.time)||se.hwTime||'30\u201360 min';
+var _hwDiff=(se.hw&&se.hw.difficulty)||se.hwDifficulty||(a.s<=2?'Beginner':a.s<=4?'Intermediate':'Advanced');
+var _hwToolsList=((se.tools||'').split(/[,\u00b7\/]/).map(function(t){return t.trim()}).filter(function(t){return t}));
+h+='<div class="hw-meta">';
+h+='<span class="hw-meta-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="hw-meta-chip-label">Time</span>'+E(_hwTime)+'</span>';
+h+='<span class="hw-meta-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span class="hw-meta-chip-label">Level</span>'+E(_hwDiff)+'</span>';
+if(_hwToolsList.length){h+='<span class="hw-meta-chip hw-meta-chip-tools"><span class="hw-meta-chip-label">Tools</span>';_hwToolsList.slice(0,3).forEach(function(t){h+=brandLogo(t,18)});h+='</span>';}
+h+='</div>';
 h+='<div class="hwb" style="border-color:'+co.color+'">';
 if(typeof se.hw==='object'){
 h+='<div class="hw-structured">';
@@ -2720,6 +2803,59 @@ function tRS(id){var el=$(id);if(el)el.classList.toggle('open')}
 
 /* QUIZ */
 var QLTR=['A','B','C','D','E'];
+/* qApp — interactive single-question quiz controller (replaces stacked-bQ) */
+var qApp={
+  _state:{},
+  pick:function(qid,qi,choice,correct){
+    var st=this._state[qid]=this._state[qid]||{picks:[]};
+    st.picks[qi]={choice:choice,correct:choice===correct};
+    var card=document.querySelector('#quizapp_'+qid+' .quizapp-card[data-idx="'+qi+'"]');
+    if(!card)return;
+    var opts=card.querySelectorAll('.quizapp-opt');
+    opts.forEach(function(b,i){b.disabled=true;if(i===correct)b.classList.add('is-correct');else if(i===choice)b.classList.add('is-wrong')});
+    var exp=card.querySelector('.quizapp-exp');var verdict=card.querySelector('.quizapp-verdict');
+    verdict.textContent=choice===correct?'Correct':'Not quite';
+    verdict.className='quizapp-verdict '+(choice===correct?'is-correct':'is-wrong');
+    exp.dataset.state='show';
+    if(choice===correct)spawnConfetti(card,8,'var(--accent)');
+  },
+  next:function(qid,qi){
+    var app=document.getElementById('quizapp_'+qid);if(!app)return;
+    var total=parseInt(app.dataset.total,10);
+    var cards=app.querySelectorAll('.quizapp-card');
+    var dots=app.querySelectorAll('.quizapp-dot');
+    if(qi+1>=total){
+      /* Show final score */
+      var st=this._state[qid]||{picks:[]};
+      var correct=(st.picks||[]).filter(function(p){return p&&p.correct}).length;
+      app.querySelector('.quizapp-stage').style.display='none';
+      app.querySelector('.quizapp-progress').style.display='none';
+      var done=app.querySelector('.quizapp-done');
+      done.querySelector('.quizapp-score-num').textContent=correct;
+      var verdict=correct===total?'Perfect. You got all of them.':correct>=Math.ceil(total*0.7)?'Solid. Worth one more read-through.':'Re-read the Learn section — you\'ll crush it next time.';
+      done.querySelector('.quizapp-verdict-final').textContent=verdict;
+      done.dataset.state='show';
+      return;
+    }
+    cards[qi].classList.remove('current');
+    cards[qi+1].classList.add('current');
+    dots[qi].classList.add('done');
+    dots[qi+1].classList.add('active');
+    app.querySelector('.quizapp-count-cur').textContent=qi+2;
+    cards[qi+1].scrollIntoView({behavior:'smooth',block:'nearest'});
+  },
+  reset:function(qid){
+    this._state[qid]={picks:[]};
+    var app=document.getElementById('quizapp_'+qid);if(!app)return;
+    app.querySelector('.quizapp-stage').style.display='';
+    app.querySelector('.quizapp-progress').style.display='';
+    app.querySelector('.quizapp-done').dataset.state='hidden';
+    app.querySelectorAll('.quizapp-dot').forEach(function(d,i){d.classList.toggle('active',i===0);d.classList.remove('done')});
+    app.querySelectorAll('.quizapp-card').forEach(function(c,i){c.classList.toggle('current',i===0);c.querySelectorAll('.quizapp-opt').forEach(function(b){b.disabled=false;b.classList.remove('is-correct','is-wrong')});c.querySelector('.quizapp-exp').dataset.state='hidden'});
+    app.querySelector('.quizapp-count-cur').textContent=1;
+  }
+};
+window.qApp=qApp;
 function bQ(q,id){
 var h='<div class="qblk" id="q_'+id+'"><div class="qq">'+E(q.q)+'</div><div class="qopts">';
 q.opts.forEach(function(o,i){h+='<button class="qo" data-letter="'+QLTR[i]+'" id="qo_'+id+'_'+i+'" onclick="aQ(\''+id+'\','+i+','+q.correct+')" aria-label="Option '+QLTR[i]+': '+E(o).replace(/"/g,'&quot;')+'">'+E(o)+'</button>'});
