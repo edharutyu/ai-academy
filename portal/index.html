@@ -28,6 +28,15 @@
   --accent2:var(--secondary);--accent3:#b65a1a;
   --trust:#3B82F6;--trust-dim:rgba(59,130,246,.10);
   --glow:rgba(224,122,58,.05);
+  /* ═══ PHASE SIGNATURE COLORS ═══
+     Each phase gets its own atmosphere. Deep = hero band, mid = gradient midpoint,
+     accent = light interactive color, glow = soft halo on cards. */
+  /* Refined v3 — muted, editorial, share luminance ~38% for family feel */
+  --learn-deep:#2A3548;--learn-mid:#41557A;--learn-lite:#5D7299;--learn-accent:#8B9DBF;--learn-soft:#f5f6f9;--learn-glow:rgba(65,85,122,.10);
+  --see-deep:#263E3B;  --see-mid:#3D6560;  --see-lite:#567F78;  --see-accent:#8CAEA7;  --see-soft:#f3f6f4;  --see-glow:rgba(61,101,96,.10);
+  --try-deep:#2E3A24;  --try-mid:#52673E;  --try-lite:#6E855A;  --try-accent:#A9BD90;  --try-soft:#f5f6f1;  --try-glow:rgba(82,103,62,.10);
+  --quiz-deep:#3E2D4A; --quiz-mid:#6E4A6E; --quiz-lite:#8B6A8B; --quiz-accent:#B79AB7; --quiz-soft:#f6f3f5; --quiz-glow:rgba(110,74,110,.10);
+  --hw-deep:#3D2A14;   --hw-mid:#6E4A23;   --hw-lite:#8A5A2C;   --hw-accent:#C89868;   --hw-soft:#faf5ec;   --hw-glow:rgba(138,90,44,.10);
   /* Typography scale */
   --text-xs:.75rem;--text-sm:.8125rem;--text-base:.9375rem;--text-lg:1.125rem;--text-xl:1.375rem;--text-2xl:1.75rem;--text-3xl:2.5rem;
   /* Spacing scale (8px grid) */
@@ -45,9 +54,10 @@
 }
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:#EFE9DF;color:var(--text);line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;position:relative;overflow-x:hidden;letter-spacing:-0.01em}
-#portal{background:var(--bg);max-width:1720px;margin:20px auto;border-radius:28px;box-shadow:0 1px 3px rgba(29,26,22,.04),0 22px 68px rgba(29,26,22,.09);overflow:hidden;position:relative;z-index:1}
+#portal{background:var(--bg);max-width:1480px;margin:14px auto;border-radius:24px;box-shadow:0 1px 3px rgba(29,26,22,.04),0 22px 68px rgba(29,26,22,.09);overflow:hidden;position:relative;z-index:1}
 @media(max-width:900px){#portal{margin:0;border-radius:0;box-shadow:none}}
-@media(min-width:1920px){#portal{max-width:1820px}}
+@media(min-width:1600px){#portal{max-width:1560px}}
+@media(min-width:1920px){#portal{max-width:1780px}}
 /* Subtle ambient corners */
 body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(26,21,16,.035) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0}
 body::after{content:'';position:fixed;bottom:0;left:0;width:400px;height:400px;background:radial-gradient(ellipse at 0% 100%,rgba(224,122,58,.03) 0%,transparent 65%);pointer-events:none;z-index:0}
@@ -232,97 +242,38 @@ input,textarea,select{font-family:inherit}
 .ps-step:not(.active):not(.locked):hover{background:rgba(26,21,16,.06)}
 .ps-sep{width:1px;height:24px;background:rgba(26,21,16,.10);flex-shrink:0}
 
-/* Phase content blocks — hide all, show only active */
-.pblk{display:none;margin:0 0 32px;padding:36px 40px 38px;background:var(--bg2);border:1px solid var(--hairline);border-radius:22px;position:relative;overflow:hidden;box-shadow:0 1px 2px rgba(29,26,22,.04),0 14px 38px rgba(29,26,22,.05)}
-.pblk::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-accent);opacity:.55;pointer-events:none;z-index:5;border-radius:inherit}
-.pblk.phase-active{display:block;animation:pblkIn .45s cubic-bezier(.2,.8,.2,1) both}
-@keyframes pblkIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-@media(max-width:760px){.pblk{padding:24px 22px 28px;border-radius:16px}}
+/* ═══ PHASE BLOCKS v2 ═══
+   Each phase is a distinct mini-site with its own color signature,
+   deep dark hero band (full-bleed across the phase), soft tinted body,
+   and signature accent applied to interactive elements. */
+.pblk{display:none;margin:0 0 34px;padding:0 0 40px;background:var(--bg2);border:1px solid var(--hairline);border-radius:22px;position:relative;overflow:hidden;box-shadow:0 1px 2px rgba(29,26,22,.04),0 14px 38px rgba(29,26,22,.05);isolation:isolate}
+.pblk.phase-active{display:block;animation:pblkIn .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pblkIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* Inner content padding (everything AFTER the hero band) */
+.pblk > *:not(.plbl){padding-left:40px;padding-right:40px}
+@media(max-width:760px){.pblk{border-radius:16px;padding-bottom:28px}.pblk > *:not(.plbl){padding-left:20px;padding-right:20px}}
 
-/* ═══ PHASE ATMOSPHERES ═══ Each phase gets its own background,
-   rhythm and accent — so Learn feels like scholarly reading,
-   See feels cinematic, Try feels like a terminal workshop,
-   Quiz feels like a game show, Homework feels like a magazine. */
+/* Signature per-phase variables — children reference these */
+.pblk[data-phase="learn"]{--p-deep:var(--learn-deep);--p-mid:var(--learn-mid);--p-lite:var(--learn-lite);--p-accent:var(--learn-accent);--p-soft:var(--learn-soft);--p-glow:var(--learn-glow)}
+.pblk[data-phase="see"]  {--p-deep:var(--see-deep);  --p-mid:var(--see-mid);  --p-lite:var(--see-lite);  --p-accent:var(--see-accent);  --p-soft:var(--see-soft);  --p-glow:var(--see-glow)}
+.pblk[data-phase="try"]  {--p-deep:var(--try-deep);  --p-mid:var(--try-mid);  --p-lite:var(--try-lite);  --p-accent:var(--try-accent);  --p-soft:var(--try-soft);  --p-glow:var(--try-glow)}
+.pblk[data-phase="quiz"] {--p-deep:var(--quiz-deep); --p-mid:var(--quiz-mid); --p-lite:var(--quiz-lite); --p-accent:var(--quiz-accent); --p-soft:var(--quiz-soft); --p-glow:var(--quiz-glow)}
+.pblk[data-phase="hw"]   {--p-deep:var(--hw-deep);   --p-mid:var(--hw-mid);   --p-lite:var(--hw-lite);   --p-accent:var(--hw-accent);   --p-soft:var(--hw-soft);   --p-glow:var(--hw-glow)}
 
-/* § I · Learn — warm cream paper, subtle lined texture, serif dominance */
-.pblk[data-phase="learn"]{
-  background:linear-gradient(180deg,#fcfaf5 0%,#fbf7ef 100%);
-  background-image:linear-gradient(180deg,#fcfaf5 0%,#fbf7ef 100%),repeating-linear-gradient(0deg,rgba(138,106,61,.025) 0 1px,transparent 1px 38px);
-  background-blend-mode:normal,normal;
-  border-color:rgba(138,106,61,.18);
-}
-.pblk[data-phase="learn"]::after{
-  content:'';position:absolute;top:24px;right:32px;width:64px;height:64px;
-  background:radial-gradient(circle at 30% 30%,rgba(224,122,58,.12),transparent 65%);
-  border-radius:50%;pointer-events:none;z-index:1;
-}
+/* Body of the phase — soft tint so it doesn't look like another white card */
+.pblk{background:linear-gradient(180deg,var(--p-soft,#fff) 0%,#ffffff 260px)}
+.pblk[data-phase="learn"]{border-color:rgba(74,62,160,.14)}
+.pblk[data-phase="see"]  {border-color:rgba(29,138,142,.14)}
+.pblk[data-phase="try"]  {border-color:rgba(40,137,87,.14)}
+.pblk[data-phase="quiz"] {border-color:rgba(137,61,191,.14)}
+.pblk[data-phase="hw"]   {border-color:rgba(182,90,26,.18)}
 
-/* § II · See — LIGHT cinematic framing. Film-strip hairline accent, hero imagery treatment */
-.pblk[data-phase="see"]{
-  background:linear-gradient(180deg,#fcfaf5 0%,#fef8ed 100%);
-  border-color:rgba(138,106,61,.2);
-}
-.pblk[data-phase="see"]::before{
-  background:linear-gradient(90deg,transparent,var(--accent) 30%,#e4b88c 50%,var(--accent) 70%,transparent);
-  opacity:.7;height:2px;
-}
-.pblk[data-phase="see"]::after{
-  content:'';position:absolute;top:18px;left:0;right:0;height:6px;
-  background:repeating-linear-gradient(90deg,var(--hairline) 0 14px,transparent 14px 28px);
-  opacity:.35;pointer-events:none;z-index:0;
-}
+/* Signature glow bloom on the phase body — very subtle, follows the accent */
+.pblk::after{content:'';position:absolute;top:280px;right:-80px;width:320px;height:320px;background:radial-gradient(circle,var(--p-glow,transparent),transparent 65%);pointer-events:none;z-index:0;filter:blur(20px);opacity:.85}
 
-/* § III · Try — LIGHT workshop blueprint. Subtle grid background, monospace accents */
-.pblk[data-phase="try"]{
-  background:#fefdf9;
-  background-image:linear-gradient(180deg,#fefdf9 0%,#faf8f2 100%),linear-gradient(rgba(122,143,110,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(122,143,110,.05) 1px,transparent 1px);
-  background-size:auto,32px 32px,32px 32px;
-  background-blend-mode:normal,multiply,multiply;
-  border-color:rgba(122,143,110,.28);
-}
-.pblk[data-phase="try"]::before{
-  background:linear-gradient(90deg,transparent,#7a8f6e,transparent);opacity:.7;height:2px;
-}
-.pblk[data-phase="try"]::after{
-  content:'$ hands-on';position:absolute;top:28px;right:36px;font-family:var(--mono);font-size:.7rem;letter-spacing:1.5px;color:#7a8f6e;z-index:1;pointer-events:none;opacity:.7;
-}
-.pblk[data-phase="try"] .plbl-num{color:#7a8f6e}
-.pblk[data-phase="try"] .plbl-eyebrow::before{color:#7a8f6e}
-.pblk[data-phase="try"] .plbl-txt em{color:#7a8f6e}
-
-/* § IV · Quiz — bright game-show energy. Radial glow, celebratory */
-.pblk[data-phase="quiz"]{
-  background:radial-gradient(circle at 85% 15%,rgba(224,122,58,.12),transparent 55%),radial-gradient(circle at 15% 85%,rgba(138,106,61,.08),transparent 55%),linear-gradient(180deg,#fffcf7 0%,#fdf8ef 100%);
-  border-color:rgba(224,122,58,.22);
-  box-shadow:0 1px 2px rgba(29,26,22,.04),0 16px 48px rgba(224,122,58,.08);
-}
-.pblk[data-phase="quiz"]::before{
-  background:linear-gradient(90deg,transparent,var(--accent) 35%,#e4b88c 50%,var(--accent) 65%,transparent);opacity:1;height:2px;
-}
-.pblk[data-phase="quiz"] .plbl-num{
-  background:linear-gradient(135deg,var(--accent),#b65a1a);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-}
-
-/* § V · Homework — premium magazine. Pure white, large serif, gold foil accent */
-.pblk[data-phase="hw"]{
-  background:linear-gradient(180deg,#ffffff 0%,#fdfbf7 100%);
-  border-color:rgba(138,106,61,.22);
-  box-shadow:0 1px 2px rgba(29,26,22,.04),0 20px 56px rgba(138,106,61,.08);
-}
-.pblk[data-phase="hw"]::before{
-  background:linear-gradient(90deg,transparent 0,#8A6A3D 20%,var(--accent) 50%,#8A6A3D 80%,transparent);opacity:.75;height:2px;
-}
-.pblk[data-phase="hw"]::after{
-  content:'';position:absolute;top:20px;right:24px;width:78px;height:78px;
-  background:radial-gradient(circle,rgba(138,106,61,.18),transparent 65%);
-  border-radius:50%;pointer-events:none;z-index:0;
-}
-.pblk[data-phase="hw"] > *{position:relative;z-index:1}
-
-/* All phases share the same light text color system — differentiation
-   comes from bg texture, accent color, typography, and layout, NOT
-   from inverted text-on-dark which hurts readability. */
+/* All direct children except hero band are above the glow */
+.pblk > *{position:relative;z-index:1}
+.pblk > .plbl{z-index:2}
 
 /* Phase prev/next navigation */
 .phase-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:32px;padding-top:20px;border-top:1px solid rgba(26,21,16,.08)}
@@ -333,22 +284,35 @@ input,textarea,select{font-family:inherit}
 .phase-nav-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
 .phase-nav-spacer{flex:1}
 
-/* PHASE LABELS */
-/* Editorial phase hero — big Roman numeral + italic eyebrow + title */
-.plbl{display:grid;grid-template-columns:auto 1fr;gap:0 22px;align-items:start;padding:0 0 24px;border-bottom:1px solid var(--hairline);margin:0 0 28px;position:relative;background:none!important;border-top:none;border-left:none;border-right:none;border-radius:0}
-.plbl::after{content:'';position:absolute;left:0;bottom:-1px;width:72px;height:1px;background:var(--hairline-accent)}
-.plbl-num{font-family:var(--serif);font-style:italic;font-weight:500;font-size:4.2rem;color:var(--accent);letter-spacing:-.02em;line-height:.95;align-self:center;padding-right:4px}
-.plbl-body{display:flex;flex-direction:column;gap:4px;min-width:0}
-.plbl-eyebrow{font-family:var(--serif);font-style:italic;font-size:.88rem;font-weight:500;color:var(--secondary);letter-spacing:.005em;text-transform:none;margin-bottom:2px}
-.plbl-eyebrow::before{content:'§  ';color:var(--accent)}
-.plbl-txt{font-family:var(--serif);font-weight:700;font-size:2rem;letter-spacing:-.018em;color:var(--text);text-transform:none;line-height:1.05}
-.plbl-txt em,.plbl-accent{color:var(--accent);font-style:italic;font-weight:500}
-.phase-desc{font-family:var(--sans);font-style:normal;font-size:1rem;color:var(--text-mid);margin-bottom:28px;padding:0;font-weight:400;background:transparent;border:none;max-width:64ch;line-height:1.65;letter-spacing:-.005em}
+/* PHASE LABEL — full-bleed DARK hero band with bold signature gradient.
+   Lives at top of each .pblk (no negative margin needed; .pblk has no top padding).
+   Breaks the monotony of white cards the user complained about. */
+.plbl{display:grid;grid-template-columns:auto 1fr auto;gap:0 28px;align-items:center;padding:34px 40px 32px;margin:0 0 34px;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--p-deep,#1b1742) 0%,var(--p-mid,#2d2470) 60%,var(--p-lite,#4a3ea0) 100%);color:#fff;border-radius:0;border:none;z-index:2}
+.plbl::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(255,255,255,.09),transparent 55%),radial-gradient(circle at 10% 100%,rgba(0,0,0,.25),transparent 50%);pointer-events:none}
+.plbl::after{content:'';position:absolute;left:40px;bottom:20px;width:56px;height:2px;background:linear-gradient(90deg,var(--p-accent,#fff),transparent);opacity:.9;border-radius:2px}
+.plbl-num{font-family:var(--serif);font-style:italic;font-weight:500;font-size:5.4rem;letter-spacing:-.025em;line-height:.9;color:var(--p-accent,#fff)!important;align-self:center;padding:6px 20px 6px 0;border-right:1px solid rgba(255,255,255,.16);text-shadow:0 2px 22px var(--p-glow,rgba(255,255,255,.15));position:relative;z-index:1}
+.plbl-body{display:flex;flex-direction:column;gap:6px;min-width:0;position:relative;z-index:1}
+.plbl-eyebrow{font-family:var(--sans);font-style:normal;font-size:.7rem;font-weight:700;color:var(--p-accent,#fff);letter-spacing:2.4px;text-transform:uppercase;margin-bottom:2px;opacity:.82;display:inline-flex;align-items:center;gap:10px}
+.plbl-eyebrow::before{content:'';width:18px;height:1px;background:var(--p-accent,#fff);display:inline-block;opacity:.7}
+.plbl-txt{font-family:var(--serif);font-weight:700;font-size:2.35rem;letter-spacing:-.02em;color:#fff;text-transform:none;line-height:1.08}
+.plbl-txt em,.plbl-accent{color:var(--p-accent,#fff);font-style:italic;font-weight:500;text-shadow:0 0 22px var(--p-glow,rgba(255,255,255,.25))}
+/* Slot 3 — decorative chip showing the phase letter & a subtle progress dot */
+.plbl::after{z-index:1}
 
-/* Drop cap on first <p>-like block within a phase */
-.pblk .drop-cap::first-letter,.phase-desc.drop-cap::first-letter{font-family:var(--serif);font-weight:700;font-style:italic;color:var(--accent);font-size:3.4em;float:left;line-height:.88;padding:.05em .12em 0 0;margin-top:.06em}
+/* Phase description sits BELOW the hero band on the light body */
+.phase-desc{font-family:var(--sans);font-style:normal;font-size:1.02rem;color:var(--text-mid);margin:0 0 26px;padding:0;font-weight:400;background:transparent;border:none;max-width:62ch;line-height:1.68;letter-spacing:-.005em}
+.phase-desc em{font-family:var(--serif);font-style:italic;color:var(--p-lite,var(--accent));font-weight:500}
 
-@media(max-width:760px){.plbl{gap:0 14px}.plbl-num{font-size:2.8rem}.plbl-txt{font-size:1.5rem}}
+/* Drop cap on first <p>-like block within a phase — uses phase accent */
+.pblk .drop-cap::first-letter,.phase-desc.drop-cap::first-letter{font-family:var(--serif);font-weight:700;font-style:italic;color:var(--p-lite,var(--accent));font-size:3.4em;float:left;line-height:.88;padding:.05em .12em 0 0;margin-top:.06em}
+
+@media(max-width:760px){
+  .plbl{grid-template-columns:auto 1fr;gap:0 16px;padding:22px 20px 22px}
+  .plbl::after{left:20px;bottom:12px}
+  .plbl-num{font-size:3.2rem;padding-right:14px}
+  .plbl-txt{font-size:1.5rem}
+  .plbl-eyebrow{font-size:.62rem;letter-spacing:1.8px}
+}
 .pdot{display:none}
 
 /* PROMPT ANATOMY */
@@ -2143,6 +2107,1235 @@ body.gmodal-locked{overflow:hidden}
 .btn,.phase-nav-btn.primary,.pub-done{padding:12px 22px;border-radius:10px}
 .pg-btn{padding:10px 18px;border-radius:10px;font-size:.88rem;background:var(--accent);color:#fff;border:none;cursor:pointer;transition:background var(--dur-fast) var(--ease),transform var(--dur-fast) var(--ease)}
 .pg-btn:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:none}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PORTAL REDESIGN v2 — Bold phases, guided homework, interactive quiz.
+   Every rule below is authored AFTER the originals so it wins on specificity
+   order. Scoped by .pblk[data-phase="…"] whenever a phase accent is needed.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────────────────────
+   1 · PHASE STEPPER — sync active color to current phase
+   ────────────────────────────────────────────────────────── */
+.phase-stepper{background:linear-gradient(135deg,rgba(29,26,22,.04),rgba(29,26,22,.02));border:1px solid var(--hairline);border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:6px;margin:0 0 22px;overflow-x:auto;scrollbar-width:none}
+.phase-stepper::-webkit-scrollbar{display:none}
+.ps-step{flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:10px;cursor:pointer;transition:all .28s cubic-bezier(.2,.8,.2,1);position:relative;white-space:nowrap}
+.ps-step .ps-num{font-family:var(--serif);font-style:italic;font-size:.88rem;color:var(--text-muted);font-weight:500;transition:color .28s}
+.ps-step .ps-label{font-family:var(--sans);font-size:.82rem;font-weight:600;color:var(--text-mid);letter-spacing:-.002em;transition:color .28s}
+.ps-step:not(.active):not(.locked):hover{background:rgba(29,26,22,.05)}
+.ps-step:not(.active):not(.locked):hover .ps-num,.ps-step:not(.active):not(.locked):hover .ps-label{color:var(--text)}
+/* Active — phase-colored. Uses :has() where supported; also we set the fallback
+   via JS-less attribute selectors below. */
+.ps-step.active{background:linear-gradient(135deg,var(--ps-deep,#1D1A16) 0%,var(--ps-mid,#3a332b) 100%);box-shadow:0 4px 14px var(--ps-glow,rgba(26,21,16,.18))}
+.ps-step.active .ps-num,.ps-step.active .ps-label{color:#fff}
+.ps-step.active .ps-num{color:var(--ps-accent,#fff);opacity:.92}
+/* Map active step color by its id, so the stepper turns into phase signature */
+.ps-step#ps_learn.active{--ps-deep:var(--learn-deep);--ps-mid:var(--learn-mid);--ps-accent:var(--learn-accent);--ps-glow:var(--learn-glow)}
+.ps-step#ps_see.active  {--ps-deep:var(--see-deep);  --ps-mid:var(--see-mid);  --ps-accent:var(--see-accent);  --ps-glow:var(--see-glow)}
+.ps-step#ps_try.active  {--ps-deep:var(--try-deep);  --ps-mid:var(--try-mid);  --ps-accent:var(--try-accent);  --ps-glow:var(--try-glow)}
+.ps-step#ps_quiz.active {--ps-deep:var(--quiz-deep); --ps-mid:var(--quiz-mid); --ps-accent:var(--quiz-accent); --ps-glow:var(--quiz-glow)}
+.ps-step#ps_hw.active   {--ps-deep:var(--hw-deep);   --ps-mid:var(--hw-mid);   --ps-accent:var(--hw-accent);   --ps-glow:var(--hw-glow)}
+.ps-sep{width:20px;height:1px;background:var(--hairline);flex-shrink:0}
+
+/* ──────────────────────────────────────────────────────────
+   2 · PHASE-TINTED ACCENTS — key-points, compare, visual-tip
+   cards pick up the signature accent of their parent phase.
+   ────────────────────────────────────────────────────────── */
+.pblk .kpl li::before{color:var(--p-lite,var(--accent))}
+.pblk .kpl li:hover{border-color:color-mix(in srgb,var(--p-lite,var(--accent)) 40%,var(--hairline));box-shadow:0 6px 22px rgba(26,21,16,.08),0 1px 3px var(--p-glow,rgba(224,122,58,.08))}
+.pblk .kpl li:hover::before{color:var(--p-lite,var(--accent))}
+.pblk .kpl li.expanded{border-color:var(--p-lite,var(--accent));background:linear-gradient(180deg,#fff 0%,var(--p-soft,#fff) 100%);box-shadow:0 8px 28px var(--p-glow,rgba(224,122,58,.1))}
+.pblk .kpl li.has-detail::after{color:var(--p-lite,var(--accent))}
+.pblk .mc::before{background:linear-gradient(90deg,transparent 0,var(--p-lite,var(--accent)) 50%,transparent 100%)}
+.pblk .mc::after{color:var(--p-lite,var(--accent))}
+.pblk .mc:hover{border-color:color-mix(in srgb,var(--p-lite,var(--accent)) 45%,var(--hairline));box-shadow:0 14px 32px rgba(26,21,16,.1),0 2px 8px var(--p-glow,rgba(224,122,58,.12))}
+.pblk .mc.active{border-color:var(--p-lite,var(--accent));background:linear-gradient(180deg,#fff 0%,var(--p-soft,#fff) 100%);box-shadow:0 14px 32px var(--p-glow,rgba(224,122,58,.16))}
+.pblk .mc.active::before{background:var(--p-lite,var(--accent))}
+.pblk .mc-wh{background:color-mix(in srgb,var(--p-lite,var(--accent)) 10%,transparent);color:var(--p-lite,var(--accent));border-color:color-mix(in srgb,var(--p-lite,var(--accent)) 22%,transparent)}
+
+/* Visual tip cards — the ones the user called "so boring". Now
+   each has a subtle gradient, a tinted ring on hover, and lifts. */
+.pblk .vtip{background:linear-gradient(150deg,#fff 0%,var(--p-soft,#fff) 100%);border:1px solid var(--hairline);border-radius:16px;padding:22px 24px 20px;position:relative;overflow:hidden;box-shadow:0 2px 6px rgba(26,21,16,.04),0 1px 2px rgba(26,21,16,.03);transition:all .32s cubic-bezier(.2,.8,.2,1)}
+.pblk .vtip::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 100% 0%,var(--p-glow,transparent),transparent 60%);pointer-events:none;opacity:.7}
+.pblk .vtip::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--p-lite,var(--accent)),transparent);opacity:.5;transition:opacity .3s}
+.pblk .vtip:hover{border-color:color-mix(in srgb,var(--p-lite,var(--accent)) 40%,var(--hairline));transform:translateY(-4px);box-shadow:0 14px 30px rgba(26,21,16,.1),0 2px 6px var(--p-glow,rgba(224,122,58,.1))}
+.pblk .vtip:hover::after{opacity:1}
+.pblk .vtip-icon,.pblk .vtip i,.pblk .vtip .icon{color:var(--p-lite,var(--accent))}
+
+/* Prompt playground gets the signature tint */
+.pblk .pg-wrap{border-color:color-mix(in srgb,var(--p-lite,var(--accent)) 22%,var(--hairline))}
+.pblk .pg-btn{background:linear-gradient(135deg,var(--p-mid,var(--accent)) 0%,var(--p-lite,var(--accent-hover)) 100%);box-shadow:0 6px 18px var(--p-glow,rgba(224,122,58,.25))}
+.pblk .pg-btn:hover{background:linear-gradient(135deg,var(--p-deep,#b65a1a) 0%,var(--p-mid,var(--accent)) 100%)}
+
+/* ──────────────────────────────────────────────────────────
+   3 · QUIZ — bolder interaction, celebration, shake feedback.
+   ────────────────────────────────────────────────────────── */
+.pblk[data-phase="quiz"] .quizapp-dot.active{background:var(--quiz-lite);box-shadow:0 0 0 3px var(--quiz-glow)}
+.pblk[data-phase="quiz"] .quizapp-dot.done{background:var(--quiz-lite);opacity:.6}
+.pblk[data-phase="quiz"] .quizapp-count-cur{color:var(--quiz-lite);font-weight:700}
+
+.pblk[data-phase="quiz"] .quizapp-q{font-size:1.65rem;line-height:1.25;color:var(--text)}
+.pblk[data-phase="quiz"] .quizapp-opt{background:#fff;border:1.5px solid rgba(137,61,191,.14);border-radius:14px;padding:18px 20px;font-size:1rem;transition:all .22s cubic-bezier(.2,.8,.2,1);box-shadow:0 1px 2px rgba(29,26,22,.04),0 4px 14px rgba(137,61,191,.04)}
+.pblk[data-phase="quiz"] .quizapp-opt:hover:not(:disabled){border-color:var(--quiz-lite);background:var(--quiz-soft);transform:translateX(4px) scale(1.005);box-shadow:0 4px 20px var(--quiz-glow),0 1px 3px rgba(29,26,22,.06)}
+.pblk[data-phase="quiz"] .quizapp-opt-letter{background:var(--quiz-soft);color:var(--quiz-lite);border-color:rgba(137,61,191,.24);font-weight:700}
+.pblk[data-phase="quiz"] .quizapp-opt:hover:not(:disabled) .quizapp-opt-letter{background:var(--quiz-lite);color:#fff;border-color:var(--quiz-lite);transform:scale(1.1) rotate(-6deg)}
+.pblk[data-phase="quiz"] .quizapp-opt.is-correct{border-color:#2F7A4B;background:linear-gradient(135deg,rgba(47,122,75,.08) 0%,rgba(47,122,75,.03) 100%);box-shadow:0 0 0 4px rgba(47,122,75,.12),0 6px 20px rgba(47,122,75,.18);animation:qPulseOK .55s cubic-bezier(.2,.8,.2,1)}
+.pblk[data-phase="quiz"] .quizapp-opt.is-correct .quizapp-opt-letter{background:#2F7A4B;color:#fff;border-color:#2F7A4B;animation:qBounceOK .5s cubic-bezier(.34,1.56,.64,1)}
+.pblk[data-phase="quiz"] .quizapp-opt.is-wrong{border-color:#D64545;background:linear-gradient(135deg,rgba(214,69,69,.06) 0%,rgba(214,69,69,.02) 100%);opacity:.95;animation:qShake .42s cubic-bezier(.36,.07,.19,.97)}
+.pblk[data-phase="quiz"] .quizapp-opt.is-wrong .quizapp-opt-letter{background:#D64545;color:#fff;border-color:#D64545}
+@keyframes qShake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-6px)}40%,60%{transform:translateX(6px)}}
+@keyframes qPulseOK{0%{transform:scale(1)}30%{transform:scale(1.018)}100%{transform:scale(1)}}
+@keyframes qBounceOK{0%{transform:scale(1)}40%{transform:scale(1.35) rotate(12deg)}70%{transform:scale(.95) rotate(-8deg)}100%{transform:scale(1.1) rotate(0)}}
+
+.pblk[data-phase="quiz"] .quizapp-exp{background:linear-gradient(135deg,#fff 0%,var(--quiz-soft) 100%);border:1px solid rgba(137,61,191,.15);box-shadow:0 8px 28px var(--quiz-glow)}
+.pblk[data-phase="quiz"] .quizapp-exp::before{background:linear-gradient(90deg,transparent,var(--quiz-lite),transparent);opacity:.8}
+.pblk[data-phase="quiz"] .quizapp-verdict.is-correct{color:#2F7A4B}
+.pblk[data-phase="quiz"] .quizapp-verdict.is-wrong{color:#D64545}
+.pblk[data-phase="quiz"] .quizapp-next{background:linear-gradient(135deg,var(--quiz-mid) 0%,var(--quiz-lite) 100%);box-shadow:0 6px 18px var(--quiz-glow);padding:12px 24px;font-size:.92rem}
+.pblk[data-phase="quiz"] .quizapp-next:hover{background:linear-gradient(135deg,var(--quiz-deep) 0%,var(--quiz-mid) 100%);transform:translateY(-1px);box-shadow:0 10px 24px var(--quiz-glow)}
+
+/* Final score — crown-style celebration */
+.pblk[data-phase="quiz"] .quizapp-done{padding:48px 24px 40px;position:relative}
+.pblk[data-phase="quiz"] .quizapp-done[data-state="show"]::before{content:'';position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(circle,var(--quiz-glow) 0%,transparent 65%);pointer-events:none;animation:qGlowPulse 2s ease-in-out infinite}
+@keyframes qGlowPulse{0%,100%{opacity:.5;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.15)}}
+.pblk[data-phase="quiz"] .quizapp-score{background:linear-gradient(135deg,var(--quiz-lite) 0%,var(--quiz-mid) 60%,var(--quiz-deep) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-size:5.2rem;position:relative;z-index:1}
+.pblk[data-phase="quiz"] .quizapp-score-total{color:var(--text-dim);-webkit-text-fill-color:var(--text-dim);background:none}
+.pblk[data-phase="quiz"] .quizapp-retake{border-color:var(--quiz-lite);color:var(--quiz-lite)}
+.pblk[data-phase="quiz"] .quizapp-retake:hover{background:var(--quiz-lite);color:#fff}
+.pblk[data-phase="quiz"] .quizapp-retake span{background:var(--quiz-lite)}
+
+/* Card stage gains a subtle 3D perspective so next-card slide-in feels layered */
+.pblk[data-phase="quiz"] .quizapp-stage{perspective:1200px}
+.pblk[data-phase="quiz"] .quizapp-card{transform-origin:center bottom}
+@keyframes qCardIn{from{opacity:0;transform:translateY(20px) rotateX(-6deg) scale(.98)}to{opacity:1;transform:translateY(0) rotateX(0) scale(1)}}
+
+/* ──────────────────────────────────────────────────────────
+   4 · HOMEWORK — guided journey. Each workshop section is
+   a station on the journey with a connecting rail on the left.
+   ────────────────────────────────────────────────────────── */
+.pblk[data-phase="hw"] .hw-ws{position:relative;display:flex;flex-direction:column;gap:20px;padding-left:36px;margin-top:10px}
+.pblk[data-phase="hw"] .hw-ws::before{content:'';position:absolute;left:12px;top:14px;bottom:14px;width:2px;background:linear-gradient(180deg,var(--hw-lite),var(--hw-lite) 30%,color-mix(in srgb,var(--hw-lite) 25%,transparent) 100%);border-radius:2px;opacity:.3}
+.pblk[data-phase="hw"] .hw-ws-sec{background:#fff;border:1px solid rgba(182,90,26,.16);border-radius:18px;padding:24px 28px 26px;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(26,21,16,.04),0 10px 30px rgba(182,90,26,.06);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s}
+.pblk[data-phase="hw"] .hw-ws-sec:hover{transform:translateX(3px);border-color:rgba(182,90,26,.32);box-shadow:0 4px 14px rgba(26,21,16,.06),0 18px 42px rgba(182,90,26,.12)}
+.pblk[data-phase="hw"] .hw-ws-sec::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--hw-lite),transparent);opacity:.6}
+.pblk[data-phase="hw"] .hw-ws-sec::after{content:counter(ws-station,decimal-leading-zero);position:absolute;left:-36px;top:20px;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--hw-deep) 0%,var(--hw-mid) 60%,var(--hw-lite) 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;font-weight:700;font-size:.72rem;box-shadow:0 4px 12px rgba(182,90,26,.28),0 0 0 4px #fff;counter-increment:ws-station;z-index:2}
+.pblk[data-phase="hw"] .hw-ws{counter-reset:ws-station}
+.pblk[data-phase="hw"] .hw-ws-hdr{border-bottom-color:rgba(182,90,26,.15);padding-bottom:16px;margin-bottom:18px}
+.pblk[data-phase="hw"] .hw-ws-phase{font-size:1.22rem;color:var(--hw-deep)}
+.pblk[data-phase="hw"] .hw-ws-phase::before{color:var(--hw-lite)}
+.pblk[data-phase="hw"] .hw-ws-phase em{color:var(--hw-lite)}
+.pblk[data-phase="hw"] .hw-ws-time{color:var(--hw-lite)}
+.pblk[data-phase="hw"] .hw-ws-time::before{background:var(--hw-lite)}
+
+/* Warmup: lesson prep — softer cream */
+.pblk[data-phase="hw"] .hw-ws-warmup{background:linear-gradient(150deg,#fff 0%,var(--hw-soft) 100%);border-color:rgba(182,90,26,.14)}
+/* Live: bold signature orange */
+.pblk[data-phase="hw"] .hw-ws-live{background:linear-gradient(180deg,#fff 0%,#fdf5ec 100%);border-color:rgba(182,90,26,.28);box-shadow:0 4px 14px rgba(26,21,16,.05),0 14px 38px rgba(224,122,58,.1)}
+.pblk[data-phase="hw"] .hw-ws-live::before{background:linear-gradient(90deg,transparent,var(--hw-lite),transparent);opacity:.9;height:3px}
+/* Solo: clean paper */
+.pblk[data-phase="hw"] .hw-ws-solo{background:#fff}
+/* Rubric: premium tier — muted gold */
+.pblk[data-phase="hw"] .hw-ws-rubric{background:linear-gradient(135deg,#fff 0%,var(--hw-soft) 100%);border-color:rgba(138,106,61,.22)}
+.pblk[data-phase="hw"] .hw-ws-rubric-tier{background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(26,21,16,.03),0 6px 18px rgba(26,21,16,.05);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s}
+.pblk[data-phase="hw"] .hw-ws-rubric-tier:hover{transform:translateY(-4px);box-shadow:0 6px 14px rgba(26,21,16,.06),0 20px 44px rgba(26,21,16,.1)}
+.pblk[data-phase="hw"] .hw-ws-rubric-tier[data-tier="great"]{border-top-color:var(--hw-lite)}
+.pblk[data-phase="hw"] .hw-ws-rubric-tier[data-tier="great"] .hw-ws-rubric-level{color:var(--hw-lite)}
+.pblk[data-phase="hw"] .hw-ws-round-n{color:var(--hw-lite)}
+.pblk[data-phase="hw"] .hw-ws-round-task strong{color:var(--hw-lite)}
+.pblk[data-phase="hw"] .hw-ws-round-outcome{background:rgba(182,90,26,.06);border-left-color:var(--hw-lite)}
+.pblk[data-phase="hw"] .hw-ws-round-outcome::before{color:var(--hw-lite)}
+.pblk[data-phase="hw"] .hw-ws-solo-list li::before{color:var(--hw-lite)}
+.pblk[data-phase="hw"] .hw-ws-round-check{color:var(--hw-lite);border-color:rgba(182,90,26,.26)}
+.pblk[data-phase="hw"] .hw-ws-round-check:hover{border-color:var(--hw-lite);background:rgba(182,90,26,.06)}
+.pblk[data-phase="hw"] .hw-ws-round.ws-done .hw-ws-round-check{background:var(--hw-lite);border-color:var(--hw-lite)}
+
+/* Legacy HW format (deliverables / steps / checklist / pro_tip) — apply the
+   same guided-journey treatment: numbered stations on the left, rich cards. */
+.pblk[data-phase="hw"] .hw-structured{position:relative;display:flex;flex-direction:column;gap:22px;padding-left:40px;counter-reset:hwstation}
+.pblk[data-phase="hw"] .hw-structured::before{content:'';position:absolute;left:13px;top:110px;bottom:80px;width:2px;background:linear-gradient(180deg,var(--hw-lite) 0%,color-mix(in srgb,var(--hw-lite) 30%,transparent) 100%);border-radius:2px;opacity:.32;pointer-events:none}
+.pblk[data-phase="hw"] .hw-structured > .hw-brief{margin-left:-40px;margin-right:0}
+.pblk[data-phase="hw"] .hw-structured > .hw-deliv,
+.pblk[data-phase="hw"] .hw-structured > .hw-steps-wrap,
+.pblk[data-phase="hw"] .hw-structured > .hw-check,
+.pblk[data-phase="hw"] .hw-structured > .hw-pro-tip,
+.pblk[data-phase="hw"] .hw-structured > .hw-creative,
+.pblk[data-phase="hw"] .hw-structured > .hw-example,
+.pblk[data-phase="hw"] .hw-structured > .hw-draft,
+.pblk[data-phase="hw"] .hw-structured > .hw-submit{position:relative;background:#fff;border:1px solid rgba(182,90,26,.16);border-radius:16px;padding:26px 30px 28px;box-shadow:0 2px 8px rgba(26,21,16,.04),0 10px 28px rgba(182,90,26,.05);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s;counter-increment:hwstation;overflow:visible}
+.pblk[data-phase="hw"] .hw-structured > .hw-deliv::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-steps-wrap::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-check::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-pro-tip::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-creative::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-draft::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-submit::after{content:counter(hwstation,decimal-leading-zero);position:absolute;left:-40px;top:24px;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--hw-deep) 0%,var(--hw-mid) 60%,var(--hw-lite) 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;font-weight:700;font-size:.7rem;letter-spacing:-.01em;box-shadow:0 4px 12px rgba(182,90,26,.28),0 0 0 4px #fff;z-index:2}
+.pblk[data-phase="hw"] .hw-structured > .hw-deliv:hover,
+.pblk[data-phase="hw"] .hw-structured > .hw-steps-wrap:hover,
+.pblk[data-phase="hw"] .hw-structured > .hw-check:hover,
+.pblk[data-phase="hw"] .hw-structured > .hw-draft:hover,
+.pblk[data-phase="hw"] .hw-structured > .hw-creative:hover{transform:translateX(3px);border-color:rgba(182,90,26,.3);box-shadow:0 4px 14px rgba(26,21,16,.06),0 18px 40px rgba(182,90,26,.1)}
+.pblk[data-phase="hw"] .hw-structured > .hw-deliv::before,
+.pblk[data-phase="hw"] .hw-structured > .hw-steps-wrap::before,
+.pblk[data-phase="hw"] .hw-structured > .hw-check::before,
+.pblk[data-phase="hw"] .hw-structured > .hw-creative::before,
+.pblk[data-phase="hw"] .hw-structured > .hw-draft::before,
+.pblk[data-phase="hw"] .hw-structured > .hw-submit::before{background:linear-gradient(90deg,transparent,var(--hw-lite),transparent);opacity:.55;height:2px}
+.pblk[data-phase="hw"] .hw-deliv-label,
+.pblk[data-phase="hw"] .hw-steps-label,
+.pblk[data-phase="hw"] .hw-check-label,
+.pblk[data-phase="hw"] .hw-draft-lbl,
+.pblk[data-phase="hw"] .hw-submit-title{color:var(--hw-deep);font-family:var(--serif);font-size:1.16rem;font-weight:700;letter-spacing:-.012em;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.pblk[data-phase="hw"] .hw-deliv-label::before,
+.pblk[data-phase="hw"] .hw-steps-label::before,
+.pblk[data-phase="hw"] .hw-check-label::before,
+.pblk[data-phase="hw"] .hw-draft-lbl::before,
+.pblk[data-phase="hw"] .hw-submit-title::before{content:'';width:20px;height:2px;background:var(--hw-lite);display:inline-block;opacity:.85}
+.pblk[data-phase="hw"] .hw-deliv-item{background:linear-gradient(135deg,#fff 0%,var(--hw-soft) 100%);border-color:rgba(182,90,26,.16)}
+.pblk[data-phase="hw"] .hw-deliv-item:hover{border-color:var(--hw-lite);transform:translateX(2px);box-shadow:0 4px 14px rgba(182,90,26,.08)}
+.pblk[data-phase="hw"] .hw-deliv-item::before{color:var(--hw-lite)}
+.pblk[data-phase="hw"] .hw-steps{display:flex;flex-direction:column;gap:12px;counter-reset:hs}
+.pblk[data-phase="hw"] .hw-step{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:flex-start;padding:14px 16px;background:linear-gradient(135deg,#fff 0%,var(--hw-soft) 100%);border:1px solid rgba(182,90,26,.14);border-radius:12px;transition:border-color .25s,transform .25s,box-shadow .25s}
+.pblk[data-phase="hw"] .hw-step:hover{border-color:var(--hw-lite);transform:translateX(2px);box-shadow:0 4px 14px rgba(182,90,26,.08)}
+.pblk[data-phase="hw"] .hw-step-num{font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.35rem;color:var(--hw-lite);min-width:32px;line-height:1;letter-spacing:-.02em}
+.pblk[data-phase="hw"] .hw-step-text{font-size:.96rem;color:var(--text);line-height:1.55;letter-spacing:-.003em}
+.pblk[data-phase="hw"] .hw-check-item{background:#fff;border-color:rgba(182,90,26,.14)}
+.pblk[data-phase="hw"] .hw-check-item:hover{border-color:var(--hw-lite);background:var(--hw-soft)}
+.pblk[data-phase="hw"] .hw-check-item:has(input:checked){background:linear-gradient(135deg,rgba(47,122,75,.06) 0%,rgba(47,122,75,.02) 100%);border-color:rgba(47,122,75,.3)}
+.pblk[data-phase="hw"] .hw-pro-tip{background:linear-gradient(135deg,var(--hw-soft) 0%,#fff 80%);border-color:rgba(182,90,26,.3);font-size:1.02rem;padding-left:44px}
+.pblk[data-phase="hw"] .hw-pro-tip::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--hw-deep),var(--hw-lite));border-radius:0 2px 2px 0;height:auto;opacity:1!important}
+.pblk[data-phase="hw"] .hw-pro-tip strong{color:var(--hw-lite);font-size:.72rem;letter-spacing:2px}
+.pblk[data-phase="hw"] .hw-creative{background:linear-gradient(135deg,#fff 0%,var(--hw-soft) 100%)}
+.pblk[data-phase="hw"] .hw-creative-label{color:var(--hw-deep);font-family:var(--serif);font-weight:700;font-size:1.08rem;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.pblk[data-phase="hw"] .hw-creative-label::before{content:'';width:20px;height:2px;background:var(--hw-lite);display:inline-block}
+.pblk[data-phase="hw"] .hw-example{font-family:var(--serif);font-style:italic;font-size:.98rem;color:var(--text-mid);padding:16px 20px;background:var(--hw-soft);border-radius:12px;border-left:3px solid var(--hw-lite);line-height:1.55}
+.pblk[data-phase="hw"] .hw-draft-ta{background:var(--hw-soft);border-color:rgba(182,90,26,.2);font-family:var(--mono);font-size:.9rem}
+.pblk[data-phase="hw"] .hw-draft-ta:focus{border-color:var(--hw-lite);box-shadow:0 0 0 3px var(--hw-glow);background:#fff}
+.pblk[data-phase="hw"] .hw-draft-saved{color:#2F7A4B}
+.pblk[data-phase="hw"] .hw-submit{background:linear-gradient(135deg,var(--hw-soft) 0%,#fff 60%);border-color:rgba(182,90,26,.28);text-align:left}
+.pblk[data-phase="hw"] .hw-submit-title{justify-content:flex-start;text-align:left}
+.pblk[data-phase="hw"] .hw-submit-steps{justify-content:flex-start;gap:12px;font-size:.9rem;color:var(--text)}
+.pblk[data-phase="hw"] .hw-submit-arr{color:var(--hw-lite)}
+
+/* Homework brief — big readable card at top of the journey */
+.pblk[data-phase="hw"] .hw-brief{background:linear-gradient(135deg,var(--hw-deep) 0%,var(--hw-mid) 50%,var(--hw-lite) 100%);color:#fff;padding:26px 32px 28px;border-radius:18px;margin-bottom:10px;position:relative;overflow:hidden;box-shadow:0 14px 38px rgba(182,90,26,.22),0 2px 6px rgba(182,90,26,.15)}
+.pblk[data-phase="hw"] .hw-brief::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--hw-accent),transparent);opacity:.75}
+.pblk[data-phase="hw"] .hw-brief::after{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,var(--hw-glow) 0%,transparent 65%);pointer-events:none}
+.pblk[data-phase="hw"] .hw-brief-label{font-family:var(--sans);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:2.4px;color:var(--hw-accent);margin-bottom:10px;display:inline-flex;align-items:center;gap:10px;opacity:.9}
+.pblk[data-phase="hw"] .hw-brief-label::before{content:'';width:18px;height:1px;background:var(--hw-accent);display:inline-block;opacity:.8}
+.pblk[data-phase="hw"] .hw-brief-text{font-family:var(--serif);font-weight:500;font-size:1.3rem;line-height:1.45;color:#fff;letter-spacing:-.01em;max-width:60ch}
+
+/* Homework meta chips inherit hw color */
+.pblk[data-phase="hw"] .hw-meta-chip{border-color:rgba(182,90,26,.2);background:#fff}
+.pblk[data-phase="hw"] .hw-meta-chip-label{color:var(--hw-lite)}
+
+/* Homework: checkbox ring ⇒ completion celebration */
+.pblk[data-phase="hw"] .hwc{background:linear-gradient(135deg,#fff 0%,var(--hw-soft) 100%);border:2px solid rgba(182,90,26,.22);border-radius:16px;padding:18px 24px;margin-top:22px;cursor:pointer;transition:all .3s cubic-bezier(.2,.8,.2,1);display:flex;align-items:center;gap:16px;font-weight:600}
+.pblk[data-phase="hw"] .hwc:hover{border-color:var(--hw-lite);box-shadow:0 10px 32px rgba(182,90,26,.16);transform:translateY(-2px)}
+.pblk[data-phase="hw"] .hwc .hwcl{font-family:var(--serif);font-size:1.05rem;color:var(--hw-deep)}
+.pblk[data-phase="hw"] .hwc input:checked ~ .hwcl{color:var(--hw-lite)}
+
+/* Lab deep-link polished with phase accent */
+.pblk .lab-deeplink{background:linear-gradient(135deg,var(--p-soft,#fff) 0%,#fff 100%);border:1px solid color-mix(in srgb,var(--p-lite,var(--accent)) 22%,var(--hairline));border-radius:14px;padding:18px 22px;margin-top:22px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .3s}
+.pblk .lab-deeplink:hover{border-color:var(--p-lite,var(--accent));box-shadow:0 10px 28px var(--p-glow,rgba(26,21,16,.08));transform:translateX(4px)}
+.pblk .lab-deeplink-icon{font-size:1.6rem}
+.pblk .lab-deeplink-label{font-size:.64rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--p-lite,var(--accent));margin-bottom:3px}
+.pblk .lab-deeplink-title{font-family:var(--serif);font-size:1rem;color:var(--text)}
+.pblk .lab-deeplink-arr{margin-left:auto;font-size:1.2rem;color:var(--p-lite,var(--accent));transition:transform .3s}
+.pblk .lab-deeplink:hover .lab-deeplink-arr{transform:translateX(4px)}
+
+/* ──────────────────────────────────────────────────────────
+   5 · LEARN — the "not PDF" treatment. Big pull-quote rhythm.
+   ────────────────────────────────────────────────────────── */
+.pblk[data-phase="learn"] .tblk{font-family:var(--serif);font-size:1.06rem;line-height:1.78;color:#2a251f;max-width:64ch;margin-bottom:16px;font-weight:400;letter-spacing:-.003em}
+.pblk[data-phase="learn"] .tblk strong{color:var(--learn-deep);font-weight:600;background:linear-gradient(180deg,transparent 62%,var(--learn-glow) 62%,var(--learn-glow) 92%,transparent 92%);padding:0 2px}
+
+/* Scroll-reveal helper: elements tagged .pblk-reveal fade + slide in when they enter viewport */
+.pblk .pblk-reveal{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1)}
+.pblk .pblk-reveal.is-inview{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.pblk .pblk-reveal{opacity:1;transform:none;transition:none}}
+
+/* Pull-quote callout for Learn (render with class="lbq" from rBlock) */
+.pblk .lbq{position:relative;padding:22px 28px 22px 52px;margin:22px 0;background:linear-gradient(135deg,#fff 0%,var(--p-soft,#fff) 100%);border:1px solid color-mix(in srgb,var(--p-lite,var(--accent)) 18%,var(--hairline));border-radius:14px;font-family:var(--serif);font-style:italic;font-size:1.14rem;line-height:1.55;color:var(--text);box-shadow:0 2px 6px rgba(26,21,16,.04),0 14px 34px var(--p-glow,rgba(26,21,16,.06))}
+.pblk .lbq::before{content:'\201C';position:absolute;top:6px;left:14px;font-family:var(--serif);font-weight:700;font-style:normal;font-size:3.4rem;line-height:1;color:var(--p-lite,var(--accent));opacity:.6}
+.pblk .lbq cite{display:block;font-style:normal;font-family:var(--sans);font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--p-lite,var(--accent));margin-top:14px}
+
+/* ──────────────────────────────────────────────────────────
+   6 · TRY — recipe steps get signature color with a ring lift
+   ────────────────────────────────────────────────────────── */
+.pblk[data-phase="try"] .rsteps-progress-ring svg .ring-fg{stroke:var(--try-lite)}
+.pblk[data-phase="try"] .rsteps-progress-ring svg .ring-bg{stroke:rgba(40,137,87,.12)}
+.pblk[data-phase="try"] .rsteps-progress-count{color:var(--try-lite)}
+.pblk[data-phase="try"] .rsteps-progress-lbl em{color:var(--try-lite)}
+
+/* ──────────────────────────────────────────────────────────
+   7 · SEE — gallery rail controls
+   ────────────────────────────────────────────────────────── */
+.pblk[data-phase="see"] .see-rail-ctrl{background:linear-gradient(135deg,var(--see-mid) 0%,var(--see-lite) 100%);color:#fff;box-shadow:0 6px 18px var(--see-glow)}
+.pblk[data-phase="see"] .see-rail-ctrl:hover{background:linear-gradient(135deg,var(--see-deep) 0%,var(--see-mid) 100%);transform:translateY(-50%) scale(1.06)}
+
+/* ──────────────────────────────────────────────────────────
+   8 · PHASE NAV BUTTONS — match the phase signature
+   ────────────────────────────────────────────────────────── */
+.pblk .phase-nav{margin-top:36px;padding-top:24px;border-top:1px solid color-mix(in srgb,var(--p-lite,var(--accent)) 14%,var(--hairline))}
+.pblk .phase-nav-btn{background:#fff;border:1px solid var(--hairline);color:var(--text-mid);font-weight:600}
+.pblk .phase-nav-btn:hover{border-color:var(--p-lite,var(--accent));color:var(--p-lite,var(--accent));background:color-mix(in srgb,var(--p-lite,var(--accent)) 6%,#fff)}
+.pblk .phase-nav-btn.primary{background:linear-gradient(135deg,var(--p-mid,var(--accent)) 0%,var(--p-lite,var(--accent-hover)) 100%);color:#fff;border:none;padding:12px 24px;box-shadow:0 8px 22px var(--p-glow,rgba(224,122,58,.24))}
+.pblk .phase-nav-btn.primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px var(--p-glow,rgba(224,122,58,.32));background:linear-gradient(135deg,var(--p-deep,#b65a1a) 0%,var(--p-mid,var(--accent)) 100%)}
+
+/* ──────────────────────────────────────────────────────────
+   9 · OUTER AMBIENT — darker body so the card reads as floating
+   ────────────────────────────────────────────────────────── */
+body{background:radial-gradient(ellipse at 20% 0%,#e5ded0 0%,#dfd6c2 50%,#d4c8ae 100%)}
+body::after{width:600px;height:600px;background:radial-gradient(ellipse at 0% 100%,rgba(224,122,58,.07) 0%,transparent 65%)}
+
+/* ──────────────────────────────────────────────────────────
+  10 · SMALL SCREEN — fit nicely
+   ────────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  .pblk > *:not(.plbl){padding-left:22px;padding-right:22px}
+  .pblk[data-phase="hw"] .hw-ws{padding-left:30px}
+  .pblk[data-phase="hw"] .hw-ws-sec::after{left:-30px;width:22px;height:22px;font-size:.64rem}
+  .plbl-num{font-size:3rem}
+  .plbl-txt{font-size:1.45rem}
+  .pblk[data-phase="hw"] .hw-brief-text{font-size:1.08rem}
+  .phase-stepper{padding:8px 10px;gap:4px}
+  .ps-step{padding:8px 10px;gap:6px}
+  .ps-step .ps-label{font-size:.75rem}
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REFINEMENT v5 — "Modern LMS Functional"
+   Reference: Coursera · Udemy · Khan Academy · LinkedIn Learning
+   Rules:
+     1. Sans-serif throughout (Inter). No serif italic in UI chrome.
+     2. Functional hero: course-progress rail + breadcrumb chip + sans H1 + lead.
+     3. Progress bar at top of every phase block (data-driven by phase position).
+     4. Compact cards: 8px radius, 20px padding, single hairline, no shadow by default.
+     5. Single brand accent (warm orange --accent) — no per-phase color variation.
+     6. Primary CTA styled as prominent "Mark complete & continue" solid button.
+     7. Checkmark "done" state in stepper (Roman replaced with ✓ circle).
+     8. Tight type scale: 11 · 13 · 14 · 15 · 16 · 20 · 28.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 0. NEUTRALIZE per-phase CSS vars to brand accent ── */
+.pblk[data-phase="learn"],
+.pblk[data-phase="see"],
+.pblk[data-phase="try"],
+.pblk[data-phase="quiz"],
+.pblk[data-phase="hw"]{
+  --p-deep:var(--accent-hover)!important;
+  --p-mid:var(--accent)!important;
+  --p-lite:var(--accent)!important;
+  --p-accent:var(--accent)!important;
+  --p-soft:var(--accent-soft)!important;
+  --p-glow:var(--accent-dim)!important;
+}
+
+/* ── 1. BASE typography inside phase block — sans by default ── */
+.pblk{font-family:var(--sans);color:var(--text)}
+.pblk *{letter-spacing:-.005em}
+.pblk h1,.pblk h2,.pblk h3,.pblk h4{font-family:var(--sans);font-weight:700;color:var(--text);letter-spacing:-.015em;margin:0}
+
+/* ── 2. PHASE BLOCK CARD — clean functional shell + progress rail on top ── */
+.pblk{
+  background:var(--bg2)!important;
+  border:1px solid var(--hairline)!important;
+  border-radius:12px!important;
+  box-shadow:0 1px 2px rgba(29,26,22,.04)!important;
+  overflow:hidden!important;
+  padding:0 0 28px!important;
+  position:relative!important;
+}
+.pblk[data-phase]::after{display:none!important}
+/* Progress rail: thin 3px gauge at the very top of every lesson card.
+   Width driven by phase position (1/5 … 5/5). Coursera-style. */
+.pblk::before{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  top:0!important;left:0!important;right:0!important;
+  height:3px!important;
+  background:linear-gradient(90deg,var(--accent) 0%,var(--accent) var(--progress,20%),rgba(29,26,22,.06) var(--progress,20%),rgba(29,26,22,.06) 100%)!important;
+  z-index:2!important;
+  opacity:1!important;
+  border-radius:0!important;
+}
+.pblk[data-phase="learn"]{--progress:20%}
+.pblk[data-phase="see"]{--progress:40%}
+.pblk[data-phase="try"]{--progress:60%}
+.pblk[data-phase="quiz"]{--progress:80%}
+.pblk[data-phase="hw"]{--progress:100%}
+
+/* ── 3. HERO — functional header: breadcrumb pill + label + H1 + lead ── */
+.pblk > .plbl{
+  display:block!important;
+  background:transparent!important;
+  color:var(--text)!important;
+  padding:32px 40px 20px!important;
+  margin:0!important;
+  border:none!important;
+  border-bottom:1px solid var(--hairline)!important;
+  position:relative!important;
+  overflow:visible!important;
+}
+.pblk > .plbl::before,
+.pblk > .plbl::after{display:none!important}
+
+/* Roman numeral → small uppercase phase pill ("PHASE I") */
+.pblk .plbl-num{
+  display:inline-flex!important;
+  align-items:center!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:700!important;
+  font-size:.6875rem!important;      /* 11px */
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+  color:var(--accent)!important;
+  background:var(--accent-soft)!important;
+  border:1px solid color-mix(in srgb,var(--accent) 22%,transparent)!important;
+  border-radius:4px!important;
+  padding:4px 8px 4px 6px!important;
+  line-height:1!important;
+  margin-right:10px!important;
+  text-shadow:none!important;
+  vertical-align:middle!important;
+  height:auto!important;
+}
+.pblk .plbl-num::before{content:"PHASE "!important;font-weight:600;opacity:.78}
+.pblk .plbl-num::after{content:none!important;display:none!important}
+
+/* Eyebrow becomes an inline meta label next to the phase pill */
+.pblk .plbl-body{display:inline!important;margin:0!important;gap:0!important}
+.pblk .plbl-eyebrow{
+  display:inline!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.6875rem!important;      /* 11px */
+  font-weight:600!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+  color:var(--text-muted)!important;
+  opacity:1!important;
+  margin:0!important;
+  padding:0!important;
+  vertical-align:middle!important;
+}
+.pblk .plbl-eyebrow::before{display:none!important}
+
+/* Title — Inter bold 28px. No serif. No italic. */
+.pblk .plbl-txt{
+  display:block!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:700!important;
+  font-size:1.75rem!important;       /* 28px */
+  letter-spacing:-.02em!important;
+  line-height:1.22!important;
+  color:var(--text)!important;
+  text-shadow:none!important;
+  margin:14px 0 0!important;
+  max-width:32ch!important;
+}
+/* Accent word: colored, bold, sans, no italic. Matches Coursera/Khan register. */
+.pblk .plbl-txt em,
+.pblk .plbl-accent{
+  color:var(--accent)!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:700!important;
+  text-shadow:none!important;
+  background:none!important;
+}
+
+/* ── 4. CONTENT SPACING — consistent rhythm ── */
+.pblk > *:not(.plbl){
+  padding-left:40px!important;
+  padding-right:40px!important;
+}
+.pblk > .phase-desc,
+.pblk > .pbnr{
+  max-width:72ch!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.9375rem!important;      /* 15px */
+  line-height:1.6!important;
+  color:var(--text-dim)!important;
+  background:transparent!important;
+  border:none!important;
+  border-left:none!important;
+  padding:0 40px!important;
+  margin:20px 0 24px!important;
+  font-weight:400!important;
+}
+.pblk .phase-desc em{
+  color:var(--text)!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:600!important;
+}
+/* Kill decorative drop-cap — modern LMS uses flat paragraphs */
+.pblk .phase-desc.drop-cap::first-letter,
+.pblk .drop-cap::first-letter{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:400!important;
+  color:inherit!important;
+  font-size:1em!important;
+  float:none!important;
+  padding:0!important;
+  margin:0!important;
+  line-height:inherit!important;
+}
+
+/* ── 5. CARDS — compact uniform pattern (8px radius, 20px padding) ── */
+.pblk .vtip,
+.pblk .kpl li,
+.pblk .mc,
+.pblk .pg-wrap,
+.pblk .hw-brief,
+.pblk .hw-ws-sec,
+.pblk .hw-deliv,
+.pblk .hw-steps-wrap,
+.pblk .hw-check,
+.pblk .hw-pro-tip,
+.pblk .hw-creative,
+.pblk .hw-example,
+.pblk .hw-draft{
+  background:var(--bg2)!important;
+  border:1px solid var(--hairline)!important;
+  border-radius:8px!important;
+  box-shadow:none!important;
+  padding:20px!important;
+}
+.pblk .vtip::before,
+.pblk .vtip::after,
+.pblk .mc::before,
+.pblk .mc::after,
+.pblk .hw-ws-sec::before{display:none!important}
+
+.pblk .vtip:hover,
+.pblk .kpl li:hover,
+.pblk .mc:hover{
+  border-color:color-mix(in srgb,var(--accent) 40%,var(--hairline))!important;
+  background:color-mix(in srgb,var(--accent) 2%,#fff)!important;
+  box-shadow:0 1px 3px rgba(29,26,22,.05)!important;
+  transform:none!important;
+}
+.pblk .kpl li.expanded,
+.pblk .mc.active{
+  border-color:var(--accent)!important;
+  background:color-mix(in srgb,var(--accent) 3%,#fff)!important;
+  box-shadow:none!important;
+}
+
+/* Card heading/body — sans throughout */
+.pblk .vtip-title,
+.pblk .kpl .kp-title,
+.pblk .mc-title{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:600!important;
+  font-size:1rem!important;          /* 16px */
+  letter-spacing:-.005em!important;
+  color:var(--text)!important;
+  line-height:1.4!important;
+}
+.pblk .vtip-desc,
+.pblk .kpl .kp-detail,
+.pblk .mc-text,
+.pblk .tblk{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.875rem!important;       /* 14px */
+  line-height:1.6!important;
+  color:var(--text-dim)!important;
+  font-weight:400!important;
+}
+.pblk .tblk strong{
+  background:none!important;
+  color:var(--text)!important;
+  font-weight:600!important;
+  padding:0!important;
+}
+
+/* Kill learn-phase serif pull-quote style — make it a flat sans block */
+.pblk[data-phase="learn"] .tblk{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.9375rem!important;      /* 15px */
+  line-height:1.65!important;
+  color:var(--text-dim)!important;
+  max-width:68ch!important;
+  margin-bottom:14px!important;
+  font-weight:400!important;
+  letter-spacing:-.005em!important;
+}
+.pblk .lbq{
+  background:var(--bg3)!important;
+  border:1px solid var(--hairline)!important;
+  border-left:3px solid var(--accent)!important;
+  border-radius:8px!important;
+  padding:18px 22px!important;
+  margin:16px 0!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.9375rem!important;
+  line-height:1.55!important;
+  color:var(--text)!important;
+  box-shadow:none!important;
+  font-weight:500!important;
+}
+.pblk .lbq::before{display:none!important}
+.pblk .lbq cite{
+  display:block!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.6875rem!important;
+  font-weight:700!important;
+  text-transform:uppercase!important;
+  letter-spacing:.14em!important;
+  color:var(--text-muted)!important;
+  margin-top:10px!important;
+}
+
+/* KPL numbered list — neutral index */
+.pblk .kpl li::before{
+  color:var(--text-muted)!important;
+  font-size:.75rem!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:700!important;
+  min-width:22px!important;
+  opacity:1!important;
+}
+.pblk .kpl li:hover::before,
+.pblk .kpl li.expanded::before{color:var(--accent)!important;transform:none!important}
+
+/* ── 6. BUTTONS & CTA — single-accent solid primary ── */
+.pblk .pg-btn,
+.pblk .phase-nav-btn.primary,
+.pblk .quizapp-next,
+.pblk .btn-primary{
+  background:var(--accent)!important;
+  color:#fff!important;
+  border:1px solid var(--accent)!important;
+  border-radius:6px!important;
+  padding:11px 22px!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.875rem!important;       /* 14px */
+  font-weight:600!important;
+  letter-spacing:0!important;
+  box-shadow:none!important;
+  transition:background .15s ease,border-color .15s ease!important;
+  cursor:pointer;
+}
+.pblk .pg-btn:hover,
+.pblk .phase-nav-btn.primary:hover,
+.pblk .quizapp-next:hover{
+  background:var(--accent-hover)!important;
+  border-color:var(--accent-hover)!important;
+  transform:none!important;
+  box-shadow:none!important;
+}
+
+/* Secondary (outline) phase-nav button */
+.pblk .phase-nav-btn{
+  border-radius:6px!important;
+  padding:11px 18px!important;
+  font-family:var(--sans)!important;
+  font-size:.875rem!important;
+  font-weight:500!important;
+  border:1px solid var(--hairline)!important;
+  background:var(--bg2)!important;
+  color:var(--text)!important;
+  box-shadow:none!important;
+  transition:border-color .15s ease,background .15s ease!important;
+}
+.pblk .phase-nav-btn:hover{
+  border-color:var(--text-mid)!important;
+  color:var(--text)!important;
+  background:var(--bg3)!important;
+  transform:none!important;
+  box-shadow:none!important;
+}
+
+/* Phase nav container — bottom bar */
+.pblk .phase-nav{
+  margin-top:24px!important;
+  padding:20px 40px 0!important;
+  border-top:1px solid var(--hairline)!important;
+}
+
+/* ── 7. STEPPER — clean rail with checkmark done state ── */
+.phase-stepper{
+  background:var(--bg2)!important;
+  border:1px solid var(--hairline)!important;
+  border-radius:10px!important;
+  padding:4px!important;
+  gap:2px!important;
+  box-shadow:none!important;
+}
+.ps-step{
+  padding:10px 14px!important;
+  border-radius:6px!important;
+  background:transparent!important;
+  border:none!important;
+  transition:background .15s ease!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+}
+.ps-step:not(.active):not(.locked):hover{background:var(--bg3)!important}
+.ps-step:not(.active):not(.locked):hover .ps-num,
+.ps-step:not(.active):not(.locked):hover .ps-label{color:var(--text)!important}
+.ps-step .ps-num{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.6875rem!important;
+  font-weight:700!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+  color:var(--text-muted)!important;
+  opacity:1!important;
+  transition:color .15s ease!important;
+}
+.ps-step .ps-label{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.8125rem!important;      /* 13px */
+  font-weight:500!important;
+  color:var(--text-dim)!important;
+  letter-spacing:0!important;
+  transition:color .15s ease!important;
+}
+
+/* Active step — solid accent pill */
+.ps-step.active{
+  background:var(--accent)!important;
+  border:none!important;
+  box-shadow:none!important;
+}
+.ps-step.active .ps-num,
+.ps-step.active .ps-label{color:#fff!important;opacity:1!important}
+
+/* Done step — hide Roman, show green-ish accent check circle */
+.ps-step.done{background:transparent!important}
+.ps-step.done .ps-num{
+  width:18px!important;
+  height:18px!important;
+  border-radius:50%!important;
+  background:var(--accent)!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  font-size:0!important;
+  color:transparent!important;
+  padding:0!important;
+  flex-shrink:0!important;
+}
+.ps-step.done .ps-num::before{
+  content:"✓"!important;
+  font-family:var(--sans)!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  color:#fff!important;
+  letter-spacing:0!important;
+  line-height:1!important;
+}
+.ps-step.done .ps-label{color:var(--text)!important;font-weight:600!important}
+
+.ps-sep{background:var(--hairline)!important;opacity:.6}
+
+/* ── 8. PROMPT PLAYGROUND — clean split panel ── */
+.pblk .pg-wrap{padding:0!important;overflow:hidden}
+.pblk .pg-wrap .pg-hd{
+  padding:14px 20px!important;
+  border-bottom:1px solid var(--hairline)!important;
+  background:var(--bg3)!important;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.pblk .pg-wrap .pg-hd-ttl{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.6875rem!important;
+  font-weight:700!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+  color:var(--text-muted)!important;
+}
+
+/* ── 9. QUIZ — neutral tiles, single accent ── */
+.pblk[data-phase="quiz"] .quizapp-q{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:1.25rem!important;       /* 20px */
+  font-weight:700!important;
+  line-height:1.35!important;
+  color:var(--text)!important;
+  letter-spacing:-.01em!important;
+}
+.pblk[data-phase="quiz"] .quizapp-opt{
+  background:var(--bg2)!important;
+  border:1px solid var(--hairline)!important;
+  border-radius:8px!important;
+  padding:14px 18px!important;
+  font-family:var(--sans)!important;
+  font-size:.9375rem!important;
+  font-weight:500!important;
+  color:var(--text)!important;
+  box-shadow:none!important;
+  transition:border-color .15s ease,background .15s ease!important;
+}
+.pblk[data-phase="quiz"] .quizapp-opt:hover:not(:disabled){
+  border-color:var(--accent)!important;
+  background:var(--accent-soft)!important;
+  transform:none!important;
+  box-shadow:none!important;
+}
+.pblk[data-phase="quiz"] .quizapp-opt-letter{
+  background:var(--bg3)!important;
+  color:var(--text-muted)!important;
+  border:1px solid var(--hairline)!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.75rem!important;
+  font-weight:700!important;
+  width:26px!important;height:26px!important;
+}
+.pblk[data-phase="quiz"] .quizapp-opt:hover:not(:disabled) .quizapp-opt-letter{
+  background:var(--accent)!important;
+  color:#fff!important;
+  border-color:var(--accent)!important;
+  transform:none!important;
+}
+.pblk[data-phase="quiz"] .quizapp-opt.is-correct{
+  border-color:var(--success)!important;
+  background:var(--success-dim)!important;
+}
+.pblk[data-phase="quiz"] .quizapp-opt.is-correct .quizapp-opt-letter{
+  background:var(--success)!important;border-color:var(--success)!important;color:#fff!important;
+}
+.pblk[data-phase="quiz"] .quizapp-opt.is-wrong{
+  border-color:var(--danger)!important;
+  background:rgba(220,38,38,.05)!important;
+}
+.pblk[data-phase="quiz"] .quizapp-opt.is-wrong .quizapp-opt-letter{
+  background:var(--danger)!important;border-color:var(--danger)!important;color:#fff!important;
+}
+.pblk[data-phase="quiz"] .quizapp-dot.active{
+  background:var(--accent)!important;
+  box-shadow:0 0 0 2px var(--accent-dim)!important;
+}
+.pblk[data-phase="quiz"] .quizapp-dot.done{background:var(--accent)!important;opacity:.5}
+.pblk[data-phase="quiz"] .quizapp-count-cur{color:var(--accent)!important}
+.pblk[data-phase="quiz"] .quizapp-score{
+  background:none!important;
+  -webkit-text-fill-color:var(--accent)!important;
+  color:var(--accent)!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:3rem!important;          /* 48px */
+  font-weight:700!important;
+}
+
+/* ── 10. HW — brief card + clean station rail ── */
+.pblk[data-phase="hw"] .hw-brief{
+  background:var(--bg2)!important;
+  border:1px solid var(--hairline)!important;
+  border-left:3px solid var(--accent)!important;
+  border-radius:8px!important;
+  box-shadow:none!important;
+  padding:20px 22px!important;
+  position:relative;
+}
+.pblk[data-phase="hw"] .hw-brief::before,
+.pblk[data-phase="hw"] .hw-brief::after{display:none!important}
+.pblk[data-phase="hw"] .hw-brief-label{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.6875rem!important;
+  font-weight:700!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+  color:var(--accent)!important;
+  padding:0!important;
+  margin-bottom:8px!important;
+}
+.pblk[data-phase="hw"] .hw-brief-label::before{content:""!important;color:transparent!important;display:none!important}
+.pblk[data-phase="hw"] .hw-brief-text{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:1rem!important;          /* 16px */
+  line-height:1.55!important;
+  color:var(--text)!important;
+  padding:0!important;
+  font-weight:500!important;
+}
+
+/* HW rail + station circles */
+.pblk[data-phase="hw"] .hw-structured::before,
+.pblk[data-phase="hw"] .hw-ws::before{
+  background:var(--hairline)!important;
+  opacity:1!important;
+  width:2px!important;
+}
+.pblk[data-phase="hw"] .hw-ws-sec::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-deliv::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-steps-wrap::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-check::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-pro-tip::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-creative::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-example::after,
+.pblk[data-phase="hw"] .hw-structured > .hw-draft::after{
+  background:var(--accent)!important;
+  color:#fff!important;
+  border:none!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.7rem!important;
+  font-weight:700!important;
+  width:24px!important;height:24px!important;
+  box-shadow:0 0 0 4px #fff!important;
+}
+
+/* HW section titles — sans bold */
+.pblk[data-phase="hw"] .hw-ws-phase,
+.pblk[data-phase="hw"] .hw-deliv-ttl,
+.pblk[data-phase="hw"] .hw-steps-ttl,
+.pblk[data-phase="hw"] .hw-check-ttl,
+.pblk[data-phase="hw"] .hw-pro-tip-ttl,
+.pblk[data-phase="hw"] .hw-example-ttl{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.9375rem!important;      /* 15px */
+  font-weight:700!important;
+  color:var(--text)!important;
+  letter-spacing:-.005em!important;
+  text-transform:none!important;
+}
+
+/* ── 11. CHIPS (time / level / tools) — square-ish pills ── */
+.pblk .chip,
+.pblk .pbnr-chip,
+.pblk .meta-chip{
+  background:var(--bg2)!important;
+  border:1px solid var(--hairline)!important;
+  color:var(--text-dim)!important;
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.75rem!important;
+  font-weight:500!important;
+  padding:4px 10px!important;
+  border-radius:4px!important;
+}
+
+/* ── 12. BODY & PORTAL SHELL ── */
+body{
+  background:#F1ECE0!important;
+}
+body::before{opacity:.5}
+body::after{display:none!important}
+#portal{
+  background:var(--bg)!important;
+  box-shadow:0 1px 3px rgba(29,26,22,.04),0 12px 42px rgba(29,26,22,.07)!important;
+}
+
+/* ── 13. KILL leftover decorations from older versions ── */
+.pblk .anat::before,
+.pblk .vtip::after,
+.pblk .mc::before{display:none!important}
+
+/* Lab deep-link row — compact functional */
+.pblk .lab-deeplink{
+  background:var(--bg3)!important;
+  border:1px solid var(--hairline)!important;
+  border-radius:8px!important;
+  box-shadow:none!important;
+}
+.pblk .lab-deeplink:hover{
+  border-color:var(--accent)!important;
+  background:color-mix(in srgb,var(--accent) 3%,#fff)!important;
+}
+.pblk .lab-deeplink-label{
+  font-family:var(--sans)!important;
+  font-size:.6875rem!important;
+  font-weight:700!important;
+  letter-spacing:.14em!important;
+  color:var(--accent)!important;
+}
+.pblk .lab-deeplink-title{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.9375rem!important;
+  font-weight:600!important;
+  color:var(--text)!important;
+}
+.pblk .lab-deeplink-arr{color:var(--accent)!important}
+
+/* Try-phase progress ring — neutral accent */
+.pblk[data-phase="try"] .rsteps-progress-ring svg .ring-fg{stroke:var(--accent)!important}
+.pblk[data-phase="try"] .rsteps-progress-ring svg .ring-bg{stroke:var(--accent-dim)!important}
+.pblk[data-phase="try"] .rsteps-progress-count{color:var(--accent)!important;font-family:var(--sans)!important;font-style:normal!important;font-weight:700!important}
+.pblk[data-phase="try"] .rsteps-progress-lbl{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.9375rem!important;
+  font-weight:700!important;
+  color:var(--text)!important;
+}
+.pblk[data-phase="try"] .rsteps-progress-lbl em{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  color:var(--accent)!important;
+  font-weight:700!important;
+}
+.pblk[data-phase="try"] .rsteps-progress-sub{
+  font-family:var(--sans)!important;
+  font-size:.8125rem!important;
+  color:var(--text-muted)!important;
+}
+
+/* See-phase gallery rail ctrl — neutral accent, no gradient */
+.pblk[data-phase="see"] .see-rail-ctrl{
+  background:var(--accent)!important;
+  color:#fff!important;
+  box-shadow:0 2px 6px var(--accent-dim)!important;
+}
+.pblk[data-phase="see"] .see-rail-ctrl:hover{
+  background:var(--accent-hover)!important;
+  transform:translateY(-50%)!important;
+}
+
+/* ── STRIP all remaining serif-italic labels and § pseudo-marks (Modern LMS register) ── */
+.pblk .callout-label,
+.pblk .pg-header-title,
+.pblk .pg-label,
+.pblk .pg-hd-ttl,
+.pblk .vcs-label,
+.pblk .fc-hint,
+.pblk .anat-label,
+.pblk .rsteps-progress-lbl,
+.pblk .hw-brief-label,
+.pblk .sec-label,
+.pblk .tlab-label,
+.pblk .spec-label,
+.pblk .vs-label,
+.pblk .k-label{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:700!important;
+  font-size:.6875rem!important;        /* 11px */
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+  color:var(--text-muted)!important;
+}
+/* Kill all "§" pseudo-elements and any italic markers in content labels */
+.pblk .callout-label::before,
+.pblk .pg-header-title::before,
+.pblk .pg-label::before,
+.pblk .pg-hd-ttl::before,
+.pblk .vcs-label::before,
+.pblk .anat-label::before,
+.pblk .sec-label::before,
+.pblk .tlab-label::before,
+.pblk .spec-label::before,
+.pblk .vs-label::before,
+.pblk .k-label::before{
+  content:""!important;
+  display:none!important;
+}
+/* Numbered step circles (Try phase) — sans bold, not serif italic digits */
+.pblk .rsn,
+.pblk .rsn span,
+.pblk .anat-num,
+.pblk .k-num,
+.pblk .sec-num{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:700!important;
+}
+/* Stepper numeral "§ I" — ensure sans, not serif italic */
+.ps-step .ps-num,
+.ps-step .ps-num *,
+.ps-step.active .ps-num,
+.ps-step.active .ps-num *{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+}
+/* Recipe-step hint / callout body — sans, normal weight */
+.pblk .fc-hint{
+  font-size:.8125rem!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  font-weight:500!important;
+  color:var(--text-dim)!important;
+}
+/* § section-mark spans inside content (e.g. `<span class="sec-num">§ I</span>`) */
+.pblk .sec-num{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:700!important;
+  font-size:.6875rem!important;
+  letter-spacing:.12em!important;
+  color:var(--accent)!important;
+}
+/* Callout card — neutralize decorative header "§ Your First Win" treatment */
+.pblk .callout{
+  background:var(--bg3)!important;
+  border:1px solid var(--hairline)!important;
+  border-left:3px solid var(--accent)!important;
+  border-radius:8px!important;
+  padding:18px 22px!important;
+  box-shadow:none!important;
+}
+.pblk .callout-label{
+  color:var(--accent)!important;
+  margin-bottom:6px!important;
+}
+.pblk .callout p,
+.pblk .callout-body,
+.pblk .callout-content{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-size:.9375rem!important;
+  line-height:1.55!important;
+  color:var(--text)!important;
+}
+/* Playground field labels — uppercase meta */
+.pblk .pg-label{
+  color:var(--text-muted)!important;
+}
+/* Before / After labels on visual-compare block */
+.pblk .vcs-label{color:var(--text-muted)!important}
+.pblk .vcs-bad .vcs-label{color:var(--danger)!important}
+.pblk .vcs-good .vcs-label{color:var(--success)!important}
+
+/* Quiz + HW atoms that still carry legacy serif-italic styling */
+.pblk .quizapp-count,
+.pblk .quizapp-count *,
+.pblk .quizapp-count-cur,
+.pblk .quizapp-verdict,
+.pblk .quizapp-verdict-final,
+.pblk .quizapp-score-label,
+.pblk .hw-meta-chip,
+.pblk .hw-meta-chip *,
+.pblk .hw-meta-chip-label,
+.pblk .hw-meta-chip-value,
+.pblk .hw-step-num,
+.pblk .hw-step-num *,
+.pblk .hw-draft-saved,
+.pblk .hw-rubric-row,
+.pblk .hw-rubric-pts{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+}
+/* HW meta chip — functional label + value pair */
+.pblk .hw-meta-chip{
+  background:var(--bg2)!important;
+  border:1px solid var(--hairline)!important;
+  border-radius:4px!important;
+  padding:5px 10px!important;
+  box-shadow:none!important;
+  font-size:.75rem!important;
+}
+.pblk .hw-meta-chip-label{
+  font-weight:600!important;
+  color:var(--text-muted)!important;
+  letter-spacing:.02em!important;
+  text-transform:none!important;
+  font-size:.75rem!important;
+}
+.pblk .hw-meta-chip-value{
+  font-weight:600!important;
+  color:var(--text)!important;
+  font-size:.75rem!important;
+}
+/* HW step number — clean sans digit (not serif italic) */
+.pblk .hw-step-num{
+  font-weight:700!important;
+  color:var(--accent)!important;
+  letter-spacing:0!important;
+}
+/* HW deliverables counter ::before "01 / 02 / 03" — sans bold */
+.pblk .hw-deliv-item::before,
+.pblk .hw-check-item::before,
+.pblk .hw-rubric-row::before,
+.pblk .hw-steps-list li::before,
+.pblk .hw-draft-item::before{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:700!important;
+  color:var(--text-muted)!important;
+  font-size:.75rem!important;
+  letter-spacing:.02em!important;
+}
+/* The recipe step number "1, 2, 3" under Try phase */
+.pblk .rsn,
+.pblk .rsn *,
+.pblk .rs-num,
+.pblk .rs-num *{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:700!important;
+  color:var(--accent)!important;
+}
+/* Quiz "X of N" counter */
+.pblk .quizapp-count{color:var(--text-muted)!important;font-size:.8125rem!important;font-weight:500!important}
+.pblk .quizapp-count-cur{font-weight:700!important;color:var(--accent)!important}
+.pblk .quizapp-score-label{color:var(--text-muted)!important;font-size:.8125rem!important;font-weight:500!important;letter-spacing:.04em!important;text-transform:uppercase!important}
+.pblk .quizapp-verdict,
+.pblk .quizapp-verdict-final{font-weight:600!important;font-size:.9375rem!important}
+
+/* Up Next card — modern LMS lesson-forward preview */
+.next-lesson,
+.up-next,
+.next-sess{
+  background:var(--bg2)!important;
+  border:1px solid var(--hairline)!important;
+  border-radius:8px!important;
+  box-shadow:none!important;
+}
+.next-lesson:hover,
+.up-next:hover,
+.next-sess:hover{border-color:var(--accent)!important;background:color-mix(in srgb,var(--accent) 2%,#fff)!important}
+.next-lesson-label,
+.up-next-label{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:700!important;
+  font-size:.6875rem!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+  color:var(--accent)!important;
+}
+.next-lesson-title,
+.up-next-title{
+  font-family:var(--sans)!important;
+  font-style:normal!important;
+  font-weight:600!important;
+  font-size:1rem!important;
+  color:var(--text)!important;
+}
+
+/* ── 14. MOBILE ── */
+@media(max-width:900px){
+  .pblk > .plbl{padding:22px 20px 16px!important}
+  .pblk > *:not(.plbl),
+  .pblk > .phase-desc{padding-left:20px!important;padding-right:20px!important}
+  .pblk .plbl-txt{font-size:1.375rem!important}  /* 22px */
+  .pblk .phase-nav{padding:18px 20px 0!important}
+  .phase-stepper{padding:3px!important;gap:2px!important}
+  .ps-step{padding:8px 10px!important;gap:6px!important}
+  .ps-step .ps-label{font-size:.75rem!important}
+}
+
+/* ── 15. REDUCE MOTION ── */
+@media(prefers-reduced-motion:reduce){
+  .pblk .pg-btn:hover,.pblk .phase-nav-btn.primary:hover,.pblk .quizapp-next:hover,
+  .pblk .vtip:hover,.pblk .kpl li:hover,.pblk .mc:hover{transform:none!important}
+}
 </style>
 </head>
 <body>
@@ -3202,6 +4395,15 @@ if(pvSe||nxSe){
   h+='</nav>';
 }
 $('learnWrap').innerHTML=h;
+/* Tag learn-phase content blocks for scroll-reveal animation */
+setTimeout(function(){
+  try{
+    document.querySelectorAll('.pblk[data-phase="learn"] > *, .pblk[data-phase="hw"] .hw-ws-sec').forEach(function(el){
+      if(el.classList.contains('plbl')||el.classList.contains('phase-desc')||el.classList.contains('phase-nav'))return;
+      el.classList.add('pblk-reveal');
+    });
+  }catch(e){}
+},30);
 setTimeout(initReveal,60);
 // Inject phase nav buttons into each pblk
 (function(){
@@ -3593,6 +4795,21 @@ function initReveal(){
     var inner=el.querySelector('.fi');if(inner&&!inner.classList.contains('tilt-card-inner'))inner.classList.add('tilt-card-inner');
     tiltAttach(el,5);
   });
+  /* Portal v2 scroll-reveal — staggered fade/slide for learn content + phase blocks */
+  try{
+    var io2=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var idx=+(en.target.dataset.revealIdx||0);
+          en.target.style.transitionDelay=Math.min(idx,8)*55+'ms';
+          en.target.classList.add('is-inview');
+          io2.unobserve(en.target);
+        }
+      });
+    },{threshold:.12,rootMargin:'0px 0px -60px 0px'});
+    var reveals=document.querySelectorAll('.pblk.phase-active .pblk-reveal:not(.is-inview)');
+    reveals.forEach(function(el,i){el.dataset.revealIdx=i;io2.observe(el)});
+  }catch(e){}
 }
 function countUp(el,target){
   /* Only animate if target has a numeric prefix; otherwise display as-is */
@@ -3788,10 +5005,18 @@ var qApp={
     var opts=card.querySelectorAll('.quizapp-opt');
     opts.forEach(function(b,i){b.disabled=true;if(i===correct)b.classList.add('is-correct');else if(i===choice)b.classList.add('is-wrong')});
     var exp=card.querySelector('.quizapp-exp');var verdict=card.querySelector('.quizapp-verdict');
-    verdict.textContent=choice===correct?'Correct':'Not quite';
+    verdict.textContent=choice===correct?'\u2728 Correct':'Not quite';
     verdict.className='quizapp-verdict '+(choice===correct?'is-correct':'is-wrong');
     exp.dataset.state='show';
-    if(choice===correct)spawnConfetti(card,8,'var(--accent)');
+    if(choice===correct){
+      spawnConfetti(card,16,'#f2a8e0');
+      setTimeout(function(){spawnConfetti(card,10,'#893dbf')},120);
+    }else{
+      /* Brief haptic-style shake — CSS already handles it via .is-wrong */
+      if(navigator.vibrate)try{navigator.vibrate(40)}catch(e){}
+    }
+    /* Auto-scroll explanation into view so learner reads the why */
+    setTimeout(function(){if(exp&&exp.scrollIntoView)exp.scrollIntoView({behavior:'smooth',block:'nearest'})},280);
   },
   next:function(qid,qi){
     var app=document.getElementById('quizapp_'+qid);if(!app)return;
