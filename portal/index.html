@@ -54,11 +54,7 @@
 }
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:#EFE9DF;color:var(--text);line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;position:relative;overflow-x:hidden;letter-spacing:-0.01em}
-#portal{background:var(--bg);max-width:1560px;margin:14px auto;border-radius:24px;box-shadow:0 1px 3px rgba(29,26,22,.04),0 22px 68px rgba(29,26,22,.09);overflow:clip;position:relative;z-index:1}
-@media(max-width:1200px){#portal{max-width:1100px}}
-@media(max-width:900px){#portal{margin:0;border-radius:0;box-shadow:none}}
-@media(min-width:1600px){#portal{max-width:1620px}}
-@media(min-width:1920px){#portal{max-width:1680px}}
+#portal{background:var(--bg);max-width:100%;margin:0;border-radius:0;box-shadow:none;overflow:clip;position:relative;z-index:1}
 .content-area{min-width:0;display:flex;flex-direction:column}
 /* Subtle ambient corners */
 body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(26,21,16,.035) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0}
@@ -204,10 +200,11 @@ input,textarea,select{font-family:inherit}
 .teacher-only{display:none}
 
 /* LAYOUT */
-.container{max-width:1560px;margin:0 auto;padding:32px max(40px,env(safe-area-inset-left)) 120px;position:relative;z-index:1}
+.container{max-width:100%;margin:0;padding:32px max(40px,env(safe-area-inset-left)) 120px;position:relative;z-index:1}
 @media(max-width:900px){.container{padding:22px 18px 100px}}
 @media(min-width:1200px){.container{padding-left:56px;padding-right:56px}}
 @media(min-width:1600px){.container{padding-left:80px;padding-right:80px}}
+@media(min-width:2200px){.container{padding-left:120px;padding-right:120px}}
 .section{display:none;opacity:0;transform:translateY(8px)}
 .section.visible{display:block;animation:secIn var(--dur-norm) var(--ease) forwards}
 
@@ -1766,7 +1763,8 @@ body.gmodal-locked{overflow:hidden}
 .home-stat{padding:10px 14px;background:var(--card);border:1px solid var(--hairline);border-radius:12px;min-width:96px}
 .home-stat-n{font-size:1.35rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1}
 .home-stat-l{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;font-weight:600;letter-spacing:.22em;margin-top:6px}
-.home-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+.home-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:start}
+.home-grid-left,.home-grid-right{display:flex;flex-direction:column;gap:18px;min-width:0}
 @media(max-width:820px){.home-grid{grid-template-columns:1fr}}
 .home-card{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
 .home-card-ttl{font-family:var(--serif);font-style:italic;font-size:.95rem;font-weight:500;letter-spacing:.005em;text-transform:none;color:var(--secondary);display:flex;align-items:baseline;gap:8px;margin-bottom:14px}
@@ -1783,7 +1781,7 @@ body.gmodal-locked{overflow:hidden}
 .continue-cta:active{transform:translateY(0);box-shadow:0 2px 8px rgba(209,139,90,.2)}
 .continue-cta-sub{margin-top:10px;font-size:.78rem;color:var(--text-muted);font-family:var(--serif);font-style:italic}
 /* ═══ CLASS SCHEDULE STRIP ═══ */
-.class-schedule-strip{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;animation:csSlideIn .35s var(--ease) forwards}
+.class-schedule-strip{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;animation:csSlideIn .35s var(--ease) forwards}
 @keyframes csSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .cs-pulse{width:10px;height:10px;border-radius:50%;background:#10B981;flex-shrink:0;animation:csPulse 2s ease-in-out infinite;box-shadow:0 0 0 0 rgba(16,185,129,.4)}
 @keyframes csPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,.5)}50%{opacity:.55;box-shadow:0 0 0 8px rgba(16,185,129,0)}}
@@ -1804,8 +1802,8 @@ body.gmodal-locked{overflow:hidden}
 .cs-join-btn:hover{background:var(--accent-hover);transform:translateY(-1px)}
 @media(max-width:768px){.class-schedule-strip{flex-direction:column;align-items:flex-start;gap:10px}.cs-actions{margin-left:0;width:100%}.cs-actions button{flex:1}}
 /* ═══ QUICK CONTINUE + TRENDING ═══ */
-.home-secondary-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
-@media(max-width:768px){.home-secondary-row{grid-template-columns:1fr}}
+.home-secondary-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:1100px){.home-secondary-row{grid-template-columns:1fr}}
 .quick-continue-section,.trending-section{min-width:0}
 .quick-continue-header,.trending-header{font-size:1rem;font-weight:600;margin-bottom:14px;color:var(--text);font-family:var(--sans);letter-spacing:-.005em}
 .quick-continue-grid{display:flex;flex-direction:column;gap:10px}
@@ -4112,8 +4110,10 @@ function rHome(){
     h+='</div></div>';
   }
 
-  /* Main grid: Continue + right-column course list */
+  /* Main grid: left col (Continue + Schedule + secondary) | right col (Next steps + Courses) */
   h+='<div class="home-grid">';
+  /* LEFT COLUMN — flex stack */
+  h+='<div class="home-grid-left">';
   /* Continue card */
   var _thumbColor=contC.color||'#d18b5a';
   h+='<div class="home-card continue-card"><div class="continue-thumb" style="background:linear-gradient(135deg,#f5e6d3 0%,'+_thumbColor+' 100%);"></div><div class="home-card-ttl"><span class="sec-num">\u00a7 I</span>Continue learning</div>';
@@ -4124,8 +4124,54 @@ function rHome(){
   h+='<button class="continue-cta" onclick="selSess('+contC.id+','+contS.n+')">Resume session →</button>';
   h+='<div class="continue-cta-sub">'+(isHW(contC.id,contS.n)?'✓ Homework submitted · review anytime':'Pick up the homework when you\'re ready')+'</div>';
   h+='</div>';
-  /* Right column */
-  h+='<div style="display:flex;flex-direction:column;gap:18px">';
+  /* Class schedule strip — inside left col */
+  h+='<div class="class-schedule-strip" role="region" aria-label="Next live class">';
+  h+='<span class="cs-pulse" aria-hidden="true"></span>';
+  h+='<div class="cs-info"><span class="cs-label">Next live class</span><time class="cs-date-time" id="cs-date-time">Friday · 19:00 Yerevan</time><span class="cs-countdown">in <strong id="countdown-display">—</strong></span></div>';
+  h+='<div class="cs-avatars" aria-label="Cohort RSVPs"><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><span class="avatar-count">8 mates RSVP\'d</span></div>';
+  h+='<div class="cs-actions"><button class="cs-remind-btn" onclick="cs_addToCalendar()">Add to Calendar</button><button class="cs-join-btn" onclick="cs_joinClass()">Join early</button></div>';
+  h+='</div>';
+  /* Quick continue + Trending row — inside left col */
+  var _qc=[];
+  for(var qi=0;qi<C.length&&_qc.length<3;qi++){
+    var qc=C[qi],qmax=u[qc.id]||1;
+    for(var qj=0;qj<qc.sessions.length;qj++){
+      var qs=qc.sessions[qj];
+      if(qs.n<=qmax&&!isHW(qc.id,qs.n)){_qc.push({c:qc,s:qs});break}
+    }
+  }
+  if(_qc.length){
+    h+='<div class="home-secondary-row">';
+    h+='<div class="quick-continue-section"><h3 class="quick-continue-header">Pick up where you left off</h3><div class="quick-continue-grid">';
+    _qc.forEach(function(x){
+      var col=x.c.color||'#d18b5a';
+      h+='<a class="quick-continue-card" href="#/course/'+x.c.id+'/session/'+x.s.n+'" onclick="selSess('+x.c.id+','+x.s.n+');event.preventDefault()">';
+      h+='<div class="qcc-thumb" style="background:linear-gradient(135deg,'+col+' 0%, #f5e6d3 100%);"></div>';
+      h+='<div class="qcc-content"><p class="qcc-course">'+E(x.c.titleEn||x.c.title||('Course '+x.c.id))+'</p>';
+      h+='<p class="qcc-lesson">'+E(x.s.titleEn||x.s.title||('Session '+x.s.n))+'</p>';
+      h+='<p class="qcc-time">'+(x.s.duration||'15')+' min</p></div>';
+      h+='<span class="qcc-link">Continue →</span></a>';
+    });
+    h+='</div></div>';
+    var _trend=[
+      {title:'"Chain-of-Thought for Product Strategy"',views:347},
+      {title:'"Prompt Chaining for Image Gen"',views:298},
+      {title:'"NotebookLM Deep Dive"',views:265},
+      {title:'"Using Constraints for Creativity"',views:156},
+      {title:'"Building Multi-Step Workflows"',views:142}
+    ];
+    h+='<div class="trending-section"><h3 class="trending-header">Top this week</h3><ol class="trending-list">';
+    _trend.forEach(function(t,i){
+      h+='<li class="trending-item"><span class="tr-rank">#'+(i+1)+'</span>';
+      h+='<div class="tr-content"><p class="tr-title">'+E(t.title)+'</p><p class="tr-stat">'+t.views+' views</p></div>';
+      h+='<button class="tr-save-btn" data-saved="false" onclick="this.dataset.saved=this.dataset.saved===\'true\'?\'false\':\'true\'" aria-label="Save">♡</button></li>';
+    });
+    h+='</ol></div>';
+    h+='</div>';
+  }
+  h+='</div>'; /* /home-grid-left */
+  /* RIGHT COLUMN */
+  h+='<div class="home-grid-right">';
   /* Next steps */
   h+='<div class="home-card"><div class="home-card-ttl"><span class="sec-num">\u00a7 II</span>Next steps</div><div class="next-steps">';
   h+='<div class="next-step" onclick="sw(\'secLearn\')"><div class="ns-ico">'+ICO.learn+'</div><div class="ns-body"><div class="ns-ttl">See all courses</div><div class="ns-sub">Roadmap of what\'s unlocked</div></div><span class="ns-chev">\u2192</span></div>';
@@ -4144,57 +4190,8 @@ function rHome(){
     h+='</div>';
   });
   h+='</div></div>';
-  h+='</div>'; /* right col */
-  h+='</div>'; /* grid */
-
-  /* Class schedule strip */
-  h+='<div class="class-schedule-strip" role="region" aria-label="Next live class">';
-  h+='<span class="cs-pulse" aria-hidden="true"></span>';
-  h+='<div class="cs-info"><span class="cs-label">Next live class</span><time class="cs-date-time" id="cs-date-time">Friday · 19:00 Yerevan</time><span class="cs-countdown">in <strong id="countdown-display">—</strong></span></div>';
-  h+='<div class="cs-avatars" aria-label="Cohort RSVPs"><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><span class="avatar-count">8 mates RSVP\'d</span></div>';
-  h+='<div class="cs-actions"><button class="cs-remind-btn" onclick="cs_addToCalendar()">Add to Calendar</button><button class="cs-join-btn" onclick="cs_joinClass()">Join early</button></div>';
-  h+='</div>';
-
-  /* Quick continue + Trending row */
-  var _qc=[];
-  for(var qi=0;qi<C.length&&_qc.length<3;qi++){
-    var qc=C[qi],qmax=u[qc.id]||1;
-    for(var qj=0;qj<qc.sessions.length;qj++){
-      var qs=qc.sessions[qj];
-      if(qs.n<=qmax&&!isHW(qc.id,qs.n)){_qc.push({c:qc,s:qs});break}
-    }
-  }
-  if(_qc.length){
-    h+='<div class="home-secondary-row">';
-    /* Quick Continue */
-    h+='<div class="quick-continue-section"><h3 class="quick-continue-header">Pick up where you left off</h3><div class="quick-continue-grid">';
-    _qc.forEach(function(x){
-      var col=x.c.color||'#d18b5a';
-      h+='<a class="quick-continue-card" href="#/course/'+x.c.id+'/session/'+x.s.n+'" onclick="selSess('+x.c.id+','+x.s.n+');event.preventDefault()">';
-      h+='<div class="qcc-thumb" style="background:linear-gradient(135deg,'+col+' 0%, #f5e6d3 100%);"></div>';
-      h+='<div class="qcc-content"><p class="qcc-course">'+E(x.c.titleEn||x.c.title||('Course '+x.c.id))+'</p>';
-      h+='<p class="qcc-lesson">'+E(x.s.titleEn||x.s.title||('Session '+x.s.n))+'</p>';
-      h+='<p class="qcc-time">'+(x.s.duration||'15')+' min</p></div>';
-      h+='<span class="qcc-link">Continue →</span></a>';
-    });
-    h+='</div></div>';
-    /* Trending */
-    var _trend=[
-      {title:'"Chain-of-Thought for Product Strategy"',views:347},
-      {title:'"Prompt Chaining for Image Gen"',views:298},
-      {title:'"NotebookLM Deep Dive"',views:265},
-      {title:'"Using Constraints for Creativity"',views:156},
-      {title:'"Building Multi-Step Workflows"',views:142}
-    ];
-    h+='<div class="trending-section"><h3 class="trending-header">Top this week</h3><ol class="trending-list">';
-    _trend.forEach(function(t,i){
-      h+='<li class="trending-item"><span class="tr-rank">#'+(i+1)+'</span>';
-      h+='<div class="tr-content"><p class="tr-title">'+E(t.title)+'</p><p class="tr-stat">'+t.views+' views</p></div>';
-      h+='<button class="tr-save-btn" data-saved="false" onclick="this.dataset.saved=this.dataset.saved===\'true\'?\'false\':\'true\'" aria-label="Save">♡</button></li>';
-    });
-    h+='</ol></div>';
-    h+='</div>';
-  }
+  h+='</div>'; /* /home-grid-right */
+  h+='</div>'; /* /home-grid */
 
   /* Mentor card */
   h+='<div class="home-mentor">';
