@@ -54,10 +54,11 @@
 }
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:#EFE9DF;color:var(--text);line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;position:relative;overflow-x:hidden;letter-spacing:-0.01em}
-#portal{background:var(--bg);max-width:1480px;margin:14px auto;border-radius:24px;box-shadow:0 1px 3px rgba(29,26,22,.04),0 22px 68px rgba(29,26,22,.09);overflow:hidden;position:relative;z-index:1}
+#portal{background:var(--bg);max-width:1480px;margin:14px auto;border-radius:24px;box-shadow:0 1px 3px rgba(29,26,22,.04),0 22px 68px rgba(29,26,22,.09);overflow:clip;position:relative;z-index:1}
 @media(max-width:900px){#portal{margin:0;border-radius:0;box-shadow:none}}
 @media(min-width:1600px){#portal{max-width:1560px}}
 @media(min-width:1920px){#portal{max-width:1780px}}
+.content-area{min-width:0;display:flex;flex-direction:column}
 /* Subtle ambient corners */
 body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(26,21,16,.035) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0}
 body::after{content:'';position:fixed;bottom:0;left:0;width:400px;height:400px;background:radial-gradient(ellipse at 0% 100%,rgba(209,139,90,.03) 0%,transparent 65%);pointer-events:none;z-index:0}
@@ -148,11 +149,14 @@ input,textarea,select{font-family:inherit}
 
 /* NAV */
 #portal{display:none;position:relative;z-index:1}
+#portal.show{display:block}
+@media(min-width:769px){#portal.show{display:grid;grid-template-columns:220px 1fr;align-items:start}}
 .portal-nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,.97);backdrop-filter:blur(28px) saturate(1.3);-webkit-backdrop-filter:blur(28px) saturate(1.3);border-bottom:1px solid rgba(26,21,16,.10)}
 .scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:999;background:transparent;pointer-events:none}
 .scroll-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--trust,#5b7fa6));transition:width .08s linear;box-shadow:0 0 8px rgba(209,139,90,.35)}
-.portal-nav-inner{max-width:1640px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 36px;gap:16px}
+.portal-nav-inner{max-width:1640px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:50px;padding:0 28px;gap:12px}
 @media(max-width:900px){.portal-nav-inner{padding:0 18px;height:58px}}
+.portal-nav .search-trigger{flex:1;max-width:520px;margin-right:auto}
 .portal-nav .logo{font-weight:700;font-size:1.02rem;white-space:nowrap;font-family:var(--serif);letter-spacing:-.01em;color:var(--text);display:inline-flex;align-items:baseline;gap:10px}
 .portal-nav .logo::before{content:'\00a7';font-family:var(--serif);font-style:italic;font-weight:500;color:var(--accent);font-size:1.15em;line-height:1;letter-spacing:0}
 .nav-links{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;flex:1;-webkit-overflow-scrolling:touch}
@@ -167,6 +171,23 @@ input,textarea,select{font-family:inherit}
 .nav-links a:hover{color:var(--text);background:rgba(26,21,16,.05);text-decoration:none}
 .nav-links a.active{color:var(--accent);background:transparent;text-decoration:none;font-weight:600}
 .nav-links a.active::after{content:'';position:absolute;bottom:-2px;left:14px;right:14px;height:1.5px;background:var(--accent);border-radius:1px}
+/* ═══ LEFT SIDEBAR (LMS pattern) ═══ */
+.sidebar-left{position:sticky;top:0;height:100vh;background:#fff;border-right:1px solid var(--hairline);padding:22px 14px 18px;display:flex;flex-direction:column;gap:18px;z-index:99;font-family:var(--sans)}
+.sidebar-left .logo{font-weight:700;font-size:1.04rem;font-family:var(--serif);letter-spacing:-.01em;color:var(--text);display:inline-flex;align-items:baseline;gap:10px;padding:4px 10px 12px}
+.sidebar-left .logo::before{content:'\00a7';font-family:var(--serif);font-style:italic;font-weight:500;color:var(--accent);font-size:1.15em;line-height:1;letter-spacing:0}
+.sidebar-left .nav-links{flex:1;display:flex;flex-direction:column;gap:2px;overflow-y:auto;overflow-x:hidden;align-items:stretch}
+.sidebar-left .nav-links a{display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:12px;padding:10px 14px;border-radius:8px;font-size:.88rem;font-weight:500;font-style:normal;font-family:var(--sans);color:var(--text-mid);white-space:nowrap;border-left:3px solid transparent;letter-spacing:-.005em}
+.sidebar-left .nav-links a .nav-ico{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;flex-shrink:0;color:currentColor}
+.sidebar-left .nav-links a .nav-ico svg{width:20px;height:20px;stroke-width:1.75}
+.sidebar-left .nav-links a .nav-lbl{flex:1;text-align:left}
+.sidebar-left .nav-links a:hover{background:rgba(26,21,16,.04);color:var(--text)}
+.sidebar-left .nav-links a.active{background:rgba(209,139,90,.10);color:var(--accent);border-left:3px solid var(--accent);padding-left:11px;font-weight:600}
+.sidebar-left .nav-links a.active::after{display:none}
+.sidebar-left .nav-links a.active .nav-ico svg{stroke-width:2.2}
+.sidebar-bottom{margin-top:auto;display:flex;flex-direction:column;gap:8px;padding-top:14px;border-top:1px solid var(--hairline)}
+.sidebar-bottom .role-badge{font-size:.58rem;padding:6px 10px;letter-spacing:.06em;justify-content:flex-start;width:100%;white-space:normal;text-align:left;line-height:1.3}
+.sidebar-bottom .logout-btn{justify-content:center;width:100%;font-size:.76rem;padding:7px 12px}
+@media(max-width:768px){.sidebar-left{display:none}}
 .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .role-badge{font-family:var(--sans);font-size:.72rem;font-weight:700;padding:8px 16px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em;border:1px solid var(--hairline);background:var(--bg2);color:var(--text);display:inline-flex;align-items:center;gap:8px}
 .role-badge.teacher{color:var(--accent);border-color:var(--accent)}
@@ -3381,14 +3402,19 @@ body::after{display:none!important}
 <a href="#portalMain" class="skip-link">Skip to main content</a>
 <div class="scroll-progress" id="scrollProg" aria-hidden="true"><div class="scroll-progress-bar" id="scrollProgBar"></div></div>
 <div id="portal">
-  <nav class="portal-nav"><div class="portal-nav-inner">
+  <aside class="sidebar-left" aria-label="Primary navigation">
     <span class="logo">AI Academy</span>
-    <div class="nav-links" id="navLinks"></div>
-    <div class="nav-right">
-      <button class="search-trigger" onclick="openCmdK()" aria-label="Open search (Ctrl+K)" title="Search (⌘K)"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="search-trigger-label">Search courses, sessions, prompts…</span><kbd class="search-kbd">⌘K</kbd></button>
-      <button class="nav-icon-btn" aria-label="Notifications" title="Notifications"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="nav-icon-dot" aria-hidden="true"></span></button>
+    <nav class="nav-links" id="navLinks" aria-label="Primary"></nav>
+    <div class="sidebar-bottom">
       <span class="role-badge" id="roleBadge"></span>
       <button class="logout-btn" onclick="doLogout()" title="Log out">Log out →</button>
+    </div>
+  </aside>
+  <div class="content-area">
+  <nav class="portal-nav"><div class="portal-nav-inner">
+    <button class="search-trigger" onclick="openCmdK()" aria-label="Open search (Ctrl+K)" title="Search (⌘K)"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="search-trigger-label">Search courses, sessions, prompts…</span><kbd class="search-kbd">⌘K</kbd></button>
+    <div class="nav-right">
+      <button class="nav-icon-btn" aria-label="Notifications" title="Notifications"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="nav-icon-dot" aria-hidden="true"></span></button>
     </div>
   </div></nav>
   <main class="container" id="portalMain" tabindex="-1">
@@ -3481,6 +3507,7 @@ body::after{display:none!important}
   <div class="bnav" id="bNav"><div class="bni" id="bnI"></div></div>
   <button class="fab-back" id="fabBack" onclick="scrollBackToCourses()" title="Back to top" aria-label="Scroll back to top"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
   <div class="toast" id="toast"></div>
+  </div><!-- /.content-area -->
 </div>
 
 <!-- Course catalog (window.PORTAL_CONTENT / window.PORTAL_TRACKS).
@@ -3664,12 +3691,12 @@ function doLogin(){
   }
   if(_ROSTER){tryRoster()}else{loadRoster(tryRoster)}
 }
-function doLogout(){_r='';_studentName='learner';_studentCohort='';try{localStorage.removeItem('aap_role');localStorage.removeItem('aap_studentId');}catch(e){}try{history.replaceState(null,'','#/');}catch(e){location.hash='#/';}$('loginGate').style.display='flex';$('portal').style.display='none';$('loginPass').value='';if($('loginErr'))$('loginErr').style.display='none'}
+function doLogout(){_r='';_studentName='learner';_studentCohort='';try{localStorage.removeItem('aap_role');localStorage.removeItem('aap_studentId');}catch(e){}try{history.replaceState(null,'','#/');}catch(e){location.hash='#/';}$('loginGate').style.display='flex';$('portal').classList.remove('show');$('portal').style.display='';$('loginPass').value='';if($('loginErr'))$('loginErr').style.display='none'}
 function go(){
   /* Restore student identity from localStorage if roster already loaded */
   var _sid=LS('studentId');
   if(_sid&&_ROSTER&&_ROSTER.students&&_ROSTER.students[_sid]){var _st=_ROSTER.students[_sid];_studentName=_st.name;_studentCohort=_st.cohort||''}
-  $('loginGate').style.display='none';$('portal').style.display='block';LS('role',_r);
+  $('loginGate').style.display='none';$('portal').style.display='';$('portal').classList.add('show');LS('role',_r);
   /* Fetch updates in background (non-blocking) */
   if(!_UPDATES)loadUpdates(function(){var h=$('homeWrap');if(h&&h.innerHTML)rHome()});
   /* Fetch latest published unlocks first, THEN render — so students see current state */
@@ -3746,8 +3773,8 @@ rb.className='role-badge '+(_r==='teacher'?'teacher':'student');
 if(_r==='teacher')document.querySelectorAll('.teacher-only').forEach(function(el){el.style.display='block'});
 var nl=$('navLinks'),bn=$('bnI');nl.innerHTML='';bn.innerHTML='';
 TABS.forEach(function(t){if(t.t&&_r!=='teacher')return;
-/* Desktop top nav — all tabs */
-var a=document.createElement('a');a.innerHTML=t.l+(t.h?'<span class="nav-hint">'+t.h+'</span>':'');a.dataset.tab=t.id;a.setAttribute('role','button');a.setAttribute('tabindex','0');a.setAttribute('aria-label',t.l+' tab');a.onclick=function(){sw(t.id)};a.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();sw(t.id)}};nl.appendChild(a);
+/* Sidebar nav — all tabs (icon + label) */
+var a=document.createElement('a');a.innerHTML='<span class="nav-ico">'+(t.ic||'')+'</span><span class="nav-lbl">'+t.l+'</span>'+(t.h?'<span class="nav-hint">'+t.h+'</span>':'');a.dataset.tab=t.id;a.setAttribute('role','button');a.setAttribute('tabindex','0');a.setAttribute('aria-label',t.l+' tab');a.onclick=function(){sw(t.id)};a.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();sw(t.id)}};nl.appendChild(a);
 /* Mobile bottom nav — only mob:true tabs */
 if(!t.mob)return;
 var b=document.createElement('a');b.innerHTML='<span class="bnico">'+t.ic+'</span><span class="bnilb">'+t.l+'</span>';b.dataset.tab=t.id;b.setAttribute('role','button');b.setAttribute('tabindex','0');b.setAttribute('aria-label',t.l);b.onclick=function(){sw(t.id)};b.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();sw(t.id)}};bn.appendChild(b);
