@@ -888,6 +888,11 @@ input,textarea,select{font-family:inherit}
 .cc-track.core{color:#8B4513}
 .cc-track.track{color:#3d6b96}
 .cc-track.biz{color:#b07a10}
+.cc-track.foundations{color:#8B4513}
+.cc-track.creative{color:#3d6b96}
+.cc-track.business{color:#b07a10}
+.cc-track.research{color:#2F7A4B}
+.cc-track.automation{color:#6B21A8}
 .cc-status{font-size:.55rem;font-weight:700;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
 .cc-status.done{background:rgba(255,255,255,.9);color:#3FB950}
 .cc-status.progress{background:rgba(255,255,255,.9);color:var(--gold)}
@@ -1708,6 +1713,26 @@ body.gmodal-locked{overflow:hidden}
 
 /* ═══ HOME DASHBOARD ═══ */
 .home-wrap{display:flex;flex-direction:column;gap:20px}
+/* What's New banner */
+.wn-banner{display:flex;align-items:center;gap:12px;padding:12px 18px;background:linear-gradient(135deg,#1D1A16 0%,#2a251f 100%);border-radius:14px;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s var(--ease);border:none;width:100%;text-align:left}
+.wn-banner:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,21,16,.18)}
+.wn-banner-ico{font-size:1.1rem;flex-shrink:0}
+.wn-banner-txt{flex:1;font-family:var(--sans);font-size:.92rem;font-weight:600;color:#fff;letter-spacing:-.005em}
+.wn-banner-arrow{color:rgba(255,255,255,.6);font-size:.85rem;flex-shrink:0;transition:transform .2s var(--ease)}
+.wn-banner:hover .wn-banner-arrow{transform:translateX(3px)}
+.wn-panel{background:#fff;border:1px solid var(--hairline);border-radius:14px;overflow:hidden;margin-top:4px}
+.wn-item{padding:14px 18px;border-bottom:1px solid var(--hairline)}
+.wn-item:last-child{border-bottom:none}
+.wn-item-date{font-size:.73rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text-dim);margin-bottom:3px}
+.wn-item-title{font-size:.92rem;font-weight:600;color:var(--text);line-height:1.35;margin-bottom:4px}
+.wn-item-title a{color:var(--accent);text-decoration:none}
+.wn-item-title a:hover{text-decoration:underline}
+.wn-item-body{font-size:.85rem;color:var(--text-mid);line-height:1.5}
+.wn-footer{padding:10px 18px;display:flex;justify-content:flex-end;border-top:1px solid var(--hairline)}
+.wn-seen-btn{font-family:var(--sans);font-size:.85rem;font-weight:600;color:var(--accent);background:none;border:none;cursor:pointer;padding:0;letter-spacing:-.005em}
+.wn-seen-btn:hover{text-decoration:underline}
+/* Track filter pills on Home */
+.home-track-filter{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:2px}
 .home-hello{font-family:var(--serif);font-style:italic;font-size:.95rem;font-weight:500;color:var(--secondary);letter-spacing:.005em;text-transform:none}
 .home-title{font-size:1.8rem;font-weight:800;letter-spacing:-.025em;color:var(--text);line-height:1.1;margin-top:2px}
 .home-sub{color:var(--text-mid);font-size:.92rem;margin-top:6px}
@@ -3470,6 +3495,7 @@ var PASS_S='academy2026',PASS_T='TEACHER_PASS',_r='';
    DEFAULT_UNLOCKS is the fallback if unlocks.json fetch fails.
 */
 var DEFAULT_UNLOCKS={1:4, 2:5, 3:6, 4:5, 5:4, 6:4, 7:6};
+var _ROSTER=null,_UPDATES=null,_studentName='learner',_studentCohort='';
 var REMOTE_UNLOCKS_VERSION=null;
 function LS(k,v){var K='aap_'+k;if(v===undefined){try{return JSON.parse(localStorage.getItem(K))}catch(e){return null}}localStorage.setItem(K,JSON.stringify(v))}
 function E(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML}
@@ -3622,16 +3648,38 @@ var GL=[
 ];
 
 /* AUTH */
-function doLogin(){var p=$('loginPass').value.trim();if(p===PASS_S){_r='student';go()}else if(p===PASS_T){_r='teacher';go()}else{var e=$('loginErr');e.style.display='block';setTimeout(function(){e.style.display='none'},2000)}}
-function doLogout(){_r='';try{localStorage.removeItem('aap_role');}catch(e){}try{history.replaceState(null,'','#/');}catch(e){location.hash='#/';}$('loginGate').style.display='flex';$('portal').style.display='none';$('loginPass').value='';if($('loginErr'))$('loginErr').style.display='none'}
-function go(){$('loginGate').style.display='none';$('portal').style.display='block';LS('role',_r);
-/* Fetch latest published unlocks first, THEN render — so students see current state */
-loadRemoteUnlocks(function(changed){
-  bNav();rTools();rTeach();sw(_r==='teacher'?'secLearn':'secHome');initScrollWatcher();initScrollProgress();
-  startUnlockPolling();
-  setTimeout(function(){_applyHash();},60);
-  if(changed&&_r==='student')toast('\u{1F513} Sessions updated','ok',1800);
-});}
+function loadRoster(cb){try{fetch('roster.json?v='+Date.now()).then(function(r){return r.json()}).then(function(d){_ROSTER=d;if(cb)cb()}).catch(function(){if(cb)cb()})}catch(e){if(cb)cb()}}
+function loadUpdates(cb){try{fetch('updates.json?v='+Date.now()).then(function(r){return r.json()}).then(function(d){_UPDATES=d;if(cb)cb()}).catch(function(){if(cb)cb()})}catch(e){if(cb)cb()}}
+function doLogin(){
+  var p=$('loginPass').value.trim();
+  function fail(){var e=$('loginErr');e.style.display='block';setTimeout(function(){e.style.display='none'},2000)}
+  function tryRoster(){
+    if(p===PASS_T){_r='teacher';LS('studentId',null);_studentName='learner';_studentCohort='';go();return}
+    if(_ROSTER&&_ROSTER.students){
+      var keys=Object.keys(_ROSTER.students);
+      for(var ki=0;ki<keys.length;ki++){var sid=keys[ki];if(_ROSTER.students[sid].pw===p){var st=_ROSTER.students[sid];_r='student';LS('studentId',sid);_studentName=st.name;_studentCohort=st.cohort||'';go();return}}
+    }
+    if(p===PASS_S){_r='student';LS('studentId',null);_studentName='learner';_studentCohort='';go();return}
+    fail();
+  }
+  if(_ROSTER){tryRoster()}else{loadRoster(tryRoster)}
+}
+function doLogout(){_r='';_studentName='learner';_studentCohort='';try{localStorage.removeItem('aap_role');localStorage.removeItem('aap_studentId');}catch(e){}try{history.replaceState(null,'','#/');}catch(e){location.hash='#/';}$('loginGate').style.display='flex';$('portal').style.display='none';$('loginPass').value='';if($('loginErr'))$('loginErr').style.display='none'}
+function go(){
+  /* Restore student identity from localStorage if roster already loaded */
+  var _sid=LS('studentId');
+  if(_sid&&_ROSTER&&_ROSTER.students&&_ROSTER.students[_sid]){var _st=_ROSTER.students[_sid];_studentName=_st.name;_studentCohort=_st.cohort||''}
+  $('loginGate').style.display='none';$('portal').style.display='block';LS('role',_r);
+  /* Fetch updates in background (non-blocking) */
+  if(!_UPDATES)loadUpdates(function(){var h=$('homeWrap');if(h&&h.innerHTML)rHome()});
+  /* Fetch latest published unlocks first, THEN render — so students see current state */
+  loadRemoteUnlocks(function(changed){
+    bNav();rTools();rTeach();sw(_r==='teacher'?'secLearn':'secHome');initScrollWatcher();initScrollProgress();
+    startUnlockPolling();
+    setTimeout(function(){_applyHash();},60);
+    if(changed&&_r==='student')toast('\u{1F513} Sessions updated','ok',1800);
+  });
+}
 function scrollBackToCourses(){window.scrollTo({top:0,behavior:'smooth'})}
 function initScrollWatcher(){
 window.addEventListener('scroll',function(){
@@ -3690,7 +3738,11 @@ var TABS=[
   {id:'secTeach',   l:'Teach',    ic:ICO.teach,   mob:true, t:1}
 ];
 function bNav(){
-var rb=$('roleBadge');rb.innerHTML=_r==='teacher'?'<span class="role-dot"></span>Teacher':'<span class="role-dot"></span>Creative cohort';rb.className='role-badge '+(_r==='teacher'?'teacher':'student');
+var rb=$('roleBadge');
+var _cohortTrack=_studentCohort?_studentCohort.split('-')[0]:'';
+var _cohortLbl=_cohortTrack?_studentName.toUpperCase()+' \u00b7 '+_cohortTrack.toUpperCase()+' COHORT':'Creative cohort';
+rb.innerHTML=_r==='teacher'?'<span class="role-dot"></span>Teacher':'<span class="role-dot"></span>'+_cohortLbl;
+rb.className='role-badge '+(_r==='teacher'?'teacher':'student');
 if(_r==='teacher')document.querySelectorAll('.teacher-only').forEach(function(el){el.style.display='block'});
 var nl=$('navLinks'),bn=$('bnI');nl.innerHTML='';bn.innerHTML='';
 TABS.forEach(function(t){if(t.t&&_r!=='teacher')return;
@@ -3862,6 +3914,32 @@ function rHome(){
   /* Greeting by hour */
   var hr=new Date().getHours();var hello=hr<5?'Still up':hr<12?'Good morning':hr<17?'Good afternoon':hr<22?'Good evening':'Good night';
   var h='<div class="home-wrap">';
+  /* ─────── What's New banner ─────── */
+  if(_UPDATES&&_UPDATES.items&&_UPDATES.items.length){
+    var _seen=LS('seenUpdates')||[];
+    var _unseenItems=_UPDATES.items.filter(function(it){return _seen.indexOf(it.id)<0});
+    var _N=_unseenItems.length;
+    if(_N>0){
+      h+='<button class="wn-banner" onclick="toggleWnPanel()" aria-expanded="false" id="wnBanner">';
+      h+='<span class="wn-banner-ico">&#10024;</span>';
+      h+='<span class="wn-banner-txt">'+_N+' new since you were last here \u2014 see what\'s new</span>';
+      h+='<span class="wn-banner-arrow">\u2192</span>';
+      h+='</button>';
+      h+='<div id="wnPanel" class="wn-panel" style="display:none">';
+      _UPDATES.items.forEach(function(it){
+        h+='<div class="wn-item">';
+        h+='<div class="wn-item-date">'+E(it.date)+'</div>';
+        var _tLink=E(it.title);
+        if(it.course&&it.session){_tLink='<a href="#/course/'+it.course+'/session/'+it.session+'" onclick="selSess('+it.course+','+it.session+');event.preventDefault()">'+E(it.title)+'</a>';}
+        else if(it.course){_tLink='<a href="#/course/'+it.course+'/session/1" onclick="selCourse('+it.course+');event.preventDefault()">'+E(it.title)+'</a>';}
+        h+='<div class="wn-item-title">'+_tLink+'</div>';
+        if(it.body)h+='<div class="wn-item-body">'+E(it.body)+'</div>';
+        h+='</div>';
+      });
+      h+='<div class="wn-footer"><button class="wn-seen-btn" onclick="markAllSeen()">Mark all as seen</button></div>';
+      h+='</div>';
+    }
+  }
 
   /* ─────── Hero + Stats ring (Coursue-inspired dashboard head) ─────── */
   h+='<div class="home-top">';
@@ -3884,7 +3962,7 @@ function rHome(){
   h+='<div class="home-statring-avatar"><img src="../photo.jpg" alt="" onerror="this.style.display=\'none\'"></div>';
   h+='<div class="home-statring-pct">'+pct+'%</div>';
   h+='</div>';
-  h+='<div class="home-statcard-greeting">'+hello+', learner \u2728</div>';
+  h+='<div class="home-statcard-greeting">'+hello+', '+E(_studentName)+' \u2728</div>';
   h+='<div class="home-statcard-sub">Continue your learning to reach your target.</div>';
   /* 7-day streak strip (placeholder: mark days when at least one session was opened).
      Uses localStorage "aap_streak" keyed by YYYY-MM-DD. */
@@ -3916,10 +3994,18 @@ function rHome(){
   h+='</div>';
 
 
+  /* ─────── Track filter tabs ─────── */
+  var _homeTrack=LS('activeTrack')||'all';
+  var _homeFilters=[{id:'all',lbl:'All'},{id:'foundations',lbl:'Foundations'},{id:'creative',lbl:'Creative'},{id:'business',lbl:'Business'},{id:'research',lbl:'Research'}];
+  h+='<nav class="cg-filters home-track-filter ent ent1" aria-label="Course tracks">';
+  _homeFilters.forEach(function(f){h+='<button type="button" class="cg-filter'+(f.id===_homeTrack?' active':'')+'" onclick="setHomeTrack(\''+f.id+'\')">'+E(f.lbl)+'</button>';});
+  h+='</nav>';
+
   /* Featured paths \u2014 editorial highlight row showing next-best courses. */
+  var _trackCourses=_homeTrack==='all'?C:C.filter(function(c){return (c.track||'foundations')===_homeTrack});
   var featured=[];
-  if(contC)featured.push(contC);
-  C.forEach(function(c){if(featured.indexOf(c)<0&&featured.length<3)featured.push(c);});
+  if(contC&&(_homeTrack==='all'||(contC.track||'foundations')===_homeTrack))featured.push(contC);
+  _trackCourses.forEach(function(c){if(featured.indexOf(c)<0&&featured.length<3)featured.push(c);});
   if(featured.length){
     h+='<div class="feat-section"><div class="feat-head"><div class="feat-eyebrow"><span class="sec-num">\u00a7</span> Recommended for you</div><div class="feat-title">Start here \u2014 three paths into AI.</div></div>';
     h+='<div class="feat-grid">';
@@ -4018,10 +4104,10 @@ h+='<div class="hero-stat"><span class="hero-stat-n">5+</span><span class="hero-
 h+='</div>';
 h+='</div>';
 h+='</div>';
-/* Category filter tabs (Udemy-style) */
-var _activeFilter=window._cgFilter||'all';
-var _filters=[{id:'all',lbl:'All courses'},{id:'core',lbl:'Core foundations'},{id:'creative',lbl:'Creative AI'},{id:'business',lbl:'Business'},{id:'research',lbl:'Research'}];
-h+='<nav class="cg-filters ent ent1" aria-label="Course categories">';
+/* Category filter tabs */
+var _activeFilter=LS('activeTrack')||'all';
+var _filters=[{id:'all',lbl:'All'},{id:'foundations',lbl:'Foundations'},{id:'creative',lbl:'Creative'},{id:'business',lbl:'Business'},{id:'research',lbl:'Research'}];
+h+='<nav class="cg-filters ent ent1" aria-label="Course tracks">';
 _filters.forEach(function(f){
   h+='<button type="button" class="cg-filter'+(f.id===_activeFilter?' active':'')+'" onclick="setCgFilter(\''+f.id+'\')" data-filter="'+f.id+'">'+E(f.lbl)+'</button>';
 });
@@ -4037,13 +4123,10 @@ if(i>0)h+='<div class="journey-line'+(isDone?' jl-done':'')+'"></div>';
 h+='<div class="journey-node '+cls+'" onclick="selCourse('+c.id+')"><span class="jn-num">'+c.id+'</span> '+E(c.titleEn||c.title)+'</div>';
 });
 h+='</div>';
-/* Stats — replaced by hero banner above */
-/* Filter the course list by active category */
-var _cgFilterMap={core:[1,2],creative:[2,3,4,5],business:[6],research:[7]};
+/* Filter the course list by track */
 var _cgVisible=C.filter(function(c){
   if(_activeFilter==='all')return true;
-  var arr=_cgFilterMap[_activeFilter]||[];
-  return arr.indexOf(c.id)>=0;
+  return (c.track||'foundations')===_activeFilter;
 });
 h+='<div class="cg">';
 _cgVisible.forEach(function(c,i){
@@ -4053,13 +4136,14 @@ var pct=Math.round(done/total*100);
 var isAct=c.id===a.c;
 var status=pct===100?'done':done>0?'progress':'';
 var isFirst=done===0&&i===0;
-var _svgTrack={
-  core:_SVG+'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>',
-  track:_SVG+'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
-  biz:_SVG+'<path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M9 7V5h6v2"/></svg>'
+var _trackSvg={
+  foundations:_SVG+'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>',
+  creative:_SVG+'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+  business:_SVG+'<path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M9 7V5h6v2"/></svg>',
+  research:_SVG+'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+  automation:_SVG+'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>'
 };
-var trackMap={1:{lbl:'CORE',cls:'core'},2:{lbl:'CORE',cls:'core'},3:{lbl:'TRACK',cls:'track'},4:{lbl:'TRACK',cls:'track'},5:{lbl:'TRACK',cls:'track'},6:{lbl:'BUSINESS',cls:'biz'},7:{lbl:'RESEARCH',cls:'track'}};
-var trk=trackMap[c.id];
+var trk=c.track||'foundations';
 var _ccMeta=courseMeta(c);
 var heroUrl=courseHero(c);
 var toolsStrip=courseBrandStrip(c);
@@ -4068,7 +4152,7 @@ h+='<div class="cc'+(isAct?' cc-act':'')+(isFirst?' cc-first':'')+' ent ent'+Mat
 h+='<div class="cc-media" style="--cc:'+c.color+'">';
 h+='<img class="cc-media-img" src="'+heroUrl+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">';
 h+='<div class="cc-media-tint"></div>';
-if(trk)h+='<div class="cc-track '+trk.cls+'" aria-label="Track: '+trk.lbl+'">'+_svgTrack[trk.cls]+'<span>'+trk.lbl+'</span></div>';
+h+='<div class="cc-track '+trk+'" aria-label="Track: '+(c.trackLabel||trk.toUpperCase())+'">'+(_trackSvg[trk]||'')+'<span>'+E(c.trackLabel||trk.toUpperCase())+'</span></div>';
 if(status)h+='<div class="cc-status '+status+'">'+(status==='done'?'\u2713 Done':'In Progress')+'</div>';
 h+='<div class="cc-media-num">'+c.id.toString().padStart(2,'0')+'</div>';
 h+='</div>';
@@ -4108,7 +4192,10 @@ try{location.hash='#/course/'+ci+'/session/'+firstIncomplete;}catch(e){}
 }
 /* keep rPath as alias */
 function rPath(){return rCourseGrid()}
-function setCgFilter(id){window._cgFilter=id;var pw=$('pathWrap');if(pw){pw.innerHTML=rCourseGrid();}}
+function setCgFilter(id){LS('activeTrack',id);var pw=$('pathWrap');if(pw){pw.innerHTML=rCourseGrid();}}
+function setHomeTrack(id){LS('activeTrack',id);rHome();}
+function toggleWnPanel(){var p=$('wnPanel');var b=$('wnBanner');if(!p||!b)return;var open=p.style.display==='none';p.style.display=open?'':'none';b.setAttribute('aria-expanded',open?'true':'false');}
+function markAllSeen(){if(!_UPDATES||!_UPDATES.items)return;var ids=_UPDATES.items.map(function(it){return it.id});LS('seenUpdates',ids);rHome();}
 window.setCgFilter=setCgFilter;
 
 /* Hash routing — deep link to #/course/1/session/2, #/tab/secGallery (→ libGallery), etc. */

@@ -1,0 +1,23 @@
+{
+  "version": "2026-04-27",
+  "notes": "Per-student roster. Each student logs in with their personal password and gets greeted by name. Add a student → generate password → assign track. Update this file and push to GitHub to add new students.",
+  "teacher": {
+    "pw": "TEACHER_PASS",
+    "name": "Ed"
+  },
+  "students": {
+    "anna":   { "name": "Anna",   "pw": "anna-2026",   "track": "creative",   "cohort": "creative-2026-spring" },
+    "mariam": { "name": "Mariam", "pw": "mariam-2026", "track": "creative",   "cohort": "creative-2026-spring" },
+    "davit":  { "name": "Davit",  "pw": "davit-2026",  "track": "creative",   "cohort": "creative-2026-spring" },
+    "narine": { "name": "Narine", "pw": "narine-2026", "track": "business",   "cohort": "business-2026-spring" },
+    "arman":  { "name": "Arman",  "pw": "arman-2026",  "track": "automation", "cohort": "automation-2026-spring" },
+    "lilit":  { "name": "Lilit",  "pw": "lilit-2026",  "track": "creative",   "cohort": "creative-2026-spring" },
+    "tigran": { "name": "Tigran", "pw": "tigran-2026", "track": "research",   "cohort": "research-2026-spring" },
+    "anush":  { "name": "Anush",  "pw": "anush-2026",  "track": "creative",   "cohort": "creative-2026-spring" }
+  },
+  "fallback": {
+    "pw": "academy2026",
+    "name": "learner",
+    "note": "Old shared password still works as a fallback so existing students don't get locked out during the migration."
+  }
+}

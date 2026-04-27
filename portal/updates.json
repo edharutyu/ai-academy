@@ -1,0 +1,37 @@
+{
+  "version": "2026-04-27",
+  "notes": "What's New feed. Newest first. Each item: id (stable), date (YYYY-MM-DD), kind (new-session | new-module | prompt-of-week | live-class | announcement), and either {course,session,title} or {course,title} or just {title,body}.",
+  "items": [
+    {
+      "id": "u-2026-04-27-1",
+      "date": "2026-04-27",
+      "kind": "new-session",
+      "course": 7,
+      "session": 3,
+      "title": "Source verification trainer",
+      "body": "Spot the AI hallucination — 20 real citations, some are fabricated. New mini-trainer in Research with AI."
+    },
+    {
+      "id": "u-2026-04-25-1",
+      "date": "2026-04-25",
+      "kind": "new-module",
+      "course": 8,
+      "title": "AI Automation & Agents — opens next live class",
+      "body": "Course 8 is being prepared. Six sessions covering Connectors, Skills, Scheduled Agents, Telegram bots, n8n, and a Capstone."
+    },
+    {
+      "id": "u-2026-04-22-1",
+      "date": "2026-04-22",
+      "kind": "prompt-of-week",
+      "title": "Prompt of the week — Armenian product photography",
+      "body": "Open the Library and look for the new Beauty / Cosmetics flatlay prompt, locked to one shot recipe."
+    },
+    {
+      "id": "u-2026-04-20-1",
+      "date": "2026-04-20",
+      "kind": "live-class",
+      "title": "Next live class — Friday, Yerevan time",
+      "body": "We will cover Brand Identity Session 4 + a live demo of NotebookLM. Bring a real client brief."
+    }
+  ]
+}
