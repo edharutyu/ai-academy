@@ -1770,12 +1770,16 @@ body.gmodal-locked{overflow:hidden}
 .home-card{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
 .home-card-ttl{font-family:var(--serif);font-style:italic;font-size:.95rem;font-weight:500;letter-spacing:.005em;text-transform:none;color:var(--secondary);display:flex;align-items:baseline;gap:8px;margin-bottom:14px}
 .home-card-ttl .sec-num{font-size:.95em;color:var(--accent)}
-.continue-card{background:var(--bg2);border:1px solid var(--hairline);padding:28px 30px 26px;display:flex;flex-direction:column}
-.continue-ttl{font-size:1.55rem;font-weight:700;letter-spacing:-.012em;line-height:1.2;color:var(--text);margin:8px 0 14px}
+.continue-card{background:var(--bg2);border:1px solid var(--hairline);padding:28px 30px 26px;display:flex;flex-direction:column;overflow:hidden}
+.continue-thumb{background:linear-gradient(135deg,#f5e6d3 0%,var(--accent) 100%),repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(0,0,0,.02) 2px,rgba(0,0,0,.02) 4px);width:auto;height:140px;border-radius:12px 12px 0 0;margin:-28px -30px 18px -30px;background-blend-mode:overlay,normal;position:relative}
+.continue-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(255,255,255,.45) 100%);pointer-events:none}
+.continue-ttl{font-size:1.55rem;font-weight:700;letter-spacing:-.012em;line-height:1.2;color:var(--text);margin:8px 0 6px}
+.continue-next-label{font-size:.85rem;color:var(--text-muted);margin-bottom:8px;font-weight:500;font-family:var(--sans);letter-spacing:-.005em}
 .continue-meta{font-size:.88rem;color:var(--text-mid);margin-top:2px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--serif);font-style:italic}
 .continue-meta .ctag{padding:3px 12px;border-radius:999px;background:transparent;border:1px solid var(--accent);color:var(--accent)!important;font-weight:500;font-size:.72rem;letter-spacing:.02em;text-transform:none!important;font-family:var(--serif);font-style:italic}
-.continue-cta{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;background:var(--accent);color:#fff;font-weight:600;border-radius:10px;font-size:.92rem;border:none;cursor:pointer;margin-top:22px;align-self:flex-start;transition:transform var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease);letter-spacing:.01em}
-.continue-cta:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.continue-cta{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--accent);color:#fff;font-weight:600;border-radius:10px;font-size:.95rem;border:none;cursor:pointer;margin-top:22px;align-self:flex-start;transition:transform var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease),box-shadow var(--dur-fast) var(--ease);letter-spacing:.01em;box-shadow:0 4px 12px rgba(209,139,90,.25)}
+.continue-cta:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 6px 20px rgba(209,139,90,.35)}
+.continue-cta:active{transform:translateY(0);box-shadow:0 2px 8px rgba(209,139,90,.2)}
 .continue-cta-sub{margin-top:10px;font-size:.78rem;color:var(--text-muted);font-family:var(--serif);font-style:italic}
 .next-steps{display:flex;flex-direction:column;gap:10px}
 .next-step{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:var(--bg3);border:1px solid var(--hairline);transition:border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease);cursor:pointer}
@@ -4063,9 +4067,11 @@ function rHome(){
   /* Main grid: Continue + right-column course list */
   h+='<div class="home-grid">';
   /* Continue card */
-  h+='<div class="home-card continue-card"><div class="home-card-ttl"><span class="sec-num">\u00a7 I</span>Continue learning</div>';
+  var _thumbColor=contC.color||'#d18b5a';
+  h+='<div class="home-card continue-card"><div class="continue-thumb" style="background:linear-gradient(135deg,#f5e6d3 0%,'+_thumbColor+' 100%);"></div><div class="home-card-ttl"><span class="sec-num">\u00a7 I</span>Continue learning</div>';
   h+='<div class="continue-meta"><span class="ctag">Course '+contC.id+' · S'+contS.n+'</span><span>'+E(contC.titleEn||contC.title||('Course '+contC.id))+'</span></div>';
   h+='<div class="continue-ttl">'+E(contS.titleEn||contS.title||('Session '+contS.n))+'</div>';
+  h+='<div class="continue-next-label">Next: Lesson '+contC.id+'.'+contS.n+'</div>';
   if(contS.subtitle)h+='<div class="home-sub" style="margin-top:0">'+E(contS.subtitle)+'</div>';
   h+='<button class="continue-cta" onclick="selSess('+contC.id+','+contS.n+')">Resume session →</button>';
   h+='<div class="continue-cta-sub">'+(isHW(contC.id,contS.n)?'✓ Homework submitted · review anytime':'Pick up the homework when you\'re ready')+'</div>';
