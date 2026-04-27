@@ -1781,6 +1781,27 @@ body.gmodal-locked{overflow:hidden}
 .continue-cta:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 6px 20px rgba(209,139,90,.35)}
 .continue-cta:active{transform:translateY(0);box-shadow:0 2px 8px rgba(209,139,90,.2)}
 .continue-cta-sub{margin-top:10px;font-size:.78rem;color:var(--text-muted);font-family:var(--serif);font-style:italic}
+/* ═══ CLASS SCHEDULE STRIP ═══ */
+.class-schedule-strip{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;animation:csSlideIn .5s ease forwards}
+@keyframes csSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.cs-pulse{width:10px;height:10px;border-radius:50%;background:#10B981;flex-shrink:0;animation:csPulse 2s ease-in-out infinite;box-shadow:0 0 0 0 rgba(16,185,129,.4)}
+@keyframes csPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,.5)}50%{opacity:.55;box-shadow:0 0 0 8px rgba(16,185,129,0)}}
+.cs-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-muted);font-family:var(--sans)}
+.cs-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+.cs-date-time{display:block;font-size:.9rem;font-weight:600;color:var(--text);font-family:var(--sans);letter-spacing:-.005em}
+.cs-countdown{font-size:.82rem;color:var(--text-mid);font-family:var(--sans)}
+.cs-countdown strong{color:var(--accent);font-weight:700;font-variant-numeric:tabular-nums}
+.cs-avatars{display:flex;align-items:center;gap:0;flex-shrink:0}
+.cs-avatars .avatar-mini{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--accent-soft),var(--accent-dim));border:2px solid #fff;flex-shrink:0;margin-left:-6px}
+.cs-avatars .avatar-mini:first-child{margin-left:0}
+.cs-avatars .avatar-count{font-size:.78rem;color:var(--text-muted);margin-left:10px;font-family:var(--sans)}
+.cs-actions{display:flex;gap:10px;flex-shrink:0;margin-left:auto}
+.cs-remind-btn,.cs-join-btn{font-size:.8rem;padding:8px 14px;border-radius:8px;font-weight:600;font-family:var(--sans);cursor:pointer;border:none;transition:all var(--dur-fast) var(--ease)}
+.cs-remind-btn{background:transparent;color:var(--text-mid);border:1px solid var(--hairline)}
+.cs-remind-btn:hover{border-color:var(--accent);color:var(--accent)}
+.cs-join-btn{background:var(--accent);color:#fff}
+.cs-join-btn:hover{background:var(--accent-hover);transform:translateY(-1px)}
+@media(max-width:768px){.class-schedule-strip{flex-direction:column;align-items:flex-start;gap:10px}.cs-actions{margin-left:0;width:100%}.cs-actions button{flex:1}}
 .next-steps{display:flex;flex-direction:column;gap:10px}
 .next-step{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:var(--bg3);border:1px solid var(--hairline);transition:border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease);cursor:pointer}
 .next-step:hover{border-color:var(--accent);background:#fff}
@@ -4099,6 +4120,14 @@ function rHome(){
   h+='</div>'; /* right col */
   h+='</div>'; /* grid */
 
+  /* Class schedule strip */
+  h+='<div class="class-schedule-strip" role="region" aria-label="Next live class">';
+  h+='<span class="cs-pulse" aria-hidden="true"></span>';
+  h+='<div class="cs-info"><span class="cs-label">Next live class</span><time class="cs-date-time" id="cs-date-time">Friday · 19:00 Yerevan</time><span class="cs-countdown">in <strong id="countdown-display">—</strong></span></div>';
+  h+='<div class="cs-avatars" aria-label="Cohort RSVPs"><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><span class="avatar-count">8 mates RSVP\'d</span></div>';
+  h+='<div class="cs-actions"><button class="cs-remind-btn" onclick="cs_addToCalendar()">Add to Calendar</button><button class="cs-join-btn" onclick="cs_joinClass()">Join early</button></div>';
+  h+='</div>';
+
   /* Mentor card */
   h+='<div class="home-mentor">';
   h+='<div class="home-mentor-photo"><img src="../photo.jpg" alt="Ed Harutyunyan" onerror="this.style.display=\'none\'"></div>';
@@ -4112,6 +4141,7 @@ function rHome(){
 
   h+='</div>'; /* wrap */
   host.innerHTML=h;
+  if(typeof _csUpdateCountdown==='function')_csUpdateCountdown();
 }
 
 /* LEARNING PATH */
@@ -5813,6 +5843,41 @@ document.addEventListener('keydown',function(e){
   else if(e.key==='ArrowUp'){e.preventDefault();items[cur].classList.remove('sel');items[Math.max(cur-1,0)].classList.add('sel');items[Math.max(cur-1,0)].scrollIntoView({block:'nearest'})}
   else if(e.key==='Enter'){e.preventDefault();_cmdKPick(cur)}
 });
+
+/* CLASS SCHEDULE — countdown to next Friday 19:00 Yerevan (UTC+4 → 15:00 UTC) */
+function _csNextClass(){
+  var now=new Date();
+  var t=new Date();t.setUTCHours(15,0,0,0);
+  var day=t.getUTCDay();
+  var diff=(5-day+7)%7;
+  if(diff===0 && now>t)diff=7;
+  t.setUTCDate(t.getUTCDate()+diff);
+  return t;
+}
+function _csUpdateCountdown(){
+  var el=document.getElementById('countdown-display');
+  if(!el)return;
+  var diff=_csNextClass()-new Date();
+  if(diff<=0){el.textContent='live now';return}
+  var hours=Math.floor(diff/(1000*60*60));
+  var mins=Math.floor((diff%(1000*60*60))/(1000*60));
+  var days=Math.floor(hours/24);
+  if(days>0){el.textContent=days+'d '+(hours%24)+'h';}
+  else{el.textContent=hours+'h '+mins+'m';}
+}
+setInterval(_csUpdateCountdown,30000);
+function cs_addToCalendar(){
+  var t=_csNextClass();
+  var pad=function(n){return n<10?'0'+n:''+n};
+  var fmt=function(d){return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+'00Z'};
+  var end=new Date(t.getTime()+90*60*1000);
+  var url='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent('AI Academy — Live Class')+'&dates='+fmt(t)+'/'+fmt(end);
+  window.open(url,'_blank');
+}
+function cs_joinClass(){
+  if(typeof toast==='function')toast('Class link will open closer to start time');
+  else alert('Class link will open closer to start time');
+}
 
 /* INIT */
 window.addEventListener('DOMContentLoaded',function(){var sr=LS('role');if(sr){_r=sr;go()}});
