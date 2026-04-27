@@ -79,7 +79,7 @@ input,textarea,select{font-family:inherit}
 /* Accessibility: reduce motion */
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.ent,.ent0,.ent1,.ent2,.ent3{animation:none!important;opacity:1!important;transform:none!important}}
 /* Universal pressed state for interactive elements */
-.cc:active,.sess-item:active,.bni a:active,.phase-chip:active,.cat-chip:active,.lab-deeplink:active{transform:scale(.985)}
+.cc:active,.sess-item:active,.bni a:active,.phase-chip:active,.cat-chip:active,.lab-deeplink:active,.sidebar-left .nav-links a:active,.quick-continue-card:active,.trending-item:active{transform:scale(.985)}
 /* Tabular numerals for progress, scores, counts */
 .chdr2-prog-lbl,.sess-badge,.qs-n,.qs-score,.prog-stat-val,.qmeta-n{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 /* Prose line-length control for readability */
@@ -1783,7 +1783,7 @@ body.gmodal-locked{overflow:hidden}
 .continue-cta:active{transform:translateY(0);box-shadow:0 2px 8px rgba(209,139,90,.2)}
 .continue-cta-sub{margin-top:10px;font-size:.78rem;color:var(--text-muted);font-family:var(--serif);font-style:italic}
 /* ═══ CLASS SCHEDULE STRIP ═══ */
-.class-schedule-strip{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;animation:csSlideIn .5s ease forwards}
+.class-schedule-strip{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;animation:csSlideIn .35s var(--ease) forwards}
 @keyframes csSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .cs-pulse{width:10px;height:10px;border-radius:50%;background:#10B981;flex-shrink:0;animation:csPulse 2s ease-in-out infinite;box-shadow:0 0 0 0 rgba(16,185,129,.4)}
 @keyframes csPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,.5)}50%{opacity:.55;box-shadow:0 0 0 8px rgba(16,185,129,0)}}
@@ -1824,8 +1824,11 @@ body.gmodal-locked{overflow:hidden}
 .tr-content{flex:1;min-width:0}
 .tr-title{font-size:.88rem;font-weight:600;color:var(--text);margin:0 0 3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tr-stat{font-size:.75rem;color:var(--text-dim);margin:0}
-.tr-save-btn{background:none;border:none;cursor:pointer;font-size:1.4rem;color:var(--text-muted);flex-shrink:0;transition:all .2s var(--ease);padding:8px;line-height:1;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%}
+.tr-save-btn{background:none;border:none;cursor:pointer;font-size:1.4rem;color:var(--text-muted);flex-shrink:0;transition:color .2s var(--ease),transform .15s var(--ease);padding:8px;line-height:1;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%}
 .tr-save-btn:hover,.tr-save-btn[data-saved="true"]{color:var(--danger)}
+.tr-save-btn:active{transform:scale(.92)}
+.tr-save-btn[data-saved="true"]{animation:heartPop .3s var(--ease)}
+@keyframes heartPop{0%{transform:scale(1)}45%{transform:scale(1.25)}100%{transform:scale(1)}}
 .next-steps{display:flex;flex-direction:column;gap:10px}
 .next-step{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:var(--bg3);border:1px solid var(--hairline);transition:border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease);cursor:pointer}
 .next-step:hover{border-color:var(--accent);background:#fff}
