@@ -3806,6 +3806,8 @@ function loadRoster(cb){try{fetch('roster.json?v='+Date.now()).then(function(r){
 function loadUpdates(cb){try{fetch('updates.json?v='+Date.now()).then(function(r){return r.json()}).then(function(d){_UPDATES=d;if(cb)cb()}).catch(function(){if(cb)cb()})}catch(e){if(cb)cb()}}
 function doLogin(){
   var p=$('loginPass').value.trim();
+  /* New session = re-evaluate welcome-back banner */
+  window._aapWelcomeChecked=false;
   function fail(){var e=$('loginErr');e.style.display='block';setTimeout(function(){e.style.display='none'},2000)}
   function tryRoster(){
     if(p===PASS_T){_r='teacher';LS('studentId',null);_studentName='learner';_studentCohort='';go();return}
@@ -4069,9 +4071,15 @@ function rHome(){
   var hr=new Date().getHours();var hello=hr<5?'Still up':hr<12?'Good morning':hr<17?'Good afternoon':hr<22?'Good evening':'Good night';
   var h='<div class="home-wrap">';
   /* ─────── Welcome Back banner (returning > 7 days) ─────── */
-  var _wbLast=parseInt(LS('lastVisit')||'0',10);
-  var _wbNow=Date.now();
-  var _wbDays=_wbLast?Math.floor((_wbNow-_wbLast)/(1000*60*60*24)):0;
+  /* Snapshot the prior lastVisit on first render of this page-load, then bump it.
+     rHome can fire twice (sw + applyHash) — without this guard the banner would never see >0 days. */
+  if(window._aapWelcomeChecked!==true){
+    window._aapWelcomeChecked=true;
+    window._aapPrevVisit=parseInt(LS('lastVisit')||'0',10);
+    LS('lastVisit',Date.now());
+  }
+  var _wbLast=window._aapPrevVisit||0;
+  var _wbDays=_wbLast?Math.floor((Date.now()-_wbLast)/(1000*60*60*24)):0;
   var _wbDismissed=false;try{_wbDismissed=sessionStorage.getItem('aap_welcomeBackDismissed')==='true'}catch(e){}
   if(_wbLast && _wbDays>7 && !_wbDismissed){
     var _wbNewLessons=0;
@@ -4086,7 +4094,6 @@ function rHome(){
     h+='<button class="wb-dismiss-btn" aria-label="Dismiss welcome banner" onclick="dismissWelcomeBack()">&times;</button>';
     h+='</div>';
   }
-  LS('lastVisit',_wbNow);
   /* ─────── What's New banner ─────── */
   if(_UPDATES&&_UPDATES.items&&_UPDATES.items.length){
     var _seen=LS('seenUpdates')||[];
@@ -6126,6 +6133,8 @@ function initNotificationBell(){
   var closeBtn=document.getElementById('notificationCloseBtn');
   var markAll=document.getElementById('markAllReadBtn');
   if(!bell||!panel)return;
+  if(bell.dataset.bound==='1'){_notifRender();_notifUpdateBadge();return}
+  bell.dataset.bound='1';
   bell.addEventListener('click',function(e){
     e.stopPropagation();
     var open=panel.classList.toggle('open');
