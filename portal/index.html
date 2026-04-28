@@ -2103,7 +2103,9 @@ body.gmodal-locked{overflow:hidden}
 .chdr2-bg,.chdr2-glow,.chdr2-top,.chdr2-icon{display:none!important}
 
 /* ═══ HOME DASHBOARD HEAD (Coursue-inspired) ═══ */
-.home-top{display:grid;grid-template-columns:1.85fr 1fr;gap:18px;margin:8px 0 18px}
+.home-top{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;margin:8px 0 18px;align-items:stretch}
+.home-top-right{display:flex;flex-direction:column;gap:16px;min-width:0}
+.home-top-right .home-statcard{flex:0 0 auto}
 @media(max-width:900px){.home-top{grid-template-columns:1fr}}
 
 .home-hero{position:relative;background:linear-gradient(135deg,#d18b5a 0%,#b9764a 50%,#8A6A3D 100%);border-radius:24px;padding:42px 40px 38px;color:#fff;overflow:hidden;min-height:260px;display:flex;align-items:flex-start}
@@ -2162,6 +2164,12 @@ body.gmodal-locked{overflow:hidden}
 .home-mentor-cta{align-self:flex-start;padding:8px 18px;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:var(--sans);font-weight:600;font-size:.82rem;border-radius:999px;cursor:pointer;transition:all var(--dur-fast) var(--ease);white-space:nowrap;letter-spacing:-.005em}
 .home-mentor-cta:hover{background:var(--accent);color:#fff}
 @media(max-width:640px){.home-mentor{flex-direction:column;text-align:center;align-items:center}}
+/* Mentor card in upper-right slot — stack vertically, tighten padding */
+.home-top-right .home-mentor{margin:0;padding:18px 20px;flex-direction:column;align-items:flex-start;text-align:left;gap:12px}
+.home-top-right .home-mentor-photo{width:48px;height:48px}
+.home-top-right .home-mentor-name{font-size:1.05rem}
+.home-top-right .home-mentor-bio{font-size:.85rem;line-height:1.45}
+.home-top-right .home-mentor-cta{align-self:stretch;text-align:center}
 
 /* ═══ COURSE CATEGORY FILTERS (Learn tab) ═══ */
 .cg-filters{display:flex;gap:6px;flex-wrap:wrap;margin:24px 0 18px;padding-bottom:6px;border-bottom:1px solid var(--hairline);overflow-x:auto;scrollbar-width:none}
@@ -4135,6 +4143,8 @@ function rHome(){
   h+='</div>';
   h+='<div class="home-hero-decor" aria-hidden="true">\u2728</div>';
   h+='</div>';
+  /* Right column — Stats ring + Mentor card stacked beside hero */
+  h+='<div class="home-top-right">';
   /* Stats ring with Ed avatar */
   var circ=2*Math.PI*52;var offset=circ-(pct/100)*circ;
   h+='<div class="home-statcard">';
@@ -4161,8 +4171,19 @@ function rHome(){
     out.push('<div class="streak-dot'+(active?' on':'')+(isToday?' today':'')+'" title="'+key+'"><span class="streak-lbl">'+days[d.getDay()===0?6:d.getDay()-1]+'</span><span class="streak-mark"></span></div>');
   }
   h+='<div class="home-streak">'+out.join('')+'</div>';
+  h+='</div>'; /* /home-statcard */
+  /* Mentor card — anchors the right column beside the hero */
+  h+='<div class="home-mentor">';
+  h+='<div class="home-mentor-photo"><img src="../photo.jpg" alt="Ed Harutyunyan" onerror="this.style.display=\'none\'"></div>';
+  h+='<div class="home-mentor-body">';
+  h+='<div class="home-mentor-eyebrow">§ Your instructor</div>';
+  h+='<div class="home-mentor-name">Ed Harutyunyan</div>';
+  h+='<div class="home-mentor-bio">AI Academy founder · teaching practical AI in Armenia since 2021. Every lesson reviewed personally.</div>';
   h+='</div>';
-  h+='</div>';
+  h+='<button class="home-mentor-cta" onclick="window.open(\'https://edharutyu.github.io/ai-academy/\',\'_blank\')">View profile</button>';
+  h+='</div>'; /* /home-mentor */
+  h+='</div>'; /* /home-top-right */
+  h+='</div>'; /* /home-top */
 
   /* Progress pills row removed — Your-Courses card in the right column already shows the same data with proper progress bars. */
 
@@ -4337,16 +4358,7 @@ function rHome(){
   h+='</div>'; /* /home-grid-right */
   h+='</div>'; /* /home-grid */
 
-  /* Mentor card */
-  h+='<div class="home-mentor">';
-  h+='<div class="home-mentor-photo"><img src="../photo.jpg" alt="Ed Harutyunyan" onerror="this.style.display=\'none\'"></div>';
-  h+='<div class="home-mentor-body">';
-  h+='<div class="home-mentor-eyebrow">\u00a7 Your instructor</div>';
-  h+='<div class="home-mentor-name">Ed Harutyunyan</div>';
-  h+='<div class="home-mentor-bio">AI Academy founder \u00b7 teaching practical AI in Armenia since 2021. Every lesson reviewed personally.</div>';
-  h+='</div>';
-  h+='<button class="home-mentor-cta" onclick="window.open(\'https://edharutyu.github.io/ai-academy/\',\'_blank\')">View profile</button>';
-  h+='</div>';
+  /* Mentor card moved to home-top-right (beside hero) */
 
   h+='</div>'; /* wrap */
   host.innerHTML=h;
