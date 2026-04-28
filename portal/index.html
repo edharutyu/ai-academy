@@ -1736,12 +1736,12 @@ body.gmodal-locked{overflow:hidden}
 /* ═══ HOME DASHBOARD ═══ */
 .home-wrap{display:flex;flex-direction:column;gap:20px}
 /* What's New banner */
-.wn-banner{display:flex;align-items:center;gap:12px;padding:12px 18px;background:linear-gradient(135deg,#1D1A16 0%,#2a251f 100%);border-radius:14px;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s var(--ease);border:none;width:100%;text-align:left}
-.wn-banner:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,21,16,.18)}
-.wn-banner-ico{font-size:1.1rem;flex-shrink:0}
-.wn-banner-txt{flex:1;font-family:var(--sans);font-size:.92rem;font-weight:600;color:#fff;letter-spacing:-.005em}
-.wn-banner-arrow{color:rgba(255,255,255,.6);font-size:.85rem;flex-shrink:0;transition:transform .2s var(--ease)}
-.wn-banner:hover .wn-banner-arrow{transform:translateX(3px)}
+.wn-banner{display:inline-flex;align-items:center;gap:8px;padding:8px 14px 8px 12px;background:rgba(209,139,90,.10);border:1px solid rgba(209,139,90,.22);border-radius:999px;cursor:pointer;transition:background .18s var(--ease),border-color .18s var(--ease),transform .18s var(--ease);text-align:left;width:fit-content;max-width:100%;align-self:flex-start;margin-bottom:18px;min-height:36px}
+.wn-banner:hover{background:rgba(209,139,90,.16);border-color:rgba(209,139,90,.4);transform:translateY(-1px)}
+.wn-banner-ico{font-size:.88rem;flex-shrink:0;line-height:1;color:var(--accent)}
+.wn-banner-txt{flex:0 0 auto;font-family:var(--sans);font-size:.82rem;font-weight:600;color:var(--accent);letter-spacing:-.005em;white-space:nowrap}
+.wn-banner-arrow{color:var(--accent);font-size:.82rem;flex-shrink:0;transition:transform .2s var(--ease);opacity:.7}
+.wn-banner:hover .wn-banner-arrow{transform:translateX(3px);opacity:1}
 .wn-panel{background:#fff;border:1px solid var(--hairline);border-radius:14px;overflow:hidden;margin-top:4px}
 .wn-item{padding:14px 18px;border-bottom:1px solid var(--hairline)}
 .wn-item:last-child{border-bottom:none}
@@ -4162,16 +4162,7 @@ function rHome(){
   h+='</div>';
   h+='</div>';
 
-  /* ─────── Progress pills row (watched X/Y per course) ─────── */
-  h+='<div class="home-pills">';
-  C.slice(0,4).forEach(function(c){
-    var tot=c.sessions.length;var done=0;c.sessions.forEach(function(s){if(isHW(c.id,s.n))done++});
-    h+='<div class="home-pill" onclick="sw(\'secLearn\');setTimeout(function(){selSess('+c.id+','+(u[c.id]||1)+')},80)">';
-    h+='<div class="home-pill-num">'+c.id.toString().padStart(2,'0')+'</div>';
-    h+='<div class="home-pill-body"><div class="home-pill-meta">'+done+'/'+tot+' watched</div><div class="home-pill-ttl">'+E(c.titleEn||c.title)+'</div></div>';
-    h+='</div>';
-  });
-  h+='</div>';
+  /* Progress pills row removed — Your-Courses card in the right column already shows the same data with proper progress bars. */
 
 
   /* ─────── Track filter tabs ─────── */
