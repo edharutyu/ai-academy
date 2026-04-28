@@ -1780,6 +1780,16 @@ body.gmodal-locked{overflow:hidden}
 .continue-cta:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 6px 20px rgba(209,139,90,.35)}
 .continue-cta:active{transform:translateY(0);box-shadow:0 2px 8px rgba(209,139,90,.2)}
 .continue-cta-sub{margin-top:10px;font-size:.78rem;color:var(--text-muted);font-family:var(--serif);font-style:italic}
+/* ═══ WELCOME BACK BANNER (>7 days returning) ═══ */
+.welcome-back-banner{background:linear-gradient(135deg,rgba(209,139,90,.08) 0%,rgba(209,139,90,.04) 100%);border:1px solid rgba(209,139,90,.20);border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:16px;animation:wbSlideDown .3s var(--ease) forwards}
+@keyframes wbSlideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.wb-content{flex:1;min-width:0}
+.wb-greeting{font-size:.92rem;color:var(--text);font-weight:500;font-family:var(--sans);letter-spacing:-.005em}
+.wb-summary{font-size:.84rem;color:var(--text-muted);margin:6px 0 0 0;line-height:1.45}
+.wb-summary strong{color:var(--accent);font-weight:600}
+.wb-dismiss-btn{background:none;border:none;font-size:1.4rem;color:var(--text-muted);cursor:pointer;padding:0;width:44px;height:44px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:color .2s,background .2s;border-radius:50%;line-height:1}
+.wb-dismiss-btn:hover{color:var(--text);background:rgba(26,21,16,.05)}
+.welcome-back-banner.hidden{display:none}
 /* ═══ HOMEWORK DUE CARD (sticky, ≤7d) ═══ */
 .homework-due-card{background:#fff;border:2px solid var(--accent);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 4px 14px rgba(209,139,90,.10)}
 .hw-header{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -4005,6 +4015,25 @@ function rHome(){
   /* Greeting by hour */
   var hr=new Date().getHours();var hello=hr<5?'Still up':hr<12?'Good morning':hr<17?'Good afternoon':hr<22?'Good evening':'Good night';
   var h='<div class="home-wrap">';
+  /* ─────── Welcome Back banner (returning > 7 days) ─────── */
+  var _wbLast=parseInt(LS('lastVisit')||'0',10);
+  var _wbNow=Date.now();
+  var _wbDays=_wbLast?Math.floor((_wbNow-_wbLast)/(1000*60*60*24)):0;
+  var _wbDismissed=false;try{_wbDismissed=sessionStorage.getItem('aap_welcomeBackDismissed')==='true'}catch(e){}
+  if(_wbLast && _wbDays>7 && !_wbDismissed){
+    var _wbNewLessons=0;
+    if(_UPDATES&&_UPDATES.items)_wbNewLessons=_UPDATES.items.filter(function(x){return x.course||x.type==='lesson'}).length;
+    if(!_wbNewLessons)_wbNewLessons=2;
+    var _wbCohortPosts=3;
+    h+='<div class="welcome-back-banner" id="welcomeBackBanner">';
+    h+='<div class="wb-content">';
+    h+='<span class="wb-greeting">Welcome back, <strong>'+E(_studentName||'there')+'</strong></span>';
+    h+='<p class="wb-summary">While you were away: <strong>'+_wbNewLessons+'</strong> new lessons · <strong>'+_wbCohortPosts+'</strong> cohort posts · your spot is held</p>';
+    h+='</div>';
+    h+='<button class="wb-dismiss-btn" aria-label="Dismiss welcome banner" onclick="dismissWelcomeBack()">&times;</button>';
+    h+='</div>';
+  }
+  LS('lastVisit',_wbNow);
   /* ─────── What's New banner ─────── */
   if(_UPDATES&&_UPDATES.items&&_UPDATES.items.length){
     var _seen=LS('seenUpdates')||[];
@@ -5981,6 +6010,10 @@ function cs_addToCalendar(){
 function cs_joinClass(){
   if(typeof toast==='function')toast('Class link will open closer to start time');
   else alert('Class link will open closer to start time');
+}
+function dismissWelcomeBack(){
+  try{sessionStorage.setItem('aap_welcomeBackDismissed','true')}catch(e){}
+  var el=document.getElementById('welcomeBackBanner');if(el)el.classList.add('hidden');
 }
 
 /* INIT */
