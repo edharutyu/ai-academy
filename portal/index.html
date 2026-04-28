@@ -1831,6 +1831,8 @@ body.gmodal-locked{overflow:hidden}
 .wb-dismiss-btn:hover{color:var(--text);background:rgba(26,21,16,.05)}
 .welcome-back-banner.hidden{display:none}
 /* ═══ HOMEWORK DUE CARD (sticky, ≤7d) ═══ */
+.home-urgent-zone{display:flex;flex-direction:column;gap:14px;margin:8px 0 22px}
+@media(max-width:820px){.home-urgent-zone{margin:6px 0 18px;gap:12px}}
 .homework-due-card{background:#fff;border:2px solid var(--accent);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 4px 14px rgba(209,139,90,.10)}
 .hw-header{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .hw-course-chip{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:rgba(209,139,90,.12);color:var(--accent);padding:4px 10px;border-radius:20px}
@@ -4164,6 +4166,42 @@ function rHome(){
 
   /* Progress pills row removed — Your-Courses card in the right column already shows the same data with proper progress bars. */
 
+  /* ─────── Urgent zone — surfaces homework due + next class above the fold ─────── */
+  var _openHwCourse=null,_openHwSess=null;
+  for(var _hi=0;_hi<C.length&&!_openHwCourse;_hi++){
+    var _hc=C[_hi],_hmax=u[_hc.id]||1;
+    for(var _hj=0;_hj<_hc.sessions.length;_hj++){
+      var _hs=_hc.sessions[_hj];
+      if(_hs.n<=_hmax && _hs.hw && !isHW(_hc.id,_hs.n)){_openHwCourse=_hc;_openHwSess=_hs;break}
+    }
+  }
+  h+='<div class="home-urgent-zone">';
+  if(_openHwCourse&&_openHwSess){
+    /* Reuse the next-class Friday for due date — always ≤7 days */
+    var _hwDue=(typeof _csNextClass==='function')?_csNextClass():(function(){var t=new Date();t.setUTCHours(15,0,0,0);t.setUTCDate(t.getUTCDate()+(5-t.getUTCDay()+7)%7);return t})();
+    var _hwDiff=_hwDue-new Date();
+    if(_hwDiff>0){
+      var _hwDays=Math.floor(_hwDiff/(1000*60*60*24));
+      var _hwHours=Math.floor((_hwDiff%(1000*60*60*24))/(1000*60*60));
+      var _hwCountdown=_hwDays>0?('Due in '+_hwDays+'d '+_hwHours+'h'):('Due in '+_hwHours+'h');
+      var _hwUrgent=_hwDays<=2;
+      var _hwBrief=(_openHwSess.hw&&_openHwSess.hw.brief)?_openHwSess.hw.brief:'';
+      var _hwShort=_hwBrief?_hwBrief.replace(/\s+/g,' ').slice(0,140)+(_hwBrief.length>140?'…':''):'Submit your work and Ed will review personally.';
+      h+='<div class="homework-due-card" id="homeworkDueCard">';
+      h+='<div class="hw-header"><span class="hw-course-chip">'+E(_openHwCourse.titleEn||_openHwCourse.title||('Course '+_openHwCourse.id))+'</span><time class="hw-due-countdown'+(_hwUrgent?'':' warm')+'">'+_hwCountdown+'</time></div>';
+      h+='<h3 class="hw-title">Session '+_openHwSess.n+' · '+E(_openHwSess.titleEn||_openHwSess.title||'Homework')+'</h3>';
+      h+='<p class="hw-rubric-reminder">'+E(_hwShort)+'</p>';
+      h+='<button class="hw-submit-btn" onclick="selSess('+_openHwCourse.id+','+_openHwSess.n+')">Submit assignment →</button>';
+      h+='</div>';
+    }
+  }
+  h+='<div class="class-schedule-strip" role="region" aria-label="Next live class">';
+  h+='<span class="cs-pulse" aria-hidden="true"></span>';
+  h+='<div class="cs-info"><span class="cs-label">Next live class</span><time class="cs-date-time" id="cs-date-time">Friday · 19:00 Yerevan</time><span class="cs-countdown">in <strong id="countdown-display">—</strong></span></div>';
+  h+='<div class="cs-avatars" aria-label="Cohort RSVPs"><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><span class="avatar-count">8 mates RSVP\'d</span></div>';
+  h+='<div class="cs-actions"><button class="cs-remind-btn" onclick="cs_addToCalendar()">Add to Calendar</button><button class="cs-join-btn" onclick="cs_joinClass()">Join early</button></div>';
+  h+='</div>';
+  h+='</div>'; /* /home-urgent-zone */
 
   /* ─────── Track filter tabs ─────── */
   var _homeTrack=LS('activeTrack')||'all';
@@ -4203,36 +4241,8 @@ function rHome(){
 
   /* Main grid: left col (Homework + Continue + Schedule + secondary) | right col (Next steps + Courses) */
   h+='<div class="home-grid">';
-  /* LEFT COLUMN — flex stack */
+  /* LEFT COLUMN — flex stack (homework + class strip moved to urgent zone above) */
   h+='<div class="home-grid-left">';
-  /* Homework due card — only if there's an open HW; due = next Friday */
-  var _openHwCourse=null,_openHwSess=null;
-  for(var _hi=0;_hi<C.length&&!_openHwCourse;_hi++){
-    var _hc=C[_hi],_hmax=u[_hc.id]||1;
-    for(var _hj=0;_hj<_hc.sessions.length;_hj++){
-      var _hs=_hc.sessions[_hj];
-      if(_hs.n<=_hmax && _hs.hw && !isHW(_hc.id,_hs.n)){_openHwCourse=_hc;_openHwSess=_hs;break}
-    }
-  }
-  if(_openHwCourse&&_openHwSess){
-    /* Reuse the next-class Friday for due date — always ≤7 days */
-    var _hwDue=(typeof _csNextClass==='function')?_csNextClass():(function(){var t=new Date();t.setUTCHours(15,0,0,0);t.setUTCDate(t.getUTCDate()+(5-t.getUTCDay()+7)%7);return t})();
-    var _hwDiff=_hwDue-new Date();
-    if(_hwDiff>0){
-      var _hwDays=Math.floor(_hwDiff/(1000*60*60*24));
-      var _hwHours=Math.floor((_hwDiff%(1000*60*60*24))/(1000*60*60));
-      var _hwCountdown=_hwDays>0?('Due in '+_hwDays+'d '+_hwHours+'h'):('Due in '+_hwHours+'h');
-      var _hwUrgent=_hwDays<=2;
-      var _hwBrief=(_openHwSess.hw&&_openHwSess.hw.brief)?_openHwSess.hw.brief:'';
-      var _hwShort=_hwBrief?_hwBrief.replace(/\s+/g,' ').slice(0,140)+(_hwBrief.length>140?'…':''):'Submit your work and Ed will review personally.';
-      h+='<div class="homework-due-card" id="homeworkDueCard">';
-      h+='<div class="hw-header"><span class="hw-course-chip">'+E(_openHwCourse.titleEn||_openHwCourse.title||('Course '+_openHwCourse.id))+'</span><time class="hw-due-countdown'+(_hwUrgent?'':' warm')+'">'+_hwCountdown+'</time></div>';
-      h+='<h3 class="hw-title">Session '+_openHwSess.n+' · '+E(_openHwSess.titleEn||_openHwSess.title||'Homework')+'</h3>';
-      h+='<p class="hw-rubric-reminder">'+E(_hwShort)+'</p>';
-      h+='<button class="hw-submit-btn" onclick="selSess('+_openHwCourse.id+','+_openHwSess.n+')">Submit assignment →</button>';
-      h+='</div>';
-    }
-  }
   /* Continue card */
   var _thumbColor=contC.color||'#d18b5a';
   h+='<div class="home-card continue-card"><div class="continue-thumb" style="background:linear-gradient(135deg,#f5e6d3 0%,'+_thumbColor+' 100%);"></div><div class="home-card-ttl"><span class="sec-num">\u00a7 I</span>Continue learning</div>';
@@ -4242,13 +4252,6 @@ function rHome(){
   if(contS.subtitle)h+='<div class="home-sub" style="margin-top:0">'+E(contS.subtitle)+'</div>';
   h+='<button class="continue-cta" onclick="selSess('+contC.id+','+contS.n+')">Resume session →</button>';
   h+='<div class="continue-cta-sub">'+(isHW(contC.id,contS.n)?'✓ Homework submitted · review anytime':'Pick up the homework when you\'re ready')+'</div>';
-  h+='</div>';
-  /* Class schedule strip — inside left col */
-  h+='<div class="class-schedule-strip" role="region" aria-label="Next live class">';
-  h+='<span class="cs-pulse" aria-hidden="true"></span>';
-  h+='<div class="cs-info"><span class="cs-label">Next live class</span><time class="cs-date-time" id="cs-date-time">Friday · 19:00 Yerevan</time><span class="cs-countdown">in <strong id="countdown-display">—</strong></span></div>';
-  h+='<div class="cs-avatars" aria-label="Cohort RSVPs"><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><div class="avatar-mini"></div><span class="avatar-count">8 mates RSVP\'d</span></div>';
-  h+='<div class="cs-actions"><button class="cs-remind-btn" onclick="cs_addToCalendar()">Add to Calendar</button><button class="cs-join-btn" onclick="cs_joinClass()">Join early</button></div>';
   h+='</div>';
   /* Per-student schedule card (from roster.json) */
   var _ssId=LS('studentId');
