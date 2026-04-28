@@ -4159,21 +4159,22 @@ function rHome(){
   h+='</div>';
   h+='<div class="home-statcard-greeting">'+hello+', '+E(_studentName)+' \u2728</div>';
   h+='<div class="home-statcard-sub">Continue your learning to reach your target.</div>';
-  /* 7-day streak strip (placeholder: mark days when at least one session was opened).
-     Uses localStorage "aap_streak" keyed by YYYY-MM-DD. */
+  /* 7-day streak strip — only renders when the user has real history (≥2 active days
+     in the last 7). Today auto-sets, so a fresh user shows no strip until day 2. */
   var today=new Date();var streak=LS('streak')||{};
   var _todayKey=today.toISOString().slice(0,10);
   if(!streak[_todayKey]){streak[_todayKey]=1;LS('streak',streak);}
   var days=['M','T','W','T','F','S','S'];
-  var out=[];
+  var out=[],_activeCount=0;
   for(var di=6;di>=0;di--){
     var d=new Date(today);d.setDate(today.getDate()-di);
     var key=d.toISOString().slice(0,10);
     var active=!!streak[key];
+    if(active)_activeCount++;
     var isToday=di===0;
     out.push('<div class="streak-dot'+(active?' on':'')+(isToday?' today':'')+'" title="'+key+'"><span class="streak-lbl">'+days[d.getDay()===0?6:d.getDay()-1]+'</span><span class="streak-mark"></span></div>');
   }
-  h+='<div class="home-streak">'+out.join('')+'</div>';
+  if(_activeCount>=2)h+='<div class="home-streak">'+out.join('')+'</div>';
   h+='</div>'; /* /home-statcard */
   /* Mentor card — anchors the right column beside the hero */
   h+='<div class="home-mentor">';
