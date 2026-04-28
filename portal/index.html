@@ -1780,6 +1780,17 @@ body.gmodal-locked{overflow:hidden}
 .continue-cta:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 6px 20px rgba(209,139,90,.35)}
 .continue-cta:active{transform:translateY(0);box-shadow:0 2px 8px rgba(209,139,90,.2)}
 .continue-cta-sub{margin-top:10px;font-size:.78rem;color:var(--text-muted);font-family:var(--serif);font-style:italic}
+/* ═══ HOMEWORK DUE CARD (sticky, ≤7d) ═══ */
+.homework-due-card{background:#fff;border:2px solid var(--accent);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 4px 14px rgba(209,139,90,.10)}
+.hw-header{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.hw-course-chip{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:rgba(209,139,90,.12);color:var(--accent);padding:4px 10px;border-radius:20px}
+.hw-due-countdown{font-size:.82rem;font-weight:600;color:var(--danger);font-variant-numeric:tabular-nums}
+.hw-due-countdown.warm{color:var(--accent-hover)}
+.hw-title{font-size:1rem;font-weight:600;color:var(--text);margin:0;letter-spacing:-.01em;line-height:1.35;font-family:var(--sans)}
+.hw-rubric-reminder{font-size:.8rem;color:var(--text-muted);margin:0;line-height:1.45}
+.hw-submit-btn{align-self:flex-start;padding:10px 20px;background:var(--accent);color:#fff;font-size:.9rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:transform var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease),box-shadow var(--dur-fast) var(--ease);min-height:44px;font-family:var(--sans);box-shadow:0 2px 8px rgba(209,139,90,.18)}
+.hw-submit-btn:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 6px 18px rgba(209,139,90,.30)}
+.hw-submit-btn:active{transform:translateY(0)}
 /* ═══ CLASS SCHEDULE STRIP ═══ */
 .class-schedule-strip{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;animation:csSlideIn .35s var(--ease) forwards}
 @keyframes csSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -4110,10 +4121,38 @@ function rHome(){
     h+='</div></div>';
   }
 
-  /* Main grid: left col (Continue + Schedule + secondary) | right col (Next steps + Courses) */
+  /* Main grid: left col (Homework + Continue + Schedule + secondary) | right col (Next steps + Courses) */
   h+='<div class="home-grid">';
   /* LEFT COLUMN — flex stack */
   h+='<div class="home-grid-left">';
+  /* Homework due card — only if there's an open HW; due = next Friday */
+  var _openHwCourse=null,_openHwSess=null;
+  for(var _hi=0;_hi<C.length&&!_openHwCourse;_hi++){
+    var _hc=C[_hi],_hmax=u[_hc.id]||1;
+    for(var _hj=0;_hj<_hc.sessions.length;_hj++){
+      var _hs=_hc.sessions[_hj];
+      if(_hs.n<=_hmax && _hs.hw && !isHW(_hc.id,_hs.n)){_openHwCourse=_hc;_openHwSess=_hs;break}
+    }
+  }
+  if(_openHwCourse&&_openHwSess){
+    /* Reuse the next-class Friday for due date — always ≤7 days */
+    var _hwDue=(typeof _csNextClass==='function')?_csNextClass():(function(){var t=new Date();t.setUTCHours(15,0,0,0);t.setUTCDate(t.getUTCDate()+(5-t.getUTCDay()+7)%7);return t})();
+    var _hwDiff=_hwDue-new Date();
+    if(_hwDiff>0){
+      var _hwDays=Math.floor(_hwDiff/(1000*60*60*24));
+      var _hwHours=Math.floor((_hwDiff%(1000*60*60*24))/(1000*60*60));
+      var _hwCountdown=_hwDays>0?('Due in '+_hwDays+'d '+_hwHours+'h'):('Due in '+_hwHours+'h');
+      var _hwUrgent=_hwDays<=2;
+      var _hwBrief=(_openHwSess.hw&&_openHwSess.hw.brief)?_openHwSess.hw.brief:'';
+      var _hwShort=_hwBrief?_hwBrief.replace(/\s+/g,' ').slice(0,140)+(_hwBrief.length>140?'…':''):'Submit your work and Ed will review personally.';
+      h+='<div class="homework-due-card" id="homeworkDueCard">';
+      h+='<div class="hw-header"><span class="hw-course-chip">'+E(_openHwCourse.titleEn||_openHwCourse.title||('Course '+_openHwCourse.id))+'</span><time class="hw-due-countdown'+(_hwUrgent?'':' warm')+'">'+_hwCountdown+'</time></div>';
+      h+='<h3 class="hw-title">Session '+_openHwSess.n+' · '+E(_openHwSess.titleEn||_openHwSess.title||'Homework')+'</h3>';
+      h+='<p class="hw-rubric-reminder">'+E(_hwShort)+'</p>';
+      h+='<button class="hw-submit-btn" onclick="selSess('+_openHwCourse.id+','+_openHwSess.n+')">Submit assignment →</button>';
+      h+='</div>';
+    }
+  }
   /* Continue card */
   var _thumbColor=contC.color||'#d18b5a';
   h+='<div class="home-card continue-card"><div class="continue-thumb" style="background:linear-gradient(135deg,#f5e6d3 0%,'+_thumbColor+' 100%);"></div><div class="home-card-ttl"><span class="sec-num">\u00a7 I</span>Continue learning</div>';
