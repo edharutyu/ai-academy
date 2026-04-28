@@ -2176,12 +2176,11 @@ body.gmodal-locked{overflow:hidden}
 .home-top-right .home-mentor-cta{align-self:stretch;text-align:center}
 
 /* ═══ COURSE CATEGORY FILTERS (Learn tab) ═══ */
-.cg-filters{display:flex;gap:6px;flex-wrap:wrap;margin:24px 0 18px;padding-bottom:6px;border-bottom:1px solid var(--hairline);overflow-x:auto;scrollbar-width:none}
+.cg-filters{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 18px;padding-bottom:6px;overflow-x:auto;scrollbar-width:none}
 .cg-filters::-webkit-scrollbar{display:none}
-.cg-filter{font-family:var(--sans);font-weight:600;font-size:.92rem;color:var(--text-mid);background:transparent;border:none;padding:10px 14px;cursor:pointer;position:relative;letter-spacing:-.005em;white-space:nowrap;transition:color var(--dur-fast) var(--ease)}
-.cg-filter:hover{color:var(--text)}
-.cg-filter.active{color:var(--text);font-weight:700}
-.cg-filter.active::after{content:'';position:absolute;left:8px;right:8px;bottom:-7px;height:2px;background:var(--text);border-radius:2px}
+.cg-filter{font-family:var(--sans);font-weight:500;font-size:.88rem;color:var(--text-mid);background:transparent;border:1px solid var(--hairline);padding:8px 14px;border-radius:999px;cursor:pointer;letter-spacing:-.005em;white-space:nowrap;transition:background var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease)}
+.cg-filter:hover{background:var(--accent-soft);border-color:rgba(209,139,90,.20);color:var(--text)}
+.cg-filter.active{background:var(--text);color:#fff;border-color:transparent;font-weight:600}
 
 /* ═══ FEATURED PATHS (Home top-row) ═══ */
 .feat-section{margin:8px 0 32px;padding:0}
