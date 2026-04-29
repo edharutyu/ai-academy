@@ -2363,6 +2363,59 @@ body.gmodal-locked{overflow:hidden}
 .v2-sf-why{font-size:.72rem;color:var(--text-muted);font-style:italic;text-align:right;max-width:280px}
 @media(max-width:768px){.v2-sf-ol li{grid-template-columns:24px 1fr;row-gap:4px}.v2-sf-id,.v2-sf-stat,.v2-sf-why{grid-column:2}}
 
+/* ═══ CATALOG v2 — module detail modal (modOpen) ═══ */
+.v2-modal .md-card.v2-modal-card{width:min(820px,100%);max-height:92vh;background:var(--bg2);border:1px solid var(--card-border);border-radius:10px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;box-shadow:0 30px 80px rgba(0,0,0,.18)}
+.v2-modal-hero{position:relative;aspect-ratio:16/6;padding:24px;background:linear-gradient(135deg,#7d9bb6,#3d5878);display:flex;align-items:flex-end}
+.v2-modal-hero[data-tone="image"]{background:linear-gradient(135deg,#d6a585,#a85f2d)}
+.v2-modal-hero[data-tone="video"]{background:linear-gradient(135deg,#7d9bb6,#3d5878)}
+.v2-modal-hero[data-tone="brand"]{background:linear-gradient(135deg,#8fa67d,#3a8a4a)}
+.v2-modal-hero[data-tone="automate"]{background:linear-gradient(135deg,#9b85b8,#5b417f)}
+.v2-modal-hero[data-tone="claude"]{background:linear-gradient(135deg,#c8956a,#a85f2d)}
+.v2-modal-hero[data-tone="foundations"]{background:linear-gradient(135deg,#c4956a,#8a6235)}
+.v2-modal-hero[data-tone="bundle"]{background:linear-gradient(135deg,#a85f2d,#5b417f)}
+.v2-modal-back{position:absolute;top:18px;left:18px;font-family:var(--mono,monospace);font-size:.7rem;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.92);background:rgba(0,0,0,.35);padding:7px 12px;border-radius:2px;border:0;cursor:pointer;backdrop-filter:blur(6px)}
+.v2-modal-back:hover{background:rgba(0,0,0,.5)}
+.v2-modal-tag{font-family:var(--mono,monospace);font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.35);padding:5px 10px;border-radius:2px;backdrop-filter:blur(6px);max-width:60%}
+.v2-modal-num{position:absolute;top:18px;right:64px;font-family:var(--serif,Georgia,serif);font-style:italic;font-weight:300;font-size:2.6rem;color:rgba(255,255,255,.85);line-height:1}
+.v2-modal-trend{position:absolute;bottom:18px;right:24px;font-family:var(--mono,monospace);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--accent);padding:4px 9px;border-radius:2px}
+.v2-modal-close{position:absolute !important;top:18px !important;right:18px}
+.v2-modal-body{padding:28px 32px 32px;overflow:auto}
+.v2-modal-h2{font-family:var(--serif,Georgia,serif);font-weight:400;font-size:1.7rem;line-height:1.15;letter-spacing:-.014em;margin:0 0 6px;color:var(--text)}
+.v2-modal-sub{font-family:var(--serif,Georgia,serif);font-style:italic;font-size:1.05rem;color:var(--text-dim);margin:0 0 18px}
+.v2-modal-grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:14px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);margin:6px 0 18px}
+@media(max-width:600px){.v2-modal-grid2{grid-template-columns:1fr}}
+.v2-modal-label{font-family:var(--mono,monospace);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px}
+.v2-modal-val{font-size:.85rem;color:var(--text-dim);line-height:1.5}
+.v2-modal-code{font-family:var(--mono,monospace);font-size:.72rem;background:var(--bg3,#e4dbc7);padding:1px 6px;border-radius:2px;color:var(--accent-ink,#8a4a18)}
+.v2-modal-h3{font-family:var(--mono,monospace);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text);margin:20px 0 10px;font-weight:500}
+.v2-modal-ships{margin:0 0 18px;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.v2-modal-ships li{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;color:var(--text-dim);line-height:1.5}
+.v2-modal-ck{color:#3a8a4a;flex-shrink:0;margin-top:2px}
+.v2-modal-sess{margin:0 0 18px;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;counter-reset:msess}
+.v2-modal-sess li{counter-increment:msess;display:flex;gap:14px;align-items:baseline;font-size:.92rem;color:var(--text-dim);padding:9px 0;border-bottom:1px solid var(--hairline)}
+.v2-modal-sess li::before{content:counter(msess,decimal-leading-zero);font-family:var(--mono,monospace);font-size:.65rem;color:var(--accent);letter-spacing:.04em;flex-shrink:0}
+.v2-modal-stub{font-family:var(--mono,monospace);font-size:.72rem;color:var(--text-muted);letter-spacing:.04em;margin:0 0 14px}
+.v2-modal-stub code{background:var(--bg3,#e4dbc7);padding:1px 6px;border-radius:2px;color:var(--accent-ink,#8a4a18)}
+.v2-modal-tools{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.v2-modal-tool{font-family:var(--mono,monospace);font-size:.7rem;letter-spacing:.04em;color:var(--text-dim);background:var(--bg3,#e4dbc7);border:1px solid var(--hairline);padding:4px 9px;border-radius:2px}
+.v2-modal-gate{padding:14px 18px;background:rgba(91,127,166,.10);border:1px solid rgba(91,127,166,.4);border-radius:4px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:8px}
+.v2-modal-gate-text{font-size:.86rem;color:var(--text);line-height:1.4;flex:1;min-width:200px}
+.v2-modal-gate-text strong{color:#5b7fa6;display:block;font-family:var(--mono,monospace);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:3px;font-weight:500}
+.v2-modal-cta{font-family:var(--mono,monospace);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--text);padding:9px 16px;border-radius:2px;border:0;cursor:pointer;white-space:nowrap}
+.v2-modal-cta:hover:not(:disabled){background:var(--accent)}
+.v2-modal-strike{color:rgba(28,24,18,.42);text-decoration:line-through;margin-right:6px;font-weight:400}
+.v2-modal-price{color:var(--text);font-weight:500}
+.v2-modal-note{font-family:var(--mono,monospace);font-size:.66rem;color:var(--text-muted);margin:14px 0 0;letter-spacing:.04em;font-style:italic;line-height:1.5;padding:10px 0;border-top:1px solid var(--hairline)}
+
+/* ═══ CATALOG v2 — standalone Catalog tab hero (rCurriculum) ═══ */
+.v2-cat-wrap{max-width:1240px;margin:0 auto;padding:48px 32px 80px}
+@media(max-width:768px){.v2-cat-wrap{padding:32px 20px 60px}}
+.v2-cat-head{margin-bottom:8px}
+.v2-cat-h1{font-family:var(--serif,Georgia,serif);font-weight:300;font-size:clamp(36px,5vw,56px);line-height:1.05;letter-spacing:-.018em;color:var(--text);margin:14px 0 14px;text-wrap:balance}
+.v2-cat-h1 em{font-style:italic;color:var(--accent);font-weight:300}
+.v2-cat-lede{font-family:var(--sans,Inter,sans-serif);font-size:1.05rem;line-height:1.55;color:var(--text-dim);margin:0;max-width:64ch}
+.v2-cat-lede strong{color:var(--text);font-weight:500}
+
 /* ═══ FEATURED PATHS (Home top-row) ═══ */
 .feat-section{margin:8px 0 32px;padding:0}
 .feat-head{margin:0 0 18px;display:flex;flex-direction:column;gap:4px}
@@ -4281,6 +4334,21 @@ body::after{display:none!important}
       <div class="md-foot" id="mdModalFoot"></div>
     </div>
   </div>
+  <!-- v2 catalog: module detail modal (modOpen). Reuses the .md-modal overlay shell. -->
+  <div class="md-modal v2-modal" id="modModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modModalTitle">
+    <div class="md-card v2-modal-card" role="document">
+      <div class="v2-modal-hero" id="modModalHero">
+        <button type="button" class="v2-modal-back" aria-label="Back to catalog" onclick="modClose()">← Back to catalog</button>
+        <span class="v2-modal-tag" id="modModalTag"></span>
+        <span class="v2-modal-num" id="modModalNum"></span>
+        <span class="v2-modal-trend" id="modModalTrend" hidden>🔥 Trending Apr 2026</span>
+        <button type="button" class="md-head-close v2-modal-close" aria-label="Close" onclick="modClose()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+        </button>
+      </div>
+      <div class="md-body v2-modal-body" id="modModalBody"></div>
+    </div>
+  </div>
   <div class="toast" id="toast"></div>
   </div><!-- /.content-area -->
 </div>
@@ -4538,7 +4606,7 @@ var ICO={
 var TABS=[
   {id:'secHome',    l:'Home',     ic:ICO.home||ICO.learn, mob:true},
   {id:'secLearn',   l:'Learn',    ic:ICO.learn,   mob:true},
-  {id:'secCurriculum',l:'Curriculum',ic:ICO.curriculum,mob:true},
+  {id:'secCurriculum',l:'Catalog', ic:ICO.curriculum,mob:true},
   {id:'secLibrary', l:'Library',  ic:ICO.library, mob:true},
   {id:'secProgress',l:'Progress', ic:ICO.progress,mob:true},
   {id:'secTeach',   l:'Teach',    ic:ICO.teach,   mob:true, t:1}
@@ -5708,15 +5776,168 @@ function _v2ShipFirstSlate(){
   return h;
 }
 
-/* modOpen — PR 2 will replace this with a real detail modal. For now, a friendly toast that names the module. */
+/* Slug → numeric C course ID. Used by modOpen to wire "Continue lesson →" CTAs to the lesson player. */
+var _v2SlugToCid={foundations:1,'image-mastery':2,'video-creation':3,'brand-identity':4,'content-production':5,'ai-business':6,'research-with-ai':7};
+var _modModalLastTrigger=null;
+
+/* modOpen — opens the v2 detail modal for a module or bundle. */
 function modOpen(id){
-  if(!_CURR)return;
-  var m=_v2Mod(id)||(Array.isArray(_CURR.bundles)?_CURR.bundles.find(function(b){return b.id===id}):null);
-  if(!m){toast('Module not found: '+id,'err');return}
-  if(typeof toast==='function')toast('"'+m.title+'" — detail view ships in PR 2','ok',2400);
-  else console.log('modOpen',id,m);
+  if(!_CURR){loadCurriculum(function(){modOpen(id)});return}
+  var m=_v2Mod(id);
+  var bundle=null;
+  if(!m&&Array.isArray(_CURR.bundles))bundle=_CURR.bundles.find(function(b){return b.id===id});
+  if(!m&&!bundle){if(typeof toast==='function')toast('Module not found: '+id,'err');return}
+  _modModalLastTrigger=document.activeElement;
+  var modal=document.getElementById('modModal');if(!modal)return;
+  var hero=document.getElementById('modModalHero');
+  var tagEl=document.getElementById('modModalTag');
+  var numEl=document.getElementById('modModalNum');
+  var trendEl=document.getElementById('modModalTrend');
+  var bodyEl=document.getElementById('modModalBody');
+  if(bundle){_modRenderBundle(bundle,hero,tagEl,numEl,trendEl,bodyEl)}
+  else{_modRenderModule(m,hero,tagEl,numEl,trendEl,bodyEl)}
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  setTimeout(function(){var btn=modal.querySelector('.v2-modal-back');if(btn)btn.focus()},80);
 }
-window.modOpen=modOpen;
+function modClose(){
+  var modal=document.getElementById('modModal');if(!modal)return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  if(_modModalLastTrigger&&typeof _modModalLastTrigger.focus==='function')_modModalLastTrigger.focus();
+}
+window.modOpen=modOpen;window.modClose=modClose;
+
+/* Module body — title, subtitle, "for"/prereqs, ships list, sessions, tools, tier-aware footer CTA. */
+function _modRenderModule(m,hero,tagEl,numEl,trendEl,bodyEl){
+  var trending=_v2IsTrending(m);
+  /* Hero tone — color the gradient by theme */
+  var tone={foundations:'foundations',image:'image',video:'video',brand:'brand',automate:'automate',claude:'claude'}[m.theme]||'image';
+  hero.setAttribute('data-tone',tone);
+  /* Header eyebrow */
+  var label=({foundations:'Foundations',image:'Image',video:'Video',brand:'Brand & Content',automate:'Automate',claude:'Build with Claude'})[m.theme]||m.theme;
+  tagEl.textContent='§ '+label+' · '+_v2TierLabel(m);
+  numEl.textContent=m.number||'';
+  trendEl.hidden=!trending;
+  /* Body */
+  var h='';
+  h+='<h2 class="v2-modal-h2">'+E(m.title)+'</h2>';
+  if(m.subtitle)h+='<p class="v2-modal-sub">'+E(m.subtitle)+'</p>';
+  /* For + Prereqs grid */
+  var pre=(m.prerequisites&&m.prerequisites.modules)||[];
+  var preTopics=(m.prerequisites&&m.prerequisites.topics)||[];
+  var aud=(m.audience&&m.audience.archetype)||m.persona||'';
+  if(aud||pre.length||preTopics.length){
+    h+='<div class="v2-modal-grid2">';
+    h+='<div><div class="v2-modal-label">For</div><div class="v2-modal-val">'+E(aud||'—')+'</div></div>';
+    h+='<div><div class="v2-modal-label">Prerequisites</div><div class="v2-modal-val">';
+    if(pre.length||preTopics.length){
+      var parts=[];
+      pre.forEach(function(p){parts.push('<code class="v2-modal-code">'+E(p)+'</code>')});
+      preTopics.forEach(function(t){parts.push(E(t))});
+      h+=parts.join(' + ');
+    }else h+='None';
+    h+='</div></div></div>';
+  }
+  /* Deliverable */
+  if(m.deliverable){
+    h+='<h3 class="v2-modal-h3">What you\'ll ship</h3>';
+    h+='<ul class="v2-modal-ships"><li><span class="v2-modal-ck">✓</span>'+E(m.deliverable)+'</li>';
+    if(Array.isArray(m.outcomes))m.outcomes.slice(0,3).forEach(function(o){h+='<li><span class="v2-modal-ck">✓</span>'+E(o)+'</li>'});
+    h+='</ul>';
+  }else if(Array.isArray(m.outcomes)&&m.outcomes.length){
+    h+='<h3 class="v2-modal-h3">What you\'ll ship</h3>';
+    h+='<ul class="v2-modal-ships">';
+    m.outcomes.slice(0,4).forEach(function(o){h+='<li><span class="v2-modal-ck">✓</span>'+E(o)+'</li>'});
+    h+='</ul>';
+  }
+  /* Sessions */
+  if(Array.isArray(m.sessionsList)&&m.sessionsList.length){
+    h+='<h3 class="v2-modal-h3">Sessions</h3><ol class="v2-modal-sess">';
+    m.sessionsList.forEach(function(s){h+='<li>'+E(s.title||s.titleEn||'')+'</li>'});
+    h+='</ol>';
+  }else if(m.sessions){
+    h+='<h3 class="v2-modal-h3">Sessions</h3><p class="v2-modal-stub"><code>'+m.sessions+' sessions</code> · '+E(m.duration||'duration TBD')+' · session titles arrive with content authoring</p>';
+  }
+  /* Tools */
+  if(Array.isArray(m.tools)&&m.tools.length){
+    h+='<h3 class="v2-modal-h3">Tools used</h3><div class="v2-modal-tools">';
+    m.tools.forEach(function(t){h+='<span class="v2-modal-tool">'+E(t)+'</span>'});
+    h+='</div>';
+  }
+  /* Footer CTA — varies by tier + status */
+  h+=_modFooterFor(m);
+  bodyEl.innerHTML=h;
+}
+
+/* Bundle body — alternate render (lists modules + total price). */
+function _modRenderBundle(b,hero,tagEl,numEl,trendEl,bodyEl){
+  hero.setAttribute('data-tone','bundle');
+  tagEl.textContent='§ Stacked track · Bundle';
+  numEl.textContent='◈';
+  trendEl.hidden=true;
+  var p=b.pricing||{};
+  var h='<h2 class="v2-modal-h2">'+E(b.title)+'</h2>';
+  if(b.subtitle)h+='<p class="v2-modal-sub">'+E(b.subtitle)+'</p>';
+  h+='<h3 class="v2-modal-h3">What\'s included</h3><ol class="v2-modal-sess">';
+  (b.modules||[]).forEach(function(mid){
+    var mm=_v2Mod(mid);if(!mm)return;
+    h+='<li><strong>'+E(mm.title)+'</strong> · '+(mm.sessions||'?')+' sessions · '+_v2Price(mm).replace(/<[^>]+>/g,'')+'</li>';
+  });
+  h+='</ol>';
+  h+='<div class="v2-modal-gate"><div class="v2-modal-gate-text">';
+  h+='<strong>Bundle pricing</strong>';
+  if(p.fullPriceIfBoughtSeparately)h+='<span class="v2-modal-strike">$'+p.fullPriceIfBoughtSeparately+' separately</span> ';
+  if(p.oneTime!=null)h+='<span class="v2-modal-price">$'+p.oneTime+' bundle'+(p.addOnNote?' · '+E(p.addOnNote):'')+'</span>';
+  h+='</div><button type="button" class="v2-modal-cta" onclick="toast(\'Bundle booking ships post-launch\',\'ok\')">Book bundle →</button>';
+  h+='</div>';
+  if(b.ownerNotes)h+='<p class="v2-modal-note">'+E(b.ownerNotes)+'</p>';
+  bodyEl.innerHTML=h;
+}
+
+/* Footer CTA — picks shape based on tier + publication state. */
+function _modFooterFor(m){
+  var h='<div class="v2-modal-gate">';
+  /* Cohort module live in Learn → "Continue lesson →" */
+  if(m.tier==='cohort'&&m.publishedTo&&m.publishedTo.learn&&_v2SlugToCid[m.id]){
+    var cid=_v2SlugToCid[m.id];
+    h+='<div class="v2-modal-gate-text"><strong>Cohort enrollment</strong>Included · jump straight to your next session.</div>';
+    h+='<button type="button" class="v2-modal-cta" onclick="modClose();selCourse('+cid+')">Continue lesson →</button>';
+  }
+  /* Cohort but no Learn body yet → passive */
+  else if(m.tier==='cohort'){
+    h+='<div class="v2-modal-gate-text"><strong>Cohort enrollment</strong>Included · content arrives with Cowork authoring track.</div>';
+    h+='<button type="button" class="v2-modal-cta" disabled style="opacity:.5;cursor:not-allowed">Authoring</button>';
+  }
+  /* Premium — locked vs unlocked. Today, all 4+ premium modules are time-gated; render passive with unlock date. */
+  else if(m.tier==='premium'){
+    var dateMap={'premium-style':'May 12','second-brain':'Jun 9','voice-automation':'Jun 23','delivery-automation':'Jul 14','content-calendar':'Jul 28'};
+    var d=dateMap[m.id]||'TBD';
+    h+='<div class="v2-modal-gate-text"><strong>Premium · unlocks '+E(d)+'</strong>You\'re on track. Finish prerequisites and this opens automatically — no extra cost.</div>';
+    h+='<button type="button" class="v2-modal-cta" disabled style="opacity:.5;cursor:not-allowed">Locked</button>';
+  }
+  /* Pro / standalone → buy CTA */
+  else if(m.tier==='pro'||m.tier==='standalone'){
+    var price=_v2Price(m);
+    h+='<div class="v2-modal-gate-text"><strong>'+(m.tier==='pro'?'Pro course':'Standalone module')+'</strong>'+price+' · or included with Pro membership.</div>';
+    h+='<button type="button" class="v2-modal-cta" onclick="toast(\'Module booking ships post-launch\',\'ok\')">Book module →</button>';
+  }
+  /* Free → start now */
+  else if(m.tier==='free'){
+    var freeCid=_v2SlugToCid[m.id];
+    if(freeCid){
+      h+='<div class="v2-modal-gate-text"><strong>Free</strong>Start anytime · no signup needed.</div>';
+      h+='<button type="button" class="v2-modal-cta" onclick="modClose();selCourse('+freeCid+')">Start free module →</button>';
+    }else{
+      h+='<div class="v2-modal-gate-text"><strong>Free</strong>Start anytime · no signup needed.</div>';
+      h+='<button type="button" class="v2-modal-cta" disabled style="opacity:.5;cursor:not-allowed">Authoring</button>';
+    }
+  }
+  h+='</div>';
+  /* Owner notes (if any) */
+  if(m.ownerNotes)h+='<p class="v2-modal-note">'+E(m.ownerNotes)+'</p>';
+  return h;
+}
 function toggleWnPanel(){var p=$('wnPanel');var b=$('wnBanner');if(!p||!b)return;var open=p.style.display==='none';p.style.display=open?'':'none';b.setAttribute('aria-expanded',open?'true':'false');}
 function markAllSeen(){if(!_UPDATES||!_UPDATES.items)return;var ids=_UPDATES.items.map(function(it){return it.id});LS('seenUpdates',ids);rHome();}
 window.setCgFilter=setCgFilter;
@@ -7423,48 +7644,56 @@ function _currCurrentCourseId(){
   var tr=_studentCohort?_studentCohort.split('-')[0]:'';
   return _CURR_TRACK_TO_COURSE[tr]||'';
 }
+/* v2 Catalog (the standalone "Catalog" tab — full browse view).
+   Renders premium rail, trending row, theme rails, bundles, ship-first slate.
+   No active cohort grid (that lives in Learn). No tier filter (theme intent rail at top instead).
+   Legacy _currTierSection / _currCard / currFilter / currOpen below this fn are scheduled for PR 3 deletion. */
 function rCurriculum(){
   var host=$('curriculumWrap');if(!host)return;
   if(!_CURR){
-    host.innerHTML='<div class="curr-wrap"><div class="curr-head"><div class="curr-eyebrow">Curriculum &middot; Spring 2026</div><h1 class="curr-h1">Loading the full map…</h1><p class="curr-lede">Pulling the catalog from <code>data/curriculum.json</code>.</p></div></div>';
+    host.innerHTML='<div class="v2-cat-wrap"><div class="v2-cat-head"><div class="v2-eyebrow"><span class="v2-eb-pip" style="color:var(--accent)">▸</span> &sect; Catalog &middot; Spring 2026</div><h1 class="v2-cat-h1">Loading the catalog…</h1></div></div>';
     loadCurriculum(function(err){
-      if(err){host.innerHTML='<div class="curr-wrap"><div class="curr-head"><div class="curr-eyebrow">Curriculum</div><h1 class="curr-h1">Couldn’t load the catalog.</h1><p class="curr-lede">Check that <code>data/curriculum.json</code> exists and the dev server can reach it. Reason: '+E(err.message||String(err))+'.</p></div></div>';return}
+      if(err){host.innerHTML='<div class="v2-cat-wrap"><div class="v2-cat-head"><div class="v2-eyebrow">Catalog</div><h1 class="v2-cat-h1">Couldn’t load the catalog.</h1><p class="v2-cat-lede">Check that <code>data/curriculum.json</code> exists. Reason: '+E(err.message||String(err))+'.</p></div></div>';return}
       rCurriculum();
     });
     return;
   }
-  var data=_CURR;
-  var currentId=_currCurrentCourseId();
-  var counts={
-    all:data.courses.length+data.premiumModules.length+data.proCourses.length,
-    free:data.courses.filter(function(c){return c.tier==='free'}).length,
-    cohort:data.courses.filter(function(c){return c.tier==='cohort'}).length,
-    premium:data.premiumModules.length,
-    pro:data.proCourses.length
-  };
-  var h='<div class="curr-wrap" data-active-tier="all">';
-  h+='<div class="curr-head">';
-  h+='<div class="curr-eyebrow">Curriculum &middot; '+E(data.season||'Spring 2026')+'</div>';
-  h+='<h1 class="curr-h1">The full map &mdash; every course, every track, every session.</h1>';
-  h+='<p class="curr-lede">Free, cohort, premium, pro &mdash; the same five-phase pattern under the hood (Learn &middot; See &middot; Try &middot; Quiz &middot; Homework). Pick your path; we’ll meet you in class on Friday.</p>';
-  h+='</div>';
-  /* Tier filter chips */
-  h+='<div class="curr-chips" role="tablist" aria-label="Filter by tier">';
-  ['all','free','cohort','premium','pro'].forEach(function(t){
-    var lbl=t.charAt(0).toUpperCase()+t.slice(1);
-    h+='<button class="curr-chip'+(t==='all'?' active':'')+'" data-chip="'+t+'" role="tab" aria-selected="'+(t==='all')+'" type="button" onclick="currFilter(\''+t+'\')">'+lbl+' <span class="count">'+counts[t]+'</span></button>';
+  var activeFilter=LS('activeTrack')||'all';
+  var counts=_v2ModuleCounts();
+  var h='<div class="v2-cat-wrap">';
+  /* Hero */
+  h+='<header class="v2-cat-head">';
+  h+='<div class="v2-eyebrow"><span class="v2-eb-pip" style="color:var(--accent)">▸</span> &sect; Catalog &middot; '+E(_CURR.season||'Spring 2026')+'</div>';
+  h+='<h1 class="v2-cat-h1">The full <em>catalog</em>.</h1>';
+  h+='<p class="v2-cat-lede"><strong>'+counts.all+' modules</strong> across <strong>6 themes</strong>, browsable by intent — not by tier. Free, cohort, standalone, premium, pro all surface together under the topical rail that fits them. New trending modules ship monthly.</p>';
+  /* Intent rail (themes) */
+  h+='<nav class="cg-filters v2-intents" role="tablist" aria-label="Browse by intent" style="margin-top:24px">';
+  var filters=[
+    {id:'all',lbl:'All',cnt:counts.all,ico:''},
+    {id:'foundations',lbl:'Foundations',cnt:counts.foundations,ico:'§'},
+    {id:'image',lbl:'Image',cnt:counts.image,ico:'⊡'},
+    {id:'video',lbl:'Video',cnt:counts.video,ico:'▷'},
+    {id:'brand',lbl:'Brand & Content',cnt:counts.brand,ico:'◇'},
+    {id:'automate',lbl:'Automate',cnt:counts.automate,ico:'⟳'},
+    {id:'claude',lbl:'Build with Claude',cnt:counts.claude,ico:'⌘'}
+  ];
+  filters.forEach(function(f){
+    var on=f.id===activeFilter;
+    h+='<button type="button" class="cg-filter'+(on?' active':'')+'" onclick="setCgFilter(\''+f.id+'\');rCurriculum()" aria-current="'+(on?'true':'false')+'" data-filter="'+f.id+'">';
+    if(f.ico)h+='<span class="cg-filter-ico" aria-hidden="true">'+f.ico+'</span>';
+    h+=E(f.lbl);
+    h+='<span class="cg-filter-cnt">'+f.cnt+'</span>';
+    h+='</button>';
   });
-  h+='</div>';
-  /* Free */
-  var fc=data.courses.filter(function(c){return c.tier==='free'});
-  if(fc.length)h+=_currTierSection('free',data.tiers.find(function(t){return t.id==='free'}),fc,currentId,'free');
-  /* Cohort */
-  var cc=data.courses.filter(function(c){return c.tier==='cohort'});
-  if(cc.length)h+=_currTierSection('cohort',data.tiers.find(function(t){return t.id==='cohort'}),cc,currentId,'cohort');
-  /* Premium */
-  if(data.premiumModules.length)h+=_currTierSection('premium',data.tiers.find(function(t){return t.id==='premium'}),data.premiumModules,currentId,'premium');
-  /* Pro */
-  if(data.proCourses.length)h+=_currTierSection('pro',data.tiers.find(function(t){return t.id==='pro'}),data.proCourses,currentId,'pro');
+  h+='</nav>';
+  h+='</header>';
+  /* Body — same v2 sections as Learn, just no cohort grid + no journey strip */
+  h+=_v2Legend();
+  h+=_v2PremiumRail(activeFilter);
+  h+=_v2TrendingRow(activeFilter);
+  h+=_v2ThemeRails(activeFilter);
+  h+=_v2BundleGrid();
+  h+=_v2ShipFirstSlate();
   h+='</div>';
   host.innerHTML=h;
 }
@@ -7706,11 +7935,15 @@ function closeMdReader(){
 }
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){
+    var mod=document.getElementById('modModal');
+    if(mod&&mod.classList.contains('open')){modClose();return}
     var modal=document.getElementById('mdModal');
     if(modal&&modal.classList.contains('open'))closeMdReader();
   }
 });
 document.addEventListener('click',function(e){
+  var mod=document.getElementById('modModal');
+  if(mod&&mod.classList.contains('open')&&e.target===mod){modClose();return}
   var modal=document.getElementById('mdModal');
   if(modal&&modal.classList.contains('open')&&e.target===modal)closeMdReader();
 });
