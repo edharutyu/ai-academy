@@ -3744,86 +3744,10 @@ body::after{display:none!important}
   .pblk .vtip:hover,.pblk .kpl li:hover,.pblk .mc:hover{transform:none!important}
 }
 
-/* ─────────────────── 16. CURRICULUM ROUTE ─────────────────── */
-/* Source of truth: /data/curriculum.json. Render fn: rCurriculum(). */
+/* ─────────────────── 16. CATALOG ROUTE (v2) ─────────────────── */
+/* Render fn: rCurriculum() — renders the v2 catalog (theme rails + bundles + ship-first).
+   Hero styles in .v2-cat-* below; rail/tile styles share .v2-* with the Learn-side render. */
 #secCurriculum{background:var(--bg)}
-.curr-wrap{max-width:1240px;margin:0 auto;padding:48px 32px 80px}
-@media(max-width:768px){.curr-wrap{padding:32px 20px 60px}}
-
-.curr-head{margin-bottom:36px}
-.curr-eyebrow{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-.curr-h1{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.6vw,44px);line-height:1.1;letter-spacing:-0.022em;color:var(--text);margin:0 0 18px;max-width:920px;text-wrap:balance}
-.curr-lede{font-family:var(--sans);font-size:17px;line-height:1.55;color:var(--text-dim);max-width:680px;margin:0;letter-spacing:-0.005em}
-
-.curr-chips{display:flex;flex-wrap:wrap;gap:8px;margin:32px 0 40px;padding-bottom:24px;border-bottom:1px solid var(--hairline)}
-.curr-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);background:transparent;border:1px solid var(--hairline);cursor:pointer;transition:background var(--dur-fast,200ms) var(--ease,ease),border-color var(--dur-fast,200ms) var(--ease,ease),color var(--dur-fast,200ms) var(--ease,ease)}
-.curr-chip:hover{color:var(--text);border-color:rgba(29,26,22,.18)}
-.curr-chip.active{background:var(--text);color:var(--bg);border-color:var(--text)}
-.curr-chip .count{color:var(--text-muted);font-weight:500}
-.curr-chip.active .count{color:rgba(255,255,255,.7)}
-
-.curr-tier{margin-bottom:48px}
-.curr-tier-hdr{display:flex;align-items:center;gap:14px;margin-bottom:8px;flex-wrap:wrap}
-.curr-tier-rail{width:18px;height:2px;background:var(--accent);flex-shrink:0}
-.curr-tier-label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-mid);font-weight:500}
-.curr-tier-label .pricing{color:var(--text-muted);text-transform:none;letter-spacing:.02em;margin-left:14px;font-size:11px;font-weight:400}
-.curr-tier-blurb{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--text-dim);margin:6px 0 22px;letter-spacing:-0.005em;max-width:720px}
-
-.curr-tier[data-tier="free"] .curr-tier-rail{background:#3a8a4a}
-.curr-tier[data-tier="cohort"] .curr-tier-rail{background:var(--accent)}
-.curr-tier[data-tier="premium"] .curr-tier-rail{background:#7c5fbc}
-.curr-tier[data-tier="pro"] .curr-tier-rail{background:#5b7fa6}
-
-.curr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.curr-grid.gridFree{grid-template-columns:repeat(3,1fr)}
-.curr-grid.gridFree .curr-card{grid-column:1/2}
-.curr-grid.gridPremium{grid-template-columns:repeat(4,1fr)}
-.curr-grid.gridPro{grid-template-columns:repeat(2,1fr)}
-@media(max-width:1024px){
-  .curr-grid,.curr-grid.gridPremium{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:640px){
-  .curr-grid,.curr-grid.gridPremium,.curr-grid.gridPro,.curr-grid.gridFree{grid-template-columns:1fr}
-  .curr-grid.gridFree .curr-card{grid-column:auto}
-}
-
-.curr-card{position:relative;display:flex;flex-direction:column;padding:22px 22px 20px;background:var(--card);border:1px solid var(--card-border);border-radius:6px;text-decoration:none;color:inherit;cursor:pointer;transition:border-color var(--dur-fast,200ms) var(--ease,ease),transform var(--dur-fast,200ms) var(--ease,ease),box-shadow var(--dur-fast,200ms) var(--ease,ease);text-align:left;font-family:var(--sans);width:100%;font:inherit}
-.curr-card:hover{border-color:rgba(29,26,22,.18);transform:translateY(-2px);box-shadow:0 12px 32px -16px rgba(29,26,22,0.18),0 2px 6px rgba(29,26,22,0.04)}
-.curr-card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.curr-card.locked{opacity:.85}
-.curr-card.locked:hover{transform:none;border-color:var(--card-border);box-shadow:none}
-.curr-card.current{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-
-.curr-card .card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:12px;min-height:24px}
-.curr-card .card-num{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--text-muted);display:inline-flex;align-items:center;gap:6px}
-.curr-card .card-icon{font-size:16px;line-height:1}
-.curr-card .card-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:3px}
-.curr-card .card-current{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.10em;text-transform:uppercase;font-weight:600}
-.curr-card .card-current::before{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
-.curr-card .card-unlock{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#7c5fbc;background:rgba(124,95,188,.10);padding:3px 8px;border-radius:3px}
-
-.curr-card h3{font-family:var(--serif);font-weight:500;font-size:19px;line-height:1.22;letter-spacing:-0.012em;color:var(--text);margin:0 0 4px;text-wrap:balance}
-.curr-card .card-subtitle{font-family:var(--sans);font-size:13px;line-height:1.45;color:var(--text-dim);margin:0 0 14px;font-style:italic;letter-spacing:-0.005em}
-.curr-card .card-tagline{font-family:var(--serif);font-style:italic;font-size:16px;line-height:1.4;color:var(--text-dim);margin:0 0 14px;letter-spacing:-0.005em}
-.curr-card .card-persona{font-size:13px;line-height:1.5;color:var(--text-mid);margin:6px 0 12px;letter-spacing:-0.005em}
-.curr-card .card-skills{font-family:var(--sans);font-size:12px;line-height:1.5;color:var(--text-muted);margin:0 0 14px;letter-spacing:-0.005em;flex:1}
-.curr-card .card-meta{display:flex;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--text-muted);padding-top:14px;border-top:1px solid var(--hairline);margin-top:auto}
-.curr-card .card-meta-sep{opacity:.5}
-.curr-card .card-pricing{font-family:var(--mono);font-size:11px;color:var(--text-mid);margin-top:8px;letter-spacing:.04em}
-.curr-card .card-badge{font-family:var(--mono);font-size:10px;letter-spacing:.10em;color:var(--text-muted);margin:6px 0 10px;display:flex;align-items:center;gap:6px}
-.curr-card .card-badge::before{content:'\002A';color:#7c5fbc;font-size:14px}
-
-.curr-card.premium .card-tag{color:#7c5fbc;background:rgba(124,95,188,.10)}
-.curr-card.pro{padding:28px}
-.curr-card.pro h3{font-size:22px}
-.curr-card.pro .card-tag{color:#5b7fa6;background:rgba(91,127,166,.10)}
-.curr-card.pro .card-pricing{color:var(--accent-ink);font-weight:500}
-
-/* Tier filter — when one tier is active, hide others */
-.curr-wrap[data-active-tier="free"] .curr-tier:not([data-tier="free"]),
-.curr-wrap[data-active-tier="cohort"] .curr-tier:not([data-tier="cohort"]),
-.curr-wrap[data-active-tier="premium"] .curr-tier:not([data-tier="premium"]),
-.curr-wrap[data-active-tier="pro"] .curr-tier:not([data-tier="pro"]){display:none}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    17. HOME v12 — DARK EDITORIAL DESIGN, ADAPTED TO LIGHT-MODE PORTAL PALETTE
@@ -7619,35 +7543,18 @@ function initNotificationBell(){
   _notifUpdateBadge();
 }
 
-/* ─────────────────── CURRICULUM ROUTE ─────────────────── */
-/* Source of truth: /data/curriculum.json. Lazy-fetched on first rCurriculum() call. */
-/* v2: schema migrated to modules[] + themes[]. _v1Compat hydrates legacy courses[]/premiumModules[]/proCourses[] arrays from _v2Ref pointers. */
+/* ─────────────────── CATALOG ROUTE (v2) ─────────────────── */
+/* Source of truth: /data/curriculum.json (catalog v2 schema — modules[] + themes[] + bundles[] + shipFirstSlate[]).
+   Render fn: rCurriculum() — drives the "Catalog" nav tab. */
 var _CURR=null,_CURR_LOADING=false;
-function _hydrateCurriculumV2(j){
-  if(!j||!j._v1Compat||!Array.isArray(j.modules))return j;
-  var byId={};j.modules.forEach(function(m){byId[m.id]=m});
-  ['courses','premiumModules','proCourses'].forEach(function(key){
-    if(!Array.isArray(j[key]))return;
-    j[key]=j[key].map(function(ref){return (ref&&ref._v2Ref)?byId[ref._v2Ref]:ref}).filter(Boolean);
-  });
-  return j;
-}
 function loadCurriculum(cb){
   if(_CURR){cb(null,_CURR);return}
   if(_CURR_LOADING){setTimeout(function(){loadCurriculum(cb)},120);return}
   _CURR_LOADING=true;
-  fetch('../data/curriculum.json?v='+Date.now()).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(j){_CURR=_hydrateCurriculumV2(j);_CURR_LOADING=false;cb(null,_CURR)}).catch(function(err){_CURR_LOADING=false;cb(err)});
+  fetch('../data/curriculum.json?v='+Date.now()).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(j){_CURR=j;_CURR_LOADING=false;cb(null,_CURR)}).catch(function(err){_CURR_LOADING=false;cb(err)});
 }
-/* Map roster cohort track → curriculum course id, for the "Currently studying" badge. */
-var _CURR_TRACK_TO_COURSE={creative:'image-mastery',business:'ai-business',automation:'ai-automation',research:'ai-for-work'};
-function _currCurrentCourseId(){
-  var tr=_studentCohort?_studentCohort.split('-')[0]:'';
-  return _CURR_TRACK_TO_COURSE[tr]||'';
-}
-/* v2 Catalog (the standalone "Catalog" tab — full browse view).
-   Renders premium rail, trending row, theme rails, bundles, ship-first slate.
-   No active cohort grid (that lives in Learn). No tier filter (theme intent rail at top instead).
-   Legacy _currTierSection / _currCard / currFilter / currOpen below this fn are scheduled for PR 3 deletion. */
+/* Catalog tab: renders the v2 browse view (premium rail → trending → 6 theme rails → bundles → ship-first slate).
+   No active cohort grid here (that lives in Learn). Theme intent rail at top is the only filter. */
 function rCurriculum(){
   var host=$('curriculumWrap');if(!host)return;
   if(!_CURR){
@@ -7696,69 +7603,6 @@ function rCurriculum(){
   h+=_v2ShipFirstSlate();
   h+='</div>';
   host.innerHTML=h;
-}
-function _currTierSection(tierKey,tier,items,currentId,gridKind){
-  if(!tier)tier={label:tierKey,pricing:'',blurb:''};
-  var h='<section class="curr-tier" data-tier="'+tierKey+'">';
-  h+='<header class="curr-tier-hdr">';
-  h+='<span class="curr-tier-rail" aria-hidden="true"></span>';
-  h+='<span class="curr-tier-label">'+E(tier.label)+(tier.pricing?'<span class="pricing">'+E(tier.pricing)+'</span>':'')+'</span>';
-  h+='</header>';
-  if(tier.blurb)h+='<p class="curr-tier-blurb">'+E(tier.blurb)+'</p>';
-  var cls='curr-grid';
-  if(gridKind==='free')cls+=' gridFree';
-  else if(gridKind==='premium')cls+=' gridPremium';
-  else if(gridKind==='pro')cls+=' gridPro';
-  h+='<div class="'+cls+'">';
-  items.forEach(function(c){h+=_currCard(c,tierKey,currentId)});
-  h+='</div></section>';
-  return h;
-}
-function _currCard(c,tierKey,currentId){
-  var isCurrent=c.id===currentId;
-  var isLocked=tierKey==='premium';
-  var tag=c.tag||'';
-  var classes=['curr-card',tierKey];
-  if(isCurrent)classes.push('current');
-  if(isLocked)classes.push('locked');
-  var h='<button class="'+classes.join(' ')+'" type="button" onclick="currOpen(\''+c.id+'\')" aria-label="Open '+E(c.title)+'">';
-  h+='<div class="card-head">';
-  if(c.icon)h+='<span class="card-num"><span class="card-icon" aria-hidden="true">'+c.icon+'</span>'+E(c.number||'')+'</span>';
-  else h+='<span class="card-num">'+E(c.number||'')+'</span>';
-  if(isCurrent)h+='<span class="card-current">Currently studying</span>';
-  else if(isLocked)h+='<span class="card-unlock">Unlocks '+E(c.unlocksDate||c.unlocksAfter||'')+'</span>';
-  else if(tag)h+='<span class="card-tag">'+E(tag)+'</span>';
-  h+='</div>';
-  h+='<h3>'+E(c.title)+'</h3>';
-  if(c.subtitle)h+='<p class="card-subtitle">'+E(c.subtitle)+'</p>';
-  if(tierKey==='pro'&&c.tagline)h+='<p class="card-tagline">'+E(c.tagline)+'</p>';
-  if(c.persona)h+='<p class="card-persona">'+E(c.persona)+'</p>';
-  if(c.skills)h+='<p class="card-skills">'+E(c.skills)+'</p>';
-  if(tierKey==='premium'&&c.badge)h+='<div class="card-badge">'+E(c.badge)+' badge on completion</div>';
-  h+='<div class="card-meta">';
-  var metaParts=[];
-  if(c.sessions)metaParts.push(c.sessions+' sessions');
-  if(c.duration)metaParts.push(E(c.duration));
-  if(c.label)metaParts.push(E(c.label));
-  metaParts.forEach(function(p,i){if(i>0)h+='<span class="card-meta-sep">&middot;</span>';h+='<span>'+p+'</span>'});
-  h+='</div>';
-  if((tierKey==='premium'||tierKey==='pro')&&c.pricing)h+='<div class="card-pricing">'+E(c.pricing)+'</div>';
-  h+='</button>';
-  return h;
-}
-function currFilter(tier){
-  var wrap=document.querySelector('.curr-wrap');if(!wrap)return;
-  wrap.setAttribute('data-active-tier',tier);
-  document.querySelectorAll('.curr-chip').forEach(function(c){
-    var on=c.dataset.chip===tier;
-    c.classList.toggle('active',on);
-    c.setAttribute('aria-selected',on?'true':'false');
-  });
-}
-function currOpen(courseId){
-  if(!courseId)return;
-  if(typeof toast==='function')toast('Course detail view ships next session. ['+courseId+']');
-  else console.log('curriculum: open',courseId);
 }
 
 /* ─────────────────── LIBRARY §V FROM ED — render + MD reader ─────────────────── */

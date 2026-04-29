@@ -1,9 +1,7 @@
 {
   "_v": "v2",
-  "_v1Compat": true,
   "_v2Source": "catalog-v2-proposal.md",
   "_v2Migrated": "2026-04-29",
-  "_legacyArraysNote": "courses[], premiumModules[], proCourses[] below are filtered views of modules[]. They exist for backwards compatibility with rCurriculum (legacy render). PR 3 of portal-integration-v2 deletes them.",
   "season": "Spring 2026",
   "_pattern": "All cohort + premium modules follow Learn → See → Try → Quiz → Homework per session. Standalone + Pro modules follow the same pattern but author independently.",
   "_source": "catalog-v2-proposal.md (canonical v2) · MODULAR_CATALOG_V1.md (Cowork inputs) · curriculum_v2.md · course-brief-ai-agent-builder.md · curriculum-automation-course-v2.md · curriculum-ai-for-work.md",
@@ -1076,27 +1074,6 @@
     { "rank": 6, "moduleId": "ai-automation", "stat": "brief → may", "why": "Foundation for all v1 automation modules." },
     { "rank": 7, "moduleId": "premium-style", "stat": "spec → jun", "why": "First premium unlock; proves premium funnel." },
     { "rank": 8, "moduleId": "claude-agents-content", "stat": "spec → jun", "why": "Tests the standalone-purchase funnel." }
-  ],
-
-  "courses": [
-    { "_v2Ref": "foundations" },
-    { "_v2Ref": "image-mastery" },
-    { "_v2Ref": "video-creation" },
-    { "_v2Ref": "brand-identity" },
-    { "_v2Ref": "content-production" },
-    { "_v2Ref": "ai-business" },
-    { "_v2Ref": "research-with-ai" },
-    { "_v2Ref": "ai-for-work" }
-  ],
-  "premiumModules": [
-    { "_v2Ref": "premium-style" },
-    { "_v2Ref": "second-brain" },
-    { "_v2Ref": "voice-automation" },
-    { "_v2Ref": "delivery-automation" }
-  ],
-  "proCourses": [
-    { "_v2Ref": "ai-automation" },
-    { "_v2Ref": "bot-builder" }
   ],
 
   "_archived": [
