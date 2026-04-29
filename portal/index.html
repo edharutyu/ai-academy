@@ -2330,6 +2330,10 @@ body.gmodal-locked{overflow:hidden}
 .v2-arr{color:rgba(28,24,18,.42)}
 .v2-pre{color:var(--accent-ink,#8a4a18);background:rgba(168,95,45,.10);padding:1px 5px;border-radius:2px}
 .v2-mod[data-status="spec"] .v2-mod-ttl{color:var(--text-dim)}
+.v2-mod-active{box-shadow:0 0 0 2px var(--accent),0 6px 18px -10px rgba(168,95,45,.3)}
+.v2-mod-active:hover{box-shadow:0 0 0 2px var(--accent),0 10px 22px -12px rgba(168,95,45,.35)}
+.v2-mod-current{align-self:flex-start;margin-bottom:8px;padding:3px 9px;border-radius:999px;background:var(--accent);color:#fff;font-family:var(--mono,monospace);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;display:inline-flex;align-items:center;gap:5px}
+.v2-mod-current::before{content:'';width:5px;height:5px;border-radius:50%;background:#fff;animation:v2pulse 1.4s ease-in-out infinite}
 
 /* BUNDLE block */
 .v2-bundle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
@@ -5589,7 +5593,10 @@ function _v2TrendingRow(activeFilter){
 function _v2ModTile(m){
   var sg=_v2StatusGlyph(m);var trending=_v2IsTrending(m);
   var pre=(m.prerequisites&&m.prerequisites.modules)||[];
-  var h='<a class="v2-mod" href="#" data-tier="'+E(m.tier)+'" data-status="'+(m.status&&m.status.indexOf('trending-')===0?'live':E(m.status||'spec'))+'" onclick="event.preventDefault();modOpen(\''+E(m.id)+'\')">';
+  /* Anna's "Currently studying" highlight: a cohort tile whose slug maps to her active course (LS('activeCourse')). */
+  var isActive=(m.tier==='cohort'&&_v2SlugToCid[m.id]&&_v2SlugToCid[m.id]===LS('activeCourse'));
+  var h='<a class="v2-mod'+(isActive?' v2-mod-active':'')+'" href="#" data-tier="'+E(m.tier)+'" data-status="'+(m.status&&m.status.indexOf('trending-')===0?'live':E(m.status||'spec'))+'" onclick="event.preventDefault();modOpen(\''+E(m.id)+'\')">';
+  if(isActive)h+='<span class="v2-mod-current" title="Currently studying">Currently studying</span>';
   if(trending)h+='<span class="v2-mod-trend" title="Trending Apr 2026">\u{1F525}</span>';
   h+='<span class="v2-mod-status '+sg.cls+'" title="'+sg.title+'">'+sg.sym+'</span>';
   h+='<div class="v2-mod-eyebrow"><span class="v2-mod-tier '+E(m.tier)+'">'+_v2TierLabel(m)+'</span><span>'+(m.sessions||'?')+' sessions'+(m.duration?' · '+E(m.duration):'')+'</span></div>';
