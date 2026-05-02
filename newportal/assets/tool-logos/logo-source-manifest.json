@@ -1,0 +1,132 @@
+{
+  "generatedAt": "2026-05-01",
+  "rule": "Use a local verified identity when a reliable source exists. Use monogram or text status badges for reference, watch, deprecated, or unsupported tools.",
+  "tools": [
+    {
+      "name": "ChatGPT / OpenAI",
+      "status": "teach",
+      "sourceUrl": "",
+      "officialContextUrl": "https://chatgpt.com",
+      "localFile": "",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "text badge fallback only until a reliable public asset is approved"
+    },
+    {
+      "name": "Claude",
+      "status": "teach",
+      "sourceUrl": "https://cdn.simpleicons.org/claude/D97757",
+      "officialContextUrl": "https://www.anthropic.com/claude",
+      "localFile": "claude.svg",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "catalog chips, module hero rows, homework metadata, Library teach-now rows"
+    },
+    {
+      "name": "Gemini / Nano Banana Pro",
+      "status": "teach",
+      "sourceUrl": "https://cdn.simpleicons.org/googlegemini/4285F4",
+      "officialContextUrl": "https://gemini.google.com",
+      "localFile": "gemini.svg",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "image module chips and teach-now image rows"
+    },
+    {
+      "name": "Google Flow",
+      "status": "teach",
+      "sourceUrl": "https://cdn.simpleicons.org/google/4285F4",
+      "officialContextUrl": "https://labs.google",
+      "localFile": "google.svg",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "image/video reference chips where Google Flow is taught"
+    },
+    {
+      "name": "Higgsfield",
+      "status": "teach",
+      "sourceUrl": "https://higgsfield.ai/favicon.ico",
+      "officialContextUrl": "https://higgsfield.ai",
+      "localFile": "higgsfield.ico",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "character/style lesson chips and homework metadata"
+    },
+    {
+      "name": "Kling",
+      "status": "teach",
+      "sourceUrl": "https://klingai.com/favicon.ico",
+      "officialContextUrl": "https://klingai.com",
+      "localFile": "kling.ico",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "video lesson chips, homework metadata, Library teach-now rows"
+    },
+    {
+      "name": "Seedance",
+      "status": "watch",
+      "sourceUrl": "https://www.seedance.ai/favicon.ico",
+      "officialContextUrl": "https://seed.bytedance.com/en/seedance2_0",
+      "localFile": "seedance.ico",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "frontier/watch rows and video foundations context"
+    },
+    {
+      "name": "Perplexity",
+      "status": "teach",
+      "sourceUrl": "https://cdn.simpleicons.org/perplexity/20808D",
+      "officialContextUrl": "https://www.perplexity.ai",
+      "localFile": "perplexity.svg",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "research workflow chips"
+    },
+    {
+      "name": "ElevenLabs",
+      "status": "teach",
+      "sourceUrl": "https://cdn.simpleicons.org/elevenlabs/1D1A16",
+      "officialContextUrl": "https://elevenlabs.io",
+      "localFile": "elevenlabs.svg",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "voice/talking-head lesson chips and homework metadata"
+    },
+    {
+      "name": "Canva",
+      "status": "teach",
+      "sourceUrl": "https://www.canva.com/favicon.ico",
+      "officialContextUrl": "https://www.canva.com",
+      "localFile": "canva.ico",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "design/social asset chips where Canva is taught"
+    },
+    {
+      "name": "Make",
+      "status": "teach",
+      "sourceUrl": "https://cdn.simpleicons.org/make/6D00CC",
+      "officialContextUrl": "https://www.make.com",
+      "localFile": "make.svg",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "automation module chips and Library teach-now rows"
+    },
+    {
+      "name": "Slack",
+      "status": "teach",
+      "sourceUrl": "https://slack.com/favicon.ico",
+      "officialContextUrl": "https://slack.com",
+      "localFile": "slack.ico",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "bot/workflow module chips"
+    },
+    {
+      "name": "CapCut",
+      "status": "teach",
+      "sourceUrl": "",
+      "officialContextUrl": "https://www.capcut.com",
+      "localFile": "",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "monogram fallback until a reliable public asset is approved"
+    },
+    {
+      "name": "Sora",
+      "status": "deprecated",
+      "sourceUrl": "",
+      "officialContextUrl": "https://help.openai.com/en/articles/20001152-what-to-know-about-the-sora-discontinuation",
+      "localFile": "",
+      "lastChecked": "2026-05-01",
+      "allowedPlacement": "text-only deprecated/history badge"
+    }
+  ]
+}

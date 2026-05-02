@@ -1,0 +1,23 @@
+{
+  "version": "2026-04-28",
+  "notes": "Per-student roster. Each student logs in with their personal password and gets greeted by name. The schedule field is a free-text string used by the home page; format is '<Day> <HH:MM> · <Topic> / <Day> <HH:MM> · <Topic>'.",
+  "teacher": {
+    "pw": "TEACHER_PASS",
+    "name": "Ed"
+  },
+  "students": {
+    "anna":   { "name": "Anna",   "pw": "anna-2026",   "track": "creative",   "cohort": "creative-2026-spring",   "schedule": "Friday 19:00 · Module 2, Lesson 3 / Tuesday 18:00 · Module 2, Lesson 4" },
+    "mariam": { "name": "Mariam", "pw": "mariam-2026", "track": "creative",   "cohort": "creative-2026-spring",   "schedule": "Saturday 11:00 · Module 1, Lesson 5" },
+    "davit":  { "name": "Davit",  "pw": "davit-2026",  "track": "creative",   "cohort": "creative-2026-spring",   "schedule": "Friday 19:00 · Module 2, Lesson 3" },
+    "narine": { "name": "Narine", "pw": "narine-2026", "track": "business",   "cohort": "business-2026-spring",   "schedule": "Wednesday 20:00 · Module 4, Lesson 1 / Friday 19:00 · Module 4, Lesson 2" },
+    "arman":  { "name": "Arman",  "pw": "arman-2026",  "track": "automation", "cohort": "automation-2026-spring", "schedule": "" },
+    "lilit":  { "name": "Lilit",  "pw": "lilit-2026",  "track": "creative",   "cohort": "creative-2026-spring",   "schedule": "Sunday 16:00 · Module 1, Lesson 6" },
+    "tigran": { "name": "Tigran", "pw": "tigran-2026", "track": "research",   "cohort": "research-2026-spring",   "schedule": "Thursday 19:30 · Module 3, Lesson 2" },
+    "anush":  { "name": "Anush",  "pw": "anush-2026",  "track": "creative",   "cohort": "creative-2026-spring",   "schedule": "Friday 19:00 · Module 2, Lesson 3 / Sunday 17:00 · Module 2, Lesson 4" }
+  },
+  "fallback": {
+    "pw": "academy2026",
+    "name": "learner",
+    "note": "Old shared password still works as a fallback so existing students don't get locked out during the migration."
+  }
+}

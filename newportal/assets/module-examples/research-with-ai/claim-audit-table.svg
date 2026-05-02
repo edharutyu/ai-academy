@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Research with AI claim audit table</title>
+  <desc id="desc">A warm editorial board showing research question, source checks, claim support ratings, and final action.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="0.52" stop-color="#f2e5d3"/>
+      <stop offset="1" stop-color="#fffdf8"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#1d1a16" flood-opacity=".13"/>
+    </filter>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0v34" fill="none" stroke="#7b4923" stroke-opacity=".07" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="760" fill="url(#paper)"/>
+  <rect width="1200" height="760" fill="url(#grid)"/>
+  <g transform="translate(54 54)">
+    <text x="0" y="0" dy="22" font-family="JetBrains Mono, monospace" font-size="22" letter-spacing="9" fill="#8a4f25" font-weight="700">RESEARCH RECEIPT</text>
+    <text x="0" y="78" font-family="Fraunces, Georgia, serif" font-size="66" font-style="italic" fill="#1d1a16">Do not trust the citation.</text>
+    <text x="0" y="122" font-family="Inter, system-ui, sans-serif" font-size="28" fill="#4b4138">Check whether the source actually supports the claim.</text>
+  </g>
+  <g transform="translate(58 236)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="1084" height="408" rx="24" fill="#fffdf9" stroke="#ded4c7"/>
+    <g font-family="JetBrains Mono, monospace" font-size="18" letter-spacing="5" fill="#8a4f25" font-weight="700">
+      <text x="34" y="54">CLAIM</text>
+      <text x="402" y="54">SOURCE OPENED</text>
+      <text x="690" y="54">SUPPORT</text>
+      <text x="880" y="54">ACTION</text>
+    </g>
+    <g stroke="#eadfd2" stroke-width="2">
+      <line x1="34" y1="82" x2="1050" y2="82"/>
+      <line x1="34" y1="166" x2="1050" y2="166"/>
+      <line x1="34" y1="250" x2="1050" y2="250"/>
+      <line x1="34" y1="334" x2="1050" y2="334"/>
+      <line x1="360" y1="34" x2="360" y2="374"/>
+      <line x1="656" y1="34" x2="656" y2="374"/>
+      <line x1="846" y1="34" x2="846" y2="374"/>
+    </g>
+    <g font-family="Inter, system-ui, sans-serif" font-size="24" fill="#1d1a16" font-weight="750">
+      <text x="34" y="128">AI video tools now support...</text>
+      <text x="402" y="128">official doc</text>
+      <text x="690" y="128" fill="#52673e">strong</text>
+      <text x="880" y="128">keep</text>
+      <text x="34" y="212">Pricing changed this week...</text>
+      <text x="402" y="212">help page</text>
+      <text x="690" y="212" fill="#b46a2e">partial</text>
+      <text x="880" y="212">rewrite</text>
+      <text x="34" y="296">Every model can generate...</text>
+      <text x="402" y="296">blog only</text>
+      <text x="690" y="296" fill="#8a3232">weak</text>
+      <text x="880" y="296">remove</text>
+    </g>
+  </g>
+  <g transform="translate(730 74)">
+    <rect width="360" height="120" rx="22" fill="#fffdf9" stroke="#ded4c7"/>
+    <text x="28" y="42" font-family="JetBrains Mono, monospace" font-size="18" letter-spacing="5" fill="#8a4f25" font-weight="700">QUALITY BAR</text>
+    <text x="28" y="82" font-family="Inter, system-ui, sans-serif" font-size="24" fill="#1d1a16" font-weight="800">claim + source + action</text>
+  </g>
+</svg>

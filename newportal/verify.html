@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Source Verification Trainer — AI Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+Armenian:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf8f5;--bg2:#ffffff;--bg3:#f3efe8;--surface:#f3efe8;
+  --gold:#d4702f;--gold-dim:rgba(212,112,47,.10);--gold-glow:rgba(212,112,47,.20);
+  --text:#1c1814;--text-dim:#3d3632;--text-mid:#6b6058;--text-muted:#8a7e74;
+  --border:rgba(26,21,16,.10);--border-strong:rgba(26,21,16,.16);
+  --success:#1a7a40;--success-bg:rgba(39,174,96,.10);
+  --warn:#a85a00;--warn-bg:rgba(212,112,47,.08);
+  --danger:#b03232;--danger-bg:rgba(176,50,50,.08);
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:20px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+
+/* Login gate */
+#gate{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;background:radial-gradient(ellipse at 50% 30%,#f3efe8 0%,var(--bg) 70%)}
+.gate-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 30px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(26,21,16,.06)}
+.gate-ic{font-size:2.4rem;margin-bottom:10px}
+.gate-h{font-family:'Noto Serif Armenian',serif;font-size:1.6rem;font-weight:700;margin:0 0 6px;letter-spacing:-.02em}
+.gate-sub{color:var(--text-mid);font-size:.86rem;margin-bottom:24px}
+.gate-box input{width:100%;padding:13px 16px;border-radius:12px;border:1.5px solid var(--border-strong);background:rgba(26,21,16,.04);color:var(--text);font-size:.95rem;outline:none;transition:all .2s;margin-bottom:12px}
+.gate-box input:focus{border-color:var(--gold);background:rgba(212,112,47,.06);box-shadow:0 0 0 3px rgba(212,112,47,.12)}
+.gate-err{color:var(--danger);font-size:.78rem;margin-top:4px;display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:12px;border:none;background:var(--gold);color:#fff;font-weight:700;font-size:.88rem;transition:all .2s;text-decoration:none;letter-spacing:.2px}
+.btn:hover{background:#b85d24;transform:translateY(-1px);box-shadow:0 8px 20px rgba(212,112,47,.25)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-outline{background:transparent;border:1.5px solid var(--gold);color:var(--gold)}
+.btn-outline:hover{background:var(--gold-dim)}
+.btn-ghost{background:transparent;color:var(--text-mid);border:1px solid var(--border-strong)}
+.btn-ghost:hover{color:var(--text);border-color:var(--text-mid)}
+
+/* App shell */
+#app{display:none;max-width:780px;margin:0 auto;padding:28px 20px 80px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap}
+.topbar a.back{color:var(--text-mid);font-size:.82rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.topbar a.back:hover{color:var(--gold)}
+.header{text-align:center;margin-bottom:18px}
+.header h1{font-family:'Noto Serif Armenian',serif;font-size:clamp(1.7rem,4vw,2.3rem);font-weight:700;margin:0 0 6px;letter-spacing:-.02em;line-height:1.15}
+.header h1 em{font-style:italic;color:var(--gold);font-weight:600}
+.header p{color:var(--text-mid);font-size:.92rem;margin:0;max-width:520px;margin:0 auto}
+
+/* Intro card */
+.intro{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;margin:20px 0}
+.intro h2{font-family:'Noto Serif Armenian',serif;font-size:1.15rem;margin:0 0 10px;font-weight:700}
+.intro p{font-size:.88rem;color:var(--text-dim);margin:0 0 14px;line-height:1.65}
+.intro .rules{display:grid;gap:10px;margin:14px 0}
+.rule{display:flex;gap:10px;align-items:flex-start;font-size:.84rem;color:var(--text-dim)}
+.rule .rn{flex-shrink:0;width:22px;height:22px;background:var(--gold-dim);color:var(--gold);border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.74rem}
+.intro .cta{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+
+/* Progress */
+.progress{margin:22px 0 16px}
+.prog-meta{display:flex;justify-content:space-between;align-items:center;font-size:.76rem;color:var(--text-mid);margin-bottom:8px;font-variant-numeric:tabular-nums}
+.prog-score{font-weight:700;color:var(--text)}
+.dots{display:flex;gap:4px;flex-wrap:wrap}
+.dot{flex:1;min-width:10px;height:6px;border-radius:3px;background:rgba(26,21,16,.08);transition:all .3s}
+.dot.cur{background:var(--gold);box-shadow:0 0 0 3px rgba(212,112,47,.2)}
+.dot.ok{background:var(--success)}
+.dot.no{background:var(--warn)}
+
+/* Question card */
+.qcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;margin-bottom:16px;box-shadow:0 2px 8px rgba(26,21,16,.03)}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.qdom{display:inline-block;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--gold);background:var(--gold-dim);padding:4px 10px;border-radius:6px}
+.qn{font-size:.75rem;color:var(--text-muted);font-variant-numeric:tabular-nums;font-weight:600}
+.qprompt{font-size:.82rem;color:var(--text-muted);margin:0 0 10px;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+.citation{font-family:'Inter',sans-serif;background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--gold);padding:16px 18px;border-radius:10px;font-size:.94rem;line-height:1.55;color:var(--text);margin:0 0 20px;font-feature-settings:"tnum"}
+.answers{display:grid;gap:10px}
+.ans{display:block;width:100%;text-align:left;padding:14px 16px;border-radius:12px;background:var(--bg2);border:1.5px solid var(--border);color:var(--text);font-size:.9rem;font-weight:600;transition:all .15s}
+.ans:hover:not(:disabled){border-color:var(--gold);background:var(--gold-dim);transform:translateY(-1px)}
+.ans:disabled{cursor:default;opacity:.55}
+.ans.sel{border-color:var(--text);background:var(--text);color:var(--bg2)}
+.ans.correct{border-color:var(--success);background:var(--success-bg);color:var(--success);opacity:1}
+.ans.wrong{border-color:var(--warn);background:var(--warn-bg);color:var(--warn);opacity:1}
+.ans .ahint{display:block;font-size:.72rem;font-weight:500;color:var(--text-muted);margin-top:3px;letter-spacing:.1px}
+.ans.sel .ahint,.ans.correct .ahint,.ans.wrong .ahint{color:inherit;opacity:.75}
+
+/* Explanation */
+.expl{margin-top:18px;padding:16px 18px;border-radius:12px;font-size:.86rem;line-height:1.6;display:none;animation:slide .35s ease-out}
+.expl.show{display:block}
+.expl.ok{background:var(--success-bg);border:1px solid rgba(39,174,96,.25);color:var(--success)}
+.expl.no{background:var(--warn-bg);border:1px solid rgba(212,112,47,.25);color:var(--warn)}
+.expl-h{font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.expl-body{color:var(--text-dim)}
+.expl-src{font-size:.74rem;color:var(--text-muted);margin-top:8px;font-style:italic}
+@keyframes slide{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.qfoot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+
+/* Results */
+.results{text-align:center;padding:40px 20px}
+.res-score{font-family:'Noto Serif Armenian',serif;font-size:4rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:6px;font-variant-numeric:tabular-nums}
+.res-pct{color:var(--text-mid);font-size:.9rem;margin-bottom:20px;font-variant-numeric:tabular-nums}
+.res-h{font-family:'Noto Serif Armenian',serif;font-size:1.6rem;font-weight:700;margin:0 0 10px;letter-spacing:-.02em}
+.res-h em{font-style:italic;color:var(--gold)}
+.res-desc{color:var(--text-mid);font-size:.92rem;max-width:460px;margin:0 auto 26px;line-height:1.6}
+.baseline{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px;margin:0 auto 22px;max-width:460px;text-align:left}
+.bl-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:.85rem;border-bottom:1px dashed var(--border)}
+.bl-row:last-child{border-bottom:0}
+.bl-row .bl-l{color:var(--text-mid)}
+.bl-row .bl-v{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+.bl-row.me .bl-v{color:var(--gold)}
+.badge-earn{background:linear-gradient(135deg,var(--gold) 0%,#b85d24 100%);color:#fff;border-radius:var(--r-lg);padding:22px;max-width:400px;margin:0 auto 22px;box-shadow:0 12px 30px rgba(212,112,47,.25)}
+.badge-earn .be-ic{font-size:2.4rem;margin-bottom:6px}
+.badge-earn .be-h{font-family:'Noto Serif Armenian',serif;font-size:1.2rem;font-weight:700;margin-bottom:4px}
+.badge-earn .be-d{font-size:.84rem;opacity:.95}
+.cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* Confetti */
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:9999}
+
+/* Domain breakdown */
+.bd{margin:20px auto 0;max-width:460px;text-align:left;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px}
+.bd h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);margin:0 0 12px;font-weight:700}
+.bd-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:.85rem}
+.bd-row .bd-l{color:var(--text-dim)}
+.bd-row .bd-v{font-weight:700;font-variant-numeric:tabular-nums;color:var(--text)}
+
+@media(max-width:520px){
+  #app{padding:20px 14px 60px}
+  .qcard,.intro{padding:18px}
+  .citation{padding:14px;font-size:.88rem}
+  .ans{padding:12px 14px;font-size:.86rem}
+  .res-score{font-size:3rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Login Gate -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-ic">🕵️</div>
+    <h1 class="gate-h">Source <em style="font-style:italic;color:var(--gold)">Verification</em> Trainer</h1>
+    <p class="gate-sub">20 real citations. Some are fabricated. Can you tell the difference?</p>
+    <input type="password" id="gpw" placeholder="Portal password" autocomplete="off" onkeydown="if(event.key==='Enter')doUnlock()">
+    <button class="btn" style="width:100%" onclick="doUnlock()">Enter Trainer →</button>
+    <div class="gate-err" id="gerr">Wrong password — try again</div>
+    <div style="margin-top:14px;font-size:.74rem;color:var(--text-muted)">
+      <a href="./index.html" style="color:var(--text-muted);text-decoration:underline">← Back to portal</a>
+    </div>
+  </div>
+</div>
+
+<!-- App -->
+<div id="app">
+  <canvas id="confetti"></canvas>
+  <div class="topbar">
+    <a href="./index.html" class="back">← Portal</a>
+    <div style="font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700">Session 3 · Verification</div>
+  </div>
+
+  <div id="view"></div>
+</div>
+
+<script>
+/* ===== Data: 20 hallucination cases ===== */
+var CASES=[
+  {id:1,domain:"legal",citation:'Mata v. Avianca, Civil Action No. 22-cv-1461 (S.D.N.Y. 2023) — holding that airline liability extends to incidents occurring during disembarkation.',verdict:"fabricated",explanation:'The case number is REAL — but the holding the AI described was invented. A US lawyer, Steven Schwartz, used ChatGPT to research this case and it fabricated six citations. Schwartz was sanctioned and the story made international news. This case is now referenced in nearly every AI literacy course.',source:"Mata v. Avianca sanctions opinion, June 22, 2023"},
+  {id:2,domain:"legal",citation:'Brown v. Colvin, Wofford v. Berryhill, and Hobbs v. Commissioner of Social Security — cited in a 2024 Arizona Social Security appeal.',verdict:"fabricated",explanation:'12 of the 19 cases cited in this filing were found to be "fabricated, misleading, or unsupported" by US District Judge Alison Bachus. The names sounded plausible, and the case numbers looked real, but the cases did not exist.',source:"Judge Alison Bachus ruling, August 14, 2024"},
+  {id:3,domain:"legal",citation:'A Denver attorney admitted to his paralegal in writing that "like an idiot" he had not verified ChatGPT\'s work before filing — and was suspended for 90 days by the Colorado Supreme Court.',verdict:"real",explanation:'This incident is real. The attorney filed a motion containing AI-generated fabrications, then denied using AI when questioned. Colorado Supreme Court disciplinary records document the 90-day suspension.',source:"Colorado Supreme Court disciplinary records"},
+  {id:4,domain:"legal",citation:'A CA$1.6 million Health Human Resources Plan prepared by Deloitte for the Government of Newfoundland and Labrador contained at least 4 false citations to non-existent research papers (November 2025).',verdict:"real",explanation:'This is a real, documented incident. The Independent uncovered the fabricated citations in a paid government deliverable. A consulting firm billing seven figures delivered AI-fabricated evidence to a government health department.',source:"The Independent, November 2025"},
+  {id:5,domain:"legal",citation:'Researcher Damien Charlotin at HEC Paris maintains a public database of AI hallucination cases in legal filings. As of late 2025, it documents over 1,300 cases, with the rate growing from 2/week in early 2025 to 2–3/day by October.',verdict:"real",explanation:'Yes — this database exists at damiencharlotin.com/hallucinations and is regularly updated. The growth curve is accurate: legal AI hallucinations are accelerating, not slowing.',source:"damiencharlotin.com/hallucinations"},
+  {id:6,domain:"academic",citation:'Alkaissi H, McFarlane SI. Artificial Hallucinations in ChatGPT: Implications in Scientific Writing. Cureus 2023;15:e35179. doi:10.7759/cureus.35179',verdict:"real",explanation:'This paper is real — and meta: it is an editorial ABOUT AI hallucinations in medical research. The authors asked ChatGPT for information on homocystinuria-associated osteoporosis and late-onset Pompe disease; ChatGPT returned fabricated paper titles attached to real-looking PubMed IDs that led to unrelated papers.',source:"Cureus, doi: 10.7759/cureus.35179"},
+  {id:7,domain:"academic",citation:'A 2023 NIH study found that up to 47% of ChatGPT-generated academic references were inaccurate — with wrong journal names, wrong page numbers, or wrong publication years.',verdict:"real",explanation:'This figure is from real NIH research. "Inaccurate" does not always mean fully fabricated — sometimes the citation points to a real paper but with corrupted metadata. Either way, the citations would fail peer review.',source:"NIH citation study, 2023"},
+  {id:8,domain:"academic",citation:'Walters WH, Wilder EI. Fabrication and errors in the bibliographic citations generated by ChatGPT. Scientific Reports 2023. doi:10.1038/s41598-023-41032-5',verdict:"real",explanation:'Real and foundational. Walters and Wilder analyzed 636 citations from 84 documents generated by GPT-3.5 and GPT-4, cataloguing fabrication rates and metadata errors. A core citation for understanding the scope of the problem.',source:"Scientific Reports, doi: 10.1038/s41598-023-41032-5"},
+  {id:9,domain:"academic",citation:'A 2025 survey found AI-hallucinated citations in at least 53 peer-reviewed published papers, despite each being reviewed by three or more reviewers.',verdict:"real",explanation:'Real — and the most alarming academic AI finding of 2025. Even expert reviewers miss AI citations because the format is correct and fabricated titles sound plausible in context. Reviewers rarely click through every citation.',source:"Peer review research, 2025"},
+  {id:10,domain:"academic",citation:'In 2026, researchers invented a fake disease called "bixonimania" and uploaded two bogus preprints. Within weeks, AI chatbots were citing bixonimania as a cause of sore itchy eyes, and the fake disease was cited in a paper published by Springer Nature\'s Cureus journal.',verdict:"real",explanation:'Real, and the cleanest modern case of AI laundering a fabrication into peer-reviewed literature. The preprints were taken down in April 2026 — but not before the fake disease propagated from preprint → AI → published paper.',source:"Nature, April 2026 (d41586-026-01100-y); Lancet Digital Health 8, 100949"},
+  {id:11,domain:"journalism",citation:'In 2025, the Chicago Sun-Times published a "Summer Reading List for 2025" featuring 15 books. Only 5 were real books; the other 10 were attributed to real, well-known authors but did not exist.',verdict:"real",explanation:'Yes — this happened. The list ran in the print edition before the fabrications were caught. The attributed authors were real writers; the books were AI-generated and never existed.',source:"Chicago Sun-Times retraction, 2025"},
+  {id:12,domain:"journalism",citation:'Microsoft Start\'s 2024 AI-generated Ottawa travel guide recommended the Ottawa Food Bank as a tourist attraction and suggested readers "visit on an empty stomach."',verdict:"real",explanation:'Real. The food bank exists — so the citation was not fabricated — but the context was catastrophically wrong. Microsoft had laid off 50 reporters before shifting to AI-generated travel content. The article went live before removal.',source:"Microsoft Start incident, 2024"},
+  {id:13,domain:"journalism",citation:'A Science magazine columnist confirmed to ChatGPT that he had written "Reviewer 3 Is Now a Neural Network" and "Should You Let AI Design Your Experiments?" — articles the chatbot was attributing to him.',verdict:"fabricated",citation_twist:true,explanation:'The articles were fabricated — ChatGPT was telling users about articles the columnist had never written. When confronted, ChatGPT explained: it had one real anchor (the columnist\'s name) and extrapolated similar-sounding topics. The columnist did NOT confirm writing them.',source:"Science magazine, 2025"},
+  {id:14,domain:"journalism",citation:'At the February 2023 public launch of Google Bard, the chatbot claimed that the James Webb Space Telescope "took the very first pictures of a planet outside our own solar system."',verdict:"fabricated",explanation:'The claim is false. The first exoplanet image was taken in 2004 by the Very Large Telescope — years before JWST existed. Astronomers caught the error live during the demo. Google\'s stock dropped 9% that day, losing roughly $100 billion in market value.',source:"Google Bard launch, February 2023"},
+  {id:15,domain:"journalism",citation:'Asked by 60 Minutes producers (April 2023) to recommend five books on a given topic, Google Bard produced five plausible-sounding book titles — and Google developers, on-camera, identified all five as hallucinations.',verdict:"real",explanation:'Real incident. Bard fabricated all five book titles. Google\'s own developers called it a hallucination live on CBS — one of the clearest public acknowledgements of the problem from a major lab.',source:"CBS 60 Minutes, April 2023"},
+  {id:16,domain:"technical",citation:'A 2024 USENIX study of 576,000 Python and JavaScript code samples from 16 LLMs found that nearly 20% recommended packages that do not exist — totalling 440,445 hallucinated package references.',verdict:"real",explanation:'Real — and a serious security concern. Attackers now publish malicious packages under AI-predicted names, waiting for developers to install them. This new attack class is called "slopsquatting."',source:"USENIX research, 2024"},
+  {id:17,domain:"technical",citation:'OpenAI\'s Whisper, used by 30,000+ medical workers for patient transcription, hallucinates in approximately 1.4% of transcriptions — including inventing drug names like "hyperactivated antibiotics" that are inserted into medical records.',verdict:"real",explanation:'Real, and deployed at scale. A 1.4% fabrication rate across 30,000+ medical workers means thousands of corrupted medical records per day — including invented medications driving patient care decisions.',source:"2024 medical transcription study"},
+  {id:18,domain:"technical",citation:'Multiple 2024–2025 studies document AI therapy chatbots recommending substance use to people in recovery and dieting behaviors to people with eating disorders.',verdict:"real",explanation:'Real, and documented as recurring failure modes — not edge cases. Multiple studies across 2024–2025 confirm this pattern across different therapy chatbot products.',source:"Multiple peer-reviewed studies, 2024–2025"},
+  {id:19,domain:"armenian",citation:'Article 14.2 of Armenia\'s Law on Information Technology Sector Support, adopted by the National Assembly on 17 March 2017, grants a 10-year profit tax exemption to qualifying IT startups with fewer than 30 employees.',verdict:"fabricated",explanation:'Armenia does have an IT sector support law — but the article numbers, dates, and exact provisions like this one are frequently fabricated by AI. Always verify against parliament.am for the real text. Armenian legal text has weak indexing in AI training data, so specifics hallucinate easily.',source:"Verify at parliament.am"},
+  {id:20,domain:"armenian",citation:'Sargsyan A., Petrosyan K. "Digital Transformation in Post-Soviet Armenia: A Five-Year Review." Journal of Eastern European Studies, Vol. 42, No. 3 (2022), pp. 218–241.',verdict:"fabricated",explanation:'For academics outside top global journals, models routinely fabricate paper titles, coauthors, and journal names. This is especially severe for Armenian-language publications, which have weaker indexing in training data. Verify against Google Scholar and the author\'s institutional page.',source:"Verify at scholar.google.com"}
+];
+
+var DOM_LABEL={legal:"Legal",academic:"Academic",journalism:"Journalism",technical:"Technical",armenian:"Armenian context"};
+
+/* ===== State ===== */
+var PASS='academy2026';
+var st={i:0,answers:[],started:0};
+var $=function(id){return document.getElementById(id)};
+var E=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+function LS(k,v){var K='aap_'+k;if(v===undefined){try{return JSON.parse(localStorage.getItem(K))}catch(e){return null}}localStorage.setItem(K,JSON.stringify(v))}
+
+/* ===== Unlock ===== */
+function doUnlock(){
+  var p=$('gpw').value.trim();
+  if(p===PASS||p==='TEACHER_PASS'){
+    $('gate').style.display='none';
+    $('app').style.display='block';
+    LS('verifyUnlocked',1);
+    renderIntro();
+  }else{
+    var e=$('gerr');e.style.display='block';setTimeout(function(){e.style.display='none'},1800);
+  }
+}
+// Auto-unlock if portal session already active
+(function(){if(LS('verifyUnlocked')||LS('role')){$('gate').style.display='none';$('app').style.display='block';renderIntro();}})();
+
+/* ===== Views ===== */
+function renderIntro(){
+  st={i:0,answers:[],started:0};
+  var best=LS('verifyBest')||null;
+  var attempts=LS('verifyAttempts')||0;
+  var h='';
+  h+='<div class="header">';
+  h+='<h1>Can you spot the <em>fabrication</em>?</h1>';
+  h+='<p>20 citations from legal filings, academic papers, journalism, and Armenian sources. Some are real. Some are AI-hallucinated. Your job: tell them apart.</p>';
+  h+='</div>';
+  h+='<div class="intro">';
+  h+='<h2>How this works</h2>';
+  h+='<div class="rules">';
+  h+='<div class="rule"><span class="rn">1</span><div>Each card shows a citation or claim. Read it carefully.</div></div>';
+  h+='<div class="rule"><span class="rn">2</span><div>Choose: <b>Real</b> (fully accurate), <b>Fabricated</b> (invented or false), or <b>Real but misquoted</b> (real source, wrong details).</div></div>';
+  h+='<div class="rule"><span class="rn">3</span><div>You get the explanation immediately — including where to verify it yourself.</div></div>';
+  h+='<div class="rule"><span class="rn">4</span><div>Score <b>80% or higher</b> to earn the Verification Badge. Average human: around 60%.</div></div>';
+  h+='</div>';
+  if(best!==null){
+    h+='<div style="font-size:.82rem;color:var(--text-mid);padding:10px 12px;background:var(--bg3);border-radius:10px;margin-bottom:10px">Best score: <b style="color:var(--gold)">'+best+'/20</b> · '+attempts+' attempt'+(attempts===1?'':'s')+'</div>';
+  }
+  h+='<div class="cta"><button class="btn" onclick="startQuiz()">Begin trainer →</button>';
+  h+='<button class="btn-ghost" style="padding:12px 18px;border-radius:12px" onclick="showCheatSheet()">Quick cheat sheet</button></div>';
+  h+='</div>';
+  $('view').innerHTML=h;
+  window.scrollTo(0,0);
+}
+
+function showCheatSheet(){
+  var h='<div class="header"><h1>Verification <em>cheat sheet</em></h1><p>The 5 moves you will use on every AI answer in Session 3.</p></div>';
+  h+='<div class="intro">';
+  h+='<div class="rules">';
+  [
+    ['Click every link','If a citation has no link, or the link 404s, treat it as fabricated until proven otherwise.'],
+    ['Copy the exact title into Google Scholar','Real papers are indexed. Fabricated titles return no results or wrong matches.'],
+    ['Check the DOI','Paste the DOI at doi.org. If it resolves to a different paper, the citation is corrupted.'],
+    ['Triangulate','Before trusting a claim, find it in at least 2 independent sources.'],
+    ['Ask the AI where it came from','If the AI cannot produce a verifiable primary source, you cannot use the claim.']
+  ].forEach(function(r,i){
+    h+='<div class="rule"><span class="rn">'+(i+1)+'</span><div><b>'+r[0]+'.</b> '+r[1]+'</div></div>';
+  });
+  h+='</div>';
+  h+='<div class="cta"><button class="btn" onclick="renderIntro()">← Back</button><button class="btn-outline" onclick="startQuiz()">Start trainer →</button></div>';
+  h+='</div>';
+  $('view').innerHTML=h;window.scrollTo(0,0);
+}
+
+function startQuiz(){
+  st={i:0,answers:[],started:Date.now()};
+  // Shuffle a copy of the cases for replay variety but keep a stable order within a session
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var c=CASES[st.i];
+  var score=st.answers.filter(function(a){return a.correct}).length;
+  var h='';
+  // Progress
+  h+='<div class="progress">';
+  h+='<div class="prog-meta"><span>Question <b>'+(st.i+1)+'</b> of '+CASES.length+'</span><span class="prog-score">'+score+' correct</span></div>';
+  h+='<div class="dots">';
+  for(var k=0;k<CASES.length;k++){
+    var cls='dot';
+    if(k<st.answers.length){cls+=' '+(st.answers[k].correct?'ok':'no');}
+    else if(k===st.i){cls+=' cur';}
+    h+='<span class="'+cls+'"></span>';
+  }
+  h+='</div></div>';
+  // Card
+  h+='<div class="qcard">';
+  h+='<div class="qhead"><span class="qdom">'+E(DOM_LABEL[c.domain])+'</span><span class="qn">#'+c.id+'</span></div>';
+  h+='<div class="qprompt">Is this citation real?</div>';
+  h+='<div class="citation">'+E(c.citation)+'</div>';
+  h+='<div class="answers" id="answers">';
+  h+='<button class="ans" data-v="real" onclick="answer(\'real\')"><b>✓ Real</b><span class="ahint">Fully accurate — source and details check out</span></button>';
+  h+='<button class="ans" data-v="fabricated" onclick="answer(\'fabricated\')"><b>✗ Fabricated</b><span class="ahint">Invented, false, or materially wrong</span></button>';
+  h+='<button class="ans" data-v="misquoted" onclick="answer(\'misquoted\')"><b>~ Real but misquoted</b><span class="ahint">Source exists, but details are wrong</span></button>';
+  h+='</div>';
+  h+='<div class="expl" id="expl"></div>';
+  h+='<div class="qfoot">';
+  h+='<button class="btn-ghost" style="padding:10px 16px;border-radius:10px;font-size:.82rem" onclick="if(confirm(\'Quit and lose progress?\'))renderIntro()">Quit</button>';
+  h+='<button class="btn" id="nextBtn" style="display:none" onclick="nextQ()">'+(st.i+1<CASES.length?'Next question →':'See results →')+'</button>';
+  h+='</div>';
+  h+='</div>';
+  $('view').innerHTML=h;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function answer(v){
+  var c=CASES[st.i];
+  var correct=(v===c.verdict);
+  st.answers.push({id:c.id,pick:v,correct:correct});
+  // Lock buttons
+  var btns=document.querySelectorAll('#answers .ans');
+  btns.forEach(function(b){
+    b.disabled=true;
+    var bv=b.getAttribute('data-v');
+    if(bv===c.verdict)b.classList.add('correct');
+    else if(bv===v)b.classList.add('wrong');
+  });
+  // Show explanation
+  var ex=$('expl');
+  ex.className='expl show '+(correct?'ok':'no');
+  var verdictLabel={real:'Real',fabricated:'Fabricated','real but misquoted':'Real but misquoted',misquoted:'Real but misquoted'}[c.verdict]||c.verdict;
+  ex.innerHTML='<div class="expl-h">'+(correct?'✓ Correct':'✗ Not quite')+' — verdict: '+E(verdictLabel)+'</div>'+
+    '<div class="expl-body">'+E(c.explanation)+'</div>'+
+    (c.source?'<div class="expl-src">Source: '+E(c.source)+'</div>':'');
+  $('nextBtn').style.display='inline-flex';
+  // Update score dot live
+  var dots=document.querySelectorAll('.dots .dot');
+  if(dots[st.i]){dots[st.i].className='dot '+(correct?'ok':'no');}
+  if(st.i+1<CASES.length && dots[st.i+1]){dots[st.i+1].className='dot cur';}
+}
+
+function nextQ(){
+  if(st.i+1<CASES.length){st.i++;renderQuestion();}
+  else{renderResults();}
+}
+
+/* ===== Results ===== */
+function renderResults(){
+  var score=st.answers.filter(function(a){return a.correct}).length;
+  var pct=Math.round(score/CASES.length*100);
+  var earned=pct>=80;
+  var best=LS('verifyBest')||0;
+  if(score>best)LS('verifyBest',score);
+  LS('verifyAttempts',(LS('verifyAttempts')||0)+1);
+  if(earned)LS('verifyBadge',1);
+
+  var title,desc;
+  if(pct>=90){title='Exceptional <em>skepticism</em>';desc='You outperformed nearly everyone. You are ready to verify AI claims in the wild.';}
+  else if(pct>=80){title='You <em>earned</em> the badge';desc='Strong verification instincts. You caught most fabrications. Keep the 5-move cheat sheet nearby.';}
+  else if(pct>=60){title='Above <em>average</em>';desc='You beat the typical human baseline. But the Session 3 rule is 80% — review the cheat sheet and try again.';}
+  else{title='This is <em>normal</em>';desc='Most first-timers score here. Good news: verification is a trained skill, not a talent. Review the cheat sheet and retry.';}
+
+  var h='';
+  h+='<div class="results">';
+  h+='<div class="res-score">'+score+'<span style="font-size:1.4rem;color:var(--text-muted)">/'+CASES.length+'</span></div>';
+  h+='<div class="res-pct">'+pct+'% correct · '+(earned?'Badge earned':'80% to earn badge')+'</div>';
+  h+='<h2 class="res-h">'+title+'</h2>';
+  h+='<p class="res-desc">'+desc+'</p>';
+
+  if(earned){
+    h+='<div class="badge-earn">';
+    h+='<div class="be-ic">🎖️</div>';
+    h+='<div class="be-h">Verification Badge</div>';
+    h+='<div class="be-d">Awarded for scoring 80%+ on the Source Verification Trainer. Saved to My Progress.</div>';
+    h+='</div>';
+  }
+
+  // Baseline comparison
+  h+='<div class="baseline">';
+  h+='<div class="bl-row me"><span class="bl-l">You</span><span class="bl-v">'+pct+'%</span></div>';
+  h+='<div class="bl-row"><span class="bl-l">Average human (untrained)</span><span class="bl-v">~60%</span></div>';
+  h+='<div class="bl-row"><span class="bl-l">Badge threshold</span><span class="bl-v">80%</span></div>';
+  h+='<div class="bl-row"><span class="bl-l">Best human score (this cohort)</span><span class="bl-v">'+Math.max(score,best)+'/20</span></div>';
+  h+='</div>';
+
+  // Domain breakdown
+  var byDom={};
+  st.answers.forEach(function(a,i){
+    var d=CASES[i].domain;
+    if(!byDom[d])byDom[d]={c:0,t:0};
+    byDom[d].t++;if(a.correct)byDom[d].c++;
+  });
+  h+='<div class="bd">';
+  h+='<h3>By domain</h3>';
+  Object.keys(byDom).forEach(function(d){
+    var o=byDom[d];
+    h+='<div class="bd-row"><span class="bd-l">'+E(DOM_LABEL[d])+'</span><span class="bd-v">'+o.c+'/'+o.t+'</span></div>';
+  });
+  h+='</div>';
+
+  h+='<div class="cta-row" style="margin-top:26px">';
+  h+='<button class="btn" onclick="startQuiz()">Try again →</button>';
+  h+='<button class="btn-outline" onclick="renderIntro()">Back to intro</button>';
+  h+='<a class="btn-ghost" style="padding:12px 18px;border-radius:12px;display:inline-flex;align-items:center" href="./index.html">Portal home</a>';
+  h+='</div>';
+  h+='</div>';
+  $('view').innerHTML=h;
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(earned)fireConfetti();
+}
+
+/* ===== Confetti ===== */
+function fireConfetti(){
+  var cv=$('confetti');if(!cv)return;
+  cv.width=innerWidth;cv.height=innerHeight;
+  var ctx=cv.getContext('2d');
+  var parts=[];var colors=['#d4702f','#b85d24','#c49a6e','#1a7a40','#f0a340'];
+  for(var i=0;i<140;i++){
+    parts.push({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*12,vy:-Math.random()*14-4,g:.35,r:Math.random()*5+3,c:colors[i%colors.length],rot:Math.random()*Math.PI,vr:(Math.random()-.5)*.3,life:120+Math.random()*60});
+  }
+  var start=Date.now();
+  (function tick(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    var alive=false;
+    parts.forEach(function(p){
+      if(p.life<=0)return;
+      alive=true;p.life--;p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.c;ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r);ctx.restore();
+    });
+    if(alive && Date.now()-start<4000)requestAnimationFrame(tick);
+    else ctx.clearRect(0,0,cv.width,cv.height);
+  })();
+}
+window.addEventListener('resize',function(){var c=$('confetti');if(c){c.width=innerWidth;c.height=innerHeight;}});
+</script>
+</body>
+</html>
